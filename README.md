@@ -5,7 +5,7 @@
 </p>
 
 <p align="center">
-<a href="https://www.npmjs.com/package/vue"><img src="https://img.shields.io/npm/l/vue.svg" alt="License"></a>
+<a href="http://github.com/anu1601cs/"><img src="https://img.shields.io/npm/l/vue.svg" alt="License"></a>
 </p>
 
 <h2 align="center">Media-Manager</h2>
