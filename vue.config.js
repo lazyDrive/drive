@@ -1,3 +1,7 @@
 module.exports = {
-  baseUrl: ""
+  baseUrl: "",
+
+  pwa: {
+    name: 'Media Manager'
+  }
 };
