@@ -6,11 +6,13 @@
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
     "lint": "vue-cli-service lint",
-    "test:e2e": "vue-cli-service test:e2e"
+    "test:e2e": "vue-cli-service test:e2e",
+    "deploy": "node ./node_modules/vue-gh-pages/index.js"
   },
   "dependencies": {
     "register-service-worker": "^1.5.2",
     "vue": "^2.5.17",
+    "vue-gh-pages": "^1.19.0",
     "vue-router": "^3.0.1",
     "vuex": "^3.0.1"
   },
@@ -26,5 +28,24 @@
     "less": "^3.0.4",
     "less-loader": "^4.1.0",
     "vue-template-compiler": "^2.5.17"
-  }
+  },
+  "description": "<p align=\"center\"><a href=\"http://github.com/anu1601cs/\" target=\"_blank\" rel=\"noopener noreferrer\"><img width=\"100\" src=\"https://vuejs.org/images/logo.png\" alt=\"Vue logo\"></a></p>",
+  "main": "index.html",
+  "directories": {
+    "test": "tests"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Anu1601CS/media-manager.git"
+  },
+  "keywords": [
+    "Media",
+    "Manager"
+  ],
+  "author": "Anurag Kumar (anu1601cs)",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Anu1601CS/media-manager/issues"
+  },
+  "homepage": "https://github.com/Anu1601CS/media-manager"
 }
