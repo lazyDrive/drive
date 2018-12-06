@@ -1,5 +1,5 @@
 <template>
-  <v-app id="inspire">
+  <div class="home">
     <v-navigation-drawer
     :clipped="$vuetify.breakpoint.lgAndUp"
     v-model="drawer"
@@ -53,7 +53,7 @@
       </v-list-tile-content>
     </v-list-tile>
   </v-list-group>
-  <v-list-tile v-else :key="item.text" @click="1">
+  <v-list-tile v-else :key="item.text" @click="fire(item.link)">
     <v-list-tile-action>
       <v-icon>{{ item.icon }}</v-icon>
     </v-list-tile-action>
@@ -73,7 +73,7 @@ dark
 app
 fixed
 >
-<v-toolbar-title style="width: 300px" class="ml-0 pl-3">
+<v-toolbar-title style="width: 300px" class="ml-0">
   <v-toolbar-side-icon @click.stop="drawer = !drawer"></v-toolbar-side-icon>
   <span class="hidden-sm-and-down">Media Manager</span>
 </v-toolbar-title>
@@ -145,7 +145,7 @@ fixed
   </v-card-actions>
 </v-card>
 </v-dialog>
-</v-app>
+</div>
 </template>
 
 <script>
@@ -157,14 +157,15 @@ export default {
     dialog: false,
     drawer: null,
     items: [
-      { icon: 'contacts', text: 'Contacts' },
-      { icon: 'history', text: 'Frequently contacted' },
-      { icon: 'content_copy', text: 'Duplicates' },
+      { icon: 'contacts', text: 'Contacts' , link: 'about'},
+      { icon: 'history', text: 'Frequently contacted' , link: 'about'},
+      { icon: 'content_copy', text: 'Duplicates' , link: 'about'},
       {
         icon: 'keyboard_arrow_up',
         'icon-alt': 'keyboard_arrow_down',
         text: 'Labels',
         model: true,
+        link: 'about',
         children: [
           { icon: 'add', text: 'Create label' }
         ]
@@ -182,11 +183,11 @@ export default {
           { text: 'Other contacts' }
         ]
       },
-      { icon: 'settings', text: 'Settings' },
-      { icon: 'chat_bubble', text: 'Send feedback' },
-      { icon: 'help', text: 'Help' },
-      { icon: 'phonelink', text: 'App downloads' },
-      { icon: 'keyboard', text: 'Go to the old version' }
+      { icon: 'settings', text: 'Settings', link: 'about' },
+      { icon: 'chat_bubble', text: 'Send feedback', link: 'about' },
+      { icon: 'help', text: 'Help', link: 'about' },
+      { icon: 'phonelink', text: 'App downloads', link: 'about' },
+      { icon: 'keyboard', text: 'Go to the old version', link: 'about' }
     ]
   }),
   props: {
@@ -194,6 +195,16 @@ export default {
   },
   components :{
     HelloWorld
+  },
+  methods :{
+    about: function(a) {
+      console.log('anout');
+      console.log(a);
+    },
+    fire: function(a){
+      // this.about();
+      console.log(a);
+    }
   }
 }
 </script>

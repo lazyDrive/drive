@@ -3,15 +3,18 @@ import App from './App.vue'
 import Vuetify from 'vuetify'
 import router from './router'
 import store from './store'
-import Alert from '@/components/Alert.vue'
 import './registerServiceWorker'
-import 'babel-polyfill'
+import VueProgressBar from 'vue-progressbar'
+import Alert from '@/components/Alert.vue'
 
 import 'vuetify/dist/vuetify.min.css'
-import '@uppy/dashboard/dist/style.css'
-import '@uppy/core/dist/style.css'
 
 Vue.use(Vuetify)
+Vue.use(VueProgressBar, {
+  color: 'rgb(143, 255, 199)',
+  failedColor: 'red',
+  height: '2px'
+})
 
 // Load components
 Vue.component('media-alert', Alert)
