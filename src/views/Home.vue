@@ -66,6 +66,7 @@
 </template>
 </v-list>
 </v-navigation-drawer>
+
 <v-toolbar
 :clipped-left="$vuetify.breakpoint.lgAndUp"
 color="blue darken-3"
@@ -183,7 +184,7 @@ export default {
           { text: 'Other contacts' }
         ]
       },
-      { icon: 'settings', text: 'Settings', link: 'about' },
+      { icon: 'settings', text: 'Settings', link: 'settings' },
       { icon: 'chat_bubble', text: 'Send feedback', link: 'about' },
       { icon: 'help', text: 'Help', link: 'about' },
       { icon: 'phonelink', text: 'App downloads', link: 'about' },
@@ -198,12 +199,13 @@ export default {
   },
   methods :{
     about: function(a) {
-      console.log('anout');
+      console.log(a);
+    },
+    settings: function(a) {
       console.log(a);
     },
     fire: function(a){
-      // this.about();
-      console.log(a);
+      this[a](a);
     }
   }
 }
