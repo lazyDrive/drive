@@ -5,8 +5,9 @@ import router from './router'
 import store from './store'
 import './registerServiceWorker'
 import VueProgressBar from 'vue-progressbar'
-import Alert from '@/components/Alert.vue'
-import HelloWorld from '@/components/File.vue';
+import Alert from '@/components/Alert'
+import HelloWorld from '@/components/File';
+import OnlineState from './components/OnlineState'
 
 import 'vuetify/dist/vuetify.min.css'
 
@@ -20,6 +21,7 @@ Vue.use(VueProgressBar, {
 // Load components
 Vue.component('media-alert', Alert)
 Vue.component('media-file', HelloWorld)
+Vue.component('media-online-state', OnlineState)
 
 Vue.config.productionTip = false
 

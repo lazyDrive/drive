@@ -132,6 +132,7 @@ class="hidden-sm-and-down"
       <media-file />
       <media-file />
       <media-file />
+      <media-online-state />
     </v-layout>
   </v-container>
 </v-content>

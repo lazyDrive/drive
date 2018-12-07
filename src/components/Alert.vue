@@ -32,7 +32,7 @@ export default {
   },
   props: {
     text:{
-      type: Object,
+      type: String,
       default: null
     },
     timeout:{

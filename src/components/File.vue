@@ -56,9 +56,9 @@ export default {
     x: 0,
     y: 0,
     items: [
-      { title: 'Preview', icon:'remove_red_eye', link: 'settings' },
-      { title: 'Edit', icon:'edit', link: 'settings' },
-      { title: 'Delete', icon:'delete', link: 'settings' },
+      { title: 'Preview', icon:'remove_red_eye', link: 'preview' },
+      { title: 'Edit', icon:'edit', link: 'edit' },
+      { title: 'Delete', icon:'delete', link: 'delete' },
       { title: 'Share', icon:'share', link: 'settings' },
       { title: 'Rename', icon:'spellcheck', link: 'settings' },
       { title: 'Download', icon:'cloud_download', link: 'settings' },
@@ -82,11 +82,16 @@ export default {
         this.showMenu = true
       })
     },
-    check : function(e){
-      e.preventDefault()
-      this.showMenu = false
+    delete : function(e){
+      console.log(e);
     },
-    settings: function(e) {
+    edit : function(e){
+      console.log(e);
+    },
+    preview : function(e){
+      console.log(e);
+    },
+    settings: function(e){
       console.log(e);
     },
     fire: function(a, itemId){
