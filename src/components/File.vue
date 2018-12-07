@@ -1,5 +1,7 @@
 <template>
-  <div class="file">
+  <!-- File -->
+
+  <div class="file" @contextmenu="show" :item-data="itemId">
     <v-hover>
       <v-card
       slot-scope="{ hover }"
@@ -17,6 +19,31 @@
       </v-card-title>
     </v-card>
   </v-hover>
+
+  <!-- Popup model -->
+
+  <v-menu
+  v-model="showMenu"
+  :position-x="x"
+  :position-y="y"
+  absolute
+  offset-y
+  transition="scale-transition"
+  >
+  <v-list>
+    <v-list-tile
+    v-for="(item, index) in items"
+    :key="index"
+    @click="fire(item.link, itemId)"
+    >
+    <v-list-tile-action v-if="item.icon">
+      <v-icon>{{ item.icon }}</v-icon>
+    </v-list-tile-action>
+    <v-list-tile-title>{{ item.title }}</v-list-tile-title>
+  </v-list-tile>
+</v-list>
+</v-menu>
+
 </div>
 </template>
 
@@ -24,9 +51,48 @@
 
 export default {
   data: () => ({
-    reviews: 413,
-    value: 4.5
-  })
+    showMenu: false,
+    itemId: Math.floor((Math.random() * 100000000) + 1),
+    x: 0,
+    y: 0,
+    items: [
+      { title: 'Preview', icon:'remove_red_eye', link: 'settings' },
+      { title: 'Edit', icon:'edit', link: 'settings' },
+      { title: 'Delete', icon:'delete', link: 'settings' },
+      { title: 'Share', icon:'share', link: 'settings' },
+      { title: 'Rename', icon:'spellcheck', link: 'settings' },
+      { title: 'Download', icon:'cloud_download', link: 'settings' },
+      { title: 'Stars', icon:'stars', link: 'settings' },
+      { title: 'View Details', icon:'priority_high', link: 'settings' },
+      { title: 'Get shareable link', icon:'link', link: 'settings' }
+    ]
+  }),
+  computed: {
+    rand : function() {
+      return Math.floor((Math.random() * 100000000) + 1);
+    }
+  },
+  methods: {
+    show : function(e){
+      e.preventDefault()
+      this.showMenu = false
+      this.x = e.clientX
+      this.y = e.clientY
+      this.$nextTick(() => {
+        this.showMenu = true
+      })
+    },
+    check : function(e){
+      e.preventDefault()
+      this.showMenu = false
+    },
+    settings: function(e) {
+      console.log(e);
+    },
+    fire: function(a, itemId){
+      this[a](itemId);
+    }
+  }
 }
 </script>
 
@@ -36,8 +102,10 @@ export default {
   margin: 0 0 15px 10px;
   cursor: pointer;
 }
+
 .file-text{
   font-size: 15px;
   text-align: center;
 }
+
 </style>

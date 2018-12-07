@@ -105,15 +105,33 @@ class="hidden-sm-and-down"
 <v-content>
   <v-container fluid grid-list-md>
     <v-layout row wrap>
-      <HelloWorld />
-      <HelloWorld />
-      <HelloWorld />
-      <HelloWorld />
-      <HelloWorld />
-      <HelloWorld />
-      <HelloWorld />
-      <HelloWorld />
-      <HelloWorld />
+      <media-file />
+      <media-file />
+      <media-file />
+      <media-file />
+      <media-file />
+      <media-file />
+      <media-file />
+      <media-file />
+      <media-file />
+      <media-file />
+      <media-file />
+      <media-file />
+      <media-file />
+      <media-file />
+      <media-file />
+      <media-file />
+      <media-file />
+      <media-file />
+      <media-file />
+      <media-file />
+      <media-file />
+      <media-file />
+      <media-file />
+      <media-file />
+      <media-file />
+      <media-file />
+      <media-file />
     </v-layout>
   </v-container>
 </v-content>
@@ -150,8 +168,6 @@ fixed
 </template>
 
 <script>
-
-import HelloWorld from '@/components/File.vue';
 
 export default {
   data: () => ({
@@ -195,7 +211,7 @@ export default {
     source: String
   },
   components :{
-    HelloWorld
+
   },
   methods :{
     about: function(a) {
