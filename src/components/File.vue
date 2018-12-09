@@ -1,7 +1,7 @@
 <template>
   <!-- File -->
 
-  <div class="file" @contextmenu="show" :item-data="itemId">
+  <div class="file" @contextmenu="show(this, itemId)" :item-data="itemId">
     <v-hover>
       <v-card
       slot-scope="{ hover }"
@@ -55,6 +55,7 @@ export default {
     itemId: Math.floor((Math.random() * 100000000) + 1),
     x: 0,
     y: 0,
+    mediaItemId: null,
     items: [
       { title: 'Preview', icon:'remove_red_eye', link: 'preview' },
       { title: 'Edit', icon:'edit', link: 'edit' },
@@ -73,11 +74,13 @@ export default {
     }
   },
   methods: {
-    show : function(e){
+    show : function(e,id){
+      e = e || window.event;
       e.preventDefault()
       this.showMenu = false
       this.x = e.clientX
       this.y = e.clientY
+      this.mediaItemId = id;
       this.$nextTick(() => {
         this.showMenu = true
       })
