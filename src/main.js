@@ -6,7 +6,8 @@ import store from './store/store'
 import './registerServiceWorker'
 import Alert from '@/components/Alert'
 import ProgressBar from '@/components/ProgressBar'
-import HelloWorld from '@/components/File';
+import File from '@/components/File';
+import Folder from '@/components/Folder';
 import OnlineState from '@/components/OnlineState'
 
 import 'vuetify/dist/vuetify.min.css'
@@ -15,7 +16,8 @@ Vue.use(Vuetify)
 
 // Load components
 Vue.component('media-alert', Alert)
-Vue.component('media-file', HelloWorld)
+Vue.component('media-file', File)
+Vue.component('media-folder', Folder)
 Vue.component('media-online-state', OnlineState)
 Vue.component('media-progress-bar', ProgressBar)
 

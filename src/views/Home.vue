@@ -104,7 +104,71 @@ class="hidden-sm-and-down"
 </v-toolbar>
 <v-content>
   <v-container fluid grid-list-md>
-    <v-layout row wrap>
+    <v-layout row wrap >
+      <span class="media-section-title"><strong>Recents & Quick Access</strong></span>
+    </v-layout>
+    <v-layout row wrap class="section">
+      <media-file />
+      <media-file />
+      <media-file />
+    </v-layout>
+    <v-layout row wrap >
+      <span class="media-section-title"><strong>Folders</strong></span>
+    </v-layout>
+    <v-layout row wrap class="section">
+      <media-folder />
+      <media-folder />
+      <media-folder />
+      <media-folder />
+      <media-folder />
+      <media-folder />
+      <media-folder />
+      <media-folder />
+      <media-folder />
+      <media-folder />
+      <media-folder />
+      <media-folder />
+      <media-folder />
+      <media-folder />
+      <media-folder />
+      <media-folder />
+      <media-folder />
+      <media-folder />
+      <media-folder />
+      <media-folder />
+      <media-folder />
+      <media-folder />
+      <media-folder />
+      <media-folder />
+      <media-folder />
+      <media-folder />
+      <media-folder />
+      <media-folder />
+      <media-folder />
+      <media-folder />
+      <media-folder />
+      <media-folder />
+      <media-folder />
+      <media-folder />
+      <media-folder />
+      <media-folder />
+      <media-folder />
+      <media-folder />
+      <media-folder />
+      <media-folder />
+      <media-folder />
+      <media-folder />
+      <media-folder />
+      <media-folder />
+      <media-folder />
+      <media-folder />
+      <media-folder />
+      <media-folder />
+    </v-layout>
+    <v-layout row wrap >
+      <span class="media-section-title"><strong>Files</strong></span>
+    </v-layout>
+    <v-layout row wrap class="section">
       <media-file />
       <media-file />
       <media-file />
@@ -137,7 +201,7 @@ class="hidden-sm-and-down"
 fab
 bottom
 right
-color="pink"
+color="purple"
 dark
 fixed
 @click="dialog = !dialog"
@@ -229,4 +293,10 @@ export default {
 .v-toolbar__title{
   text-align: left!important;
 }
+
+.section{
+  /* padding: 20px 10px; */
+}
+
+
 </style>

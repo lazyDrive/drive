@@ -1,47 +1,32 @@
 <template>
-  <!-- File -->
+  <div class="text-xs-center folder" @contextmenu="show(this, itemId)">
+    <v-chip v-bind:color="folderColor" text-color="white" width="100px" class="chip-size">
+      <v-avatar class="chip-folder">
+        <v-icon>folder</v-icon>
+      </v-avatar>
+      Ranee
+    </v-chip>
 
-  <div class="file" @contextmenu="show(this, itemId)" :item-data="itemId">
-    <v-hover>
-      <v-card
-      slot-scope="{ hover }"
-      :class="`elevation-${hover ? 12 : 2}`"
-      class="mx-auto"
-      width="150"
-      height="140"
-      >
-      <v-img
-      :aspect-ratio="16/9"
-      src="https://cdn.vuetifyjs.com/images/cards/cooking.png"
-      ></v-img>
-      <v-card-title>
-        <span class="file-text">Cafe Badilico</span>
-      </v-card-title>
-    </v-card>
-  </v-hover>
-
-  <!-- Popup model -->
-
-  <v-menu
-  v-model="showMenu"
-  :position-x="x"
-  :position-y="y"
-  absolute
-  offset-y
-  transition="scale-transition"
-  >
-  <v-list>
-    <v-list-tile
-    v-for="(item, index) in items"
-    :key="index"
-    @click="fire(item.link, itemId)"
+    <v-menu
+    v-model="showMenu"
+    :position-x="x"
+    :position-y="y"
+    absolute
+    offset-y
+    transition="scale-transition"
     >
-    <v-list-tile-action v-if="item.icon">
-      <v-icon>{{ item.icon }}</v-icon>
-    </v-list-tile-action>
-    <v-list-tile-title>{{ item.title }}</v-list-tile-title>
-  </v-list-tile>
-</v-list>
+    <v-list>
+      <v-list-tile
+      v-for="(item, index) in items"
+      :key="index"
+      @click="fire(item.link, itemId)"
+      >
+      <v-list-tile-action v-if="item.icon">
+        <v-icon>{{ item.icon }}</v-icon>
+      </v-list-tile-action>
+      <v-list-tile-title>{{ item.title }}</v-list-tile-title>
+    </v-list-tile>
+  </v-list>
 </v-menu>
 
 </div>
@@ -52,17 +37,17 @@
 export default {
   data: () => ({
     showMenu: false,
+    folderColor : 'teal',
     itemId: Math.floor((Math.random() * 100000000) + 1),
     x: 0,
     y: 0,
     mediaItemId: null,
     items: [
-      { title: 'Preview', icon:'remove_red_eye', link: 'preview' },
-      { title: 'Edit', icon:'edit', link: 'edit' },
       { title: 'Delete', icon:'delete', link: 'delete' },
       { title: 'Share', icon:'share', link: 'settings' },
       { title: 'Rename', icon:'spellcheck', link: 'settings' },
       { title: 'Download', icon:'cloud_download', link: 'settings' },
+      { title: 'Change Color', icon:'color_lens', link: 'settings' },
       { title: 'Stars', icon:'stars', link: 'settings' },
       { title: 'View Details', icon:'priority_high', link: 'settings' },
       { title: 'Get shareable link', icon:'link', link: 'settings' }
@@ -106,9 +91,22 @@ export default {
 
 <style>
 
-.file {
-  margin: 15px 0 15px 10px;
-  cursor: pointer;
+.folder{
+  margin: 10px 12px;
+}
+
+.chip-size{
+  padding: 3px 19px;
+}
+
+.chip-folder{
+  cursor: pointer!important;
+}
+
+.folder-text{
+  font-size: 15px;
+  padding: 0 16px!important;
+  text-align: center!important;
 }
 
 </style>
