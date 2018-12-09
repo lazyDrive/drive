@@ -9,6 +9,9 @@ import ProgressBar from '@/components/ProgressBar'
 import File from '@/components/File';
 import Folder from '@/components/Folder';
 import OnlineState from '@/components/OnlineState'
+import Content from '@/components/Content';
+import Quicktools from '@/components/QuickTools';
+import Navbar from '@/components/NavBar';
 
 import 'vuetify/dist/vuetify.min.css'
 
@@ -20,6 +23,9 @@ Vue.component('media-file', File)
 Vue.component('media-folder', Folder)
 Vue.component('media-online-state', OnlineState)
 Vue.component('media-progress-bar', ProgressBar)
+Vue.component('media-content', Content)
+Vue.component('media-quick-tools', Quicktools)
+Vue.component('media-nav-bar', Navbar)
 
 Vue.config.productionTip = false
 

@@ -35,6 +35,7 @@
 <script>
 
 export default {
+  name: 'Folder',
   data: () => ({
     showMenu: false,
     folderColor : 'teal',

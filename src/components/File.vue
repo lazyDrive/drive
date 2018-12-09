@@ -1,46 +1,55 @@
 <template>
   <!-- File -->
-
-  <div class="file" @contextmenu="show(this, itemId)" :item-data="itemId">
+  <div class="file" @contextmenu="show(this, itemId)" :item-data="itemId" >
     <v-hover>
       <v-card
       slot-scope="{ hover }"
-      :class="`elevation-${hover ? 12 : 2}`"
+      :class="`elevation-${hover ? 12 : 2} ${selectedState ? 'selected' : 'unselected'}`"
       class="mx-auto"
       width="150"
       height="140"
       >
       <v-img
       :aspect-ratio="16/9"
-      src="https://cdn.vuetifyjs.com/images/cards/cooking.png"
-      ></v-img>
-      <v-card-title>
-        <span class="file-text">Cafe Badilico</span>
-      </v-card-title>
-    </v-card>
-  </v-hover>
+      :src="`https://picsum.photos/500/300?image=${n * 5 + 10}`"
+      :lazy-src="`https://picsum.photos/10/6?image=${n * 5 + 10}`"
+      >
+      <v-layout
+      slot="placeholder"
+      fill-height
+      align-center
+      justify-center
+      ma-0
+      >
+      <v-progress-circular indeterminate color="grey lighten-5"></v-progress-circular>
+    </v-layout>
+  </v-img>
+  <v-card-title>
+    <span class="file-text">Cafe Badilico</span>
+  </v-card-title>
+</v-card>
+</v-hover>
 
-  <!-- Popup model -->
-
-  <v-menu
-  v-model="showMenu"
-  :position-x="x"
-  :position-y="y"
-  absolute
-  offset-y
-  transition="scale-transition"
+<!-- Popup model -->
+<v-menu
+v-model="showMenu"
+:position-x="x"
+:position-y="y"
+absolute
+offset-y
+transition="scale-transition"
+>
+<v-list>
+  <v-list-tile
+  v-for="(item, index) in items"
+  :key="index"
+  @click="fire(item.link, itemId)"
   >
-  <v-list>
-    <v-list-tile
-    v-for="(item, index) in items"
-    :key="index"
-    @click="fire(item.link, itemId)"
-    >
-    <v-list-tile-action v-if="item.icon">
-      <v-icon>{{ item.icon }}</v-icon>
-    </v-list-tile-action>
-    <v-list-tile-title>{{ item.title }}</v-list-tile-title>
-  </v-list-tile>
+  <v-list-tile-action v-if="item.icon">
+    <v-icon>{{ item.icon }}</v-icon>
+  </v-list-tile-action>
+  <v-list-tile-title>{{ item.title }}</v-list-tile-title>
+</v-list-tile>
 </v-list>
 </v-menu>
 
@@ -50,11 +59,14 @@
 <script>
 
 export default {
+  name: 'File',
   data: () => ({
     showMenu: false,
     itemId: Math.floor((Math.random() * 100000000) + 1),
+    n: Math.floor((Math.random() * 9) + 1),
     x: 0,
     y: 0,
+    selectedState: false ,
     mediaItemId: null,
     items: [
       { title: 'Preview', icon:'remove_red_eye', link: 'preview' },
@@ -111,4 +123,7 @@ export default {
   cursor: pointer;
 }
 
+.selected {
+  background-color: #8cccc382!important;
+}
 </style>

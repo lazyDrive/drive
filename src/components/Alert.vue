@@ -23,6 +23,7 @@
 <script>
 
 export default {
+  name: 'Alert',
   data: () => {
     return {
       y: 'bottom',

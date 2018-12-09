@@ -7,7 +7,7 @@
 
 <script>
 export default {
-  name: 'status',
+  name: 'OnlineState',
   props: {
     onlineClass: {
       type: String,
