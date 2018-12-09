@@ -102,6 +102,7 @@ class="hidden-sm-and-down"
   </v-avatar>
 </v-btn>
 </v-toolbar>
+<media-settings :dialog="dialogSettings"/>
 </div>
 </template>
 
@@ -113,6 +114,7 @@ export default {
     dialog: false,
     drawer: null,
     loading: null,
+    dialogSettings:null,
     items: [
       { icon: 'contacts', text: 'Contacts' , link: 'about'},
       { icon: 'history', text: 'Frequently contacted' , link: 'about'},
@@ -168,7 +170,7 @@ export default {
       console.log(a);
     },
     settings: function(a) {
-
+      this.dialogSettings  = true;
       console.log(a);
     },
     fire: function(a){

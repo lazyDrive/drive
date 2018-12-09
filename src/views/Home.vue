@@ -2,13 +2,12 @@
   <div class="media-home">
     <!-- media nav -->
     <media-nav-bar />
-    <media-details />
 
     <!-- Media content -->
     <media-content />
 
     <!-- Media quick tool -->
-    <media-quick-tools />
+    <media-tool-model />
   </div>
 </template>
 
