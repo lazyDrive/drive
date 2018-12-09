@@ -14,7 +14,7 @@
 importScripts("https://storage.googleapis.com/workbox-cdn/releases/3.6.3/workbox-sw.js");
 
 importScripts(
-  "precache-manifest.ec90a7aa0365ded088a5d0120a165c6c.js"
+  "precache-manifest.34520a4cd32e56dcb70838df8b6d884d.js"
 );
 
 workbox.core.setCacheNameDetails({prefix: "media-manager"});
