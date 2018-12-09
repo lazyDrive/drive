@@ -2,6 +2,7 @@
   <div class="media-home">
     <!-- media nav -->
     <media-nav-bar />
+    <media-details />
 
     <!-- Media content -->
     <media-content />

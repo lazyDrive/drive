@@ -1,11 +1,14 @@
 <template>
   <div class="text-xs-center folder" @contextmenu="show(this, itemId)">
-    <v-chip v-bind:color="folderColor" text-color="white" width="100px" class="chip-size">
-      <v-avatar class="chip-folder">
-        <v-icon>folder</v-icon>
-      </v-avatar>
-      Ranee
-    </v-chip>
+    <v-tooltip top>
+      <v-chip v-bind:color="folderColor" text-color="white" width="100px" class="chip-size" slot="activator">
+        <v-avatar>
+          <v-icon class="chip-folder">folder</v-icon>
+        </v-avatar>
+        Ranee
+      </v-chip>
+      <span>Top Very Very Long</span>
+    </v-tooltip>
 
     <v-menu
     v-model="showMenu"
@@ -100,7 +103,7 @@ export default {
   padding: 3px 19px;
 }
 
-.chip-folder{
+.chip-size .v-chip__content{
   cursor: pointer!important;
 }
 

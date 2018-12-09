@@ -1,5 +1,5 @@
 <template>
-  <v-content>
+  <v-content id="content">
     <v-container fluid grid-list-md>
       <v-layout row wrap >
         <span class="media-section-title"><strong>Recents & Quick Access</strong></span>

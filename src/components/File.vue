@@ -63,7 +63,7 @@ export default {
   data: () => ({
     showMenu: false,
     itemId: Math.floor((Math.random() * 100000000) + 1),
-    n: Math.floor((Math.random() * 9) + 1),
+    n: Math.floor((Math.random() * 17) + 1),
     x: 0,
     y: 0,
     selectedState: false ,

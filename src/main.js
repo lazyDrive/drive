@@ -12,6 +12,7 @@ import OnlineState from '@/components/OnlineState'
 import Content from '@/components/Content';
 import Quicktools from '@/components/QuickTools';
 import Navbar from '@/components/NavBar';
+import Details from '@/components/Details';
 
 import 'vuetify/dist/vuetify.min.css'
 
@@ -26,6 +27,8 @@ Vue.component('media-progress-bar', ProgressBar)
 Vue.component('media-content', Content)
 Vue.component('media-quick-tools', Quicktools)
 Vue.component('media-nav-bar', Navbar)
+Vue.component('media-details', Details)
+
 
 Vue.config.productionTip = false
 
