@@ -7,8 +7,8 @@
       slot-scope="{ hover }"
       :class="`elevation-${hover ? 12 : 2}`"
       class="mx-auto"
-      width="256"
-      height="200"
+      width="150"
+      height="140"
       >
       <v-img
       :aspect-ratio="16/9"

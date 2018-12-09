@@ -129,9 +129,6 @@ class="hidden-sm-and-down"
       <media-file />
       <media-file />
       <media-file />
-      <media-file />
-      <media-file />
-      <media-file />
       <media-online-state />
     </v-layout>
   </v-container>
@@ -227,3 +224,9 @@ export default {
   }
 }
 </script>
+
+<style>
+.v-toolbar__title{
+  text-align: left!important;
+}
+</style>

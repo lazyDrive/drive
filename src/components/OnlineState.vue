@@ -24,8 +24,7 @@ export default {
       state: {
         online: navigator.onLine,
         text:'Now you are offline'
-      },
-      dialog: this.checkState()
+      }
     };
   },
 
@@ -47,10 +46,6 @@ export default {
       const vm = this;
       vm.state.online = navigator.onLine || false;
       vm.$emit('detected-condition', vm.state.online);
-    },
-    checkState: function(){
-
-      // console.log('sa');
     }
   }
 }
