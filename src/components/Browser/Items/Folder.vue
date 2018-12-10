@@ -1,5 +1,5 @@
 <template>
-  <div class="text-xs-center folder" @contextmenu="show(this, itemId)">
+  <div class="text-xs-center folder" @contextmenu="show(this, itemId)" id="media-folder">
     <v-tooltip top>
       <v-chip v-bind:color="folderColor" text-color="white" width="100px" class="chip-size" slot="activator">
         <v-avatar>
@@ -16,7 +16,7 @@
 import * as types from "./../../../store/mutation-types";
 
 export default {
-  name: 'Folder',
+  name: 'media-folder',
   data: () => ({
     folderColor : 'teal',
     itemId: Math.floor((Math.random() * 100000000) + 1),
@@ -41,6 +41,7 @@ export default {
       e = e || window.event;
       e.preventDefault()
 
+      this.$store.commit(types.HIDE_FILE_MENU, id);
       this.$store.commit(types.HIDE_FOLDER_MENU, id);
       this.$store.commit(types.SHOW_FOLDER_MENU, id);
 

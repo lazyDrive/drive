@@ -1,5 +1,5 @@
 <template>
-  <div id="showCreateFolderModal">
+  <div id="media-create-folder">
     <v-dialog v-model="this.$store.state.showCreateFolderModal" persistent width="500px">
       <v-card>
         <v-card-title
@@ -34,7 +34,7 @@
 import * as types from "./../../store/mutation-types";
 
 export default {
-  name: 'showCreateFolderModal',
+  name: 'media-create-folder',
   data: () => ({
     defaultData:'Untitled Folder'
   }),

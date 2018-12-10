@@ -1,5 +1,5 @@
 <template>
-  <div class="navbar">
+  <div class="navbar" id="media-navbar">
     <v-navigation-drawer
     :clipped="$vuetify.breakpoint.lgAndUp"
     v-model="drawer"
@@ -118,7 +118,7 @@ class="hidden-sm-and-down"
 import * as types from "./../../store/mutation-types";
 
 export default {
-  name: 'NavBar',
+  name: 'media-navbar',
   data: () => ({
     dialog: false,
     drawer: null,

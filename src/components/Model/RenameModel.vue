@@ -1,5 +1,5 @@
 <template>
-  <div id="renameModel">
+  <div id="media-rename">
     <v-dialog v-model="this.$store.state.showRenameModal" persistent width="500px">
       <v-card>
         <v-card-title
@@ -34,7 +34,7 @@
 import * as types from "./../../store/mutation-types";
 
 export default {
-  name: 'renameModel',
+  name: 'media-rename',
   data: () => ({
     defaultData:'Untitled Folder'
   }),

@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div id="media-settings">
     <v-layout row justify-center>
       <v-dialog
       v-model="this.$store.state.showSettings"
@@ -133,6 +133,7 @@
 import * as types from "./../../store/mutation-types";
 
 export default {
+  name:'media-settings',
   data () {
     return {
       dialog2: false,

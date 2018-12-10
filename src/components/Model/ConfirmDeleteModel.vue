@@ -1,5 +1,5 @@
 <template>
-  <div id="confirmModel">
+  <div id="media-confirm-model">
     <v-dialog v-model="this.$store.state.showConfirmDeleteModal" persistent width="500px">
       <v-card>
         <v-card-title
@@ -28,7 +28,7 @@
 import * as types from "./../../store/mutation-types";
 
 export default {
-  name: 'ConfirmModel',
+  name: 'media-confirm-model',
   data: () => ({
   }),
 

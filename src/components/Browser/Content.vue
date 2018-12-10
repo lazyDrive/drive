@@ -1,13 +1,15 @@
 <template>
   <v-content id="media-content">
     <v-container fluid grid-list-md>
-      <!-- <v-breadcrumbs :items="items">
+      <hr>
+      <v-breadcrumbs :items="items">
         <v-icon slot="divider">chevron_right</v-icon>
-      </v-breadcrumbs> -->
-      <v-layout row wrap >
+      </v-breadcrumbs>
+      <hr>
+      <v-layout row wrap class="section">
         <span class="media-section-title"><strong>Recents & Quick Access</strong></span>
       </v-layout>
-      <v-layout row wrap class="section">
+      <v-layout row wrap>
         <media-file />
         <media-file />
         <media-file />
@@ -19,10 +21,10 @@
         <media-file />
         <media-file />
       </v-layout>
-      <v-layout row wrap >
+      <v-layout row wrap class="section">
         <span class="media-section-title"><strong>Folders</strong></span>
       </v-layout>
-      <v-layout row wrap class="section">
+      <v-layout row wrap>
         <media-folder />
         <media-folder />
         <media-folder />
@@ -72,10 +74,10 @@
         <media-folder />
         <media-folder />
       </v-layout>
-      <v-layout row wrap >
+      <v-layout row wrap class="section">
         <span class="media-section-title"><strong>Files</strong></span>
       </v-layout>
-      <v-layout row wrap class="section">
+      <v-layout row wrap>
         <media-file />
         <media-file />
         <media-file />
@@ -120,19 +122,20 @@ export default {
         {
           text: 'Home',
           disabled: false,
-          href: '/'
+          href: '#/'
         },
         {
-          text: 'about',
+          text: 'About',
           disabled: false,
-          href: './about'
-        },
-        {
-          text: 'Link 2',
-          disabled: true,
-          href: 'breadcrumbs_link_2'
+          href: '#/about'
         }
       ]
     })
   }
 </script>
+
+<style>
+.section {
+  padding-top:10px;
+}
+</style>

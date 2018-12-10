@@ -6,6 +6,7 @@
   absolute
   offset-y
   transition="scale-transition"
+  id="media-file-menu"
   >
   <v-list>
     <v-list-tile
@@ -26,7 +27,7 @@
 import * as types from "./../../store/mutation-types";
 
 export default {
-  name: 'File',
+  name: 'media-file-menu',
   data: () => ({
     itemId: Math.floor((Math.random() * 100000000) + 1),
     n: Math.floor((Math.random() * 17) + 1),

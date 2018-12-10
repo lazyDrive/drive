@@ -1,5 +1,5 @@
 <template>
-  <div class="file" @contextmenu="show(this, itemId)" :item-data="itemId" >
+  <div class="file" @contextmenu="show(this, itemId)" :item-data="itemId" id="media-file">
     <v-hover>
       <v-card
       slot-scope="{ hover }"
@@ -35,7 +35,7 @@
 import * as types from "./../../../store/mutation-types";
 
 export default {
-  name: 'File',
+  name: 'media-file',
   data: () => ({
     showMenu: false,
     itemId: Math.floor((Math.random() * 100000000) + 1),
@@ -64,6 +64,7 @@ export default {
       e = e || window.event;
       e.preventDefault()
 
+      this.$store.commit(types.HIDE_FOLDER_MENU, id);
       this.$store.commit(types.HIDE_FILE_MENU, id);
       this.$store.commit(types.SHOW_FILE_MENU, id);
 
