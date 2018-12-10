@@ -1,6 +1,9 @@
 <template>
-  <v-content id="content">
+  <v-content id="media-content">
     <v-container fluid grid-list-md>
+      <!-- <v-breadcrumbs :items="items">
+        <v-icon slot="divider">chevron_right</v-icon>
+      </v-breadcrumbs> -->
       <v-layout row wrap >
         <span class="media-section-title"><strong>Recents & Quick Access</strong></span>
       </v-layout>
@@ -111,7 +114,25 @@
 
 <script>
 export default {
-  name: 'Content',
-
-}
+  name:'media-content',
+    data: () => ({
+      items: [
+        {
+          text: 'Home',
+          disabled: false,
+          href: '/'
+        },
+        {
+          text: 'about',
+          disabled: false,
+          href: './about'
+        },
+        {
+          text: 'Link 2',
+          disabled: true,
+          href: 'breadcrumbs_link_2'
+        }
+      ]
+    })
+  }
 </script>

@@ -1,6 +1,6 @@
 <template>
-  <div id="createnewfoldermodel">
-    <v-dialog v-model="modelState" width="500px">
+  <div id="showCreateFolderModal">
+    <v-dialog v-model="this.$store.state.showCreateFolderModal" persistent width="500px">
       <v-card>
         <v-card-title
         class="grey lighten-4 title"
@@ -22,7 +22,7 @@
       </v-container>
       <v-card-actions>
         <v-spacer></v-spacer>
-        <v-btn color="error" @click="modelState = false">Cancel</v-btn>
+        <v-btn color="error" @click="hideCreateFolderModal()">Cancel</v-btn>
         <v-btn color="success">Create</v-btn>
       </v-card-actions>
     </v-card>
@@ -31,19 +31,24 @@
 </template>
 
 <script>
+import * as types from "./../../store/mutation-types";
+
 export default {
-  name: 'createnewfoldermodel',
+  name: 'showCreateFolderModal',
   data: () => ({
     defaultData:'Untitled Folder'
   }),
+
   props: {
-    modelState: {
-      type: Boolean,
-      default: false
-    },
     text: {
       type: String,
-      default: 'Are you sure want to delete ?'
+      default: ''
+    }
+  },
+
+  methods:{
+    hideCreateFolderModal: function() {
+      this.$store.commit(types.HIDE_CREATE_FOLDER_MODAL);
     }
   }
 }

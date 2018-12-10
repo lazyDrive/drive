@@ -1,6 +1,6 @@
 <template>
   <div id="renameModel">
-    <v-dialog v-model="renameModel" width="500px">
+    <v-dialog v-model="this.$store.state.showRenameModal" persistent width="500px">
       <v-card>
         <v-card-title
         class="grey lighten-4 title"
@@ -22,7 +22,7 @@
       </v-container>
       <v-card-actions>
         <v-spacer></v-spacer>
-        <v-btn color="error" @click="renameModel = !renameModel">Cancel</v-btn>
+        <v-btn color="error" @click="hideRenameModal()">Cancel</v-btn>
         <v-btn color="success">Ok</v-btn>
       </v-card-actions>
     </v-card>
@@ -31,15 +31,21 @@
 </template>
 
 <script>
+import * as types from "./../../store/mutation-types";
+
 export default {
   name: 'renameModel',
   data: () => ({
     defaultData:'Untitled Folder'
   }),
+
   props: {
-    renameModel: {
-      type: Boolean,
-      default: false
+
+  },
+
+  methods:{
+    hideRenameModal: function() {
+      this.$store.commit(types.HIDE_RENAME_MODAL);
     }
   }
 }

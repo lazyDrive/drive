@@ -87,12 +87,20 @@ label="Search"
 class="hidden-sm-and-down"
 ></v-text-field>
 <v-spacer></v-spacer>
-<v-btn icon>
-  <v-icon>apps</v-icon>
-</v-btn>
-<v-btn icon>
-  <v-icon>notifications</v-icon>
-</v-btn>
+
+<v-badge
+    color="cyan"
+    left
+    overlap
+  >
+  <span slot="badge" >6</span>
+  <v-btn icon>
+    <v-icon
+    large
+    >notifications</v-icon>
+  </v-btn>
+</v-badge>
+
 <v-btn icon large>
   <v-avatar size="32px" tile>
     <img

@@ -279,6 +279,22 @@ export default {
     },
 
     /**
+     * Show the tool modal
+     * @param state
+     */
+    [types.SHOW_TOOL_MODAL]: (state) => {
+        state.showToolModal = true;
+    },
+
+    /**
+     * Hide the tool modal
+     * @param state
+     */
+    [types.HIDE_TOOL_MODAL]: (state) => {
+        state.showToolModal = false;
+    },
+
+    /**
      * Show the info bar
      * @param state
      */
