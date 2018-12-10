@@ -1,7 +1,7 @@
 // The initial state
 export default {
   // The state of confirm delete model
-  showConfirmDeleteModal: true,
+  showConfirmDeleteModal: false,
 
   // The state of create folder model
   showCreateFolderModal: false,
