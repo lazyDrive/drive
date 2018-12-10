@@ -2,7 +2,7 @@
   <div>
     <v-layout row justify-center>
       <v-dialog
-      v-model="dialog"
+      v-model="this.$store.state.showSettings"
       fullscreen
       hide-overlay
       transition="dialog-bottom-transition"
@@ -10,13 +10,13 @@
       >
       <v-card tile>
         <v-toolbar card dark color="primary">
-          <v-btn icon dark @click="dialog = false">
+          <v-btn icon dark @click="hideSettings()">
             <v-icon>close</v-icon>
           </v-btn>
           <v-toolbar-title>Settings</v-toolbar-title>
           <v-spacer></v-spacer>
           <v-toolbar-items>
-            <v-btn dark flat @click="dialog = false">Save</v-btn>
+            <v-btn dark flat @click="hideSettings()">Save</v-btn>
           </v-toolbar-items>
           <v-menu bottom right offset-y>
             <v-btn slot="activator" dark icon>
@@ -130,6 +130,8 @@
 </template>
 
 <script>
+import * as types from "./../../store/mutation-types";
+
 export default {
   data () {
     return {
@@ -164,11 +166,12 @@ export default {
     }
   },
   props: {
-    dialog: {
-      type: Boolean,
-      default: false,
-      required: false
-    }
+
   },
+  methods:{
+    hideSettings: function() {
+      this.$store.commit(types.HIDE_SETTINGS);
+    }
+  }
 }
 </script>

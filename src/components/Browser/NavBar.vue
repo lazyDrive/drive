@@ -115,6 +115,7 @@ class="hidden-sm-and-down"
 </template>
 
 <script>
+import * as types from "./../../store/mutation-types";
 
 export default {
   name: 'NavBar',
@@ -124,7 +125,7 @@ export default {
     loading: null,
     dialogSettings:null,
     items: [
-      { icon: 'contacts', text: 'Contacts' , link: 'about'},
+      { icon: 'folder', text: 'New Folder' , link: 'newFolder'},
       { icon: 'history', text: 'Frequently contacted' , link: 'about'},
       { icon: 'content_copy', text: 'Duplicates' , link: 'about'},
       {
@@ -174,11 +175,12 @@ export default {
     // }
   },
   methods :{
-    about: function(a) {
+    newFolder: function(a) {
+      this.$store.commit(types.SHOW_CREATE_FOLDER_MODAL);
       console.log(a);
     },
     settings: function(a) {
-      this.dialogSettings  = true;
+        this.$store.commit(types.SHOW_SETTINGS);
       console.log(a);
     },
     fire: function(a){

@@ -26,6 +26,14 @@ export const HIDE_CREATE_FOLDER_MODAL = 'HIDE_CREATE_FOLDER_MODAL';
 export const SHOW_CONFIRM_DELETE_MODAL = 'SHOW_CONFIRM_DELETE_MODAL';
 export const HIDE_CONFIRM_DELETE_MODAL = 'HIDE_CONFIRM_DELETE_MODAL';
 
+// Confirm File Menu
+export const SHOW_FILE_MENU = 'SHOW_FILE_MENU';
+export const HIDE_FILE_MENU = 'HIDE_FILE_MENU';
+
+// Confirm Folder Menu
+export const SHOW_FOLDER_MENU = 'SHOW_FOLDER_MENU';
+export const HIDE_FOLDER_MENU = 'HIDE_FOLDER_MENU';
+
 // Tool Modal
 export const SHOW_TOOL_MODAL = 'SHOW_TOOL_MODAL';
 export const HIDE_TOOL_MODAL = 'HIDE_TOOL_MODAL';
@@ -33,6 +41,10 @@ export const HIDE_TOOL_MODAL = 'HIDE_TOOL_MODAL';
 // Infobar
 export const SHOW_INFOBAR = 'SHOW_INFOBAR';
 export const HIDE_INFOBAR = 'HIDE_INFOBAR';
+
+// Settings
+export const SHOW_SETTINGS = 'SHOW_SETTINGS';
+export const HIDE_SETTINGS = 'HIDE_SETTINGS';
 
 // Delete items
 export const DELETE_SUCCESS = 'DELETE_SUCCESS';

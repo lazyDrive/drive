@@ -9,43 +9,17 @@
       </v-chip>
       <span>Top Very Very Long</span>
     </v-tooltip>
-
-    <v-menu
-    v-model="showMenu"
-    :position-x="x"
-    :position-y="y"
-    absolute
-    offset-y
-    transition="scale-transition"
-    >
-    <v-list>
-      <v-list-tile
-      v-for="(item, index) in items"
-      :key="index"
-      @click="fire(item.link, itemId)"
-      >
-      <v-list-tile-action v-if="item.icon">
-        <v-icon>{{ item.icon }}</v-icon>
-      </v-list-tile-action>
-      <v-list-tile-title>{{ item.title }}</v-list-tile-title>
-    </v-list-tile>
-  </v-list>
-</v-menu>
-
-</div>
+  </div>
 </template>
 
 <script>
+import * as types from "./../../../store/mutation-types";
 
 export default {
   name: 'Folder',
   data: () => ({
-    showMenu: false,
     folderColor : 'teal',
     itemId: Math.floor((Math.random() * 100000000) + 1),
-    x: 0,
-    y: 0,
-    mediaItemId: null,
     items: [
       { title: 'Delete', icon:'delete', link: 'delete' },
       { title: 'Share', icon:'share', link: 'settings' },
@@ -66,15 +40,16 @@ export default {
     show : function(e,id){
       e = e || window.event;
       e.preventDefault()
-      this.showMenu = false
-      this.x = e.clientX
-      this.y = e.clientY
-      this.mediaItemId = id;
+
+      this.$store.commit(types.HIDE_FOLDER_MENU, id);
+      this.$store.commit(types.SHOW_FOLDER_MENU, id);
+
       this.$nextTick(() => {
-        this.showMenu = true
+        this.$store.state.showFolderMenu = true;
       })
     },
     delete : function(e){
+      this.showConfirmDeleteModal();
       console.log(e);
     },
     edit : function(e){
@@ -86,7 +61,11 @@ export default {
     settings: function(e){
       console.log(e);
     },
+    showConfirmDeleteModal: function() {
+      this.$store.commit(types.SHOW_CONFIRM_DELETE_MODAL);
+    },
     fire: function(a, itemId){
+      this.$store.commit(types.HIDE_FOLDER_MENU);
       this[a](itemId);
     }
   }

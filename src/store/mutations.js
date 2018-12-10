@@ -295,6 +295,54 @@ export default {
     },
 
     /**
+     * Show the folder menu
+     * @param state
+     */
+    [types.SHOW_FOLDER_MENU]: (state, payload) => {
+      var e = window.event;
+      e.preventDefault()
+
+      console.log(payload)
+
+      state.showFolderMenuX = e.clientX;
+      state.showFolderMenuY = e.clientY;
+    },
+
+    /**
+     * Hide the folder menu
+     * @param state
+     */
+    [types.HIDE_FOLDER_MENU]: (state, payload) => {
+        console.log(payload)
+
+        state.showFolderMenu = false;
+    },
+
+    /**
+     * Show the file menu
+     * @param state
+     */
+    [types.SHOW_FILE_MENU]: (state, payload) => {
+      var e = window.event;
+      e.preventDefault()
+
+      console.log(payload)
+
+      state.showFileMenuX = e.clientX;
+      state.showFileMenuY = e.clientY;
+    },
+
+    /**
+     * Hide the file menu
+     * @param state
+     */
+    [types.HIDE_FILE_MENU]: (state, payload) => {
+        console.log(payload)
+
+        state.showFileMenu = false;
+    },
+
+    /**
      * Show the info bar
      * @param state
      */
@@ -365,6 +413,22 @@ export default {
      */
     [types.HIDE_RENAME_MODAL]: (state) => {
         state.showRenameModal = false;
+    },
+
+    /**
+     * Show the settings
+     * @param state
+     */
+    [types.SHOW_SETTINGS]: (state) => {
+        state.showSettings = true;
+    },
+
+    /**
+     * Hide the settings
+     * @param state
+     */
+    [types.HIDE_SETTINGS]: (state) => {
+        state.showSettings = false;
     },
 
     /**

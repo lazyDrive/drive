@@ -1,5 +1,4 @@
 <template>
-  <!-- File -->
   <div class="file" @contextmenu="show(this, itemId)" :item-data="itemId" >
     <v-hover>
       <v-card
@@ -29,35 +28,11 @@
   </v-card-title>
 </v-card>
 </v-hover>
-
-<!-- Popup model -->
-<v-menu
-v-model="showMenu"
-:position-x="x"
-:position-y="y"
-absolute
-offset-y
-transition="scale-transition"
->
-<v-list>
-  <v-list-tile
-  v-for="(item, index) in items"
-  :key="index"
-  @click="fire(item.link, itemId)"
-  >
-  <v-list-tile-action v-if="item.icon">
-    <v-icon>{{ item.icon }}</v-icon>
-  </v-list-tile-action>
-  <v-list-tile-title>{{ item.title }}</v-list-tile-title>
-</v-list-tile>
-</v-list>
-</v-menu>
-
 </div>
 </template>
 
 <script>
-import * as types from "./../store/mutation-types";
+import * as types from "./../../../store/mutation-types";
 
 export default {
   name: 'File',
@@ -65,8 +40,6 @@ export default {
     showMenu: false,
     itemId: Math.floor((Math.random() * 100000000) + 1),
     n: Math.floor((Math.random() * 17) + 1),
-    x: 0,
-    y: 0,
     selectedState: false ,
     mediaItemId: null,
     items: [
@@ -87,15 +60,15 @@ export default {
     }
   },
   methods: {
-    show : function(e,id){
+    show : function(e, id){
       e = e || window.event;
       e.preventDefault()
-      this.showMenu = false
-      this.x = e.clientX
-      this.y = e.clientY
-      this.mediaItemId = id;
+
+      this.$store.commit(types.HIDE_FILE_MENU, id);
+      this.$store.commit(types.SHOW_FILE_MENU, id);
+
       this.$nextTick(() => {
-        this.showMenu = true
+        this.$store.state.showFileMenu = true;
       })
     },
     delete : function(e){
@@ -115,6 +88,7 @@ export default {
       this.$store.commit(types.SHOW_CONFIRM_DELETE_MODAL);
     },
     fire: function(a, itemId){
+      this.$store.commit(types.HIDE_FILE_MENU);
       this[a](itemId);
     }
   }
