@@ -7,6 +7,12 @@
     app
     width="250"
     >
+    <v-progress-linear
+    color="red"
+    height="5"
+    :value="this.$store.state.loadingValue"
+    ></v-progress-linear>
+
     <v-list dense>
       <template v-for="item in items">
         <v-layout
@@ -177,6 +183,7 @@ export default {
   methods :{
     newFolder: function(a) {
       this.$store.commit(types.SHOW_CREATE_FOLDER_MODAL);
+      this.$store.commit(types.SET_IS_LOADING);
       console.log(a);
     },
     settings: function(a) {

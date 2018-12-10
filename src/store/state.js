@@ -34,6 +34,10 @@ export default {
   showsnackbardata: '',
   // The preview item
   previewItem: null,
+  // The Search loading value
+  loadingValue: 0,
+  // The loading state
+  isLoading: false,
   // The Search Query
   search: '',
 }
