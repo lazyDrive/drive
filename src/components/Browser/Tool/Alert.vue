@@ -1,6 +1,6 @@
 <template>
   <v-snackbar
-  v-model="snackbar"
+  v-model="snackbarState"
   :bottom="y === 'bottom'"
   :left="x === 'left'"
   :multi-line="mode === 'multi-line'"
@@ -9,11 +9,11 @@
   :top="y === 'top'"
   :vertical="mode === 'vertical'"
   >
-  {{ text }}
+  {{ this.$store.state.showsnackbardata }}
   <v-btn
   color="white"
   flat
-  @click="snackbar = false"
+  @click="close()"
   >
   Close
 </v-btn>
@@ -21,6 +21,7 @@
 </template>
 
 <script>
+import * as types from "./../../../store/mutation-types";
 
 export default {
   name: 'Alert',
@@ -28,21 +29,29 @@ export default {
     return {
       y: 'bottom',
       x: 'left',
-      mode: ''
+      mode: '',
+      timeout: 6000
     }
   },
   props: {
-    text:{
-      type: String,
-      default: null
-    },
-    timeout:{
-      type: Number,
-      default: 6000
-    },
-    snackbar:{
-      type: Boolean,
-      default: true
+
+  },
+  computed: {
+    snackbarState: {
+      get: function() {
+        return this.$store.state.showsnackbar;
+      },
+      set: function() {
+        // think about this
+        setTimeout(function () {
+          this.$store.commit(types.HIDE_SNACKBAR);
+        }.bind(this), 1000);
+      }
+    }
+  },
+  methods:{
+    close: function(){
+      this.$store.commit(types.HIDE_SNACKBAR);
     }
   }
 }

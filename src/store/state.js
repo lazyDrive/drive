@@ -28,6 +28,10 @@ export default {
   showToolModal: false,
   // The state of the infobar
   showInfoBar: false,
+  // The snackbar
+  showsnackbar: false,
+  // The snackbar
+  showsnackbardata: '',
   // The preview item
   previewItem: null,
   // The Search Query

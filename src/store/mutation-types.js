@@ -42,6 +42,14 @@ export const HIDE_TOOL_MODAL = 'HIDE_TOOL_MODAL';
 export const SHOW_INFOBAR = 'SHOW_INFOBAR';
 export const HIDE_INFOBAR = 'HIDE_INFOBAR';
 
+// Infobar
+export const SHOW_SNACKBAR = 'SHOW_SNACKBAR';
+export const HIDE_SNACKBAR = 'HIDE_SNACKBAR';
+
+// Online State
+// export const ONLINE_STATE = 'ONLINE_STATE';
+// export const HIDE_INFOBAR = 'HIDE_INFOBAR';
+
 // Settings
 export const SHOW_SETTINGS = 'SHOW_SETTINGS';
 export const HIDE_SETTINGS = 'HIDE_SETTINGS';

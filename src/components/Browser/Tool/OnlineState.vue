@@ -1,30 +1,20 @@
 <template>
   <div>
-    <media-alert :snackbar="!state.online" :text="state.text" />
-    <!-- <v-dialog v-model="dialog" width="800px"></v-dialog> -->
+    <v-dialog v-model="dialog" persistent width="300px"></v-dialog>
   </div>
 </template>
 
 <script>
+import * as types from "./../../../store/mutation-types";
+
 export default {
   name: 'OnlineState',
   props: {
-    onlineClass: {
-      type: String,
-      required: false
-    },
-    offlineClass: {
-      type: String,
-      required: false
-    }
   },
 
   data: function() {
     return {
-      state: {
-        online: navigator.onLine,
-        text:'Now you are offline'
-      }
+      dialog: false
     };
   },
 
@@ -43,9 +33,17 @@ export default {
 
   methods: {
     updateOnlineStatus: function() {
-      const vm = this;
-      vm.state.online = navigator.onLine || false;
-      vm.$emit('detected-condition', vm.state.online);
+
+    var state =  navigator.onLine || false;
+
+      if(state == true) {
+        this.$store.commit(types.SHOW_SNACKBAR, 'You are online.');
+        this.dialog = false;
+      }
+      else {
+        this.$store.commit(types.SHOW_SNACKBAR, 'You are offline. Some functionality may be unavaliable.');
+        this.dialog = true;
+      }
     }
   }
 }

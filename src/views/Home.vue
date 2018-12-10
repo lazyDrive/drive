@@ -23,6 +23,9 @@
 
     <!-- Add infrobar -->
     <media-infrobar></media-infrobar>
+
+    <!-- Add snackbar -->
+    <media-alert></media-alert>
   </div>
 </template>
 

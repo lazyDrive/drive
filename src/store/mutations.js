@@ -432,6 +432,24 @@ export default {
     },
 
     /**
+     * Show the snackbar
+     * @param state
+     */
+    [types.SHOW_SNACKBAR]: (state, payload) => {
+        state.showsnackbardata = payload;
+        state.showsnackbar = true;
+    },
+
+    /**
+     * Hide the snackbar
+     * @param state
+     */
+    [types.HIDE_SNACKBAR]: (state) => {
+        state.showsnackbardata = '';
+        state.showsnackbar = false;
+    },
+
+    /**
      * Show the share modal
      * @param state
      */
