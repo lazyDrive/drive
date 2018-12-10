@@ -57,6 +57,7 @@ transition="scale-transition"
 </template>
 
 <script>
+import * as types from "./../store/mutation-types";
 
 export default {
   name: 'File',
@@ -98,6 +99,7 @@ export default {
       })
     },
     delete : function(e){
+      this.showConfirmDeleteModal();
       console.log(e);
     },
     edit : function(e){
@@ -108,6 +110,9 @@ export default {
     },
     settings: function(e){
       console.log(e);
+    },
+    showConfirmDeleteModal: function() {
+      this.$store.commit(types.SHOW_CONFIRM_DELETE_MODAL);
     },
     fire: function(a, itemId){
       this[a](itemId);
