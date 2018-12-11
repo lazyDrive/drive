@@ -4,15 +4,16 @@
         fab
         bottom
         right
-        color="purple"
+        color="info"
         dark
         fixed
+        large
         @click="showToolModal()"
         >
-        <v-icon>add</v-icon>
+        <v-icon>cloud_upload</v-icon>
     </v-btn>
 
-    <v-dialog v-model="this.$store.state.showToolModal" persistent width="800px">
+    <v-dialog v-model="this.$store.state.showToolModal" persistent width="500px">
         <v-card>
             <v-card-title class="grey lighten-4 py-4 title"> Upload</v-card-title>
 
@@ -22,8 +23,9 @@
 
             <v-card-actions>
                 <v-spacer></v-spacer>
-                <v-btn color="error" @click="hideToolModal()">Cancel</v-btn>
+                <v-btn flat color="error" @click="hideToolModal()">Close</v-btn>
                 <v-btn color="success" @click="hideToolModal()">Done</v-btn>
+                <v-spacer></v-spacer>
             </v-card-actions>
         </v-card>
     </v-dialog>

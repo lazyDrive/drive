@@ -27,7 +27,6 @@ import * as types from "./mutation-types";
 */
 export const getContents = (context, payload) => {
 
-	console.log(payload)
 	context.commit(types.SET_IS_LOADING, true)
 
 	axios
@@ -37,13 +36,17 @@ export const getContents = (context, payload) => {
 		context.commit(types.SET_IS_LOADING, false)
 	})
 	.catch(error => {
+		if(payload)
+		{
+			console.log(error)
+		}
+
 		var data = {
 			'data': '500 (Internal Server Error)',
 			'color': 'error'
 		}
-
 		context.commit(types.SHOW_SNACKBAR, data)
-		console.log(error)
+
 	})
 
 

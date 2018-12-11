@@ -41,6 +41,8 @@ export default {
     loadingValue: 0,
     // The loading state
     isLoading: false,
+    // The loadmoreprogress
+    loadMoreProgress:false,
     // The Search Query
     search: '',
 }

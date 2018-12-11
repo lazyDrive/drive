@@ -125,7 +125,17 @@ export default {
         loading: null,
         dialogSettings:null,
         items: [
-            { icon: 'folder', text: 'New Folder' , link: 'newFolder'},
+            {
+                icon: 'keyboard_arrow_up',
+                'icon-alt': 'keyboard_arrow_down',
+                text: 'Upload',
+                model: false,
+                children: [
+                    { icon: 'upload_file', text: 'File upload' },
+                    { icon: 'upload_file', text: 'Folder upload' },
+                ]
+            },
+            { icon: 'create_new_folder', text: 'New Folder' , link: 'newFolder'},
             { icon: 'history', text: 'Frequently contacted' , link: 'about'},
             { icon: 'content_copy', text: 'Duplicates' , link: 'about'},
             {

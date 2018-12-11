@@ -31,6 +31,13 @@
                 <media-file v-for="item in getFiles" :item="item" :key="item.id"></media-file>
             </v-layout>
 
+            <v-progress-circular
+            :size="50"
+            color="primary"
+            indeterminate
+            v-if="this.$store.state.loadMoreProgress"
+            ></v-progress-circular>
+
         </v-container>
     </v-content>
 </template>
