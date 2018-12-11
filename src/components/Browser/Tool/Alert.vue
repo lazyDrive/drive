@@ -1,21 +1,21 @@
 <template>
-  <v-snackbar
-  v-model="snackbarState"
-  :bottom="y === 'bottom'"
-  :left="x === 'left'"
-  :multi-line="mode === 'multi-line'"
-  :right="x === 'right'"
-  :timeout="timeout"
-  :top="y === 'top'"
-  :vertical="mode === 'vertical'"
-  >
-  {{ this.$store.state.showsnackbardata }}
-  <v-btn
-  color="white"
-  flat
-  @click="close()"
-  >
-  Close
+    <v-snackbar
+    v-model="snackbarState"
+    :bottom="y === 'bottom'"
+    :left="x === 'left'"
+    :multi-line="mode === 'multi-line'"
+    :right="x === 'right'"
+    :timeout="timeout"
+    :top="y === 'top'"
+    :vertical="mode === 'vertical'"
+    >
+    {{ this.$store.state.showsnackbardata }}
+    <v-btn
+    color="white"
+    flat
+    @click="close()"
+    >
+    Close
 </v-btn>
 </v-snackbar>
 </template>
@@ -24,36 +24,36 @@
 import * as types from "./../../../store/mutation-types";
 
 export default {
-  name: 'Alert',
-  data: () => {
-    return {
-      y: 'bottom',
-      x: 'left',
-      mode: '',
-      timeout: 6000
-    }
-  },
-  props: {
+    name: 'Alert',
+    data: () => {
+        return {
+            y: 'bottom',
+            x: 'left',
+            mode: '',
+            timeout: 6000
+        }
+    },
+    props: {
 
-  },
-  computed: {
-    snackbarState: {
-      get: function() {
-        return this.$store.state.showsnackbar;
-      },
-      set: function() {
-        // think about this
-        setTimeout(function () {
-          this.$store.commit(types.HIDE_SNACKBAR);
-        }.bind(this), 1000);
-      }
+    },
+    computed: {
+        snackbarState: {
+            get: function() {
+                return this.$store.state.showsnackbar;
+            },
+            set: function() {
+                // think about this
+                setTimeout(function () {
+                    this.$store.commit(types.HIDE_SNACKBAR);
+                }.bind(this), 1000);
+            }
+        }
+    },
+    methods:{
+        close: function(){
+            this.$store.commit(types.HIDE_SNACKBAR);
+        }
     }
-  },
-  methods:{
-    close: function(){
-      this.$store.commit(types.HIDE_SNACKBAR);
-    }
-  }
 }
 
 </script>

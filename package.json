@@ -13,6 +13,7 @@
     "@uppy/core": "^0.29.0",
     "@uppy/dashboard": "^0.29.0",
     "@uppy/tus": "^0.29.0",
+    "axios": "^0.18.0",
     "babel-polyfill": "^6.26.0",
     "material-design-icons-iconfont": "^4.0.3",
     "register-service-worker": "^1.5.2",
