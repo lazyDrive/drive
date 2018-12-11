@@ -13,6 +13,8 @@
 
 ## License
 
+[![Greenkeeper badge](https://badges.greenkeeper.io/Anu1601CS/media-manager.svg)](https://greenkeeper.io/)
+
 [MIT](http://opensource.org/licenses/MIT)
 
 Copyright (c) 2018, Anurag Kumar [anu1601cs](http://github.com/anu1601cs/)
