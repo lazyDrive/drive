@@ -330,7 +330,8 @@ export default {
     * @param state
     */
     [types.SHOW_SNACKBAR]: (state, payload) => {
-        state.showsnackbardata = payload;
+        state.showsnackbardata = payload.data;
+        state.showsnackbarcolor = payload.color;
         state.showsnackbar = true;
     },
 
@@ -340,6 +341,7 @@ export default {
     */
     [types.HIDE_SNACKBAR]: (state) => {
         state.showsnackbardata = '';
+        state.showsnackbarcolor='default';
         state.showsnackbar = false;
     },
 

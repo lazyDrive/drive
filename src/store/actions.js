@@ -28,15 +28,21 @@ import * as types from "./mutation-types";
 export const getContents = (context, payload) => {
 
 	console.log(payload)
-	context.commit(types.SET_IS_LOADING, true);
+	context.commit(types.SET_IS_LOADING, true)
 
 	axios
 	.get('getContents')
 	.then(response => {
-		context.commit(types.LOAD_CONTENTS_SUCCESS, response.data.contents);
+		context.commit(types.LOAD_CONTENTS_SUCCESS, response.data.contents)
 		context.commit(types.SET_IS_LOADING, false)
 	})
 	.catch(error => {
+		var data = {
+			'data': '500 (Internal Server Error)',
+			'color': 'error'
+		}
+
+		context.commit(types.SHOW_SNACKBAR, data)
 		console.log(error)
 	})
 

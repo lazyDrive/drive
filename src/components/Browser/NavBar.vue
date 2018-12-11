@@ -177,14 +177,10 @@ export default {
     methods :{
         newFolder: function(a) {
             this.$store.commit(types.SHOW_CREATE_FOLDER_MODAL);
-            this.$store.commit(types.SET_IS_LOADING, true);
-            /* eslint-disable */
             console.log(a);
         },
         settings: function(a) {
             this.$store.commit(types.SHOW_SETTINGS);
-            this.$store.commit(types.SET_IS_LOADING, false);
-            /* eslint-disable */
             console.log(a);
         },
         fire: function(a){

@@ -33,6 +33,8 @@ export default {
     showsnackbar: false,
     // The snackbar
     showsnackbardata: '',
+    // The sanckbar color
+    showsnackbarcolor: 'default',
     // The preview item
     previewItem: null,
     // The Search loading value

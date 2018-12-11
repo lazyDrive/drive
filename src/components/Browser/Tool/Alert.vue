@@ -8,6 +8,7 @@
     :timeout="timeout"
     :top="y === 'top'"
     :vertical="mode === 'vertical'"
+    :color="this.$store.state.showsnackbarcolor"
     >
     {{ this.$store.state.showsnackbardata }}
     <v-btn

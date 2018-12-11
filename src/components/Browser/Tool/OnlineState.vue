@@ -37,11 +37,23 @@ export default {
             var state =  navigator.onLine || false;
 
             if(state == true) {
-                this.$store.commit(types.SHOW_SNACKBAR, 'You are online.');
+
+                var data = {
+                    'data':'You are online.',
+                    'color':'success'
+                }
+
+                this.$store.commit(types.SHOW_SNACKBAR, data);
                 this.dialog = false;
             }
             else {
-                this.$store.commit(types.SHOW_SNACKBAR, 'You are offline. Some functionality may be unavaliable.');
+
+                data = {
+                    'data':'You are offline. Some functionality may be unavaliable.',
+                    'color':'error'
+                }
+
+                this.$store.commit(types.SHOW_SNACKBAR, data);
                 this.dialog = true;
             }
         }
