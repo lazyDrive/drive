@@ -3,6 +3,6 @@
 describe('Test Home Page', () => {
   it('Visits the app root url', () => {
     cy.visit('/')
-    cy.contains('div', 'Done!')
+    cy.contains('#app', 'Done!')
   })
 })

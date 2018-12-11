@@ -8,6 +8,10 @@
 <a href="http://github.com/anu1601cs/"><img src="https://img.shields.io/npm/l/vue.svg" alt="License"></a>
 </p>
 
+<p align="center">
+<a href="http://github.com/anu1601cs/"><img src="https://travis-ci.org/Anu1601CS/media-manager.svg?branch=master" alt="License"></a>
+</p>
+
 <h2 align="center">Media-Manager</h2>
 
 ## License
