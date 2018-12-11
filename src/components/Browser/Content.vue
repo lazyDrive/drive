@@ -1,11 +1,13 @@
 <template>
   <v-content id="media-content">
     <v-container fluid grid-list-md>
-      <hr>
+      <div class="media-toolbar">
+          <div class="media-loader" v-if="this.$store.state.isLoading"></div>
+      </div>
       <v-breadcrumbs :items="items">
         <v-icon slot="divider">chevron_right</v-icon>
       </v-breadcrumbs>
-      <hr>
+      <div class="media-toolbar"></div>
       <v-layout row wrap class="section">
         <span class="media-section-title"><strong>Recents & Quick Access</strong></span>
       </v-layout>
@@ -125,7 +127,12 @@ export default {
           href: '#/'
         },
         {
-          text: 'About',
+          text: 'about',
+          disabled: false,
+          href: '#/about'
+        },
+        {
+          text: 'section',
           disabled: false,
           href: '#/about'
         }

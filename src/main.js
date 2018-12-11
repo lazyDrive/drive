@@ -21,6 +21,7 @@ import RenameModel from '@/components/Model/RenameModel'
 import Settings from '@/components/Browser/Settings';
 
 import 'vuetify/dist/vuetify.min.css'
+import './styles/mediamanager.scss'
 
 Vue.use(Vuetify)
 

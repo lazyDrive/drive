@@ -397,19 +397,6 @@ export default {
      */
     [types.SET_IS_LOADING]: (state, payload) => {
       state.isLoading = payload;
-      var i = 0;
-      setInterval(function() {
-        if (i >= 101) {
-          // state.loadingValue = 0;
-          clearInterval(this);
-        }
-        else
-        {
-          i++;
-          state.loadingValue = i;
-        }
-      }, 70);
-
     },
 
     /**
