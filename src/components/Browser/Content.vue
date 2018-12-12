@@ -1,7 +1,6 @@
 <template>
-    <v-content id="media-content">
+    <v-content id="media-content" >
         <v-container fluid grid-list-md>
-
             <div class="media-toolbar">
                 <div class="media-loader" v-if="this.$store.state.isLoading"></div>
             </div>
@@ -10,26 +9,28 @@
             </v-breadcrumbs>
             <div class="media-toolbar"></div>
 
-            <v-layout row wrap class="section" v-if="this.$store.state.contents.quick">
-                <span class="media-section-title"><strong>Recents & Quick Access</strong></span>
-            </v-layout>
-            <v-layout row wrap>
-                <media-file v-for="item in quicks" :item="item" :key="item.id"></media-file>
-            </v-layout>
+            <div id="media-items" ref="browserItems">
+                <v-layout row wrap class="section" v-if="this.$store.state.contents.length > 0">
+                    <span class="media-section-title"><strong>Recents & Quick Access</strong></span>
+                </v-layout>
+                <v-layout row wrap>
+                    <media-file v-for="item in quick" :item="item" :key="item.id" ></media-file>
+                </v-layout>
 
-            <v-layout row wrap class="section" v-if="this.$store.state.contents.folders">
-                <span class="media-section-title"><strong>Folders</strong></span>
-            </v-layout>
-            <v-layout row wrap>
-                <media-folder v-for="item in folders" :item="item" :key="item.id"></media-folder>
-            </v-layout>
+                <v-layout row wrap class="section" v-if="this.$store.state.contents.length > 0">
+                    <span class="media-section-title"><strong>Folders</strong></span>
+                </v-layout>
+                <v-layout row wrap>
+                    <media-folder v-for="item in folders" :item="item" :key="item.id" ></media-folder>
+                </v-layout>
 
-            <v-layout row wrap class="section" v-if="this.$store.state.contents.files">
-                <span class="media-section-title"><strong>Files</strong></span>
-            </v-layout>
-            <v-layout row wrap>
-                <media-file v-for="item in getFiles" :item="item" :key="item.id"></media-file>
-            </v-layout>
+                <v-layout row wrap class="section" v-if="this.$store.state.contents.length > 0">
+                    <span class="media-section-title"><strong>Files</strong></span>
+                </v-layout>
+                <v-layout row wrap>
+                    <media-file v-for="item in files" :item="item" :key="item.id" ></media-file>
+                </v-layout>
+            </div>
 
             <v-progress-circular
             :size="50"
@@ -39,6 +40,9 @@
             ></v-progress-circular>
 
         </v-container>
+
+        <!-- Add infrobar -->
+        <media-infrobar ref="infobar"></media-infrobar>
     </v-content>
 </template>
 
@@ -63,14 +67,20 @@ export default {
         ]
     }),
     computed: {
-        getFiles() {
-            return this.$store.state.contents.files;
+        quick: function() {
+            return this.$store.state.contents.filter(
+                item => (item.type == 'quick')
+            );
         },
-        folders(){
-            return this.$store.state.contents.folders;
+        folders: function() {
+            return this.$store.state.contents.filter(
+                item => (item.type == 'folders')
+            );
         },
-        quicks(){
-            return this.$store.state.contents.quick;
+        files: function() {
+            return this.$store.state.contents.filter(
+                item => (item.type == 'files')
+            );
         }
     },
     methods:{
@@ -78,19 +88,30 @@ export default {
             if ((window.innerHeight + window.scrollY) >= document.body.scrollHeight) {
                 if(this.$store.state.isContentsLoaded)
                 {
-                    this.$store.dispatch('loadMoreContents');
+                    // this.$store.dispatch('loadMoreContents');
                 }
             }
             else {
                 this.$store.commit(types.SET_IS_LOADING_MORE, false);
             }
+        },
+        /* Unselect all browser items */
+        unselectAllBrowserItems(event) {
+            const notClickedBrowserItems = (this.$refs.browserItems && !this.$refs.browserItems.contains(event.target)) || event.target === this.$refs.browserItems;
+            const notClickedInfobar = this.$refs.infobar !== undefined && !this.$refs.infobar.$el.contains(event.target);
+            const clickedOutside = notClickedBrowserItems && notClickedInfobar;
+            if (clickedOutside) {
+                this.$store.commit(types.UNSELECT_ALL_BROWSER_ITEMS);
+            }
         }
     },
     created() {
         window.addEventListener('scroll', this.onScroll);
+        document.body.addEventListener('click', this.unselectAllBrowserItems, false);
     },
     destroyed() {
         window.removeEventListener('scroll', this.onScroll);
+        document.body.removeEventListener('click', this.unselectAllBrowserItems, false);
     },
     mounted() {
 

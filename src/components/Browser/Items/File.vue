@@ -41,9 +41,12 @@ export default {
     props: ['item'],
     computed: {
         selectedState: function(){
-            var res = this.$store.state.selectedItems.indexOf(this.item.id);
 
-            if(res != -1) {
+            var res = this.$store.state.selectedItems.filter(file => {
+                return file.id === this.item.id
+            })
+
+            if(res.length != 0) {
                 return true;
             } else {
                 return false;
@@ -69,13 +72,11 @@ export default {
             e = e || window.event;
             e.preventDefault()
 
-            if(e.ctrlKey){
-                this.$store.commit(types.SELECT_BROWSER_ITEM, item);
+            if (!(event.shiftKey || event.ctrlKey )) {
+                this.$store.commit(types.UNSELECT_ALL_BROWSER_ITEMS);
             }
-            else{
-                this.$store.commit(types.UNSELECT_ALL_BROWSER_ITEMS, item);
-                this.$store.commit(types.SELECT_BROWSER_ITEM, item);
-            }
+
+            this.$store.commit(types.SELECT_BROWSER_ITEM, item);
         }
     }
 }

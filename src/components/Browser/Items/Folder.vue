@@ -1,5 +1,5 @@
 <template>
-    <div class="text-xs-center folder" @click="select(this, item.id)" @contextmenu="show(this, item.id)" id="media-folder" >
+    <div class="text-xs-center folder" @click="select(this, item)" @contextmenu="show(this, item.id)" id="media-folder" >
         <v-tooltip top>
             <v-chip
             :class="`${selectedState ? 50 : 2} ${selectedState ? 'selected' : 'unselected'}`"
@@ -27,9 +27,11 @@ export default {
     props: ['item'],
     computed: {
         selectedState: function(){
-            var res = this.$store.state.selectedItems.indexOf(this.item.id);
+            var res = this.$store.state.selectedItems.filter(file => {
+                return file.id === this.item.id
+            })
 
-            if(res != -1) {
+            if(res.length != 0) {
                 return true;
             } else {
                 return false;
@@ -37,11 +39,11 @@ export default {
         }
     },
     methods: {
-        show : function(e,id){
+        show : function(e, id){
             e = e || window.event;
             e.preventDefault()
 
-            this.select(e, id);
+            this.select(e, this.item);
 
             this.$store.commit(types.HIDE_FILE_MENU, id);
             this.$store.commit(types.HIDE_FOLDER_MENU, id);
@@ -51,17 +53,15 @@ export default {
                 this.$store.state.showFolderMenu = true;
             })
         },
-        select: function(e, id){
+        select: function(e, item){
             e = e || window.event;
             e.preventDefault()
 
-            if(e.ctrlKey){
-                this.$store.commit(types.SELECT_BROWSER_ITEM, id);
+            if (!(event.shiftKey || event.ctrlKey )) {
+                this.$store.commit(types.UNSELECT_ALL_BROWSER_ITEMS);
             }
-            else{
-                this.$store.commit(types.UNSELECT_ALL_BROWSER_ITEMS, id);
-                this.$store.commit(types.SELECT_BROWSER_ITEM, id);
-            }
+
+            this.$store.commit(types.SELECT_BROWSER_ITEM, item);
         }
     }
 }

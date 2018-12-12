@@ -2,19 +2,17 @@
     <v-navigation-drawer
     v-model="menuState"
     right
-    dark
     app
     width="334"
     fixed
+    dark
     :stateless="true"
     >
     <div
     id="details"
     style="max-width: 400px; margin: auto;"
-    class="grey lighten-3"
     >
     <v-toolbar
-    color="pink"
     dark
     >
     <v-toolbar-side-icon @click.stop="hideInforbar()"></v-toolbar-side-icon>
@@ -25,22 +23,19 @@
     </v-btn>
 </v-toolbar>
 
-<v-card>
-    <v-container
-    fluid
-    grid-list-lg
-    class="infoBar"
-    >
-    <v-layout row wrap>
-        <media-info-folder></media-info-folder>
-        <media-info-file></media-info-file>
-        <media-info-file :item="files"></media-info-file>
-        <media-info-file></media-info-file>
-        <media-info-file></media-info-file>
-        <media-info-file></media-info-file>
-    </v-layout>
+<v-container
+fluid
+grid-list-lg
+class="infoBar"
+>
+<v-layout row wrap>
+    <v-flex>
+        <media-info-file v-for="item in quick" :item="item" :key="item.id"></media-info-file>
+        <media-info-folder v-for="item in folders" :item="item" :key="item.id"></media-info-folder>
+        <media-info-file v-for="item in files" :item="item" :key="item.id"></media-info-file>
+    </v-flex>
+</v-layout>
 </v-container>
-</v-card>
 </div>
 </v-navigation-drawer>
 </template>
@@ -74,14 +69,22 @@ export default {
                 // this.$store.commit(types.HIDE_INFOBAR);
             }
         },
-        files: function() {
-            console.log('asas');
-            console.log(this.$store.getters.getSelectedDirectoryFiles);
-            return true;
+        quick: function() {
+            return this.$store.state.selectedItems.filter(
+                item => (item.type == 'quick')
+            );
         },
         folders: function() {
-            return true;
+            return this.$store.state.selectedItems.filter(
+                item => (item.type == 'folders')
+            );
+        },
+        files: function() {
+            return this.$store.state.selectedItems.filter(
+                item => (item.type == 'files')
+            );
         }
+
     },
     methods:{
         about: function(a) {

@@ -30,11 +30,6 @@
                     </v-menu>
                 </v-toolbar>
                 <v-card-text>
-                    <v-btn color="primary" dark @click="dialog2 = !dialog2">Open Dialog 2</v-btn>
-                    <v-tooltip right>
-                        <v-btn slot="activator">Tool Tip Activator</v-btn>
-                        Tool Tip
-                    </v-tooltip>
                     <v-list three-line subheader>
                         <v-subheader>User Controls</v-subheader>
                         <v-list-tile avatar>
@@ -55,7 +50,7 @@
                         <v-subheader>General</v-subheader>
                         <v-list-tile avatar>
                             <v-list-tile-action>
-                                <v-checkbox v-model="notifications"></v-checkbox>
+                                <v-checkbox color="primary" v-model="notifications"></v-checkbox>
                             </v-list-tile-action>
                             <v-list-tile-content>
                                 <v-list-tile-title>Notifications</v-list-tile-title>
@@ -64,7 +59,7 @@
                         </v-list-tile>
                         <v-list-tile avatar>
                             <v-list-tile-action>
-                                <v-checkbox v-model="sound"></v-checkbox>
+                                <v-checkbox color="primary" v-model="sound"></v-checkbox>
                             </v-list-tile-action>
                             <v-list-tile-content>
                                 <v-list-tile-title>Sound</v-list-tile-title>
@@ -73,7 +68,7 @@
                         </v-list-tile>
                         <v-list-tile avatar>
                             <v-list-tile-action>
-                                <v-checkbox v-model="widgets"></v-checkbox>
+                                <v-checkbox color="primary" v-model="widgets"></v-checkbox>
                             </v-list-tile-action>
                             <v-list-tile-content>
                                 <v-list-tile-title>Auto-add widgets</v-list-tile-title>
@@ -84,45 +79,6 @@
                 </v-card-text>
 
                 <div style="flex: 1 1 auto;"></div>
-            </v-card>
-        </v-dialog>
-        <v-dialog v-model="dialog2" max-width="500px">
-            <v-card>
-                <v-card-title>
-                    Dialog 2
-                </v-card-title>
-                <v-card-text>
-                    <v-btn color="primary" dark @click="dialog3 = !dialog3">Open Dialog 3</v-btn>
-                    <v-select
-                    :items="select"
-                    label="A Select List"
-                    item-value="text"
-                    ></v-select>
-                </v-card-text>
-                <v-card-actions>
-                    <v-btn color="primary" flat @click="dialog2=false">Close</v-btn>
-                </v-card-actions>
-            </v-card>
-        </v-dialog>
-        <v-dialog v-model="dialog3" max-width="500px">
-            <v-card>
-                <v-card-title>
-                    <span>Dialog 3</span>
-                    <v-spacer></v-spacer>
-                    <v-menu bottom left>
-                        <v-btn slot="activator" icon>
-                            <v-icon>more_vert</v-icon>
-                        </v-btn>
-                        <v-list>
-                            <v-list-tile v-for="(item, i) in items" :key="i" @click="1">
-                                <v-list-tile-title>{{ item.title }}</v-list-tile-title>
-                            </v-list-tile>
-                        </v-list>
-                    </v-menu>
-                </v-card-title>
-                <v-card-actions>
-                    <v-btn color="primary" flat @click="dialog3=false">Close</v-btn>
-                </v-card-actions>
             </v-card>
         </v-dialog>
     </v-layout>
@@ -136,33 +92,17 @@ export default {
     name:'media-settings',
     data () {
         return {
-            dialog2: false,
             dialog3: false,
             notifications: false,
             sound: true,
             widgets: false,
             items: [
                 {
-                    title: 'Click Me'
+                    title: 'Save'
                 },
                 {
-                    title: 'Click Me'
-                },
-                {
-                    title: 'Click Me'
-                },
-                {
-                    title: 'Click Me 2'
+                    title: 'Save & Close'
                 }
-            ],
-            select: [
-                { text: 'State 1' },
-                { text: 'State 2' },
-                { text: 'State 3' },
-                { text: 'State 4' },
-                { text: 'State 5' },
-                { text: 'State 6' },
-                { text: 'State 7' }
             ]
         }
     },

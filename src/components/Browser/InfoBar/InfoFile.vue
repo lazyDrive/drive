@@ -1,36 +1,35 @@
 <template>
-    <v-flex xs12>
-        <v-card color="cyan" class="white--text">
-            <v-layout>
-                <v-flex xs5>
-                    <v-img
-                    src="https://cdn.vuetifyjs.com/images/cards/foster.jpg"
-                    height="125px"
-                    contain
-                    ></v-img>
-                </v-flex>
-                <v-flex xs7>
-                    <v-card-title primary-title>
-                        <div>
-                            <div class="headline">Supermodel</div>
-                            <div>Foster the People</div>
-                            <div>(2014)</div>
-                        </div>
-                    </v-card-title>
-                </v-flex>
-            </v-layout>
-            <v-divider light></v-divider>
-            <v-card-actions class="pa-3">
-                Rate this album
-                <v-spacer></v-spacer>
-                <v-icon>star_border</v-icon>
-                <v-icon>star_border</v-icon>
-                <v-icon>star_border</v-icon>
-                <v-icon>star_border</v-icon>
-                <v-icon>star_border</v-icon>
-            </v-card-actions>
-        </v-card>
-    </v-flex>
+    <div>
+        <v-card>
+            <v-img
+            aspect-ratio="2.75"
+            :src="item.imgUrl"
+            :lazy-src="item.imgLazyUrl"
+            ></v-img>
+            <v-layout
+            slot="placeholder"
+            fill-height
+            align-center
+            justify-center
+            ma-0
+            >
+            <v-progress-circular indeterminate color="grey lighten-5"></v-progress-circular>
+        </v-layout>
+
+        <v-card-title primary-title>
+            <div>
+                <h3 class="headline mb-0">{{item.name}}</h3>
+                <div>Located two hours south of Sydney in the <br>Southern Highlands of New South Wales, ...</div>
+            </div>
+        </v-card-title>
+
+        <v-card-actions>
+            <v-btn flat color="orange">Share</v-btn>
+            <v-btn flat color="orange">Explore</v-btn>
+        </v-card-actions>
+    </v-card>
+    <br>
+</div>
 </template>
 
 <script>

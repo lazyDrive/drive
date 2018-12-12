@@ -21,9 +21,6 @@
         <media-file-menu></media-file-menu>
         <media-folder-menu></media-folder-menu>
 
-        <!-- Add infrobar -->
-        <media-infrobar></media-infrobar>
-
         <!-- Add snackbar -->
         <media-alert></media-alert>
 

@@ -29,27 +29,20 @@ app.get('/loadMoreContents',(req, res)=> {
         '#1976D2'
     ]
 
+    var responseData = []
+
     var i =0
-    var responseData = {
-        'quick' : [],
-        'files': [],
-        'folders': []
-    }
 
     function dataFiles(imgUrl, imgLazyUrl) {
         this.imgUrl = imgUrl,
         this.name = 'Image' + Math.floor((Math.random() * 100) + 1),
         this.imgLazyUrl = imgLazyUrl,
-        this.id = Math.floor((Math.random() * 100000000) + 1)
+        this.id = Math.floor((Math.random() * 100000000) + 1),
+        this.type = 'files',
+        this.color = colors[Math.floor((Math.random() * 8) + 1)]
     }
 
-    function dataFolders(imgUrl, imgLazyUrl) {
-        this.name = 'Ranee',
-        this.color = colors[Math.floor((Math.random() * 8) + 1)],
-        this.id = Math.floor((Math.random() * 100000000) + 1)
-    }
-
-    for(i=0; i<3; i++) {
+    for(i=0; i<60; i++) {
 
         var n = Math.floor((Math.random() * 17) + 1)
 
@@ -58,35 +51,14 @@ app.get('/loadMoreContents',(req, res)=> {
 
         var items = new dataFiles(imgUrl, imgLazyUrl)
 
-        responseData['quick'].push(items)
-    }
-
-    i = 0
-
-    for(i=0; i<5; i++) {
-
-        var n = Math.floor((Math.random() * 17) + 1)
-
-        var imgUrl = `https://picsum.photos/500/300?image=${n * 5 + 10}`
-        var imgLazyUrl = `https://picsum.photos/10/6?image=${n * 5 + 10}`
-
-        var items = new dataFiles(imgUrl, imgLazyUrl)
-
-        responseData['files'].push(items)
-    }
-
-    i = 0
-
-    for(i=0; i<=5; i++) {
-        var items = new dataFolders()
-        responseData['folders'].push(items)
+        responseData.push(items)
     }
 
     setTimeout(function () {
         res.send({
             contents: responseData
         })
-    }, 3000);
+    }, 1000);
 })
 
 app.get('/getContents',(req, res)=> {
@@ -103,27 +75,26 @@ app.get('/getContents',(req, res)=> {
         '#1976D2'
     ]
 
+    var responseData = []
+
+    var types = [
+        'quick',
+        'files',
+        'folders'
+    ]
+
     var i =0
-    var responseData = {
-        'quick' : [],
-        'files': [],
-        'folders': []
-    }
 
     function dataFiles(imgUrl, imgLazyUrl) {
         this.imgUrl = imgUrl,
         this.name = 'Image' + Math.floor((Math.random() * 100) + 1),
         this.imgLazyUrl = imgLazyUrl,
-        this.id = Math.floor((Math.random() * 100000000) + 1)
+        this.id = Math.floor((Math.random() * 100000000) + 1),
+        this.type = types[Math.floor((Math.random() * 3) + 0)],
+        this.color = colors[Math.floor((Math.random() * 8) + 1)]
     }
 
-    function dataFolders(imgUrl, imgLazyUrl) {
-        this.name = 'Ranee',
-        this.color = colors[Math.floor((Math.random() * 8) + 1)],
-        this.id = Math.floor((Math.random() * 100000000) + 1)
-    }
-
-    for(i=0; i<10; i++) {
+    for(i=0; i<70; i++) {
 
         var n = Math.floor((Math.random() * 17) + 1)
 
@@ -132,28 +103,7 @@ app.get('/getContents',(req, res)=> {
 
         var items = new dataFiles(imgUrl, imgLazyUrl)
 
-        responseData['quick'].push(items)
-    }
-
-    i = 0
-
-    for(i=0; i<40; i++) {
-
-        var n = Math.floor((Math.random() * 17) + 1)
-
-        var imgUrl = `https://picsum.photos/500/300?image=${n * 5 + 10}`
-        var imgLazyUrl = `https://picsum.photos/10/6?image=${n * 5 + 10}`
-
-        var items = new dataFiles(imgUrl, imgLazyUrl)
-
-        responseData['files'].push(items)
-    }
-
-    i = 0
-
-    for(i=0; i<=30; i++) {
-        var items = new dataFolders()
-        responseData['folders'].push(items)
+        responseData.push(items)
     }
 
     res.send({

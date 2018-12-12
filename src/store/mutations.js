@@ -34,10 +34,7 @@ export default {
     * @param payload
     */
     [types.LOAD_MORE_CONTENTS_SUCCESS]: (state, payload) => {
-        payload.files.forEach(element => {
-            state.contents.files.push(element)
-        });
-        // state.contents.
+        state.contents.push(payload)
     },
 
     /**
@@ -135,8 +132,7 @@ export default {
     * @param payload the item
     */
     [types.SELECT_BROWSER_ITEM]: (state, payload) => {
-        state.selectedItems.push(payload.id);
-        // state.selectedItems.details.push(payload);
+        state.selectedItems.push(payload);
     },
 
     /**
