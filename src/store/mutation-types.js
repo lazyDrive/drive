@@ -1,6 +1,8 @@
 // Loading state
 export const SET_IS_LOADING = 'SET_IS_LOADING';
 
+export const SET_IS_LOADING_MORE = 'SET_IS_LOADING_MORE';
+
 // Selecting media items
 export const SELECT_DIRECTORY = 'SELECT_DIRECTORY';
 export const SELECT_BROWSER_ITEM = 'SELECT_BROWSER_ITEM';
@@ -14,6 +16,7 @@ export const DECREASE_GRID_SIZE = 'DECREASE_GRID_SIZE';
 
 // Api handlers
 export const LOAD_CONTENTS_SUCCESS = 'LOAD_CONTENTS_SUCCESS';
+export const LOAD_MORE_CONTENTS_SUCCESS = 'LOAD_MORE_CONTENTS_SUCCESS';
 export const LOAD_FULL_CONTENTS_SUCCESS = 'LOAD_FULL_CONTENTS_SUCCESS';
 export const CREATE_DIRECTORY_SUCCESS = 'CREATE_DIRECTORY_SUCCESS';
 export const UPLOAD_SUCCESS = 'UPLOAD_SUCCESS';
@@ -46,9 +49,6 @@ export const HIDE_INFOBAR = 'HIDE_INFOBAR';
 export const SHOW_SNACKBAR = 'SHOW_SNACKBAR';
 export const HIDE_SNACKBAR = 'HIDE_SNACKBAR';
 
-// Online State
-// export const ONLINE_STATE = 'ONLINE_STATE';
-// export const HIDE_INFOBAR = 'HIDE_INFOBAR';
 
 // Settings
 export const SHOW_SETTINGS = 'SHOW_SETTINGS';

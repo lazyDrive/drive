@@ -1,5 +1,6 @@
 import Vue from 'vue'
 import App from './App.vue'
+import Event from './app/Event';
 import Vuetify from 'vuetify'
 import router from './router'
 import store from './store/store'
@@ -42,6 +43,10 @@ Vue.component('media-settings', Settings)
 Vue.component('media-file-menu', FileMenu)
 Vue.component('media-folder-menu', FolderMenu)
 
+// Register MediaManager namespace
+window.MediaManager = window.MediaManager || {};
+// Register the media manager event bus
+window.MediaManager.Event = new Event();
 
 Vue.config.productionTip = false
 

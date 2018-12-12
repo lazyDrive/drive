@@ -48,24 +48,36 @@ export const getContents = (context, payload) => {
 		context.commit(types.SHOW_SNACKBAR, data)
 
 	})
+}
 
+/**
+* Get contents of a directory from the api
+* @param commit
+* @param payload
+*/
+export const loadMoreContents = (context, payload) => {
 
-	// Update the url
-	// updateUrlPath(payload);
-	// context.commit(types.SET_IS_LOADING, true);
-	//
-	// api.getContents(payload, 0)
-	//     .then(contents => {
-	//         context.commit(types.LOAD_CONTENTS_SUCCESS, contents);
-	//         context.commit(types.UNSELECT_ALL_BROWSER_ITEMS);
-	//         context.commit(types.SELECT_DIRECTORY, payload);
-	//         context.commit(types.SET_IS_LOADING, false);
-	//     })
-	//     .catch(error => {
-	//         // TODO error handling
-	//         context.commit(types.SET_IS_LOADING, false);
-	//         console.log("error", error);
-	//     });
+	context.commit(types.SET_IS_LOADING_MORE, true);
+
+	axios
+	.get('loadMoreContents')
+	.then(response => {
+		context.commit(types.LOAD_MORE_CONTENTS_SUCCESS, response.data.contents)
+		context.commit(types.SET_IS_LOADING_MORE, false);
+	})
+	.catch(error => {
+		if(payload)
+		{
+			console.log(error)
+		}
+
+		var data = {
+			'data': '500 (Internal Server Error)',
+			'color': 'error'
+		}
+
+		context.commit(types.SHOW_SNACKBAR, data)
+	})
 }
 
 

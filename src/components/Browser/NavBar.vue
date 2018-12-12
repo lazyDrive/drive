@@ -125,29 +125,20 @@ export default {
         loading: null,
         dialogSettings:null,
         items: [
+            { icon: 'create_new_folder', text: 'New Folder' , link: 'newFolder'},
             {
                 icon: 'keyboard_arrow_up',
                 'icon-alt': 'keyboard_arrow_down',
                 text: 'Upload',
-                model: false,
+                model: true,
                 children: [
                     { icon: 'upload_file', text: 'File upload' },
                     { icon: 'upload_file', text: 'Folder upload' },
                 ]
             },
-            { icon: 'create_new_folder', text: 'New Folder' , link: 'newFolder'},
-            { icon: 'history', text: 'Frequently contacted' , link: 'about'},
-            { icon: 'content_copy', text: 'Duplicates' , link: 'about'},
-            {
-                icon: 'keyboard_arrow_up',
-                'icon-alt': 'keyboard_arrow_down',
-                text: 'Labels',
-                model: true,
-                link: 'about',
-                children: [
-                    { icon: 'add', text: 'Create label' }
-                ]
-            },
+            { icon: 'query_builder', text: 'Recents' , link: 'about'},
+            { icon: 'delete', text: 'Bin' , link: 'about'},
+            { icon: 'content_copy', text: 'Make Duplicate' , link: 'about'},
             {
                 icon: 'keyboard_arrow_up',
                 'icon-alt': 'keyboard_arrow_down',
@@ -156,16 +147,13 @@ export default {
                 children: [
                     { text: 'Import' },
                     { text: 'Export' },
-                    { text: 'Print' },
-                    { text: 'Undo changes' },
-                    { text: 'Other contacts' }
+                    { text: 'Print' }
                 ]
             },
             { icon: 'settings', text: 'Settings', link: 'settings' },
             { icon: 'chat_bubble', text: 'Send feedback', link: 'about' },
             { icon: 'help', text: 'Help', link: 'about' },
-            { icon: 'phonelink', text: 'App downloads', link: 'about' },
-            { icon: 'keyboard', text: 'Go to the old version', link: 'about' }
+            { icon: 'phonelink', text: 'App downloads', link: 'about' }
         ]
     }),
     props: {
@@ -175,14 +163,7 @@ export default {
 
     },
     mounted(){
-        // window.onscroll = function() {
-        //   if ((window.innerHeight + window.scrollY) >= document.body.scrollHeight) {
-        //     // you're at the bottom of the page
-        //     // alert("Bottom of page");
-        //     // console.log('bottom');
-        //     // this.load = true;
-        //   }
-        // }
+
     },
     methods :{
         newFolder: function(a) {

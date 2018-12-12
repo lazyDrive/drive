@@ -1,6 +1,11 @@
 // The initial state
 export default {
+    // The loaded files
     contents:[],
+    // Files loded for note
+    isContentsLoaded: false,
+    // The currently selected items
+    selectedItems: [],
     // The state of confirm delete model
     showConfirmDeleteModal: false,
     // The state of create folder model
@@ -42,7 +47,7 @@ export default {
     // The loading state
     isLoading: false,
     // The loadmoreprogress
-    loadMoreProgress:false,
+    loadMoreProgress: false,
     // The Search Query
     search: '',
 }

@@ -1,9 +1,9 @@
 <template>
-    <div class="file" @contextmenu="show(this, item.id)" :item-data="item.id" id="media-file">
+    <div class="file" @click="select(this, item)" @contextmenu="show(this, item.id)" :item-data="item.id" id="media-file">
         <v-hover>
             <v-card
             slot-scope="{ hover }"
-            :class="`elevation-${hover ? 12 : 2} ${selectedState ? 'selected' : 'unselected'}`"
+            :class="`elevation-${hover || selectedState ? 12 : 2} ${selectedState ? 'selected' : 'unselected'}`"
             class="mx-auto"
             width="150"
             height="140"
@@ -37,13 +37,25 @@ import * as types from "./../../../store/mutation-types";
 export default {
     name: 'media-file',
     data: () => ({
-        selectedState: false
     }),
     props: ['item'],
+    computed: {
+        selectedState: function(){
+            var res = this.$store.state.selectedItems.indexOf(this.item.id);
+
+            if(res != -1) {
+                return true;
+            } else {
+                return false;
+            }
+        }
+    },
     methods: {
         show : function(e, id){
             e = e || window.event;
             e.preventDefault()
+
+            this.select(e, this.item);
 
             this.$store.commit(types.HIDE_FOLDER_MENU, id);
             this.$store.commit(types.HIDE_FILE_MENU, id);
@@ -52,6 +64,18 @@ export default {
             this.$nextTick(() => {
                 this.$store.state.showFileMenu = true;
             })
+        },
+        select: function(e, item){
+            e = e || window.event;
+            e.preventDefault()
+
+            if(e.ctrlKey){
+                this.$store.commit(types.SELECT_BROWSER_ITEM, item);
+            }
+            else{
+                this.$store.commit(types.UNSELECT_ALL_BROWSER_ITEMS, item);
+                this.$store.commit(types.SELECT_BROWSER_ITEM, item);
+            }
         }
     }
 }
@@ -61,8 +85,5 @@ export default {
 .file {
     margin: 15px 0 15px 10px;
     cursor: pointer;
-}
-.selected {
-    background-color: #8cccc382!important;
 }
 </style>

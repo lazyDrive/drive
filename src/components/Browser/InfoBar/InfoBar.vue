@@ -3,27 +3,52 @@
     v-model="menuState"
     right
     dark
-    clipped
     app
-    width="330"
+    width="334"
     fixed
     :stateless="true"
     >
-    <v-list dense>
-        <v-list-tile @click.stop="hideInforbar()">
-            <v-list-tile-action>
-                <v-icon>exit_to_app</v-icon>
-            </v-list-tile-action>
-            <v-list-tile-content>
-                <v-list-tile-title>Click to close</v-list-tile-title>
-            </v-list-tile-content>
-        </v-list-tile>
-    </v-list>
+    <div
+    id="details"
+    style="max-width: 400px; margin: auto;"
+    class="grey lighten-3"
+    >
+    <v-toolbar
+    color="pink"
+    dark
+    >
+    <v-toolbar-side-icon @click.stop="hideInforbar()"></v-toolbar-side-icon>
+    <v-toolbar-title>Items Details</v-toolbar-title>
+    <v-spacer></v-spacer>
+    <v-btn icon>
+        <v-icon>search</v-icon>
+    </v-btn>
+</v-toolbar>
+
+<v-card>
+    <v-container
+    fluid
+    grid-list-lg
+    class="infoBar"
+    >
+    <v-layout row wrap>
+        <media-info-folder></media-info-folder>
+        <media-info-file></media-info-file>
+        <media-info-file :item="files"></media-info-file>
+        <media-info-file></media-info-file>
+        <media-info-file></media-info-file>
+        <media-info-file></media-info-file>
+    </v-layout>
+</v-container>
+</v-card>
+</div>
 </v-navigation-drawer>
 </template>
 
 <script>
 import * as types from "./../../../store/mutation-types";
+import InfoFile from "@/components/Browser/InfoBar/InfoFile"
+import InfoFolder from "@/components/Browser/InfoBar/InfoFolder"
 
 export default {
     name: 'Details',
@@ -34,7 +59,8 @@ export default {
 
     },
     components:{
-
+        'media-info-file': InfoFile,
+        'media-info-folder': InfoFolder
     },
     computed: {
         rand : function() {
@@ -47,6 +73,14 @@ export default {
             set: function() {
                 // this.$store.commit(types.HIDE_INFOBAR);
             }
+        },
+        files: function() {
+            console.log('asas');
+            console.log(this.$store.getters.getSelectedDirectoryFiles);
+            return true;
+        },
+        folders: function() {
+            return true;
         }
     },
     methods:{
@@ -65,3 +99,13 @@ export default {
     }
 }
 </script>
+
+<style>
+#details{
+    user-select:text!important;
+}
+
+.infoBar{
+    padding: 10px!important;
+}
+</style>

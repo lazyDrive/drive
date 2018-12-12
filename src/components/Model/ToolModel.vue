@@ -7,7 +7,6 @@
         color="info"
         dark
         fixed
-        large
         @click="showToolModal()"
         >
         <v-icon>cloud_upload</v-icon>

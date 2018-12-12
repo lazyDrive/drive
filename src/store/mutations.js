@@ -25,6 +25,19 @@ export default {
     */
     [types.LOAD_CONTENTS_SUCCESS]: (state, payload) => {
         state.contents = payload;
+        state.isContentsLoaded = true;
+    },
+
+    /**
+    * The load more content success mutation
+    * @param state
+    * @param payload
+    */
+    [types.LOAD_MORE_CONTENTS_SUCCESS]: (state, payload) => {
+        payload.files.forEach(element => {
+            state.contents.files.push(element)
+        });
+        // state.contents.
     },
 
     /**
@@ -122,7 +135,8 @@ export default {
     * @param payload the item
     */
     [types.SELECT_BROWSER_ITEM]: (state, payload) => {
-        state.selectedItems.push(payload);
+        state.selectedItems.push(payload.id);
+        // state.selectedItems.details.push(payload);
     },
 
     /**
@@ -291,6 +305,14 @@ export default {
     */
     [types.SET_IS_LOADING]: (state, payload) => {
         state.isLoading = payload;
+    },
+
+    /**
+    * Set the is loading state
+    * @param state
+    */
+    [types.SET_IS_LOADING_MORE]: (state, payload) => {
+        state.loadMoreProgress = payload;
     },
 
     /**

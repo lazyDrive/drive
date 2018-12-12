@@ -43,6 +43,7 @@
 </template>
 
 <script>
+import * as types from "./../../store/mutation-types";
 
 export default {
     name:'media-content',
@@ -71,6 +72,28 @@ export default {
         quicks(){
             return this.$store.state.contents.quick;
         }
+    },
+    methods:{
+        onScroll: function() {
+            if ((window.innerHeight + window.scrollY) >= document.body.scrollHeight) {
+                if(this.$store.state.isContentsLoaded)
+                {
+                    this.$store.dispatch('loadMoreContents');
+                }
+            }
+            else {
+                this.$store.commit(types.SET_IS_LOADING_MORE, false);
+            }
+        }
+    },
+    created() {
+        window.addEventListener('scroll', this.onScroll);
+    },
+    destroyed() {
+        window.removeEventListener('scroll', this.onScroll);
+    },
+    mounted() {
+
     }
 }
 </script>
