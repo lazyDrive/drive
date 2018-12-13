@@ -10,7 +10,7 @@
 <a href="https://greenkeeper.io/"><img src="https://badges.greenkeeper.io/Anu1601CS/media-manager.svg" alt="Greenkeeper badge"></a>
 </p>
 
-<h2 align="center">Media-Manager</h2>
+<h2 align="center">Media Manager</h2>
 
 ## License
 
