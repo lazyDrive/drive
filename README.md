@@ -1,5 +1,5 @@
 <p align="center">
-<a href="http://github.com/anu1601cs/" target="_blank" rel="noopener noreferrer">
+<a href="http://github.com/anu1601cs/media-manager" target="_blank" rel="noopener noreferrer">
 <img width="100" src="public/img/icons/logo.png" alt="Media Manager logo">
 </a>
 </p>
