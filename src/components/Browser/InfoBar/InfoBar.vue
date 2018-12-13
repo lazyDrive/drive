@@ -15,12 +15,11 @@
     <v-toolbar
     dark
     >
-    <v-toolbar-side-icon @click.stop="hideInforbar()"></v-toolbar-side-icon>
+    <v-btn icon dark @click="hideInforbar()">
+        <v-icon>close</v-icon>
+    </v-btn>
     <v-toolbar-title>Items Details</v-toolbar-title>
     <v-spacer></v-spacer>
-    <v-btn icon>
-        <v-icon>search</v-icon>
-    </v-btn>
 </v-toolbar>
 
 <v-container
@@ -93,11 +92,11 @@ export default {
 
     },
     methods:{
-        about: function(a) {
-            console.log(a);
+        about: function() {
+            // console.log(a);
         },
-        settings: function(a) {
-            console.log(a);
+        settings: function() {
+            // console.log(a);
         },
         hideInforbar: function(){
             this.$store.commit(types.HIDE_INFOBAR);

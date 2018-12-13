@@ -166,13 +166,13 @@ export default {
 
     },
     methods :{
-        newFolder: function(a) {
+        newFolder: function() {
             this.$store.commit(types.SHOW_CREATE_FOLDER_MODAL);
-            console.log(a);
+            // console.log(a);
         },
-        settings: function(a) {
+        settings: function() {
             this.$store.commit(types.SHOW_SETTINGS);
-            console.log(a);
+            // console.log(a);
         },
         fire: function(a){
             this[a](a);

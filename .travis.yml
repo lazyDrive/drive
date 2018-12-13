@@ -7,5 +7,7 @@ before_install:
 - if [[ `npm -v` != 5* ]]; then npm install --unsafe-perm --verbose -g npm@5; fi
 install:
 - npm install
+script:
+- npm run test:e2e
 notifications:
   email: false
