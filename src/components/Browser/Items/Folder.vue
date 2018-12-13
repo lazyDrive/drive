@@ -61,7 +61,12 @@ export default {
                 this.$store.commit(types.UNSELECT_ALL_BROWSER_ITEMS);
             }
 
-            this.$store.commit(types.SELECT_BROWSER_ITEM, item);
+            if(this.selectedState)
+            {
+                this.$store.commit(types.UNSELECT_BROWSER_ITEM, item);
+            }else {
+                this.$store.commit(types.SELECT_BROWSER_ITEM, item);
+            }
         }
     }
 }

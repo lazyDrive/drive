@@ -87,7 +87,7 @@ app.get('/getContents',(req, res)=> {
 
     function dataFiles(imgUrl, imgLazyUrl) {
         this.imgUrl = imgUrl,
-        this.name = 'Image' + Math.floor((Math.random() * 100) + 1),
+        this.name = 'Image',
         this.imgLazyUrl = imgLazyUrl,
         this.id = Math.floor((Math.random() * 100000000) + 1),
         this.type = types[Math.floor((Math.random() * 3) + 0)],

@@ -6,10 +6,10 @@
             :class="`elevation-${hover || selectedState ? 12 : 2} ${selectedState ? 'selected' : 'unselected'}`"
             class="mx-auto"
             width="150"
-            height="140"
+            height="145"
             >
             <v-img
-            :aspect-ratio="16/9"
+            :aspect-ratio="16/10"
             :src="item.imgUrl"
             :lazy-src="item.imgLazyUrl"
             >
@@ -76,7 +76,12 @@ export default {
                 this.$store.commit(types.UNSELECT_ALL_BROWSER_ITEMS);
             }
 
-            this.$store.commit(types.SELECT_BROWSER_ITEM, item);
+            if(this.selectedState)
+            {
+                this.$store.commit(types.UNSELECT_BROWSER_ITEM, item);
+            }else {
+                this.$store.commit(types.SELECT_BROWSER_ITEM, item);
+            }
         }
     }
 }

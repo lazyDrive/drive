@@ -1,8 +1,8 @@
 <template>
     <div>
-        <v-card>
+        <v-card light>
             <v-img
-            aspect-ratio="2.75"
+            aspect-ratio="1.75"
             :src="item.imgUrl"
             :lazy-src="item.imgLazyUrl"
             ></v-img>

@@ -152,7 +152,7 @@ export default {
     [types.UNSELECT_BROWSER_ITEM]: (state, payload) => {
         const item = payload;
         state.selectedItems.splice(state.selectedItems.findIndex(
-            selectedItem => selectedItem.path === item.path
+            selectedItem => selectedItem.id === item.id
         ), 1);
     },
 

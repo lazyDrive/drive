@@ -1,6 +1,7 @@
 <template>
     <div>
-        <v-card>
+        <v-card light>
+            <v-icon size="100">folder</v-icon>
             <v-card-title primary-title>
                 <div>
                     <h3 class="headline mb-0">Kangaroo Valley Safari</h3>

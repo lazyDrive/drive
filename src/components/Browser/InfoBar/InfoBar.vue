@@ -30,9 +30,15 @@ class="infoBar"
 >
 <v-layout row wrap>
     <v-flex>
-        <media-info-file v-for="item in quick" :item="item" :key="item.id"></media-info-file>
-        <media-info-folder v-for="item in folders" :item="item" :key="item.id"></media-info-folder>
-        <media-info-file v-for="item in files" :item="item" :key="item.id"></media-info-file>
+        <div v-if="this.$store.state.selectedItems.length <= 0" >
+            <v-icon size="100">comment</v-icon>
+            <h3 class="plz-select headline mb-0">Select file or folder to view its details.</h3>
+        </div>
+        <div v-if="this.$store.state.selectedItems.length > 0" >
+            <media-info-file v-for="item in quick" :item="item" :key="item.id"></media-info-file>
+            <media-info-folder v-for="item in folders" :item="item" :key="item.id"></media-info-folder>
+            <media-info-file v-for="item in files" :item="item" :key="item.id"></media-info-file>
+        </div>
     </v-flex>
 </v-layout>
 </v-container>
@@ -72,17 +78,17 @@ export default {
         quick: function() {
             return this.$store.state.selectedItems.filter(
                 item => (item.type == 'quick')
-            );
+            ).reverse();
         },
         folders: function() {
             return this.$store.state.selectedItems.filter(
                 item => (item.type == 'folders')
-            );
+            ).reverse();
         },
         files: function() {
             return this.$store.state.selectedItems.filter(
                 item => (item.type == 'files')
-            );
+            ).reverse();
         }
 
     },
@@ -110,5 +116,8 @@ export default {
 
 .infoBar{
     padding: 10px!important;
+}
+.plz-select{
+    color: white!important;
 }
 </style>
