@@ -5,25 +5,24 @@ import Vuetify from 'vuetify'
 import router from './router'
 import store from './store/store'
 import './registerServiceWorker'
-import Alert from '@/components/Browser/Tool/Alert'
-import ConfirmDeleteModel from '@/components/Model/ConfirmDelete/ConfirmDeleteModel'
-import Content from '@/components/Browser/Content/Content'
-import CreateNewFolderModel from '@/components/Model/CreateFolder/CreateNewFolderModel'
-import InfoBar from '@/components/Browser/InfoBar/InfoBar'
-import File from '@/components/Browser/Items/File'
-import FileMenu from '@/components/Menu/FileMenu/FileMenu';
-import Folder from '@/components/Browser/Items/Folder'
-import FolderMenu from '@/components/Menu/FolderMenu/FolderMenu'
-import Navbar from '@/components/Browser/NavBar/NavBar'
-import OnlineState from '@/components/Browser/Tool/OnlineState'
-import ProgressBar from '@/components/Browser/Tool/ProgressBar'
-import UploadMenu from '@/components/Browser/UploadMenu/UploadMenu'
-import ToolModel from '@/components/Model/Tool/ToolModel'
-import RenameModel from '@/components/Model/Rename/RenameModel'
-import Model from '@/components/Model/Model'
-import Settings from '@/components/Browser/Settings/Settings'
 import Browser from '@/components/Browser/Browser'
+import Content from '@/components/Browser/Content/Content'
+import File from '@/components/Browser/Items/File'
+import InfoBar from '@/components/Browser/InfoBar/InfoBar'
+import Folder from '@/components/Browser/Items/Folder'
+import Navbar from '@/components/Browser/NavBar/NavBar'
+import QuickUpload from '@/components/Browser/QuickUpload/QuickUpload'
+import Settings from '@/components/Browser/Settings/Settings'
+import UploadMenu from '@/components/Browser/UploadMenu/UploadMenu'
+import Model from '@/components/Model/Model'
+import RenameModel from '@/components/Model/Rename/RenameModel'
+import ConfirmDeleteModel from '@/components/Model/ConfirmDelete/ConfirmDeleteModel'
+import CreateNewFolderModel from '@/components/Model/CreateFolder/CreateNewFolderModel'
 import Menu from '@/components/Menu/Menu';
+import FileMenu from '@/components/Menu/FileMenu/FileMenu';
+import FolderMenu from '@/components/Menu/FolderMenu/FolderMenu'
+import OnlineState from '@/components/Tool/OnlineState'
+import Alert from '@/components/Tool/Alert'
 
 import 'vuetify/dist/vuetify.min.css'
 import './styles/mediamanager.scss'
@@ -35,11 +34,10 @@ Vue.component('media-alert', Alert)
 Vue.component('media-file', File)
 Vue.component('media-folder', Folder)
 Vue.component('media-online-state', OnlineState)
-Vue.component('media-progress-bar', ProgressBar)
 Vue.component('media-content', Content)
 Vue.component('media-nav-bar', Navbar)
 Vue.component('media-infrobar', InfoBar)
-Vue.component('media-tool-model', ToolModel)
+Vue.component('media-quick-upload', QuickUpload)
 Vue.component('media-confirm-delete-model', ConfirmDeleteModel)
 Vue.component('media-create-folder-model', CreateNewFolderModel)
 Vue.component('media-rename-model', RenameModel)

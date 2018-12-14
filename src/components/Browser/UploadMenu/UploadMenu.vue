@@ -78,10 +78,10 @@ export default {
     z-index: 10;
     bottom: 20px;
     right: 20px;
-    width: 450px;
+    width: 420px;
 }
-.scroll-section{
-    max-height: 250px;
+.scroll-section {
+    max-height: 220px;
     overflow-y: scroll;
 }
 .progress{
@@ -90,7 +90,6 @@ export default {
     left: 0;
     right: 0;
     z-index: 0;
-    /* width: 90%; */
     background: linear-gradient(to right, white , #38b8e9);
     position: absolute!important;
 }

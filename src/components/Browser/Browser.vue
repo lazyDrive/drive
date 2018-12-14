@@ -7,15 +7,16 @@
         </div>
 
         <!-- media nav -->
-        <media-nav-bar
-        @tiggerSelectFile="selectFile"
-        ></media-nav-bar>
+        <media-nav-bar @tiggerSelectFile="selectFile" ></media-nav-bar>
 
         <!-- Media content -->
         <media-content></media-content>
 
         <!-- Media Upload Menu -->
         <media-upload-menu></media-upload-menu>
+
+        <!-- quick upload -->
+        <media-quick-upload @tiggerSelectFile="selectFile" ></media-quick-upload>
 
         <!-- Media settings -->
         <media-settings></media-settings>

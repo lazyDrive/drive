@@ -202,11 +202,9 @@ export default {
     * Show the folder menu
     * @param state
     */
-    [types.SHOW_FOLDER_MENU]: (state, payload) => {
+    [types.SHOW_FOLDER_MENU]: (state) => {
         var e = window.event;
         e.preventDefault()
-
-        console.log(payload)
 
         state.showFolderMenuX = e.clientX;
         state.showFolderMenuY = e.clientY;
@@ -216,9 +214,7 @@ export default {
     * Hide the folder menu
     * @param state
     */
-    [types.HIDE_FOLDER_MENU]: (state, payload) => {
-        console.log(payload)
-
+    [types.HIDE_FOLDER_MENU]: (state) => {
         state.showFolderMenu = false;
     },
 
@@ -226,11 +222,9 @@ export default {
     * Show the file menu
     * @param state
     */
-    [types.SHOW_FILE_MENU]: (state, payload) => {
+    [types.SHOW_FILE_MENU]: (state) => {
         var e = window.event;
         e.preventDefault()
-
-        console.log(payload)
 
         state.showFileMenuX = e.clientX;
         state.showFileMenuY = e.clientY;
@@ -240,9 +234,7 @@ export default {
     * Hide the file menu
     * @param state
     */
-    [types.HIDE_FILE_MENU]: (state, payload) => {
-        console.log(payload)
-
+    [types.HIDE_FILE_MENU]: (state) => {
         state.showFileMenu = false;
     },
 
