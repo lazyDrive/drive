@@ -12,7 +12,7 @@
         <v-icon>cloud_upload</v-icon>
     </v-btn>
 
-    <v-dialog v-model="this.$store.state.showToolModal" persistent width="500px">
+    <v-dialog v-model="dialog" persistent width="500px">
         <v-card>
             <v-card-title class="grey lighten-4 py-4 title"> Upload</v-card-title>
 

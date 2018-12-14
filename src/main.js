@@ -17,6 +17,7 @@ import FolderMenu from '@/components/Menu/FolderMenu/FolderMenu'
 import Navbar from '@/components/Browser/NavBar/NavBar'
 import OnlineState from '@/components/Browser/Tool/OnlineState'
 import ProgressBar from '@/components/Browser/Tool/ProgressBar'
+import UploadMenu from '@/components/Browser/UploadMenu/UploadMenu'
 import ToolModel from '@/components/Model/Tool/ToolModel'
 import RenameModel from '@/components/Model/Rename/RenameModel'
 import Model from '@/components/Model/Model'
@@ -48,6 +49,7 @@ Vue.component('media-folder-menu', FolderMenu)
 Vue.component('media-browser', Browser)
 Vue.component('media-model', Model)
 Vue.component('media-menu', Menu)
+Vue.component('media-upload-menu', UploadMenu)
 
 // Register MediaManager namespace
 window.MediaManager = window.MediaManager || {};

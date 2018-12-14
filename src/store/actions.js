@@ -68,6 +68,7 @@ export const upload = (context, payload) => {
 		console.log(response)
 		// context.commit(types.LOAD_MORE_CONTENTS_SUCCESS, response.data.file)
 		// context.commit(types.SET_IS_LOADING_MORE, { value: false, per: 0})
+		console.log(response)
 		context.commit(types.SET_IS_LOADING, false)
 
 		var data = {

@@ -5,7 +5,7 @@
                 <input multiple type="file" hidden ref="inputFile" @change="processFile"/>
             </form>
         </div>
-        
+
         <!-- media nav -->
         <media-nav-bar
         @tiggerSelectFile="selectFile"
@@ -13,6 +13,9 @@
 
         <!-- Media content -->
         <media-content></media-content>
+
+        <!-- Media Upload Menu -->
+        <media-upload-menu></media-upload-menu>
 
         <!-- Media settings -->
         <media-settings></media-settings>
