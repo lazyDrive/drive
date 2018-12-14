@@ -1,25 +1,28 @@
 import Vue from 'vue'
 import App from './App.vue'
-import Event from './app/Event';
+import Event from './app/Event'
 import Vuetify from 'vuetify'
 import router from './router'
 import store from './store/store'
 import './registerServiceWorker'
 import Alert from '@/components/Browser/Tool/Alert'
-import ConfirmDeleteModel from '@/components/Model/ConfirmDeleteModel'
-import Content from '@/components/Browser/Content'
-import CreateNewFolderModel from '@/components/Model/CreateNewFolderModel'
+import ConfirmDeleteModel from '@/components/Model/ConfirmDelete/ConfirmDeleteModel'
+import Content from '@/components/Browser/Content/Content'
+import CreateNewFolderModel from '@/components/Model/CreateFolder/CreateNewFolderModel'
 import InfoBar from '@/components/Browser/InfoBar/InfoBar'
 import File from '@/components/Browser/Items/File'
-import FileMenu from '@/components/Menu/FileMenu';
+import FileMenu from '@/components/Menu/FileMenu/FileMenu';
 import Folder from '@/components/Browser/Items/Folder'
-import FolderMenu from '@/components/Menu/FolderMenu';
-import Navbar from '@/components/Browser/NavBar'
+import FolderMenu from '@/components/Menu/FolderMenu/FolderMenu'
+import Navbar from '@/components/Browser/NavBar/NavBar'
 import OnlineState from '@/components/Browser/Tool/OnlineState'
 import ProgressBar from '@/components/Browser/Tool/ProgressBar'
-import ToolModel from '@/components/Model/ToolModel'
-import RenameModel from '@/components/Model/RenameModel'
-import Settings from '@/components/Browser/Settings';
+import ToolModel from '@/components/Model/Tool/ToolModel'
+import RenameModel from '@/components/Model/Rename/RenameModel'
+import Model from '@/components/Model/Model'
+import Settings from '@/components/Browser/Settings/Settings'
+import Browser from '@/components/Browser/Browser'
+import Menu from '@/components/Menu/Menu';
 
 import 'vuetify/dist/vuetify.min.css'
 import './styles/mediamanager.scss'
@@ -42,6 +45,9 @@ Vue.component('media-rename-model', RenameModel)
 Vue.component('media-settings', Settings)
 Vue.component('media-file-menu', FileMenu)
 Vue.component('media-folder-menu', FolderMenu)
+Vue.component('media-browser', Browser)
+Vue.component('media-model', Model)
+Vue.component('media-menu', Menu)
 
 // Register MediaManager namespace
 window.MediaManager = window.MediaManager || {};

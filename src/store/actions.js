@@ -51,6 +51,48 @@ export const getContents = (context, payload) => {
 }
 
 /**
+* Create a new folder
+* @param commit
+* @param payload object with the new folder name and its parent directory
+*/
+export const upload = (context, payload) => {
+
+	context.commit(types.SET_IS_LOADING, true)
+	context.commit(types.SHOW_TOOL_MODAL, true)
+
+	axios
+	.post('upload', payload, {
+			onUploadProgress: e => context.commit(types.SET_IS_LOADING_MORE, { value: true, per: Math.round(e.loaded * 100 / e.total)})
+	})
+	.then(response => {
+		console.log(response)
+		// context.commit(types.LOAD_MORE_CONTENTS_SUCCESS, response.data.file)
+		// context.commit(types.SET_IS_LOADING_MORE, { value: false, per: 0})
+		context.commit(types.SET_IS_LOADING, false)
+
+		var data = {
+			'data': response.data.text,
+			'color': response.data.message
+		}
+
+		context.commit(types.SHOW_SNACKBAR, data)
+	})
+	.catch(error => {
+		if(payload)
+		{
+			console.log(error)
+		}
+
+		var data = {
+			'data': '500 (Internal Server Error)',
+			'color': 'error'
+		}
+		context.commit(types.SHOW_SNACKBAR, data)
+
+	})
+}
+
+/**
 * Get contents of a directory from the api
 * @param commit
 * @param payload

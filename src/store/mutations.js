@@ -308,7 +308,8 @@ export default {
     * @param state
     */
     [types.SET_IS_LOADING_MORE]: (state, payload) => {
-        state.loadMoreProgress = payload;
+        state.loadMoreProgress = payload.value;
+        state.loadingValue = payload.per;
     },
 
     /**

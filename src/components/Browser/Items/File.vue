@@ -1,5 +1,5 @@
 <template>
-    <div class="file" @click="select(this, item)" @contextmenu="show(this, item.id)" :item-data="item.id" id="media-file">
+    <div class="file" @click="select(this, item)" @contextmenu="show($event, item.id)" :item-data="item.id" id="media-file">
         <v-hover>
             <v-card
             slot-scope="{ hover }"
@@ -72,7 +72,7 @@ export default {
             e = e || window.event;
             e.preventDefault()
 
-            if (!(event.shiftKey || event.ctrlKey )) {
+            if (!(e.shiftKey || e.ctrlKey )) {
                 this.$store.commit(types.UNSELECT_ALL_BROWSER_ITEMS);
             }
 

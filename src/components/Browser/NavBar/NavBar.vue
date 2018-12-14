@@ -41,7 +41,7 @@
             <v-list-tile
             v-for="(child, i) in item.children"
             :key="i"
-            @click="1"
+            @click="fire(child.link)"
             >
             <v-list-tile-action v-if="child.icon">
                 <v-icon>{{ child.icon }}</v-icon>
@@ -115,7 +115,7 @@ overlap
 </template>
 
 <script>
-import * as types from "./../../store/mutation-types";
+import * as types from "./../../../store/mutation-types";
 /* eslint-disable */
 export default {
     name: 'media-navbar',
@@ -132,8 +132,8 @@ export default {
                 text: 'Upload',
                 model: true,
                 children: [
-                    { icon: 'upload_file', text: 'File upload' },
-                    { icon: 'upload_file', text: 'Folder upload' },
+                    { icon: 'upload_file', text: 'File upload', link: 'fileUpload' },
+                    { icon: 'upload_file', text: 'Folder upload', link: 'folderUpload' },
                 ]
             },
             { icon: 'query_builder', text: 'Recents' , link: 'about'},
@@ -145,9 +145,9 @@ export default {
                 text: 'More',
                 model: false,
                 children: [
-                    { text: 'Import' },
-                    { text: 'Export' },
-                    { text: 'Print' }
+                    { text: 'Import', link: 'export' },
+                    { text: 'Export', link: 'export' },
+                    { text: 'Print', link: 'export' }
                 ]
             },
             { icon: 'settings', text: 'Settings', link: 'settings' },
@@ -172,7 +172,12 @@ export default {
         },
         settings: function() {
             this.$store.commit(types.SHOW_SETTINGS);
+            // console.log('emit')
             // console.log(a);
+        },
+        fileUpload: function(){
+            // console.log('event fired')
+            this.$emit('tiggerSelectFile')
         },
         fire: function(a){
             this[a](a);

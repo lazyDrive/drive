@@ -2,8 +2,13 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const cors = require('cors');
 const morgan = require('morgan');
+const multer = require('multer');
 
 const app = express();
+
+const upload = multer({
+    dest: './uploads/'
+})
 
 app.use(morgan('combine'))
 app.use(bodyParser.json())
@@ -14,6 +19,11 @@ app.get('/',(req, res)=>{
         message:'Home'
     })
 })
+
+app.post('/upload', upload.array('files'), (req, res) => {
+    res.json({ files: req.files , message: 'success', text: 'File has been uploaded.'})
+})
+
 
 app.get('/loadMoreContents',(req, res)=> {
 

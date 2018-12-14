@@ -17,23 +17,32 @@
             <v-card-title class="grey lighten-4 py-4 title"> Upload</v-card-title>
 
             <v-container grid-list-sm class="pa-4">
-                <!-- dialog content -->
-            </v-container>
+                <v-progress-circular
+                :rotate="-90"
+                :size="100"
+                :width="15"
+                :value="this.$store.state.loadingValue"
+                color="primary"
+                >
+                {{ this.$store.state.loadingValue }}
+            </v-progress-circular>
+            <!-- dialog content -->
+        </v-container>
 
-            <v-card-actions>
-                <v-spacer></v-spacer>
-                <v-btn flat color="error" @click="hideToolModal()">Close</v-btn>
-                <v-btn color="success" @click="hideToolModal()">Done</v-btn>
-                <v-spacer></v-spacer>
-            </v-card-actions>
-        </v-card>
-    </v-dialog>
+        <v-card-actions>
+            <v-spacer></v-spacer>
+            <v-btn flat color="error" @click="hideToolModal()">Close</v-btn>
+            <v-btn color="success" @click="hideToolModal()">Done</v-btn>
+            <v-spacer></v-spacer>
+        </v-card-actions>
+    </v-card>
+</v-dialog>
 
 </div>
 </template>
 
 <script>
-import * as types from "./../../store/mutation-types";
+import * as types from "./../../../store/mutation-types";
 
 export default {
     name: 'media-tool',

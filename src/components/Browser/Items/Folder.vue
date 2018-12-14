@@ -1,5 +1,5 @@
 <template>
-    <div class="text-xs-center folder" @click="select(this, item)" @contextmenu="show(this, item.id)" id="media-folder" >
+    <div class="text-xs-center folder" @click="select($event, item)" @contextmenu="show(this, item.id)" id="media-folder" >
         <v-tooltip top>
             <v-chip
             :class="`${selectedState ? 50 : 2} ${selectedState ? 'selected' : 'unselected'}`"
@@ -57,7 +57,7 @@ export default {
             e = e || window.event;
             e.preventDefault()
 
-            if (!(event.shiftKey || event.ctrlKey )) {
+            if (!(e.shiftKey || e.ctrlKey )) {
                 this.$store.commit(types.UNSELECT_ALL_BROWSER_ITEMS);
             }
 
@@ -91,6 +91,6 @@ export default {
     color: black!important;
 }
 .selected{
-    background-color: #e8f0fe!important;
+    background-color: #73aef5!important;
 }
 </style>
