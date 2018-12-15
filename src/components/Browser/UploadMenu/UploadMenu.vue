@@ -1,5 +1,5 @@
 <template>
-    <div class="media-upload-menu" v-if="this.$store.state.loadMoreProgress">
+    <div class="media-upload-menu" v-if="0">
         <v-card class="elevation-12 upload-section"
         >
         <v-toolbar dark>
@@ -71,42 +71,3 @@ export default {
     })
 }
 </script>
-
-<style>
-.upload-section {
-    position: fixed!important;
-    z-index: 10;
-    bottom: 20px;
-    right: 20px;
-    width: 420px;
-}
-.scroll-section {
-    max-height: 220px;
-    overflow-y: scroll;
-}
-.progress{
-    top:0;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    z-index: 0;
-    background: linear-gradient(to right, white , #38b8e9);
-    position: absolute!important;
-}
-
-.progress .pgoing{
-    background: linear-gradient(to right, white , #38b8e9);
-}
-
-.progress .--error{
-    background: linear-gradient(to right, white , #ff5252);
-}
-
-.progress .--success{
-    background: linear-gradient(to right, white , #4caf50);
-}
-
-.progress .--paused{
-    background: linear-gradient(to right, white , #ffc107);
-}
-</style>

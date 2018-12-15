@@ -95,25 +95,3 @@ export default {
     }
 }
 </script>
-
-<style>
-
-.folder{
-    margin: 10px 12px;
-}
-
-.chip-size{
-    padding: 3px 19px;
-}
-
-.chip-size .v-chip__content{
-    cursor: pointer!important;
-}
-
-.folder-text{
-    font-size: 15px;
-    padding: 0 16px!important;
-    text-align: center!important;
-}
-
-</style>

@@ -9,41 +9,52 @@
             </v-breadcrumbs>
             <div class="media-toolbar"></div>
 
-            <div id="media-items" ref="browserItems">
-                <v-layout row wrap class="section" v-if="this.$store.state.contents.length > 0">
-                    <span class="media-section-title"><strong>Recents & Quick Access</strong></span>
-                </v-layout>
-                <v-layout row wrap>
-                    <media-file v-for="item in quick" :item="item" :key="item.id" ></media-file>
-                </v-layout>
-
-                <v-layout row wrap class="section" v-if="this.$store.state.contents.length > 0">
-                    <span class="media-section-title"><strong>Folders</strong></span>
-                </v-layout>
-                <v-layout row wrap>
-                    <media-folder v-for="item in folders" :item="item" :key="item.id" ></media-folder>
-                </v-layout>
-
-                <v-layout row wrap class="section" v-if="this.$store.state.contents.length > 0">
-                    <span class="media-section-title"><strong>Files</strong></span>
-                </v-layout>
-                <v-layout row wrap>
-                    <media-file v-for="item in files" :item="item" :key="item.id" ></media-file>
-                </v-layout>
+            <div id="media-items"
+            @dragenter="onDragEnter"
+            @drop="onDrop"
+            @dragover="onDragOver"
+            @dragleave="onDragLeave"
+            ref="browserItems"
+            >
+            <div class="media-dragoutline">
+                <v-icon size="200">cloud_upload</v-icon>
+                <p>Drop file(s) to Upload</p>
             </div>
 
-            <v-progress-circular
-            :size="50"
-            color="primary"
-            indeterminate
-            v-if="this.$store.state.loadMoreProgress"
-            ></v-progress-circular>
+            <v-layout row wrap class="m-section" v-if="this.$store.state.contents.length > 0">
+                <span class="media-section-title"><strong>Recents & Quick Access</strong></span>
+            </v-layout>
+            <v-layout row wrap>
+                <media-file v-for="item in quick" :item="item" :key="item.id" ></media-file>
+            </v-layout>
 
-        </v-container>
+            <v-layout row wrap class="m-section" v-if="this.$store.state.contents.length > 0">
+                <span class="media-section-title"><strong>Folders</strong></span>
+            </v-layout>
+            <v-layout row wrap>
+                <media-folder v-for="item in folders" :item="item" :key="item.id" ></media-folder>
+            </v-layout>
 
-        <!-- Add infrobar -->
-        <media-infrobar ref="infobar"></media-infrobar>
-    </v-content>
+            <v-layout row wrap class="m-section" v-if="this.$store.state.contents.length > 0">
+                <span class="media-section-title"><strong>Files</strong></span>
+            </v-layout>
+            <v-layout row wrap>
+                <media-file v-for="item in files" :item="item" :key="item.id" ></media-file>
+            </v-layout>
+        </div>
+
+        <v-progress-circular
+        :size="50"
+        color="primary"
+        indeterminate
+        v-if="this.$store.state.loadMoreProgress"
+        ></v-progress-circular>
+
+    </v-container>
+
+    <!-- Add infrobar -->
+    <media-infrobar ref="infobar"></media-infrobar>
+</v-content>
 </template>
 
 <script>
@@ -103,7 +114,64 @@ export default {
             if (clickedOutside) {
                 this.$store.commit(types.UNSELECT_ALL_BROWSER_ITEMS);
             }
-        }
+        },
+        // Listeners for drag and drop
+        onDragEnter(event) {
+            event.stopPropagation();
+            return false;
+        },
+
+        // Notify user when file is over the drop area
+        onDragOver(event) {
+            event.preventDefault();
+            document.querySelector('.media-dragoutline').classList.add('active');
+            return false;
+        },
+
+        /* Upload files */
+        upload(file) {
+            // Create a new file reader instance
+            let reader = new FileReader();
+
+            // Add the on load callback
+            reader.onload = (progressEvent) => {
+                const result = progressEvent.target.result,
+                splitIndex = result.indexOf('base64') + 7,
+                content = result.slice(splitIndex, result.length);
+
+                console.log(content)
+                const formData = new FormData()
+                formData.append('files', file);
+                this.$store.dispatch('upload', formData);
+            };
+
+            reader.readAsDataURL(file);
+        },
+
+        // Logic for the dropped file
+        onDrop(event) {
+            event.preventDefault();
+
+            // Loop through array of files and upload each file
+            if (event.dataTransfer && event.dataTransfer.files && event.dataTransfer.files.length > 0) {
+
+                for( var i = 0; i < event.dataTransfer.files.length; i++ ){
+                    let file = event.dataTransfer.files[i];
+                    document.querySelector('.media-dragoutline').classList.remove('active');
+                    this.upload(file);
+                }
+            }
+
+            document.querySelector('.media-dragoutline').classList.remove('active');
+        },
+
+        // Reset the drop area border
+        onDragLeave(event) {
+            event.stopPropagation();
+            event.preventDefault();
+            document.querySelector('.media-dragoutline').classList.remove('active');
+            return false;
+        },
     },
     created() {
         window.addEventListener('scroll', this.onScroll);
@@ -118,9 +186,3 @@ export default {
     }
 }
 </script>
-
-<style>
-.section {
-    padding-top:10px;
-}
-</style>

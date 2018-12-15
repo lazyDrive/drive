@@ -86,10 +86,3 @@ export default {
     }
 }
 </script>
-
-<style>
-.file {
-    margin: 15px 0 15px 10px;
-    cursor: pointer;
-}
-</style>

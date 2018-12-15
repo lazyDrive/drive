@@ -184,9 +184,3 @@ export default {
     }
 }
 </script>
-
-<style>
-.v-toolbar__title{
-    text-align: left!important;
-}
-</style>

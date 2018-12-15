@@ -65,7 +65,6 @@ export const upload = (context, payload) => {
 			onUploadProgress: e => context.commit(types.SET_IS_LOADING_MORE, { value: true, per: Math.round(e.loaded * 100 / e.total)})
 	})
 	.then(response => {
-		console.log(response)
 		// context.commit(types.LOAD_MORE_CONTENTS_SUCCESS, response.data.file)
 		// context.commit(types.SET_IS_LOADING_MORE, { value: false, per: 0})
 		console.log(response)

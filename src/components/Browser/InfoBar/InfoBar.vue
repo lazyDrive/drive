@@ -8,7 +8,7 @@
     :stateless="true"
     >
     <div
-    id="details"
+    class="m-d"
     style="max-width: 400px; margin: auto;"
     >
     <v-toolbar
@@ -99,15 +99,3 @@ export default {
     }
 }
 </script>
-
-<style>
-#details{
-    user-select:text!important;
-}
-.infoBar{
-    padding: 10px!important;
-}
-.m-d-title{
-    color: white!important;
-}
-</style>

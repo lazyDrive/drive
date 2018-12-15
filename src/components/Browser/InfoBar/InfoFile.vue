@@ -81,16 +81,3 @@ export default {
     }
 }
 </script>
-
-<style>
-.m-d-info{
-    padding: 10px 20px;
-}
-.m-d-td{
-    padding: 5px 20px 5px 0;
-    text-align: left;
-}
-.m-d-sep{
-
-}
-</style>
