@@ -5,6 +5,7 @@ import Vuetify from 'vuetify'
 import router from './router'
 import store from './store/store'
 import './registerServiceWorker'
+import VueAnalytics from 'vue-analytics'
 import Browser from '@/components/Browser/Browser'
 import Content from '@/components/Browser/Content/Content'
 import File from '@/components/Browser/Items/File'
@@ -28,6 +29,10 @@ import 'vuetify/dist/vuetify.min.css'
 import './styles/mediamanager.scss'
 
 Vue.use(Vuetify)
+Vue.use(VueAnalytics, {
+    id: 'UA-131081167-1',
+    router
+})
 
 // Load components
 Vue.component('media-alert', Alert)

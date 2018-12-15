@@ -133,7 +133,7 @@ export default {
                 model: true,
                 children: [
                     { icon: 'upload_file', text: 'File upload', link: 'fileUpload' },
-                    { icon: 'upload_file', text: 'Folder upload', link: 'folderUpload' },
+                    { icon: 'folder', text: 'Folder upload', link: 'folderUpload' },
                 ]
             },
             { icon: 'query_builder', text: 'Recents' , link: 'about'},

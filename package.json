@@ -10,21 +10,19 @@
     "deploy": "node ./node_modules/vue-gh-pages/index.js"
   },
   "dependencies": {
-    "@uppy/core": "^0.29.0",
-    "@uppy/dashboard": "^0.29.0",
-    "@uppy/tus": "^0.29.0",
     "axios": "^0.18.0",
     "babel-polyfill": "^6.26.0",
     "material-design-icons-iconfont": "^4.0.3",
     "register-service-worker": "^1.5.2",
-    "vue": "^2.5.17",
+    "vue": "^2.5.21",
+    "vue-analytics": "^5.16.1",
     "vue-gh-pages": "^1.19.0",
     "vue-router": "^3.0.1",
-    "vuetify": "^1.3.11",
+    "vuetify": "^1.3.14",
     "vuex": "^3.0.1"
   },
   "devDependencies": {
-    "@babel/preset-env": "^7.1.6",
+    "@babel/preset-env": "^7.2.0",
     "@vue/cli-plugin-babel": "^3.2.0",
     "@vue/cli-plugin-e2e-cypress": "^3.2.0",
     "@vue/cli-plugin-eslint": "^3.2.1",
@@ -32,14 +30,14 @@
     "@vue/cli-service": "^3.2.0",
     "babel-eslint": "^10.0.1",
     "cypress": "^3.1.3",
-    "eslint": "^5.8.0",
-    "eslint-plugin-vue": "^5.0.0-0",
+    "eslint": "^5.10.0",
+    "eslint-plugin-vue": "^5.0.0",
     "less": "^3.0.4",
     "less-loader": "^4.1.0",
     "node-sass": "^4.11.0",
     "sass-loader": "^7.1.0",
     "vue-cli-plugin-vuetify": "^0.4.6",
-    "vue-template-compiler": "^2.5.17"
+    "vue-template-compiler": "^2.5.21"
   },
   "description": "<p align=\"center\"><a href=\"http://github.com/anu1601cs/\" target=\"_blank\" rel=\"noopener noreferrer\"><img width=\"100\" src=\"https://vuejs.org/images/logo.png\" alt=\"Vue logo\"></a></p>",
   "main": "index.html",
