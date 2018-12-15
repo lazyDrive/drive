@@ -1,33 +1,66 @@
 <template>
-    <div>
-        <v-card light>
-            <v-img
-            aspect-ratio="1.75"
-            :src="item.imgUrl"
-            :lazy-src="item.imgLazyUrl"
-            ></v-img>
-            <v-layout
-            slot="placeholder"
-            fill-height
-            align-center
-            justify-center
-            ma-0
-            >
-            <v-progress-circular indeterminate color="grey lighten-5"></v-progress-circular>
-        </v-layout>
+    <div class="m-d-img" id="media-info-file">
+        <v-img
+        aspect-ratio="1.75"
+        :src="item.imgUrl"
+        :lazy-src="item.imgLazyUrl"
+        ></v-img>
+        <v-layout
+        slot="placeholder"
+        fill-height
+        align-center
+        justify-center
+        ma-0
+        >
+    </v-layout>
 
-        <v-card-title primary-title>
-            <div>
-                <h3 class="headline mb-0">{{item.name}}</h3>
-                <div>Located two hours south of Sydney in the <br>Southern Highlands of New South Wales, ...</div>
-            </div>
-        </v-card-title>
+    <br>
+    <div class="m-d-details">
+        <h3 class="headline mb-0">{{item.name}}</h3>
+        <div>Located two hours south of Sydney in the <br>Southern Highlands of New South Wales, ...</div>
+    </div>
 
-        <v-card-actions>
-            <v-btn flat color="orange">Share</v-btn>
-            <v-btn flat color="orange">Explore</v-btn>
-        </v-card-actions>
-    </v-card>
+    <div class="m-d-info">
+        <table>
+            <tr>
+                <td class="m-d-td">Type</td>
+                <td class="m-d-td"><strong>{{ item.type }}</strong></td>
+            </tr>
+            <tr>
+                <td class="m-d-td">February</td>
+                <td class="m-d-td"><strong>Anurag Kumar</strong></td>
+            </tr>
+            <tr>
+                <td class="m-d-td">January</td>
+                <td class="m-d-td"><strong>$10011111111112323</strong></td>
+            </tr>
+            <tr>
+                <td class="m-d-td">February</td>
+                <td class="m-d-td"><strong>Anurag Kumar</strong></td>
+            </tr>
+            <tr>
+                <td class="m-d-td">January</td>
+                <td class="m-d-td"><strong>$10011111111112323</strong></td>
+            </tr>
+            <tr>
+                <td class="m-d-td">February</td>
+                <td class="m-d-td"><strong>Anurag Kumar</strong></td>
+            </tr>
+            <tr>
+                <td class="m-d-td">January</td>
+                <td class="m-d-td"><strong>$10011111111112323</strong></td>
+            </tr>
+            <tr>
+                <td class="m-d-td">February</td>
+                <td class="m-d-td"><strong>Anurag Kumar</strong></td>
+            </tr>
+        </table>
+    </div>
+
+    <v-btn flat color="success">Share</v-btn>
+    <v-btn flat color="success">Explore</v-btn>
+    <br>
+    <hr>
     <br>
 </div>
 </template>
@@ -48,3 +81,16 @@ export default {
     }
 }
 </script>
+
+<style>
+.m-d-info{
+    padding: 10px 20px;
+}
+.m-d-td{
+    padding: 5px 20px 5px 0;
+    text-align: left;
+}
+.m-d-sep{
+
+}
+</style>

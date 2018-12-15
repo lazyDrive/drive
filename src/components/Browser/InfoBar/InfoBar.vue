@@ -3,9 +3,8 @@
     v-model="menuState"
     right
     app
-    width="334"
+    width="333"
     fixed
-    dark
     :stateless="true"
     >
     <div
@@ -13,13 +12,12 @@
     style="max-width: 400px; margin: auto;"
     >
     <v-toolbar
-    dark
+    color="blue darken-3"
     >
     <v-btn icon dark @click="hideInforbar()">
         <v-icon>close</v-icon>
     </v-btn>
-    <v-toolbar-title>Items Details</v-toolbar-title>
-    <v-spacer></v-spacer>
+    <v-toolbar-title class="m-d-title">Items Details</v-toolbar-title>
 </v-toolbar>
 
 <v-container
@@ -51,21 +49,15 @@ import InfoFile from "@/components/Browser/InfoBar/InfoFile"
 import InfoFolder from "@/components/Browser/InfoBar/InfoFolder"
 
 export default {
-    name: 'Details',
+    name: 'media-infoBar',
     data: () => ({
         right: true
     }),
-    props: {
-
-    },
     components:{
         'media-info-file': InfoFile,
         'media-info-folder': InfoFolder
     },
     computed: {
-        rand : function() {
-            return Math.floor((Math.random() * 100000000) + 1);
-        },
         menuState: {
             get: function() {
                 return this.$store.state.showInfoBar;
@@ -93,10 +85,10 @@ export default {
     },
     methods:{
         about: function() {
-            // console.log(a);
+
         },
         settings: function() {
-            // console.log(a);
+
         },
         hideInforbar: function(){
             this.$store.commit(types.HIDE_INFOBAR);
@@ -112,11 +104,10 @@ export default {
 #details{
     user-select:text!important;
 }
-
 .infoBar{
     padding: 10px!important;
 }
-.plz-select{
+.m-d-title{
     color: white!important;
 }
 </style>
