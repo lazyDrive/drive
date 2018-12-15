@@ -5,9 +5,7 @@
             :class="`${selectedState ? 50 : 2} ${selectedState ? 'selected' : 'unselected'}`"
             v-bind:color="item.color" text-color="white" width="100px" class="chip-size" slot="activator">
                 <v-avatar :class="`${selectedState ? 50 : 2} ${selectedState ? 'selected-file' : 'unselected'}`">
-                    <v-icon class="chip-folder"
-
-                    >folder</v-icon>
+                    <v-icon class="chip-folder">folder</v-icon>
                 </v-avatar >
                 <span :class="`${selectedState ? 50 : 2} ${selectedState ? 'selected-file' : 'unselected'}`">{{ item.name }}</span>
             </v-chip>

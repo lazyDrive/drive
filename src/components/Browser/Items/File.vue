@@ -72,7 +72,7 @@ export default {
             e = e || window.event;
             e.preventDefault()
 
-            if (!(e.shiftKey || e.ctrlKey )) {
+            if (!(e.shiftKey || e.ctrlKey) || (item.type == 'quick')) {
                 this.$store.commit(types.UNSELECT_ALL_BROWSER_ITEMS);
             }
 

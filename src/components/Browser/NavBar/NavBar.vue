@@ -168,16 +168,15 @@ export default {
     methods :{
         newFolder: function() {
             this.$store.commit(types.SHOW_CREATE_FOLDER_MODAL);
-            // console.log(a);
         },
         settings: function() {
             this.$store.commit(types.SHOW_SETTINGS);
-            // console.log('emit')
-            // console.log(a);
+        },
+        folderUpload: function(){
+            this.$emit('tiggerSelectFolder');
         },
         fileUpload: function(){
-            // console.log('event fired')
-            this.$emit('tiggerSelectFile')
+            this.$emit('tiggerSelectFile');
         },
         fire: function(a){
             this[a](a);
@@ -189,9 +188,5 @@ export default {
 <style>
 .v-toolbar__title{
     text-align: left!important;
-}
-
-.section{
-    /* padding: 20px 10px; */
 }
 </style>
