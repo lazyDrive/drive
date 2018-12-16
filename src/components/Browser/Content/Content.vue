@@ -4,9 +4,11 @@
             <div class="media-toolbar">
                 <div class="media-loader" v-if="this.$store.state.isLoading"></div>
             </div>
+
             <v-breadcrumbs :items="items">
                 <v-icon slot="divider">chevron_right</v-icon>
             </v-breadcrumbs>
+
             <div class="media-toolbar"></div>
 
             <div id="media-items"

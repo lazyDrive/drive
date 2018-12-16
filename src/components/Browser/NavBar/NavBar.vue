@@ -94,18 +94,11 @@ class="hidden-sm-and-down"
 ></v-text-field>
 <v-spacer></v-spacer>
 
-<v-badge
-color="cyan"
-left
-overlap
->
-<!-- <span slot="badge" >6</span> -->
 <v-btn icon>
     <v-icon
     large
     >notifications</v-icon>
 </v-btn>
-</v-badge>
 
 <v-btn icon large>
     <v-avatar size="32px" tile>

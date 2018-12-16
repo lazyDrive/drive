@@ -3,16 +3,28 @@ const bodyParser = require('body-parser');
 const cors = require('cors');
 const morgan = require('morgan');
 const multer = require('multer');
+const routes = require('./routes/router');
+const mongoose = require('mongoose');
 
 const app = express();
 
-const upload = multer({
-    dest: './uploads/'
-})
+// Connect to mongodb
+mongoose.connect('mongodb://localhost/ninjago', { useNewUrlParser: true });
+mongoose.Promise = global.Promise;
 
 app.use(morgan('combine'))
 app.use(bodyParser.json())
 app.use(cors())
+app.use('/api', routes)
+
+
+app.use((err, req, res, next) => {
+    res.status(422).send(({ error: err.message }));
+});
+
+const upload = multer({
+    dest: './uploads/'
+})
 
 app.get('/',(req, res)=>{
     res.send({
