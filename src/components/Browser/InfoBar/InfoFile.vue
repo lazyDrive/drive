@@ -57,8 +57,8 @@
         </table>
     </div>
 
+    <v-btn flat color="success">Copy Details</v-btn>
     <v-btn flat color="success">Share</v-btn>
-    <v-btn flat color="success">Explore</v-btn>
     <br>
     <div class="media-toolbar"></div>
     <br>

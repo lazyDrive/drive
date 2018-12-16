@@ -44,8 +44,8 @@
             </table>
         </div>
 
+        <v-btn flat color="orange">Copy Details</v-btn>
         <v-btn flat color="orange">Share</v-btn>
-        <v-btn flat color="orange">Explore</v-btn>
         <br>
         <div class="media-toolbar"></div>
         <br>

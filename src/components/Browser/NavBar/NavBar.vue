@@ -110,8 +110,8 @@ overlap
 <v-btn icon large>
     <v-avatar size="32px" tile>
         <img
-        src="https://cdn.vuetifyjs.com/images/logos/logo.svg"
-        alt="Media Manager"
+        src="./../../../assets/profile.png"
+        alt="Profile Image"
         >
     </v-avatar>
 </v-btn>

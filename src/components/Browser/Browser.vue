@@ -12,7 +12,6 @@
                 </form>
             </div>
         </div>
-
         <!-- media nav -->
         <media-nav-bar @tiggerSelectFile="selectFile" @tiggerSelectFolder="selectFolder"></media-nav-bar>
 
