@@ -2,29 +2,33 @@
     <div class="media-upload-menu" v-if="0">
         <v-card class="elevation-12 upload-section"
         >
-        <v-toolbar dark>
-            <v-toolbar-title>Uploading</v-toolbar-title>
+        <v-toolbar
+        height="50px"
+        dark
+        >
+        <strong>Uploading</strong>
             <v-spacer></v-spacer>
-            <v-btn dark icon>
+            <v-btn small dark icon>
                 <v-icon>add</v-icon>
             </v-btn>
-            <v-btn dark icon>
-                <v-icon>expand_less</v-icon>
+            <v-btn small dark icon>
+                <v-icon v-if="!expand" @click="expand = !expand">expand_less</v-icon>
+                <v-icon v-if="expand" @click="expand = !expand">expand_more</v-icon>
             </v-btn>
-            <v-btn dark icon>
+            <v-btn small dark icon>
                 <v-icon>close</v-icon>
             </v-btn>
         </v-toolbar>
-        <v-list subheader class="scroll-section">
+
+        <v-list subheader class="scroll-section" v-if="expand">
             <v-subheader><strong>Folders</strong></v-subheader>
-            <v-list-tile  v-for="item in itemsupload" :key="item.title" avatar @click="1">
+            <v-list-tile v-for="item in itemsupload" :key="item.title" avatar @click="1">
                 <div class="progress" :style="`width: ${value}%`"></div>
                 <v-list-tile-avatar>
                     <v-icon :class="[item.iconClass]">{{ item.icon }}</v-icon>
                 </v-list-tile-avatar>
                 <v-list-tile-content>
-                    <v-list-tile-title>{{ item.title }}</v-list-tile-title>
-                    <v-list-tile-sub-title>{{ item.subtitle }}</v-list-tile-sub-title>
+                    <v-list-tile-title style="font-size: 14px;">{{ item.title }}</v-list-tile-title>
                 </v-list-tile-content>
                 <v-list-tile-action>
                     <v-btn small icon color="error">
@@ -40,8 +44,7 @@
                     <v-icon :class="[item.iconClass]">{{ item.icon }}</v-icon>
                 </v-list-tile-avatar>
                 <v-list-tile-content>
-                    <v-list-tile-title>{{ item.title }}</v-list-tile-title>
-                    <v-list-tile-sub-title>{{ item.subtitle }}</v-list-tile-sub-title>
+                    <v-list-tile-title style="font-size: 14px;">{{ item.title }}</v-list-tile-title>
                 </v-list-tile-content>
                 <v-list-tile-action>
                     <v-btn small icon color="success">
@@ -50,6 +53,7 @@
                 </v-list-tile-action>
             </v-list-tile>
         </v-list>
+
     </v-card>
 </div>
 </template>
@@ -59,6 +63,7 @@ export default {
     name: 'media-upload-menu',
     data: () => ({
         value: 60,
+        expand: true,
         itemsupload: [
             { icon: 'folder', iconClass: 'grey lighten-1 white--text', title: 'Photos', subtitle: 'Jan 9, 2014' },
             { icon: 'folder', iconClass: 'grey lighten-1 white--text', title: 'Recipes', subtitle: 'Jan 17, 2014' },

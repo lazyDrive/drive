@@ -47,7 +47,7 @@
         <v-btn flat color="orange">Share</v-btn>
         <v-btn flat color="orange">Explore</v-btn>
         <br>
-        <hr>
+        <div class="media-toolbar"></div>
         <br>
     </div>
 </template>

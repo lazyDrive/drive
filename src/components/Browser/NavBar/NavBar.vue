@@ -99,7 +99,7 @@ color="cyan"
 left
 overlap
 >
-<span slot="badge" >6</span>
+<!-- <span slot="badge" >6</span> -->
 <v-btn icon>
     <v-icon
     large

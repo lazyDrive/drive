@@ -60,7 +60,7 @@
     <v-btn flat color="success">Share</v-btn>
     <v-btn flat color="success">Explore</v-btn>
     <br>
-    <hr>
+    <div class="media-toolbar"></div>
     <br>
 </div>
 </template>

@@ -36,8 +36,11 @@ import * as types from "./../../../store/mutation-types";
 
 export default {
     name: 'media-file',
-    data: () => ({
-    }),
+    data() {
+        return {
+
+        }
+    },
     props: ['item'],
     computed: {
         selectedState: function(){

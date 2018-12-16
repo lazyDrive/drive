@@ -89,7 +89,6 @@
 }
 .selected{
     background-color: #bcd9fd!important;
-
 }
 .v-toolbar__title{
     text-align: left!important;
@@ -99,10 +98,10 @@
     z-index: 10;
     bottom: 20px;
     right: 20px;
-    width: 420px;
+    width: 400px;
 }
 .scroll-section {
-    max-height: 220px;
+    max-height: 200px;
     overflow-y: scroll;
 }
 .progress{
@@ -114,7 +113,6 @@
     background: linear-gradient(to right, white , #38b8e9);
     position: absolute!important;
 }
-
 .progress .pgoing{
     background: linear-gradient(to right, white , #38b8e9);
 }
@@ -129,4 +127,7 @@
 
 .progress .--paused{
     background: linear-gradient(to right, white , #ffc107);
+}
+.taskContainer{
+    text-align: left;
 }
