@@ -23,21 +23,21 @@
                 <p>Drop file(s) to Upload</p>
             </div>
 
-            <v-layout row wrap class="m-section" v-if="this.$store.state.contents.length > 0">
+            <v-layout row wrap class="m-section" v-if="quick.length > 0">
                 <span class="media-section-title"><strong>Recents & Quick Access</strong></span>
             </v-layout>
             <v-layout row wrap>
                 <media-file v-for="item in quick" :item="item" :key="item.id" ></media-file>
             </v-layout>
 
-            <v-layout row wrap class="m-section" v-if="this.$store.state.contents.length > 0">
+            <v-layout row wrap class="m-section" v-if="folders.length > 0">
                 <span class="media-section-title"><strong>Folders</strong></span>
             </v-layout>
             <v-layout row wrap>
                 <media-folder v-for="item in folders" :item="item" :key="item.id" ></media-folder>
             </v-layout>
 
-            <v-layout row wrap class="m-section" v-if="this.$store.state.contents.length > 0">
+            <v-layout row wrap class="m-section" v-if="files.length > 0">
                 <span class="media-section-title"><strong>Files</strong></span>
             </v-layout>
             <v-layout row wrap>

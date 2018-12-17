@@ -22,11 +22,13 @@
     "bcrypt": "^3.0.2",
     "body-parser": "^1.18.3",
     "cors": "^2.8.5",
+    "crypto": "^1.0.1",
     "express": "^4.16.4",
     "express-mailer": "^0.3.1",
     "express-messages": "^1.0.1",
     "express-session": "^1.15.6",
     "express-validator": "^5.3.0",
+    "file-type": "^10.6.0",
     "jsonwebtoken": "^8.4.0",
     "mongodb": "^3.1.10",
     "mongojs": "^2.6.0",
@@ -38,7 +40,9 @@
     "passport-google": "^0.3.0",
     "passport-http": "^0.3.0",
     "path": "^0.12.7",
-    "querystring": "^0.2.0"
+    "querystring": "^0.2.0",
+    "read-chunk": "^3.0.0",
+    "util": "^0.11.1"
   },
   "devDependencies": {
     "eslint": "^5.10.0",

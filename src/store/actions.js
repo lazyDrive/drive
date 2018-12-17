@@ -30,7 +30,7 @@ export const getContents = (context, payload) => {
 	context.commit(types.SET_IS_LOADING, true)
 
 	axios
-	.get('getContents')
+	.get('api/getFiles')
 	.then(response => {
 		context.commit(types.LOAD_CONTENTS_SUCCESS, response.data.contents)
 		context.commit(types.SET_IS_LOADING, false)
