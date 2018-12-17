@@ -62,7 +62,7 @@ export const upload = (context, payload) => {
 
 	axios
 	.post('upload', payload, {
-			onUploadProgress: e => context.commit(types.SET_IS_LOADING_MORE, { value: true, per: Math.round(e.loaded * 100 / e.total)})
+		onUploadProgress: e => context.commit(types.SET_IS_LOADING_MORE, { value: true, per: Math.round(e.loaded * 100 / e.total)})
 	})
 	.then(response => {
 		// context.commit(types.LOAD_MORE_CONTENTS_SUCCESS, response.data.file)
