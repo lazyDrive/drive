@@ -1,19 +1,35 @@
 const express = require('express');
 
+const fs = require('fs');
+
 const router = express.Router();
 
 const ApiModel = require('../models/apiModel');
 
+const uploadFolder = './uploads/';
+
 // Get
 router.get('/getContents', (req, res) => {
-  ApiModel.find()
-    .exec()
-    .then((content) => {
-      res.status(200).send(({
-        files: content,
-      }));
-    })
-    .catch();
+
+  var files = [];
+  fs.readdirSync(uploadFolder).forEach(file => {
+    files.push(file);
+
+    console.log(file);
+  })
+
+  res.status(200).send(({
+    files: files,
+  }));
+
+  // ApiModel.find()
+  //   .exec()
+  //   .then((content) => {
+  //     res.status(200).send(({
+  //       files: content,
+  //     }));
+  //   })
+  //   .catch();
 });
 
 // Post

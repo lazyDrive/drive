@@ -8,12 +8,14 @@ const checkAuth = require('../middleware/check-auth');
 
 const ProductsController = require('../controllers/products');
 
+var fs = require('fs');
+
 const storage = multer.diskStorage({
   destination: (req, file, cb) => {
     cb(null, './uploads/');
   },
   filename: (req, file, cb) => {
-    cb(null, new Date().toISOString() + file.originalname);
+    cb(null, file.originalname);
   },
 });
 
