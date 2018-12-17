@@ -60,14 +60,3 @@ export default {
     }
 }
 </script>
-
-<style>
-.green {
-    color: #20c997!important;
-}
-
-.red {
-    color: red!important;
-}
-
-</style>

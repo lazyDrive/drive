@@ -1,17 +1,14 @@
 <template>
     <div class="text-xs-center folder" @click="select($event, item)" @contextmenu="show(this, item.id)" id="media-folder" >
-        <v-tooltip top>
-            <v-chip
-            :class="`${selectedState ? 50 : 2} ${selectedState ? 'selected' : 'unselected'}`"
-            v-bind:color="item.color" text-color="white" width="100px" class="chip-size" slot="activator">
-                <v-avatar :class="`${selectedState ? 50 : 2} ${selectedState ? 'selected-file' : 'unselected'}`">
-                    <v-icon class="chip-folder">folder</v-icon>
-                </v-avatar >
-                <span :class="`${selectedState ? 50 : 2} ${selectedState ? 'selected-file' : 'unselected'}`">{{ item.name }}</span>
-            </v-chip>
-            <span>{{ item.name }}</span>
-        </v-tooltip>
-    </div>
+        <v-chip
+        :class="`${selectedState ? 50 : 2} ${selectedState ? 'selected' : 'unselected'}`"
+        v-bind:color="item.color" text-color="white" width="100px" class="chip-size" slot="activator">
+        <v-avatar :class="`${selectedState ? 50 : 2} ${selectedState ? 'selected-folder' : 'unselected'} m-f-pointer`">
+            <v-icon >folder</v-icon>
+        </v-avatar >
+        <span :class="`${selectedState ? 50 : 2} ${selectedState ? 'selected-folder' : 'unselected'} m-f-pointer`">{{ getName }}</span>
+    </v-chip>
+</div>
 </template>
 
 <script>
@@ -33,6 +30,15 @@ export default {
                 return true;
             } else {
                 return false;
+            }
+        },
+        getName: function(){
+            if(this.item.name.length >= 20)
+            {
+                return this.item.name.substring(0, 20) + "..";
+            } else {
+
+                return this.item.name;
             }
         }
     },

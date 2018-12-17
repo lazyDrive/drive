@@ -1,25 +1,42 @@
 const express = require('express');
-
 const fs = require('fs');
-
 const util = require('util');
-
 const readChunk = require('read-chunk');
-
 const fileType = require('file-type');
-
+var sizeOf = require('image-size');
 const crypto = require('crypto');
-
 const bcrypt = require("bcrypt");
-
 const router = express.Router();
-
 const ApiModel = require('../models/apiModel');
 
 const uploadFolder = './uploads/';
 
 // Get
 router.get('/getFiles', (req, res) => {
+
+  function getDeviceQuality(device) {
+      var quality = 60;
+      switch (device) {
+          case "mobile-sm":
+              quality = 20;
+              break;
+          case "mobile-md":
+              quality = 35;
+              break;
+          case "tablet":
+              quality = 50;
+              break;
+          case "computer-md":
+              quality = 70;
+              break;
+          case "computer-xl":
+              quality = 90;
+              break;
+          default:
+              break;
+      }
+      return quality;
+  }
 
   // var walkSync = function(dir, filelist) {
   //   var fs = fs || require('fs'),
@@ -66,6 +83,10 @@ router.get('/getFiles', (req, res) => {
       'imgUrl':'',
       'imgLazyUrl':'',
       'color':'',
+      'dimensions':{
+        'height':'',
+        'width':'',
+      },
     };
 
     var colors = [
@@ -95,6 +116,7 @@ router.get('/getFiles', (req, res) => {
     {
       content.type = 'files';
 
+
       const buffer = readChunk.sync(uploadFolder + file, 0, fileType.minimumBytes);
       const fileInfo  = fileType(buffer)
       content.extension = fileInfo.ext;
@@ -103,6 +125,9 @@ router.get('/getFiles', (req, res) => {
       const dir = uploadFolder.split('.')[1];
       content.path = 'http://localhost:3344' + dir + file;
 
+      const dimensions = sizeOf(uploadFolder + file);
+      content.dimensions.height = dimensions.height;
+      content.dimensions.width = dimensions.width;
       content.imgLazyUrl = 'http://localhost:3344' + dir + file;
       content.imgUrl = 'http://localhost:3344' + dir + file;
     }
@@ -116,6 +141,7 @@ router.get('/getFiles', (req, res) => {
     content.color = colors[Math.floor((Math.random() * 8) + 1)];
 
     const stats = fs.statSync(uploadFolder + file);
+    content.size = stats.size;
     const mtime = new Date(util.inspect(stats.mtime));
     content.created_date = mtime;
 

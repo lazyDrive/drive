@@ -16,8 +16,8 @@
 
     <br>
     <div class="m-d-details">
-        <h3 class="headline mb-0">{{item.name}}</h3>
-        <div>Located two hours south of Sydney in the <br>Southern Highlands of New South Wales, ...</div>
+        <h3 class="headline mb-0"><strong>{{item.name}}</strong></h3>
+        <!-- <div>Located two hours south of Sydney in the <br>Southern Highlands of New South Wales, ...</div> -->
     </div>
 
     <div class="m-d-info">
@@ -27,32 +27,32 @@
                 <td class="m-d-td"><strong>{{ item.type }}</strong></td>
             </tr>
             <tr>
-                <td class="m-d-td">February</td>
-                <td class="m-d-td"><strong>Anurag Kumar</strong></td>
+                <td class="m-d-td">Created Date</td>
+                <td class="m-d-td"><strong>{{ item.created_date }}</strong></td>
             </tr>
             <tr>
-                <td class="m-d-td">January</td>
-                <td class="m-d-td"><strong>$10011111111112323</strong></td>
+                <td class="m-d-td">Modified Date</td>
+                <td class="m-d-td"><strong>{{ item.created_date }}</strong></td>
             </tr>
             <tr>
-                <td class="m-d-td">February</td>
-                <td class="m-d-td"><strong>Anurag Kumar</strong></td>
+                <td class="m-d-td">Size</td>
+                <td class="m-d-td"><strong>{{ item.size }} KB</strong></td>
             </tr>
             <tr>
-                <td class="m-d-td">January</td>
-                <td class="m-d-td"><strong>$10011111111112323</strong></td>
+                <td class="m-d-td">Extension</td>
+                <td class="m-d-td"><strong>{{ item.extension }}</strong></td>
             </tr>
             <tr>
-                <td class="m-d-td">February</td>
-                <td class="m-d-td"><strong>Anurag Kumar</strong></td>
+                <td class="m-d-td">Mime Type</td>
+                <td class="m-d-td"><strong>{{ item.mime_type }}</strong></td>
             </tr>
             <tr>
-                <td class="m-d-td">January</td>
-                <td class="m-d-td"><strong>$10011111111112323</strong></td>
+                <td class="m-d-td">Dimensions</td>
+                <td class="m-d-td"><strong>{{ item.dimensions.height }} x {{ item.dimensions.width }}</strong></td>
             </tr>
             <tr>
-                <td class="m-d-td">February</td>
-                <td class="m-d-td"><strong>Anurag Kumar</strong></td>
+                <td class="m-d-td">Owner</td>
+                <td class="m-d-td"><strong>Me</strong></td>
             </tr>
         </table>
     </div>

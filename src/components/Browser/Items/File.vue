@@ -3,10 +3,10 @@
         <v-hover>
             <v-card
             slot-scope="{ hover }"
-            :class="`elevation-${hover || selectedState ? 12 : 2} ${selectedState ? 'selected' : 'unselected'}`"
+            :class="`elevation-${hover || selectedState ? 12 : 2} ${selectedState ? 'selected' : 'unselected'} responsize-view` "
             class="mx-auto"
-            width="150"
-            height="145"
+            :width="`${menuState ? '192' : '210'}`"
+            :height="`${menuState ? '195' : '200'}`"
             >
             <v-img
             :aspect-ratio="16/10"
@@ -24,7 +24,7 @@
         </v-layout>
     </v-img>
     <v-card-title>
-        <span class="file-text">{{ item.name }}</span>
+        <span class="file-text">{{ getName }}</span>
     </v-card-title>
 </v-card>
 </v-hover>
@@ -54,7 +54,19 @@ export default {
             } else {
                 return false;
             }
-        }
+        },
+        getName: function(){
+            if(this.item.name.length >= 25)
+            {
+                return this.item.name.substring(0, 25) + "..";
+            } else {
+
+                return this.item.name;
+            }
+        },
+        menuState: function(){
+            return this.$store.state.showInfoBar;
+        },
     },
     methods: {
         show : function(e, id){
