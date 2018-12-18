@@ -68,8 +68,9 @@ export default {
         preview : function(e){
             console.log(e);
         },
-        download: function(e){
-            console.log(e);
+        download: function(){
+            var path  = this.$store.state.selectedItems[0].imgUrl;
+            this.$store.dispatch(path);
         },
         getShareableLike: function(e){
             console.log(e);

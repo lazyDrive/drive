@@ -10,8 +10,10 @@
     "deploy": "node ./node_modules/vue-gh-pages/index.js"
   },
   "dependencies": {
+    "FileSaver": "^0.10.0",
     "axios": "^0.18.0",
     "babel-polyfill": "^6.26.0",
+    "file-saver": "^2.0.0",
     "material-design-icons-iconfont": "^4.0.3",
     "register-service-worker": "^1.5.2",
     "vue": "^2.5.21",
