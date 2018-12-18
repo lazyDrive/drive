@@ -6,7 +6,7 @@
             :class="`elevation-${hover || selectedState ? 12 : 2} ${selectedState ? 'selected' : 'unselected'} responsize-view` "
             class="mx-auto"
             :width="`${menuState ? '192' : '210'}`"
-            :height="`${menuState ? '195' : '200'}`"
+            :height="`${menuState ? '195' : '195'}`"
             >
             <v-img
             :aspect-ratio="16/10"

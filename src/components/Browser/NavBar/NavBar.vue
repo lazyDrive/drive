@@ -88,6 +88,7 @@ fixed
 flat
 solo-inverted
 hide-details
+@input="changeSearch"
 prepend-inner-icon="search"
 label="Search"
 class="hidden-sm-and-down"
@@ -176,6 +177,9 @@ export default {
         },
         fileUpload: function(){
             this.$emit('tiggerSelectFile');
+        },
+        changeSearch(query){
+            this.$store.commit(types.SET_SEARCH_QUERY, query);
         },
         fire: function(a){
             this[a](a);

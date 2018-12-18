@@ -14,30 +14,6 @@ const uploadFolder = './uploads/';
 // Get
 router.get('/getFiles', (req, res) => {
 
-  function getDeviceQuality(device) {
-      var quality = 60;
-      switch (device) {
-          case "mobile-sm":
-              quality = 20;
-              break;
-          case "mobile-md":
-              quality = 35;
-              break;
-          case "tablet":
-              quality = 50;
-              break;
-          case "computer-md":
-              quality = 70;
-              break;
-          case "computer-xl":
-              quality = 90;
-              break;
-          default:
-              break;
-      }
-      return quality;
-  }
-
   // var walkSync = function(dir, filelist) {
   //   var fs = fs || require('fs'),
   //       files = fs.readdirSync(dir);
@@ -146,23 +122,46 @@ router.get('/getFiles', (req, res) => {
     content.created_date = mtime;
 
     files.push(content);
-  })
+  });
 
-  // for(var i=0; i<10; i++) {
+
+  for(var i=0; i<7; i++) {
+
+    var content = {
+      'id':'',
+      'name':'',
+      'type':'',
+      'path':'',
+      'extension':'',
+      'size':'',
+      'mime_type':'',
+      'created_date':'',
+      'imgUrl':'',
+      'imgLazyUrl':'',
+      'color':'',
+      'dimensions':{
+        'height':'',
+        'width':'',
+      },
+    };
 
     var n = Math.floor((Math.random() * 17) + 1);
 
-    // content.type = 'quick';
+    content.type = 'quick';
 
-      // content.imgUrl = `https://picsum.photos/500/300?image=${n * 5 + 10}`;
-      // content.imgLazyUrl = `https://picsum.photos/10/6?image=${n * 5 + 10}`;
-      //
+      content.imgUrl = `https://picsum.photos/500/300?image=${n * 5 + 10}`;
+      content.imgLazyUrl = `https://picsum.photos/10/6?image=${n * 5 + 10}`;
       // shasum.update(content.imgUrl);
-      //
       // content.id = shasum.digest('hex');
-      //
-      // files.push(content)
-  // }
+      content.name = 'picsum';
+
+      shasum = crypto.createHash('sha1');
+      shasum.update(content.imgLazyUrl + Math.floor((Math.random() * 100000) + 1) );
+
+      content.id = shasum.digest('hex');
+
+      files.push(content)
+  }
 
   res.status(200).send(({
     contents: files,

@@ -10,7 +10,7 @@ const apiRouter = require('./routes/apiRouter');
 const productRoutes = require("./routes/products");
 const orderRoutes = require("./routes/orders");
 const userRoutes = require('./routes/user');
-const compImgRoute = require('./routes/compImgRoute');
+const optimizeRoute = require('./routes/optimizeRoute');
 
 // get express app instance
 const app = express();
@@ -42,7 +42,7 @@ app.use('/api', apiRouter)
 app.use("/products", productRoutes);
 app.use("/orders", orderRoutes);
 app.use("/user", userRoutes);
-app.use('/compImgRoute', compImgRoute);
+app.use('/t', optimizeRoute);
 
 app.use((req, res, next) => {
   const error = new Error("Not found");

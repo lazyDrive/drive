@@ -42,7 +42,7 @@ function getDeviceQuality(device) {
 }
 
 // Get
-router.get('/:file', (req, res) => {
+router.get('/g/:file', (req, res) => {
 
   var reqURL = url.parse(req.url, true);
 

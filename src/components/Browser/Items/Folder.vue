@@ -2,7 +2,7 @@
     <div class="text-xs-center folder" @click="select($event, item)" @contextmenu="show(this, item.id)" id="media-folder" >
         <v-chip
         :class="`${selectedState ? 50 : 2} ${selectedState ? 'selected' : 'unselected'}`"
-        v-bind:color="item.color" text-color="white" width="100px" class="chip-size" slot="activator">
+        v-bind:color="item.color" text-color="white" class="chip-size" slot="activator">
         <v-avatar :class="`${selectedState ? 50 : 2} ${selectedState ? 'selected-folder' : 'unselected'} m-f-pointer`">
             <v-icon >folder</v-icon>
         </v-avatar >
