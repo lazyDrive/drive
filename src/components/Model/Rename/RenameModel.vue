@@ -12,7 +12,7 @@
             <v-container >
                 <v-flex>
                     <v-text-field
-                    v-model="defaultData"
+                    v-model="selectedName"
                     solo
                     @focus="$event.target.select()"
                     autofocus
@@ -42,11 +42,20 @@ export default {
     props: {
 
     },
-
+    computed:{
+        selectedName: function(){
+            if(this.$store.state.showRenameModal)
+            {
+                return this.$store.state.selectedItems[0].name;
+            }else {
+                return '';
+            }
+        }
+    },
     methods:{
         hideRenameModal: function() {
             this.$store.commit(types.HIDE_RENAME_MODAL);
-        }
+        },
     }
 }
 </script>

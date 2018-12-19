@@ -6,7 +6,7 @@
             :class="`elevation-${hover || selectedState ? 12 : 1} ${selectedState ? 'selected' : 'unselected'} responsize-view`"
             class="mx-auto"
             :width="`${menuState ? '192' : '210'}`"
-            :height="`${menuState ? '195' : '195'}`"
+            :height="`${menuState ? '180' : '195'}`"
             >
             <v-img
             :aspect-ratio="16/10"
@@ -56,9 +56,9 @@ export default {
             }
         },
         getName: function(){
-            if(this.item.name.length >= 25)
+            if(this.item.name.length >= 20)
             {
-                return this.item.name.substring(0, 25) + "..";
+                return this.item.name.substring(0, 20) + "..";
             } else {
 
                 return this.item.name;

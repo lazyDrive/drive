@@ -1,10 +1,10 @@
 <template>
     <div class="text-xs-center folder" @click="select($event, item)" @contextmenu="show(this, item.id)" id="media-folder" >
         <v-chip
-        :class="`${selectedState ? 50 : 2} ${selectedState ? 'selected' : 'unselected'}`"
-         color="#CFD8DC" text-color="black" class="chip-size" slot="activator">
+        :class="`${selectedState ? 50 : 2} ${selectedState ? 'selected' : 'unselected'} ${menuState ? 'info-chip-size' : 'm-chip-size'}`"
+         color="#CFD8DC" text-color="black" slot="activator">
         <v-avatar :class="`${selectedState ? 50 : 2} ${selectedState ? 'selected-folder' : 'unselected'} m-f-pointer`">
-            <v-icon v-bind:color="item.color">folder</v-icon>
+            <v-icon :color="item.color">folder</v-icon>
         </v-avatar >
         <span :class="`${selectedState ? 50 : 2} ${selectedState ? 'selected-folder' : 'unselected'} m-f-pointer`">{{ getName }}</span>
     </v-chip>
@@ -33,14 +33,17 @@ export default {
             }
         },
         getName: function(){
-            if(this.item.name.length >= 20)
+            if(this.item.name.length >= 15)
             {
-                return this.item.name.substring(0, 20) + "..";
+                return this.item.name.substring(0, 15) + "..";
             } else {
 
                 return this.item.name;
             }
-        }
+        },
+        menuState: function(){
+            return this.$store.state.showInfoBar;
+        },
     },
     methods: {
         show : function(e, id){
