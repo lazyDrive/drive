@@ -32,6 +32,7 @@ class="infoBar"
             <h3 class="plz-select headline mb-0">Select file or folder to view its details.</h3>
         </div>
         <div v-if="this.$store.state.selectedItems.length > 0" >
+            <media-media-player v-if="music.length > 0" ></media-media-player>
             <media-info-file v-for="item in quick" :item="item" :key="item.id"></media-info-file>
             <media-info-folder v-for="item in folders" :item="item" :key="item.id"></media-info-folder>
             <media-info-file v-for="item in files" :item="item" :key="item.id"></media-info-file>
@@ -79,6 +80,11 @@ export default {
         files: function() {
             return this.$store.state.selectedItems.filter(
                 item => (item.type == 'files')
+            ).reverse();
+        },
+        music: function() {
+            return this.$store.state.selectedItems.filter(
+                item => (item.type == 'music')
             ).reverse();
         }
 

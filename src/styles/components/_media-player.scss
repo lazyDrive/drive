@@ -11,14 +11,13 @@
 
 .audioContainer {
   position: relative;
-  background-color: #eceff1;
   min-height: 25rem;
+  border: 0.1rem solid black;
   width: 20rem;
   overflow: hidden;
   padding: 1.5rem;
   margin: 0 auto;
   border-radius: 6px;
-  box-shadow: 0 19px 38px rgba(0, 0, 0, 0.3), 0 15px 12px rgba(0, 0, 0, 0.22);
   -webkit-user-select: none;
      -moz-user-select: none;
       -ms-user-select: none;
@@ -106,7 +105,7 @@
   font-size: 0.8rem;
 }
 .audioContainer .audioPlayerList .item.isActive {
-  border-left-color: black;
+  border-left: 5px solid purple;
   padding-left: 1rem;
 }
 .audioContainer .audioPlayerUI {
@@ -201,7 +200,7 @@
 }
 .audioContainer .audioPlayerUI .currentTimeContainer .currentTime,
 .audioContainer .audioPlayerUI .currentTimeContainer .totalTime {
-  font-size: 0.5rem;
+  font-size: 0.8rem;
   font-family: monospace;
   color: rgba(0, 0, 0, 0.75);
 }
@@ -219,7 +218,7 @@
 .audioContainer .audioPlayerUI .currentProgressBar .currentProgress {
   background-color: rgba(0, 0, 0, 0.75);
   width: 0px;
-  height: 1px;
+  height: 2px;
   transition: 100ms;
 }
 
@@ -290,39 +289,3 @@
 .fade-leave-to {
   opacity: 0;
 }
-
-// /* Codepen Formatting */
-// body {
-//   background-image: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-//   background-repeat: no-repeat;
-//   background-attachment: fixed;
-//   color: rgba(255, 255, 255, 0.7);
-//   font-family: Raleway, sans-serif;
-//   padding: 3rem;
-// }
-//
-// .heading {
-//   text-align: center;
-//   margin: 0;
-//   margin: 2rem 0;
-//   font-family: Inconsolata, monospace;
-// }
-// .heading h1 {
-//   margin: 0;
-//   margin-bottom: 1rem;
-//   font-size: 1.5rem;
-// }
-// .heading p {
-//   margin: 0;
-//   font-size: 0.8rem;
-// }
-// .heading a {
-//   color: rgba(255, 255, 255, 0.8);
-//   transition: 0.3s;
-// }
-// .heading a:hover {
-//   color: white !important;
-// }
-// .heading a:visited {
-//   color: rgba(255, 255, 255, 0.5);
-// }
