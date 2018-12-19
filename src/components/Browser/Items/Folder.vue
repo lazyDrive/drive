@@ -1,7 +1,7 @@
 <template>
     <div class="text-xs-center folder" @click="select($event, item)" @contextmenu="show(this, item.id)" id="media-folder" >
         <v-chip
-        :class="`${selectedState ? 50 : 2} ${selectedState ? 'selected' : 'unselected'} ${menuState ? 'info-chip-size' : 'm-chip-size'}`"
+        disabled :class="`${selectedState ? 50 : 2} ${selectedState ? 'selected' : 'unselected'} ${menuState ? 'info-chip-size' : 'm-chip-size'}`"
          color="#CFD8DC" text-color="black" slot="activator">
         <v-avatar :class="`${selectedState ? 50 : 2} ${selectedState ? 'selected-folder' : 'unselected'} m-f-pointer`">
             <v-icon :color="item.color">folder</v-icon>
