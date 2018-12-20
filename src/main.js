@@ -19,10 +19,11 @@ import Settings from '@/components/Browser/Settings/Settings'
 import UploadMenu from '@/components/Browser/UploadMenu/UploadMenu'
 import Model from '@/components/Model/Model'
 import RenameModel from '@/components/Model/Rename/RenameModel'
+import PreviewModel from '@/components/Model/Preview/PreviewModel'
 import ConfirmDeleteModel from '@/components/Model/ConfirmDelete/ConfirmDeleteModel'
 import CreateNewFolderModel from '@/components/Model/CreateFolder/CreateNewFolderModel'
-import Menu from '@/components/Menu/Menu';
-import FileMenu from '@/components/Menu/FileMenu/FileMenu';
+import Menu from '@/components/Menu/Menu'
+import FileMenu from '@/components/Menu/FileMenu/FileMenu'
 import FolderMenu from '@/components/Menu/FolderMenu/FolderMenu'
 import OnlineState from '@/components/Tool/OnlineState'
 import Alert from '@/components/Tool/Alert'
@@ -57,6 +58,7 @@ Vue.component('media-menu', Menu)
 Vue.component('media-upload-menu', UploadMenu)
 Vue.component('media-media-player', MediaPlayer)
 Vue.component('media-other-files', OtherFiles)
+Vue.component('media-preview-model', PreviewModel)
 
 // Register MediaManager namespace
 window.MediaManager = window.MediaManager || {};

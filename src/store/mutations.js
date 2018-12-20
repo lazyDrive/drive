@@ -295,6 +295,15 @@ export default {
         state.isLoading = payload;
     },
 
+
+    /**
+    * Set is mobile
+    * @param state
+    */
+    [types.IS_MOBILE]: (state, payload) => {
+        state.isMobile = payload;
+    },
+
     /**
     * Set the is loading state
     * @param state
@@ -334,6 +343,22 @@ export default {
     */
     [types.HIDE_SETTINGS]: (state) => {
         state.showSettings = false;
+    },
+
+    /**
+    * Show the music player
+    * @param state
+    */
+    [types.SHOW_MUSIC_PLAYER]: (state) => {
+        state.showMusicPlayer = true;
+    },
+
+    /**
+    * Hide the settings
+    * @param state
+    */
+    [types.HIDE_MUSIC_PLAYER]: (state) => {
+        state.showMusicPlayer = false;
     },
 
     /**

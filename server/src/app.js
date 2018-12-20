@@ -2,13 +2,12 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const cors = require('cors');
 const morgan = require('morgan');
-const multer = require('multer');
 const mongoose = require('mongoose');
 
 // import routes
 const apiRouter = require('./routes/apiRouter');
-const productRoutes = require("./routes/products");
-const orderRoutes = require("./routes/orders");
+const productRoutes = require('./routes/products');
+const orderRoutes = require('./routes/orders');
 const userRoutes = require('./routes/user');
 const optimizeRoute = require('./routes/optimizeRoute');
 
@@ -19,10 +18,10 @@ const app = express();
 mongoose.connect('mongodb://localhost/ninjago', { useNewUrlParser: true });
 mongoose.Promise = global.Promise;
 
-app.use(morgan('dev'))
+app.use(morgan('dev'));
 app.use('/uploads', express.static('uploads'));
-app.use(bodyParser.json())
-app.use(cors())
+app.use(bodyParser.json());
+app.use(cors());
 
 app.use((req, res, next) => {
   // res.header("Access-Control-Allow-Origin", "*");

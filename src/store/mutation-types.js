@@ -45,6 +45,10 @@ export const HIDE_TOOL_MODAL = 'HIDE_TOOL_MODAL';
 export const SHOW_INFOBAR = 'SHOW_INFOBAR';
 export const HIDE_INFOBAR = 'HIDE_INFOBAR';
 
+// Music Player
+export const SHOW_MUSIC_PLAYER = 'SHOW_MUSIC_PLAYER';
+export const HIDE_MUSIC_PLAYER = 'HIDE_MUSIC_PLAYER';
+
 // Infobar
 export const SHOW_SNACKBAR = 'SHOW_SNACKBAR';
 export const HIDE_SNACKBAR = 'HIDE_SNACKBAR';
@@ -56,6 +60,9 @@ export const HIDE_SETTINGS = 'HIDE_SETTINGS';
 
 // Delete items
 export const DELETE_SUCCESS = 'DELETE_SUCCESS';
+
+// Is mobile
+export const IS_MOBILE = 'IS_MOBILE';
 
 // List view
 export const CHANGE_LIST_VIEW = 'CHANGE_LIST_VIEW';

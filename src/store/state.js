@@ -34,6 +34,8 @@ export default {
     showToolModal: false,
     // The state of the infobar
     showInfoBar: false,
+    // The state of the music player
+    showMusicPlayer: false,
     // The snackbar
     showsnackbar: false,
     // The snackbar
@@ -46,6 +48,8 @@ export default {
     loadingValue: 0,
     // The loading state
     isLoading: false,
+    // Is mobile
+    isMobile:false,
     // The loadmoreprogress
     loadMoreProgress: false,
     // The Search Query

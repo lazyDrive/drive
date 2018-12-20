@@ -1,27 +1,19 @@
 <template>
-    <div class="file" @click="select(this, item)" @contextmenu="show($event, item.id)" :item-data="item.id" id="media-file">
+    <div class="file" @dblclick.prevent="preview()" @click="select(this, item)" @contextmenu="show($event, item.id)" :item-data="item.id" id="media-file">
         <v-hover>
             <v-card
             slot-scope="{ hover }"
-            :class="`${ hover } ${selectedState ? 'selected' : 'unselected'} responsize-view`"
+            :class="`${ hover } ${selectedState ? 'selected' : 'unselected'} responsize-view elevation-0`"
             class="mx-auto"
             :width="`${menuState ? '192' : '210'}`"
             :height="`${menuState ? '180' : '195'}`"
             >
+
             <v-img
             :aspect-ratio="16/10"
             :src="item.imgUrl"
             :lazy-src="item.imgLazyUrl"
             >
-            <v-layout
-            slot="placeholder"
-            fill-height
-            align-center
-            justify-center
-            ma-0
-            >
-            <v-progress-circular indeterminate color="grey lighten-5"></v-progress-circular>
-        </v-layout>
     </v-img>
     <v-card-title>
         <span class="file-text">{{ getName }}</span>
@@ -67,6 +59,9 @@ export default {
         menuState: function(){
             return this.$store.state.showInfoBar;
         },
+        isMobile: function(){
+            return this.$store.state.isMobile;
+        }
     },
     methods: {
         show : function(e, id){
@@ -97,6 +92,10 @@ export default {
             }else {
                 this.$store.commit(types.SELECT_BROWSER_ITEM, item);
             }
+        },
+        preview: function(){
+            this.$store.commit(types.LOAD_FULL_CONTENTS_SUCCESS, this.item);
+            this.$store.commit(types.SHOW_PREVIEW_MODAL);
         }
     }
 }

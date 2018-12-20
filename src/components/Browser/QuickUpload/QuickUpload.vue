@@ -1,5 +1,5 @@
 <template>
-    <div id="media-tool">
+    <div id="media-tool" v-if="this.$store.state.isMobile">
         <v-btn
         fab
         bottom

@@ -101,7 +101,10 @@ export default {
             if ((window.innerHeight + window.scrollY) >= document.body.scrollHeight) {
                 if(this.$store.state.isContentsLoaded)
                 {
-                    // this.$store.dispatch('loadMoreContents');
+                    setTimeout(function () {
+                        console.log('asas')
+                    }, 500);
+                    // this.$store.dispatch('getContents');
                 }
             }
             else {
