@@ -101,7 +101,7 @@
     text-align: left!important;
 }
 .v-responsive{
-    border-bottom: 1px solid #c5c0c0;
+    // border-bottom: 1px solid #c5c0c0;
     background-color: #fff;
     background: linear-gradient(45deg, #eee 25%, transparent 25%, transparent 75%, #eee 75%, #eee 100%), linear-gradient(45deg, #eee 25%, transparent 25%, transparent 75%, #eee 75%, #eee 100%);
     background-position: 0 0, 10px 10px;
@@ -121,6 +121,11 @@
 .scroll-section {
     max-height: 200px;
     overflow-y: scroll;
+}
+.extensionImage{
+    width: 20px;
+    height: 20px;
+    margin-right: 5px;
 }
 .progress{
     top:0;
@@ -152,101 +157,115 @@
 
 /* The Modal (background) */
 .modal {
-  position: fixed; /* Stay in place */
-  z-index: 10; /* Sit on top */
-  padding-top: 13%; /* Location of the box */
-  left: 0;
-  top: 0;
-  width: 100%; /* Full width */
-  height: 100%; /* Full height */
-  overflow: auto; /* Enable scroll if needed */
-  background-color: rgb(0,0,0); /* Fallback color */
-  background-color: rgba(0,0,0,0.9); /* Black w/ opacity */
+    position: fixed; /* Stay in place */
+    z-index: 10; /* Sit on top */
+    padding-top: 100px; /* Location of the box */
+    left: 0;
+    top: 0;
+    width: 100%; /* Full width */
+    height: 100%; /* Full height */
+    overflow: auto; /* Enable scroll if needed */
+    background-color: rgb(0,0,0); /* Fallback color */
+    background-color: rgba(0,0,0,0.8); /* Black w/ opacity */
 }
 
 /* Modal Content (image) */
 .modal-content {
-  margin: auto;
-  display: block;
-  width: 80%;
-  border: 0;
-  max-width: 800px;
-  max-height: 450px;
+    margin: auto;
+    display: block;
+    width: 80%;
+    -webkit-transition: width 2s, height 4s; /* For Safari 3.1 to 6.0 */
+    transition: width 2s, height 4s;
+    border: 0;
 }
 
 /* Caption of Modal Image */
-#caption {
-  margin: auto;
-  display: block;
-  width: 80%;
-  max-width: 700px;
-  text-align: center;
-  color: #ccc;
-  padding: 10px 0;
-  height: 150px;
+.caption {
+    color: white;
+    position: absolute;
+    top: 15px;
+    left: 35px;
+    font-size: 40px;
 }
 
 /* Add Animation */
-.modal-content, #caption {
-  -webkit-animation-name: zoom;
-  -webkit-animation-duration: 0.6s;
-  animation-name: zoom;
-  animation-duration: 0.6s;
-  background: none!important;
+.modal-content, .caption {
+    -webkit-animation-name: zoom;
+    -webkit-animation-duration: 0.6s;
+    animation-name: zoom;
+    animation-duration: 0.6s;
+    background: none!important;
 }
 
 /* The Close Button */
 .close {
-  position: absolute;
-  top: 15px;
-  right: 35px;
-  font-size: 30px;
+    position: absolute;
+    top: 15px;
+    right: 35px;
+    font-size: 30px;
 }
 
 .next {
-  position: absolute;
-  top: 50%;
-  bottom:50%;
-  right: 35px;
-  color: #f1f1f1;
-  font-size: 40px;
-  font-weight: bold;
-  transition: 0.3s;
-  cursor: pointer;
+    position: absolute;
+    top: 50%;
+    bottom:50%;
+    right: 35px;
+    color: #f1f1f1;
+    font-size: 20px;
+    font-weight: bold;
+    transition: 0.3s;
+    cursor: pointer;
 }
 
 .prev {
-  position: absolute;
-  top: 50%;
-  bottom:50%;
-  left: 35px;
-  color: #f1f1f1;
-  font-size: 40px;
-  font-weight: bold;
-  transition: 0.3s;
-  cursor: pointer;
+    position: absolute;
+    top: 50%;
+    bottom:50%;
+    left: 35px;
+    color: #f1f1f1;
+    font-size: 20px;
+    font-weight: bold;
+    transition: 0.3s;
+    cursor: pointer;
 }
 
 .close:hover,
 .close:focus {
-  color: #bbb;
-  text-decoration: none;
-  cursor: pointer;
+    color: #bbb;
+    text-decoration: none;
+    cursor: pointer;
 }
 
 /* 100% Image Width on Smaller Screens */
 @media only screen and (max-width: 800px){
-  .modal-content {
-    width: 100%;
-  }
+    .modal-content {
+        width: 95%;
+    }
 
-  .next {
-    bottom:0;
-    right: 50px;
-  }
+    .next {
+        bottom:0;
+        right: 50px;
+    }
 
-  .prev {
-    bottom:0;
-    left: 50px;
-  }
+    .prev {
+        bottom:0;
+        left: 50px;
+    }
+}
+
+.remove, .add, .refresh{
+    background-color: black;
+    padding: 10px;
+    margin:5px;
+    cursor: pointer;
+    bottom:10px;
+}
+
+.previewtool{
+    bottom: 10px;
+    right: 0;
+    left: 0;
+    z-index: 15;
+    position: absolute;
+    margin: auto;
 }

@@ -53,6 +53,7 @@ router.get('/getFiles', (req, res) => {
       'type':'',
       'path':'',
       'extension':'',
+      'extImg':'',
       'size':'',
       'mime_type':'',
       'created_date':'',
@@ -92,7 +93,6 @@ router.get('/getFiles', (req, res) => {
     {
       content.type = 'files';
 
-
       const buffer = readChunk.sync(uploadFolder + file, 0, fileType.minimumBytes);
       const fileInfo  = fileType(buffer)
       content.extension = fileInfo.ext;
@@ -120,6 +120,11 @@ router.get('/getFiles', (req, res) => {
     content.size = stats.size;
     const mtime = new Date(util.inspect(stats.mtime));
     content.created_date = mtime;
+
+    const basePath = './thirdParty/';
+    const originalPath  = basePath + content.extension + '.svg';
+
+    content.extImg = Buffer.from(originalPath).toString('base64');
 
     files.push(content);
   });
@@ -149,18 +154,18 @@ router.get('/getFiles', (req, res) => {
 
     content.type = 'quick';
 
-      content.imgUrl = `https://picsum.photos/500/300?image=${n * 5 + 10}`;
-      content.imgLazyUrl = `https://picsum.photos/10/6?image=${n * 5 + 10}`;
-      // shasum.update(content.imgUrl);
-      // content.id = shasum.digest('hex');
-      content.name = 'picsum';
+    content.imgUrl = `https://picsum.photos/500/300?image=${n * 5 + 10}`;
+    content.imgLazyUrl = `https://picsum.photos/10/6?image=${n * 5 + 10}`;
+    // shasum.update(content.imgUrl);
+    // content.id = shasum.digest('hex');
+    content.name = 'picsum';
 
-      shasum = crypto.createHash('sha1');
-      shasum.update(content.imgLazyUrl + Math.floor((Math.random() * 100000) + 1) );
+    shasum = crypto.createHash('sha1');
+    shasum.update(content.imgLazyUrl + Math.floor((Math.random() * 100000) + 1) );
 
-      content.id = shasum.digest('hex');
+    content.id = shasum.digest('hex');
 
-      files.push(content)
+    files.push(content)
   }
 
   res.status(200).send(({
@@ -170,10 +175,22 @@ router.get('/getFiles', (req, res) => {
 });
 
 // Post
-router.post('/ninjas', (req, res, next) => {
-  ApiModel.create(req.body).then((ninja) => {
-    res.send(ninja);
-  }).catch(next);
+router.get('/thirdParty/:path/t/:type', (req, res, next) => {
+
+  const path = Buffer.from(req.params.path, 'base64').toString('ascii');
+  const type = req.params.type;
+
+  console.log(path);
+
+  fs.readFile(path, function (err, content) {
+    if (err) {
+      res.writeHead(400, {'Content-type':'text/html'})
+      res.end("error");
+    } else {
+      res.writeHead(200,{'Content-Type':'image/svg+xml'});
+      res.end(content);
+    }
+  });
 });
 
 // Update

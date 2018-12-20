@@ -16,6 +16,7 @@
             >
     </v-img>
     <v-card-title>
+        <img v-if="item.extImg" class="extensionImage" :src="`/api/thirdParty/${item.extImg}/t/${item.extension}`" />
         <span class="file-text">{{ getName }}</span>
     </v-card-title>
 </v-card>
@@ -48,9 +49,9 @@ export default {
             }
         },
         getName: function(){
-            if(this.item.name.length >= 20)
+            if(this.item.name.length >= 15)
             {
-                return this.item.name.substring(0, 20) + "..";
+                return this.item.name.substring(0,15) + "..";
             } else {
 
                 return this.item.name;

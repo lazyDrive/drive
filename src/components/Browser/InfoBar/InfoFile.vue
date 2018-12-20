@@ -40,7 +40,7 @@
             </tr>
             <tr>
                 <td class="m-d-td">Extension</td>
-                <td class="m-d-td"><strong>{{ item.extension }}</strong></td>
+                <td class="m-d-td"><strong>{{ item.extension }}</strong>&nbsp;<img v-if="item.extImg" class="extensionImage" :src="`/api/thirdParty/${item.extImg}/t/${item.extension}`" /></td>
             </tr>
             <tr>
                 <td class="m-d-td">Mime Type</td>
