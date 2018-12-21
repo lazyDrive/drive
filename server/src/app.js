@@ -19,7 +19,6 @@ mongoose.connect('mongodb://localhost/ninjago', { useNewUrlParser: true });
 mongoose.Promise = global.Promise;
 
 app.use(morgan('dev'));
-app.use('/uploads', express.static('uploads'));
 app.use(bodyParser.json());
 app.use(cors());
 

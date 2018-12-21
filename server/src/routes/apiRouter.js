@@ -14,36 +14,7 @@ const uploadFolder = './uploads/';
 // Get
 router.get('/getFiles', (req, res) => {
 
-  // var walkSync = function(dir, filelist) {
-  //   var fs = fs || require('fs'),
-  //       files = fs.readdirSync(dir);
-  //   filelist = filelist || [];
-  //   dir =
-  //
-  //   files.forEach(function(file) {
-  //     if (fs.statSync(dir + file).isDirectory()) {
-  //       filelist = walkSync(dir + file + '/', filelist);
-  //     }
-  //     else {
-  //       filelist.push(file);
-  //     }
-  //   });
-  //   return filelist;
-  // };
-  //
-  //   var files = walkSync(uploadFolder)
-
   var files = [];
-
-
-  // function dataFiles(imgUrl, imgLazyUrl) {
-  //    this.imgUrl = imgUrl,
-  //    this.name = 'Image' + Math.floor((Math.random() * 100) + 1),
-  //    this.imgLazyUrl = imgLazyUrl,
-  //    this.id = Math.floor((Math.random() * 100000000) + 1),
-  //    this.type = 'files',
-  //    this.color = colors[Math.floor((Math.random() * 8) + 1)]
-  //  }
 
   fs.readdirSync(uploadFolder).forEach(file => {
 
@@ -99,13 +70,13 @@ router.get('/getFiles', (req, res) => {
       content.mime_type = fileInfo.mime;
 
       const dir = uploadFolder.split('.')[1];
-      content.path = 'http://localhost:3344' + dir + file;
+      content.path =  dir + file;
 
       const dimensions = sizeOf(uploadFolder + file);
       content.dimensions.height = dimensions.height;
       content.dimensions.width = dimensions.width;
-      content.imgLazyUrl = 'http://localhost:3344' + dir + file;
-      content.imgUrl = 'http://localhost:3344' + dir + file;
+      content.imgLazyUrl = '/api/images/' + Buffer.from(uploadFolder + file).toString('base64') + '/t/' + fileInfo.ext + '/d/200/200/m/' + fileInfo.mime;
+      content.imgUrl = '/api/images/' + Buffer.from(uploadFolder + file).toString('base64') + '/t/' + fileInfo.ext + '/d/200/200/m/' + fileInfo.mime;
     }
 
     dir = uploadFolder.split('.')[1];
@@ -156,8 +127,6 @@ router.get('/getFiles', (req, res) => {
 
     content.imgUrl = `https://picsum.photos/500/300?image=${n * 5 + 10}`;
     content.imgLazyUrl = `https://picsum.photos/10/6?image=${n * 5 + 10}`;
-    // shasum.update(content.imgUrl);
-    // content.id = shasum.digest('hex');
     content.name = 'picsum';
 
     shasum = crypto.createHash('sha1');
@@ -180,14 +149,34 @@ router.get('/thirdParty/:path/t/:type', (req, res, next) => {
   const path = Buffer.from(req.params.path, 'base64').toString('ascii');
   const type = req.params.type;
 
-  console.log(path);
-
   fs.readFile(path, function (err, content) {
     if (err) {
       res.writeHead(400, {'Content-type':'text/html'})
       res.end("error");
     } else {
       res.writeHead(200,{'Content-Type':'image/svg+xml'});
+      res.end(content);
+    }
+  });
+});
+
+
+// Post
+router.get('/images/:path/t/:type/d/:width/:height/m/:mime1/:mime2', (req, res, next) => {
+
+  const height = req.params.height;
+  const width = req.params.width;
+  const mime1  = req.params.mime1;
+  const mime2  = req.params.mime2;
+  const path = Buffer.from(req.params.path, 'base64').toString('ascii');
+  const type = req.params.type;
+
+  fs.readFile(path, function (err, content) {
+    if (err) {
+      res.writeHead(400, {'Content-type':'text/html'})
+      res.end("error");
+    } else {
+      res.writeHead(200,{'Content-Type': mime1 + '/' + mime2});
       res.end(content);
     }
   });
