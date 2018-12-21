@@ -9,6 +9,12 @@ const bcrypt = require("bcrypt");
 const router = express.Router();
 const ApiModel = require('../models/apiModel');
 
+const imagemin = require('imagemin');
+const imageminJpegtran = require('imagemin-jpegtran');
+const imageminPngquant = require('imagemin-pngquant');
+const imageminMozjpeg = require('imagemin-mozjpeg');
+const imageminGifsicle = require('imagemin-gifsicle');
+
 const uploadFolder = './uploads/';
 
 // Get
@@ -49,7 +55,6 @@ router.get('/getFiles', (req, res) => {
       '#1976D2'
     ]
 
-    console.log(file);
     content.name = file;
 
     if(fs.statSync(uploadFolder + file).isDirectory())
@@ -72,11 +77,15 @@ router.get('/getFiles', (req, res) => {
       const dir = uploadFolder.split('.')[1];
       content.path =  dir + file;
 
+      shasum = crypto.createHash('sha1');
+      shasum.update(uploadFolder + file);
+
       const dimensions = sizeOf(uploadFolder + file);
       content.dimensions.height = dimensions.height;
       content.dimensions.width = dimensions.width;
-      content.imgLazyUrl = '/api/images/' + Buffer.from(uploadFolder + file).toString('base64') + '/t/' + fileInfo.ext + '/d/200/200/m/' + fileInfo.mime;
-      content.imgUrl = '/api/images/' + Buffer.from(uploadFolder + file).toString('base64') + '/t/' + fileInfo.ext + '/d/200/200/m/' + fileInfo.mime;
+      id = shasum.digest('hex');
+      content.imgLazyUrl = '/api/images/' + Buffer.from(uploadFolder + file).toString('base64') + '/t/' + fileInfo.ext + '/d/200/200/m/' + fileInfo.mime + '/' + id;
+      content.imgUrl = '/api/images/' + Buffer.from(uploadFolder + file).toString('base64') + '/t/' + fileInfo.ext + '/d/200/200/m/' + fileInfo.mime + '/' + id;
     }
 
     dir = uploadFolder.split('.')[1];
@@ -162,7 +171,7 @@ router.get('/thirdParty/:path/t/:type', (req, res, next) => {
 
 
 // Post
-router.get('/images/:path/t/:type/d/:width/:height/m/:mime1/:mime2', (req, res, next) => {
+router.get('/images/:path/t/:type/d/:width/:height/m/:mime1/:mime2/:key', (req, res, next) => {
 
   const height = req.params.height;
   const width = req.params.width;
@@ -176,8 +185,28 @@ router.get('/images/:path/t/:type/d/:width/:height/m/:mime1/:mime2', (req, res, 
       res.writeHead(400, {'Content-type':'text/html'})
       res.end("error");
     } else {
-      res.writeHead(200,{'Content-Type': mime1 + '/' + mime2});
-      res.end(content);
+
+      var quality = 60;
+      var hd = null;
+      optimizationLevel = (hd || quality >= 60) ? 1 : 2;
+
+      imagemin.buffer(content,{
+        plugins:[
+          imageminGifsicle({optimizationLevel,interlaced:true}),
+          imageminMozjpeg({quality}),
+          imageminJpegtran({progressive:true}),
+          imageminPngquant({quality:`${quality}-80`})
+        ]
+      })
+      .then(compressedImage=>{
+        res.writeHead(200,{'etag': 'W/"' + req.params.path + '"'});
+        res.set('Cache-Control', 'public, max-age=31557600');
+        res.writeHead(200,{'Content-Type': mime1 + '/' + mime2});
+        return res.end(compressedImage)
+      })
+      .catch(error=>{
+        return res.end(content);
+      })
     }
   });
 });
