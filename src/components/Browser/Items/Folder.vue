@@ -1,12 +1,12 @@
 <template>
     <div class="text-xs-center folder" @click="select($event, item)" @contextmenu="show(this, item.id)" id="media-folder" >
         <v-chip
-        disabled :class="`${selectedState ? 50 : 2} ${selectedState ? 'selected' : 'unselected'} ${menuState ? 'info-chip-size' : 'm-chip-size'}`"
+        disabled :class="` ${selectedState ? 'selected' : 'unselected'} ${isMobile ? 'm-mobile-chip-size' : (menuState ? 'info-chip-size' : 'm-chip-size')}`"
          color="#CFD8DC" text-color="black" slot="activator">
-        <v-avatar :class="`${selectedState ? 50 : 2} ${selectedState ? 'selected-folder' : 'unselected'} m-f-pointer`">
+        <v-avatar :class="`m-f-pointer`">
             <v-icon :color="item.color">folder</v-icon>
         </v-avatar >
-        <span :class="`${selectedState ? 50 : 2} ${selectedState ? 'selected-folder' : 'unselected'} m-f-pointer`">{{ getName }}</span>
+        <span :class="`m-f-pointer`">{{ getName }}</span>
     </v-chip>
 </div>
 </template>
@@ -44,6 +44,9 @@ export default {
         menuState: function(){
             return this.$store.state.showInfoBar;
         },
+        isMobile: function(){
+            return this.$store.state.isMobile;
+        }
     },
     methods: {
         show : function(e, id){

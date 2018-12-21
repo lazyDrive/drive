@@ -5,8 +5,8 @@
             slot-scope="{ hover }"
             :class="`${ hover } ${selectedState ? 'selected' : 'unselected'} responsize-view elevation-0`"
             class="mx-auto"
-            :width="`${menuState ? '192' : '210'}`"
-            :height="`${menuState ? '175' : '190'}`"
+            :width="`${isMobile ? '145' : (menuState ? '192' : '210')}`"
+            :height="`${isMobile ? '140' : (menuState ? '175' : '190')}`"
             >
 
             <v-img
@@ -16,7 +16,7 @@
             >
     </v-img>
     <v-card-title>
-        <img v-if="item.extImg" class="extensionImage" :src="`/api/thirdParty/${item.extImg}/t/${item.extension}`" />
+        <img v-if="item.extImg && !isMobile" class="extensionImage" :src="`/api/thirdParty/${item.extImg}/t/${item.extension}`" />
         <span class="file-text">{{ getName }}</span>
     </v-card-title>
 </v-card>

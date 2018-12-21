@@ -75,13 +75,18 @@
 }
 .m-chip-size {
     cursor: pointer!important;
-    padding: 3px 15px;
+    padding: 3px 10px;
     width: 200px;
 }
 .info-chip-size {
     cursor: pointer!important;
-    padding: 3px 15px;
+    padding: 3px 10px;
     width: 181px;
+}
+.m-mobile-chip-size {
+    cursor: pointer!important;
+    padding: 2px 10px;
+    width: 135px;
 }
 .m-f-pointer{
     cursor: pointer!important;
