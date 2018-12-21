@@ -118,6 +118,8 @@ export default {
             const clickedOutside = notClickedBrowserItems && notClickedInfobar;
             if (clickedOutside) {
                 this.$store.commit(types.UNSELECT_ALL_BROWSER_ITEMS);
+            }else{
+                this.$store.dispatch('getContents', 20);
             }
         },
         // Listeners for drag and drop

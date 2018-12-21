@@ -50,6 +50,7 @@ export default {
     methods:{
         hidePreviewModal: function() {
             this.$store.commit(types.HIDE_PREVIEW_MODAL);
+            this.reset();
         },
         next:function(){
             var flag = 0;
