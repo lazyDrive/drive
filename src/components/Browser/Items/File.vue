@@ -12,6 +12,7 @@
             <v-img
             :aspect-ratio="16/10"
             :src="item.imgUrl"
+            :alt="item.name"
             :lazy-src="item.imgLazyUrl"
             >
     </v-img>

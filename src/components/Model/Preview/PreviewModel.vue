@@ -1,13 +1,15 @@
 <template>
     <div id="myModal" v-if="this.$store.state.showPreviewModal" class="modal">
-        <v-icon color="white" class="close" @click="hidePreviewModal()">close</v-icon>
+        <v-icon color="white" @click="hidePreviewModal()" class="close">arrow_back</v-icon>
         <v-icon color="white" class="prev">arrow_back_ios</v-icon>
         <v-img
         class="modal-content"
         :src="item.imgUrl"
         ref="prevImage"
-        :max-width="maxWidth"
-        :max-height="maxHeight"
+        :width="width"
+        contain
+        :alt="item.name"
+        :height="height"
         :lazy-src="item.imgLazyUrl"
         >
         <v-layout
@@ -39,8 +41,8 @@ export default {
     data: () => ({
         defaultData:'Untitled Folder',
         c:true,
-        maxWidth:800,
-        maxHeight:450,
+        width:800,
+        height:450,
     }),
     computed:{
         item: function(){
@@ -90,16 +92,16 @@ export default {
             }
         },
         reset: function(){
-            this.maxWidth = 800;
-            this.maxHeight = 450;
+            this.width = 800;
+            this.height = 450;
         },
         dec: function(){
-            this.maxWidth = this.maxWidth - 200;
-            this.maxHeight = this.maxHeight - 200;
+            this.width = this.width - 150;
+            this.height = this.height - 150;
         },
         inc: function(){
-            this.maxWidth = this.maxWidth + 200;
-            this.maxHeight = this.maxHeight + 200;
+            this.width = this.width + 150;
+            this.height = this.height + 150;
             // var seconds = 0;
             // setInterval(function () {
             //     seconds += 1;
@@ -109,8 +111,8 @@ export default {
             //         return 0;
             //     }
             //
-            //     this.maxWidth = this.maxWidth + seconds;
-            //     this.maxHeight = this.maxHeight + seconds;
+            //     this.width = this.width + seconds;
+            //     this.height = this.height + seconds;
             // }.bind(this), 5);
         }
     }

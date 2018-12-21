@@ -67,7 +67,7 @@
     text-align: left;
 }
 .file {
-    margin: 15px 10px 15px 10px;
+    margin: 10px;
     cursor: pointer;
 }
 .folder{
@@ -177,17 +177,17 @@
     margin: auto;
     display: block;
     width: 80%;
-    -webkit-transition: width 2s, height 4s; /* For Safari 3.1 to 6.0 */
-    transition: width 2s, height 4s;
+    -webkit-transition: width 0.5s, height 0.5s; /* For Safari 3.1 to 6.0 */
+    transition: width 0.5s, height 0.5s;
     border: 0;
 }
 
 /* Caption of Modal Image */
 .caption {
     color: white;
-    position: absolute;
+    position: fixed;
     top: 15px;
-    left: 35px;
+    left:60px;
     font-size: 40px;
 }
 
@@ -202,14 +202,15 @@
 
 /* The Close Button */
 .close {
-    position: absolute;
+    position: fixed;
     top: 15px;
-    right: 35px;
+    left: 15px;
     font-size: 30px;
+    z-index: 10;
 }
 
 .next {
-    position: absolute;
+    position: fixed;
     top: 50%;
     bottom:50%;
     right: 35px;
@@ -217,12 +218,14 @@
     font-size: 20px;
     font-weight: bold;
     transition: 0.3s;
+    z-index: 10;
     cursor: pointer;
 }
 
 .prev {
-    position: absolute;
+    position: fixed;
     top: 50%;
+    z-index: 10;
     bottom:50%;
     left: 35px;
     color: #f1f1f1;
@@ -269,6 +272,6 @@
     right: 0;
     left: 0;
     z-index: 15;
-    position: absolute;
+    position: fixed;
     margin: auto;
 }

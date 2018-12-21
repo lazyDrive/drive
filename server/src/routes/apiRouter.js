@@ -56,6 +56,7 @@ router.get('/getFiles', (req, res) => {
     ]
 
     content.name = file;
+    const stats = fs.statSync(uploadFolder + file);
 
     if(fs.statSync(uploadFolder + file).isDirectory())
     {
@@ -78,7 +79,7 @@ router.get('/getFiles', (req, res) => {
       content.path =  dir + file;
 
       shasum = crypto.createHash('sha1');
-      shasum.update(uploadFolder + file);
+      shasum.update(uploadFolder + file + stats.mtime);
 
       const dimensions = sizeOf(uploadFolder + file);
       content.dimensions.height = dimensions.height;
@@ -96,7 +97,6 @@ router.get('/getFiles', (req, res) => {
     content.id = shasum.digest('hex');
     content.color = colors[Math.floor((Math.random() * 8) + 1)];
 
-    const stats = fs.statSync(uploadFolder + file);
     content.size = stats.size;
     const mtime = new Date(util.inspect(stats.mtime));
     content.created_date = mtime;
@@ -180,6 +180,8 @@ router.get('/images/:path/t/:type/d/:width/:height/m/:mime1/:mime2/:key', (req, 
   const path = Buffer.from(req.params.path, 'base64').toString('ascii');
   const type = req.params.type;
 
+  res.set('Cache-Control', 'public, max-age=31557600');
+
   fs.readFile(path, function (err, content) {
     if (err) {
       res.writeHead(400, {'Content-type':'text/html'})
@@ -200,7 +202,6 @@ router.get('/images/:path/t/:type/d/:width/:height/m/:mime1/:mime2/:key', (req, 
       })
       .then(compressedImage=>{
         res.writeHead(200,{'etag': 'W/"' + req.params.path + '"'});
-        res.set('Cache-Control', 'public, max-age=31557600');
         res.writeHead(200,{'Content-Type': mime1 + '/' + mime2});
         return res.end(compressedImage)
       })
