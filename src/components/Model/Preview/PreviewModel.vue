@@ -1,5 +1,5 @@
 <template>
-    <div id="myModal" v-if="this.$store.state.showPreviewModal" class="modal">
+    <div id="media-preview-modal" v-if="this.$store.state.showPreviewModal" class="modal">
         <v-icon color="white" @click="hidePreviewModal()" class="close">arrow_back</v-icon>
         <v-icon color="white" class="prev">arrow_back_ios</v-icon>
         <v-img
@@ -102,19 +102,26 @@ export default {
         inc: function(){
             this.width = this.width + 150;
             this.height = this.height + 150;
-            // var seconds = 0;
-            // setInterval(function () {
-            //     seconds += 1;
-            //     if(seconds >= 200)
-            //     {
-            //         clearInterval();
-            //         return 0;
-            //     }
-            //
-            //     this.width = this.width + seconds;
-            //     this.height = this.height + seconds;
-            // }.bind(this), 5);
+        },
+        keyup: function(event){
+            event.preventDefault();
+
+            if(event.keyCode == 27){
+                this.hidePreviewModal();
+            } else if(event.keyCode == 39){
+                this.next();
+            } else if(event.keyCode == 38){
+                this.inc();
+            } else if(event.keyCode == 40){
+                this.dec();
+            }
         }
-    }
+    },
+    created() {
+        window.addEventListener('keyup', this.keyup);
+    },
+    destroyed() {
+        window.removeEventListener('keyup', this.keyup);
+    },
 }
 </script>
