@@ -16,11 +16,11 @@
 ### A typical top-level directory layout
 
     .
-    ├── build                   # Compiled files (alternatively `dist`)
     ├── docs                    # Documentation files (alternatively `doc`)
+    ├── public                  # Public files
+    ├── server                  # Server of application
     ├── src                     # Source files (alternatively `lib` or `app`)
     ├── test                    # Automated tests (alternatively `spec` or `tests`)
-    ├── tools                   # Tools and utilities
     ├── LICENSE
     └── README.md
 
@@ -34,8 +34,25 @@
 ## Installation
 
     ``` bash
+    # In root and server
     # npm
-    npm install vuetify
+    npm install
+    ```
+
+    ``` bash
+    # In server
+    # npm
+    npm start
+    ```
+
+    ``` bash
+    # In root
+    # npm
+    npm run serve
+    ```
+
+    ``` bash
+    # Done! Magic happes on port: http://localhost:8080
     ```
 
 ## License
