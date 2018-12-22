@@ -1,7 +1,13 @@
 .DS_Store
 node_modules
 /dist
-/uploads/!*/
+/uploads/*/
+!/uploads/Folder1
+!/uploads/Folder2
+!/uploads/Folder3
+!/uploads/Folder4
+!/uploads/Folder5
+!/uploads/Folder6
 !/uploads/wall1.jpg
 !/uploads/wall2.jpg
 !/uploads/wall3.jpg

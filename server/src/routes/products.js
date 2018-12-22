@@ -14,6 +14,7 @@ const storage = multer.diskStorage({
   destination: (req, file, cb) => {
     cb(null, './uploads/');
   },
+
   filename: (req, file, cb) => {
     cb(null, file.originalname);
   },
@@ -38,7 +39,7 @@ const upload = multer({
 
 router.get('/', ProductsController.products_get_all);
 
-router.post('/', checkAuth, upload.single('productImage'), ProductsController.products_create_product);
+router.post('/', checkAuth, upload.single('files'), ProductsController.products_create_product);
 
 router.get('/:productId', ProductsController.products_get_product);
 

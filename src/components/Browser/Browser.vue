@@ -59,30 +59,30 @@ export default {
             }
         },
         processFile: function() {
-            const formData = new FormData();
             var files = this.$refs.inputFile.files;
 
             for( var i = 0; i < files.length; i++ ){
                 let file = files[i];
+                const formData = new FormData();
 
                 formData.append('files', file);
+                this.$store.dispatch('upload', formData);
             }
 
-            this.$store.dispatch('upload', formData);
 
             this.$refs.formFile.reset();
         },
         processFolder: function() {
-            const formData = new FormData();
             var files = this.$refs.inputFolder.files;
 
             for( var i = 0; i < files.length; i++ ){
+                const formData = new FormData();
                 let file = files[i];
 
                 formData.append('files', file);
+                this.$store.dispatch('upload', formData);
             }
 
-            this.$store.dispatch('upload', formData);
 
             this.$refs.formFolder.reset();
         }
