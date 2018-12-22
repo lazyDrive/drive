@@ -13,7 +13,7 @@
 <h2 align="center">Media Manager</h2>
 
 
-### A typical top-level directory layout
+### Directory layout
 
     .
     ├── docs                    # Documentation files (alternatively `doc`)
@@ -26,34 +26,34 @@
 
 ## Vue CLI-3 Install
 
-    ``` bash
+
     # npm
     npm install -g @vue/cli
-    ```
+
 
 ## Installation
 
-    ``` bash
+
     # In root and server
     # npm
     npm install
-    ```
 
-    ``` bash
+
+
     # In server
     # npm
     npm start
-    ```
 
-    ``` bash
+
+
     # In root
     # npm
     npm run serve
-    ```
 
-    ``` bash
+
+
     # Done! Magic happes on port: http://localhost:8080
-    ```
+
 
 ## License
 
