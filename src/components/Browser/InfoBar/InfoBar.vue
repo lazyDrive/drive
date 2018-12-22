@@ -3,7 +3,7 @@
     v-model="menuState"
     right
     app
-    width="333"
+    width="343"
     fixed
     :stateless="true"
     >

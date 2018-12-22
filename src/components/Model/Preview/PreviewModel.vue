@@ -6,6 +6,7 @@
         class="modal-content"
         :src="item.imgUrl"
         ref="prevImage"
+        v-if="item.imgUrl"
         :width="width"
         contain
         :alt="item.name"
@@ -22,14 +23,27 @@
         <v-progress-circular indeterminate color="grey lighten-5"></v-progress-circular>
     </v-layout>
 </v-img>
-<v-icon color="white" @click="next()" class="next">arrow_forward_ios</v-icon>
-<div class="caption"><img v-if="item.extImg" class="extensionImage" :src="`/api/thirdParty/${item.extImg}/t/${item.extension}`" /> &nbsp;&nbsp;{{item.name}}</div>
 
-<div class="previewtool">
-    <v-icon color="white" @click="dec()" class="remove">remove</v-icon>
-    <v-icon color="white" @click="reset()" class="refresh">refresh</v-icon>
-    <v-icon color="white" @click="inc()" class="add">add</v-icon>
+<div class="video" v-if="video">
+    <video class="media-video-player-preview" controls>
+        <source :src="item.filePath" type="video/mp4" />
+    </video>
 </div>
+
+<div class="audio" v-if="audio">
+    <audio class="media-audio-player-preview" controls>
+        <source :src="item.filePath" type="audio/mpeg">
+        </audio>
+</div>
+
+<v-icon color="white" @click="next()" class="next">arrow_forward_ios</v-icon>
+ <div class="caption"><img v-if="item.extImg" class="extensionImage" :src="`/api/thirdParty/${item.extImg}/t/${item.extension}`" /> &nbsp;&nbsp;{{item.name}}</div>
+
+    <div class="previewtool">
+        <v-icon color="white" @click="dec()" class="remove">remove</v-icon>
+        <v-icon color="white" @click="reset()" class="refresh">refresh</v-icon>
+        <v-icon color="white" @click="inc()" class="add">add</v-icon>
+    </div>
 </div>
 </template>
 
@@ -43,11 +57,33 @@ export default {
         c:true,
         width:800,
         height:450,
+        videoExt:[
+            'mp4'
+        ],
+        audioExt:[
+            'mp3'
+        ]
     }),
     computed:{
         item: function(){
             return this.$store.state.previewItem;
         },
+        video: function(){
+            if(this.videoExt.indexOf(this.item.extension) != -1 )
+            {
+                return true;
+            }else {
+                return false;
+            }
+        },
+        audio: function(){
+            if(this.audioExt.indexOf(this.item.extension) != -1 )
+            {
+                return true;
+            }else {
+                return false;
+            }
+        }
     },
     methods:{
         hidePreviewModal: function() {

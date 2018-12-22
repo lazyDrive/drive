@@ -11,11 +11,15 @@
 
             <v-img
             :aspect-ratio="16/10"
+            v-if="item.imgUrl != ''"
             :src="item.imgUrl"
             :alt="item.name"
             :lazy-src="item.imgLazyUrl"
             >
-    </v-img>
+            </v-img>
+
+            <v-icon v-if="item.imgUrl == ''" size="120">{{ icon }}</v-icon>
+
     <v-card-title>
         <img v-if="item.extImg && !isMobile" class="extensionImage" :src="`/api/thirdParty/${item.extImg}/t/${item.extension}`" />
         <span class="file-text">{{ getName }}</span>
@@ -32,7 +36,12 @@ export default {
     name: 'media-file',
     data() {
         return {
-
+            iconsMap:{
+                'mp3' : 'library_music',
+                'zip': 'archive',
+                'mp4': 'music_video',
+                'default': 'insert_drive_file'
+            }
         }
     },
     props: ['item'],
@@ -63,6 +72,15 @@ export default {
         },
         isMobile: function(){
             return this.$store.state.isMobile;
+        },
+        icon: function(){
+            if(this.iconsMap[this.item.extension] && this.iconsMap[this.item.extension] != '')
+            {
+                return this.iconsMap[this.item.extension];
+            }
+            else {
+                return this.iconsMap['default'];
+            }
         }
     },
     methods: {
