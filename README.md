@@ -33,27 +33,18 @@
 
 ## Installation
 
-
-    # In root and server
     # npm
+
+    # In root and server run
     npm install
 
-
-
-    # In server
-    # npm
+    # In server folder run
     npm start
 
-
-
-    # In root
-    # npm
+    # In root run
     npm run serve
 
-
-
     # Done! Magic happes on port: http://localhost:8080
-
 
 ## License
 
