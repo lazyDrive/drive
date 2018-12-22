@@ -12,6 +12,32 @@
 
 <h2 align="center">Media Manager</h2>
 
+
+### A typical top-level directory layout
+
+    .
+    ├── build                   # Compiled files (alternatively `dist`)
+    ├── docs                    # Documentation files (alternatively `doc`)
+    ├── src                     # Source files (alternatively `lib` or `app`)
+    ├── test                    # Automated tests (alternatively `spec` or `tests`)
+    ├── tools                   # Tools and utilities
+    ├── LICENSE
+    └── README.md
+
+## Vue CLI-3 Install
+
+    ``` bash
+    # npm
+    npm install -g @vue/cli
+    ```
+
+## Installation
+
+    ``` bash
+    # npm
+    npm install vuetify
+    ```
+
 ## License
 
 [MIT](http://opensource.org/licenses/MIT)
