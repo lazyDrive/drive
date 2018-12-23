@@ -1,7 +1,7 @@
 <template>
     <div id="media-preview-modal" v-if="this.$store.state.showPreviewModal" class="modal">
         <v-icon color="white" @click="hidePreviewModal()" class="close">arrow_back</v-icon>
-        <v-icon color="white" class="prev">arrow_back_ios</v-icon>
+        <v-icon color="white" @click="prev()" class="prev">arrow_back_ios</v-icon>
         <v-img
         class="modal-content"
         :src="item.imgUrl"
@@ -34,29 +34,14 @@
     <audio class="media-audio-player-preview" controls>
         <source :src="item.filePath" type="audio/mpeg" />
     </audio>
-    <div class='audio-bars'>
-        <div class='bar'></div>
-        <div class='bar'></div>
-        <div class='bar'></div>
-        <div class='bar'></div>
-        <div class='bar'></div>
-        <div class='bar'></div>
-        <div class='bar'></div>
-        <div class='bar'></div>
-        <div class='bar'></div>
-        <div class='bar'></div>
-        <div class='bar'></div>
-        <div class='bar'></div>
-        <div class='bar'></div>
-        <div class='bar'></div>
-    </div>
+    <div class="circle-ripple"></div>
 
 </div>
 
 <v-icon color="white" @click="next()" class="next">arrow_forward_ios</v-icon>
 <div class="caption"><img v-if="item.extImg" class="extensionImage" :src="`/api/thirdParty/${item.extImg}/t/${item.extension}`" /> &nbsp;&nbsp;{{item.name}}</div>
 
-<div class="previewtool">
+<div class="previewtool" v-if="item.imgUrl">
     <v-icon color="white" @click="dec()" class="remove">remove</v-icon>
     <v-icon color="white" @click="reset()" class="refresh">refresh</v-icon>
     <v-icon color="white" @click="inc()" class="add">add</v-icon>
@@ -70,13 +55,11 @@ import * as types from "./../../../store/mutation-types";
 export default {
     name: 'media-create-folder',
     data: () => ({
-        defaultData:'Untitled Folder',
-        c:true,
         width:800,
         height:450,
+        files:[],
         videoExt:[
             'mp4',
-
         ],
         audioExt:[
             'mp3',
@@ -109,41 +92,36 @@ export default {
             this.$store.commit(types.HIDE_PREVIEW_MODAL);
             this.reset();
         },
-        next:function(){
-            var flag = 0;
-            var nextItem =  this.$store.state.contents.find((file) => {
+        current: function(){
+             this.files = this.$store.state.contents.filter(
+                item => (item.type != 'folders' )
+            );
 
-                if(flag == 1 && file.type != 'folders')
-                {
+            return this.files.findIndex((file) => {
+                if (file.id === this.item.id) {
                     return true;
                 }
-
-                if (file.id === this.item.id ) {
-                    flag = 1;
-                }
             });
+        },
+        next:function(){
 
-            if(nextItem != null)
+            var current = this.current();
+
+            if(current < this.files.length-1)
             {
-                this.$store.state.previewItem = nextItem;
+                this.$store.state.previewItem =  this.files[current + 1];
+
+            }else {
+                this.$store.state.previewItem =  this.files[current];
             }
         },
         prev:function() {
-            var flag = 0;
-            var nextItem =  this.$store.state.contents.find((file) => {
-                if(flag == 1 && file.type != 'folders')
-                {
-                    return true;
-                }
 
-                if (file.id === this.item.id) {
-                    flag = 1;
-                }
-            });
+            var current = this.current();
 
-            if(nextItem != null)
+            if(current > 0)
             {
-                this.$store.state.previewItem = nextItem;
+                this.$store.state.previewItem =  this.files[current-1];
             }
         },
         reset: function(){
@@ -167,6 +145,8 @@ export default {
                 this.next();
             } else if(event.keyCode == 38){
                 this.inc();
+            }else if(event.keyCode == 37){
+                this.prev();
             } else if(event.keyCode == 40){
                 this.dec();
             }

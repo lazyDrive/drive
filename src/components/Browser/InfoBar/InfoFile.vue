@@ -1,19 +1,29 @@
 <template>
     <div class="m-d-img" id="media-info-file">
+
+        <!-- for image -->
         <v-img aspect-ratio="1.75" :src="item.imgUrl" v-if="image" :lazy-src="item.imgLazyUrl"></v-img>
 
+        <!-- for audio -->
         <div class="video" v-if="video">
             <video class="media-video-player" controls>
                 <source :src="item.filePath" type="video/mp4" />
             </video>
         </div>
 
+        <!-- for audio -->
         <div class="audio" v-if="audio">
             <audio class="media-audio-player" controls>
-              <source :src="item.filePath" type="audio/mpeg">
+                <source :src="item.filePath" type="audio/mpeg" />
             </audio>
         </div>
 
+        <!-- for folder -->
+        <div class="folder" v-if="folder">
+            <v-icon size="150">folder</v-icon>
+        </div>
+
+        <!-- for other files -->
         <div class="file" v-if="file">
             <v-img aspect-ratio="1.75" contain :src="`/api/thirdParty/${item.extImg}/t/${item.extension}`" :lazy-src="`/api/thirdParty/${item.extImg}/t/${item.extension}`"></v-img>
         </div>
@@ -129,10 +139,17 @@ export default {
             }
         },
         file: function(){
-            if(this.fileExt.indexOf(this.item.extension) != -1 )
-            {
+            if(this.fileExt.indexOf(this.item.extension) != -1 ) {
                 return true;
             }else {
+                return false;
+            }
+        },
+        folder: function(){
+            if(this.item.type == 'folders') {
+                return true;
+            }
+            else {
                 return false;
             }
         },

@@ -39,8 +39,6 @@ class="infoBar"
         </div>
         <div v-if="this.$store.state.selectedItems.length > 0" >
             <media-media-player v-if="music.length > 0 || this.$store.state.showMusicPlayer" ></media-media-player>
-            <media-info-file v-for="item in quick" :item="item" :key="item.id"></media-info-file>
-            <media-info-folder v-for="item in folders" :item="item" :key="item.id"></media-info-folder>
             <media-info-file v-for="item in files" :item="item" :key="item.id"></media-info-file>
         </div>
     </v-flex>
@@ -53,7 +51,6 @@ class="infoBar"
 <script>
 import * as types from "./../../../store/mutation-types";
 import InfoFile from "@/components/Browser/InfoBar/InfoFile"
-import InfoFolder from "@/components/Browser/InfoBar/InfoFolder"
 
 export default {
     name: 'media-infoBar',
@@ -62,7 +59,7 @@ export default {
     }),
     components:{
         'media-info-file': InfoFile,
-        'media-info-folder': InfoFolder
+        // 'media-info-folder': InfoFolder
     },
     computed: {
         menuState: {
@@ -73,20 +70,8 @@ export default {
                 // this.$store.commit(types.HIDE_INFOBAR);
             }
         },
-        quick: function() {
-            return this.$store.state.selectedItems.filter(
-                item => (item.type == 'quick')
-            ).reverse();
-        },
-        folders: function() {
-            return this.$store.state.selectedItems.filter(
-                item => (item.type == 'folders')
-            ).reverse();
-        },
         files: function() {
-            return this.$store.state.selectedItems.filter(
-                item => (item.type == 'files')
-            ).reverse();
+            return this.$store.state.selectedItems;
         },
         music: function() {
             return this.$store.state.selectedItems.filter(
