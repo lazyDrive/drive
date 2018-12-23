@@ -10,6 +10,7 @@
             >
 
             <v-img
+            class="m-gradient"
             :aspect-ratio="16/10"
             v-if="item.imgUrl != ''"
             :src="item.imgUrl"
@@ -18,7 +19,17 @@
             >
             </v-img>
 
-            <v-icon v-if="item.imgUrl == ''" :size="`${isMobile ? '80' : '120'}`">{{ icon }}</v-icon>
+            <v-img
+            :aspect-ratio="16/10"
+            v-if="item.imgUrl == ''"
+            :src="`/api/thirdParty/${item.extImg}/t/${item.extension}`"
+            :alt="item.name"
+            contain
+            :lazy-src="item.imgLazyUrl"
+            >
+            </v-img>
+
+            <!-- <v-icon  :size="`${isMobile ? '80' : '120'}`">{{ icon }}</v-icon> -->
 
     <v-card-title>
         <img v-if="item.extImg && !isMobile" class="extensionImage" :src="`/api/thirdParty/${item.extImg}/t/${item.extension}`" />

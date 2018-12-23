@@ -103,8 +103,7 @@
 .v-toolbar__title{
     text-align: left!important;
 }
-.v-responsive{
-    // border-bottom: 1px solid #c5c0c0;
+.m-gradient{
     background-color: #fff;
     background: linear-gradient(45deg, #eee 25%, transparent 25%, transparent 75%, #eee 75%, #eee 100%), linear-gradient(45deg, #eee 25%, transparent 25%, transparent 75%, #eee 75%, #eee 100%);
     background-position: 0 0, 10px 10px;
