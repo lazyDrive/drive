@@ -179,17 +179,54 @@ export default {
             document.querySelector('.media-dragoutline').classList.remove('active');
             return false;
         },
+        current: function(){
+            const selected = this.$store.state.selectedItems[0];
+
+            return this.$store.state.contents.findIndex((file) => {
+                if (file.id === selected.id) {
+                    return true;
+                }
+            });
+        },
+        keyup: function(event){
+            event.preventDefault();
+
+            if(this.$store.state.selectedItems.length == 1 && !this.$store.state.showPreviewModal)
+            {
+                if(event.keyCode == 27){
+                    console.log(event);
+                } else if(event.keyCode == 39){
+                    const current = this.current();
+                    if(current < this.$store.state.contents.length-1) {
+                        this.$store.commit(types.UNSELECT_ALL_BROWSER_ITEMS);
+                        this.$store.commit(types.SELECT_BROWSER_ITEM, this.$store.state.contents[current + 1]);
+                    }
+                } else if(event.keyCode == 38){
+                    console.log(event)
+                }else if(event.keyCode == 37){
+                    const current = this.current();
+                    if(current > 0) {
+                        this.$store.commit(types.UNSELECT_ALL_BROWSER_ITEMS);
+                        this.$store.commit(types.SELECT_BROWSER_ITEM, this.$store.state.contents[current - 1]);
+                    }
+                } else if(event.keyCode == 40){
+                    console.log(event);
+                }else if(event.keyCode == 13){
+                    this.$store.commit(types.LOAD_FULL_CONTENTS_SUCCESS, this.$store.state.selectedItems[0]);
+                    this.$store.commit(types.SHOW_PREVIEW_MODAL);
+                }
+            }
+        }
     },
     created() {
         window.addEventListener('scroll', this.onScroll);
+        document.body.addEventListener('keyup', this.keyup);
         document.body.addEventListener('click', this.unselectAllBrowserItems, false);
     },
     destroyed() {
         window.removeEventListener('scroll', this.onScroll);
+        document.body.removeEventListener('keyup', this.keyup);
         document.body.removeEventListener('click', this.unselectAllBrowserItems, false);
-    },
-    mounted() {
-
     }
 }
 </script>

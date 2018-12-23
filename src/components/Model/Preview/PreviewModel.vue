@@ -25,17 +25,16 @@
 </v-img>
 
 <div class="video" v-if="video">
-    <video class="media-video-player-preview" controls>
+    <video id="media-video" class="media-video-player-preview" controls>
         <source :src="item.filePath" type="video/mp4" />
     </video>
 </div>
 
 <div class="audio" v-if="audio">
-    <audio class="media-audio-player-preview" controls>
-        <source :src="item.filePath" type="audio/mpeg" />
+    <audio id="media-audio" class="media-audio-player-preview" controls>
+        <source :src="audioFile" type="audio/mpeg" />
     </audio>
     <div class="circle-ripple"></div>
-
 </div>
 
 <v-icon color="white" @click="next()" class="next">arrow_forward_ios</v-icon>
@@ -85,6 +84,10 @@ export default {
             }else {
                 return false;
             }
+        },
+        audioFile: function(){
+            console.log('')
+            return this.item.filePath;
         }
     },
     methods:{
@@ -93,7 +96,7 @@ export default {
             this.reset();
         },
         current: function(){
-             this.files = this.$store.state.contents.filter(
+            this.files = this.$store.state.contents.filter(
                 item => (item.type != 'folders' )
             );
 
@@ -139,16 +142,19 @@ export default {
         keyup: function(event){
             event.preventDefault();
 
-            if(event.keyCode == 27){
-                this.hidePreviewModal();
-            } else if(event.keyCode == 39){
-                this.next();
-            } else if(event.keyCode == 38){
-                this.inc();
-            }else if(event.keyCode == 37){
-                this.prev();
-            } else if(event.keyCode == 40){
-                this.dec();
+            if(this.$store.state.showPreviewModal)
+            {
+                if(event.keyCode == 27){
+                    this.hidePreviewModal();
+                } else if(event.keyCode == 39){
+                    this.next();
+                } else if(event.keyCode == 38){
+                    this.inc();
+                }else if(event.keyCode == 37){
+                    this.prev();
+                } else if(event.keyCode == 40){
+                    this.dec();
+                }
             }
         }
     },
