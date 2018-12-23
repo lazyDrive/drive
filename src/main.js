@@ -9,7 +9,6 @@ import VueAnalytics from 'vue-analytics'
 import Browser from '@/components/Browser/Browser'
 import Content from '@/components/Browser/Content/Content'
 import File from '@/components/Browser/Items/File'
-import OtherFiles from '@/components/Browser/Items/OtherFiles'
 import InfoBar from '@/components/Browser/InfoBar/InfoBar'
 import Folder from '@/components/Browser/Items/Folder'
 import MediaPlayer from '@/components/Browser/Items/MediaPlayer'
@@ -57,7 +56,6 @@ Vue.component('media-model', Model)
 Vue.component('media-menu', Menu)
 Vue.component('media-upload-menu', UploadMenu)
 Vue.component('media-media-player', MediaPlayer)
-Vue.component('media-other-files', OtherFiles)
 Vue.component('media-preview-model', PreviewModel)
 
 // Register MediaManager namespace

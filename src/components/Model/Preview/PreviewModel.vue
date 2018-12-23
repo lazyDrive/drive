@@ -32,18 +32,35 @@
 
 <div class="audio" v-if="audio">
     <audio class="media-audio-player-preview" controls>
-        <source :src="item.filePath" type="audio/mpeg">
-        </audio>
+        <source :src="item.filePath" type="audio/mpeg" />
+    </audio>
+    <div class='audio-bars'>
+        <div class='bar'></div>
+        <div class='bar'></div>
+        <div class='bar'></div>
+        <div class='bar'></div>
+        <div class='bar'></div>
+        <div class='bar'></div>
+        <div class='bar'></div>
+        <div class='bar'></div>
+        <div class='bar'></div>
+        <div class='bar'></div>
+        <div class='bar'></div>
+        <div class='bar'></div>
+        <div class='bar'></div>
+        <div class='bar'></div>
+    </div>
+
 </div>
 
 <v-icon color="white" @click="next()" class="next">arrow_forward_ios</v-icon>
- <div class="caption"><img v-if="item.extImg" class="extensionImage" :src="`/api/thirdParty/${item.extImg}/t/${item.extension}`" /> &nbsp;&nbsp;{{item.name}}</div>
+<div class="caption"><img v-if="item.extImg" class="extensionImage" :src="`/api/thirdParty/${item.extImg}/t/${item.extension}`" /> &nbsp;&nbsp;{{item.name}}</div>
 
-    <div class="previewtool">
-        <v-icon color="white" @click="dec()" class="remove">remove</v-icon>
-        <v-icon color="white" @click="reset()" class="refresh">refresh</v-icon>
-        <v-icon color="white" @click="inc()" class="add">add</v-icon>
-    </div>
+<div class="previewtool">
+    <v-icon color="white" @click="dec()" class="remove">remove</v-icon>
+    <v-icon color="white" @click="reset()" class="refresh">refresh</v-icon>
+    <v-icon color="white" @click="inc()" class="add">add</v-icon>
+</div>
 </div>
 </template>
 

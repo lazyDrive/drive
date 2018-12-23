@@ -15,7 +15,7 @@
         </div>
 
         <div class="file" v-if="file">
-            <v-icon size="120">{{ icon }}</v-icon>
+            <v-img aspect-ratio="1.75" contain :src="`/api/thirdParty/${item.extImg}/t/${item.extension}`" :lazy-src="`/api/thirdParty/${item.extImg}/t/${item.extension}`"></v-img>
         </div>
 
         <br>
@@ -83,7 +83,8 @@ export default {
             ],
             fileExt:[
                 'zip',
-                'ico'
+                'ico',
+                'pdf'
             ],
             imageExt:[
                 'jpg',
