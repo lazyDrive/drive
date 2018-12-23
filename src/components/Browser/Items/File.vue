@@ -18,7 +18,7 @@
             >
             </v-img>
 
-            <v-icon v-if="item.imgUrl == ''" size="120">{{ icon }}</v-icon>
+            <v-icon v-if="item.imgUrl == ''" :size="`${isMobile ? '80' : '120'}`">{{ icon }}</v-icon>
 
     <v-card-title>
         <img v-if="item.extImg && !isMobile" class="extensionImage" :src="`/api/thirdParty/${item.extImg}/t/${item.extension}`" />

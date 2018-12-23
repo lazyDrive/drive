@@ -1,6 +1,6 @@
 <template>
     <div class="m-d-img" id="media-info-file">
-        <v-img aspect-ratio="1.75" :src="item.imgUrl" v-if="item.imgUrl" :lazy-src="item.imgLazyUrl"></v-img>
+        <v-img aspect-ratio="1.75" :src="item.imgUrl" v-if="image" :lazy-src="item.imgLazyUrl"></v-img>
 
         <div class="video" v-if="video">
             <video class="media-video-player" controls>
@@ -43,7 +43,7 @@
                 </tr>
                 <tr>
                     <td class="m-d-td">Extension</td>
-                    <td class="m-d-td"><strong>{{ item.extension }}</strong>&nbsp;<img v-if="item.extImg" class="extensionImage" :src="`/api/thirdParty/${item.extImg}/t/${item.extension}`" /></td>
+                    <td class="m-d-td"><strong>{{ item.extension }}</strong>&nbsp;</td>
                 </tr>
                 <tr>
                     <td class="m-d-td">Mime Type</td>
@@ -74,18 +74,29 @@ export default {
     data() {
         return {
             videoExt:[
-                'mp4'
+                'mp4',
+
             ],
             audioExt:[
-                'mp3'
+                'mp3',
+                'webm'
             ],
             fileExt:[
-                'zip'
+                'zip',
+                'ico'
+            ],
+            imageExt:[
+                'jpg',
+                'jpeg',
+                'png',
+                'gif',
+                'tif'
             ],
             iconsMap:{
                 'mp3' : 'library_music',
                 'zip': 'archive',
                 'mp4': 'music_video',
+                'webm': 'library_music',
                 'default': 'insert_drive_file'
             }
         }
@@ -102,6 +113,14 @@ export default {
         },
         audio: function(){
             if(this.audioExt.indexOf(this.item.extension) != -1 )
+            {
+                return true;
+            }else {
+                return false;
+            }
+        },
+        image: function(){
+            if(this.imageExt.indexOf(this.item.extension) != -1 )
             {
                 return true;
             }else {

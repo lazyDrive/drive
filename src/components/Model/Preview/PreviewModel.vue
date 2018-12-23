@@ -58,10 +58,12 @@ export default {
         width:800,
         height:450,
         videoExt:[
-            'mp4'
+            'mp4',
+
         ],
         audioExt:[
-            'mp3'
+            'mp3',
+            'webm'
         ]
     }),
     computed:{

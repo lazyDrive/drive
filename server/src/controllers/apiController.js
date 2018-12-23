@@ -177,12 +177,35 @@ exports.serveFiles = (req, res) => {
       res.writeHead(400, { 'Content-type': 'text/html' });
       res.end('error');
     } else {
-      res.writeHead(200, {
-        'Content-Type': `${mime1}/${mime2}`,
-        'Content-Length': size,
-      });
 
-      res.end(content);
+      const stat = fs.statSync(path);
+      const fileSize = stat.size;
+      const range = req.headers.range;
+
+      if(range){
+        const parts = range.replace(/bytes=/, "").split("-");
+        const start = parseInt(parts[0], 10);
+        const end = parts[1] ? parseInt(parts[1], 10) : fileSize-1;
+        const chunksize = (end-start)+1;
+        const file = fs.createReadStream(path, {start, end});
+
+        const head = {
+          'Content-Range': `bytes ${start}-${end}/${fileSize}`,
+          'Accept-Ranges': 'bytes',
+          'Content-Length': chunksize,
+          'Content-Type': `${mime1}/${mime2}`,
+        };
+
+        res.writeHead(206, head);
+        file.pipe(res);
+      }else {
+        const head = {
+          'Content-Length': fileSize,
+          'Content-Type': `${mime1}/${mime2}`,
+        }
+        res.writeHead(200, head)
+        fs.createReadStream(path).pipe(res)
+      }
     }
   });
 };
@@ -215,9 +238,9 @@ exports.serveImages = (req, res, next) => {
         ],
       })
       .then((compressedImage) => {
-            res.writeHead(200, { 'Content-Type': `${mime1}/${mime2}` });
-            res.writeHead(200, { etag: `'W/${req.params.path}'` });
-            return res.end(compressedImage);
+        res.writeHead(200, { 'Content-Type': `${mime1}/${mime2}` });
+        res.writeHead(200, { etag: `'W/${req.params.path}'` });
+        return res.end(compressedImage);
       })
       .catch((error) => {
         console.log(error);
