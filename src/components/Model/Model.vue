@@ -10,5 +10,10 @@
 <script>
 export default {
     name: 'media-model',
+    computed:{
+        isActivePreview(){
+            return this.$store.state.showPreviewModal;
+        },
+    }
 }
 </script>

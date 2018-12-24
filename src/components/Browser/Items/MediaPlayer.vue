@@ -75,33 +75,11 @@ export default {
             isPlaylistActive: false,
             currentSong: 0,
             debug: false,
-            musicPlaylist: [
-                {
-                    title: "Service Bell",
-                    artist: "Daniel Simion",
-                    url: "https://soundbible.com/mp3/service-bell_daniel_simion.mp3",
-                    image: "https://source.unsplash.com/crs2vlkSe98"
-                },
-                {
-                    title: "Meadowlark",
-                    artist: "Daniel Simion",
-                    url: "https://soundbible.com/mp3/meadowlark_daniel-simion.mp3",
-                    image: "https://source.unsplash.com/35bE_njbG9E"
-                },
-                {
-                    title: "Hyena Laughing",
-                    artist: "Daniel Simion",
-                    url: "https://soundbible.com/mp3/hyena-laugh_daniel-simion.mp3",
-                    image: "https://source.unsplash.com/4_N5a-_5K4o"
-                },
-                {
-                    title: "Creepy Background",
-                    artist: "Daniel Simion",
-                    url: "http://soundbible.com/mp3/creepy-background-daniel_simon.mp3",
-                    image: "https://source.unsplash.com/j0g8taxHZa0"
-                }
-            ],
-            audioFile: ""
+            audioFile: "",
+            audioExt:[
+                'mp3',
+                'webm'
+            ]
         }
     },
     mounted: function() {
@@ -111,6 +89,27 @@ export default {
     filters: {
         fancyTimeFormat: function(s) {
             return (s - (s %= 60)) / 60 + (9 < s ? ":" : ":0") + s;
+        }
+    },
+    computed:{
+        musicPlaylist: function(){
+
+            var files = this.$store.state.contents.filter(
+                item => {
+                    if(this.audioExt.indexOf(item.extension) != -1 ){
+                        return true;
+                    }
+                }
+            );
+
+            files.forEach(file => {
+                file.url = file.filePath;
+                file.title = file.name;
+                file.image = "https://source.unsplash.com/crs2vlkSe98";
+                file.artist = "Daniel Simion";
+            });
+
+            return files;
         }
     },
     methods: {

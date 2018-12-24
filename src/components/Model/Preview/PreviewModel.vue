@@ -1,5 +1,5 @@
 <template>
-    <div id="media-preview-modal" v-if="this.$store.state.showPreviewModal" class="modal">
+    <div id="media-preview-modal" v-if="isActive" class="modal">
         <v-icon color="white" @click="hidePreviewModal()" class="close">arrow_back</v-icon>
         <v-icon color="white" @click="prev()" class="prev">arrow_back_ios</v-icon>
         <v-img
@@ -65,9 +65,17 @@ export default {
             'webm'
         ]
     }),
+    watch: {
+        isActive: function (val) {
+            document.querySelector('html').classList.toggle('app--modal--opened', val);
+        }
+    },
     computed:{
         item: function(){
             return this.$store.state.previewItem;
+        },
+        isActive: function(){
+            return this.$store.state.showPreviewModal;
         },
         video: function(){
             if(this.videoExt.indexOf(this.item.extension) != -1 )
@@ -86,7 +94,6 @@ export default {
             }
         },
         audioFile: function(){
-            console.log('')
             return this.item.filePath;
         }
     },

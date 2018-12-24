@@ -219,13 +219,13 @@ export default {
         }
     },
     created() {
-        window.addEventListener('scroll', this.onScroll);
-        document.body.addEventListener('keyup', this.keyup);
+        window.addEventListener('scroll', this.onScroll, false);
+        document.body.addEventListener('keyup', this.keyup, false);
         document.body.addEventListener('click', this.unselectAllBrowserItems, false);
     },
     destroyed() {
-        window.removeEventListener('scroll', this.onScroll);
-        document.body.removeEventListener('keyup', this.keyup);
+        window.removeEventListener('scroll', this.onScroll, false);
+        document.body.removeEventListener('keyup', this.keyup, false);
         document.body.removeEventListener('click', this.unselectAllBrowserItems, false);
     }
 }
