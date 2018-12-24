@@ -29,7 +29,7 @@ export default {
 
   data() {
     return {
-      url: process.env.VUE_APP_PDF_URL,
+      url: '',
       documentError: undefined,
       enableUploader: process.env.VUE_APP_UPLOAD_ENABLED === 'true',
     };
