@@ -19,6 +19,7 @@
     "lodash": "^4.17.11",
     "material-design-icons-iconfont": "^4.0.3",
     "pdfjs-dist": "^2.0.943",
+    "pdfvuer": "^1.0.5",
     "register-service-worker": "^1.5.2",
     "vue": "^2.5.21",
     "vue-analytics": "^5.16.1",

@@ -46,6 +46,21 @@
 
     # Done! Magic happens on port: http://localhost:8080
 
+## Some Screenshot    
+
+<br>
+<p align="center">
+  <img  src="public/img/1.png">
+</p>
+<br>
+<p align="center">
+  <img  src="public/img/2.png">
+</p>
+<br>
+<p align="center">
+  <img  src="public/img/3.png">
+</p>
+
 ## License
 
 [MIT](http://opensource.org/licenses/MIT)
