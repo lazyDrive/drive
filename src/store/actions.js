@@ -1,5 +1,6 @@
 import axios from 'axios'
 import * as types from "./mutation-types";
+// import router from "./../router"
 import * as FileSaver from 'file-saver';
 
 // Actions are similar to mutations, the difference being that:
@@ -127,6 +128,64 @@ export const loadMoreContents = (context, payload) => {
 	})
 }
 
+/**
+* Login
+* @param commit
+* @param payload
+*/
+export const login = (context, payload) => {
+
+	axios
+	.post('user/login', payload)
+	.then(response => {
+		console.log(response);
+
+	})
+	.catch(error => {
+
+		console.log(error);
+
+		var data = {
+			'data': '500 (Internal Server Error)',
+			'color': 'error'
+		}
+
+		context.commit(types.SHOW_SNACKBAR, data)
+	})
+}
+
+/**
+* Login
+* @param commit
+* @param payload
+*/
+export const signup = (context, payload) => {
+
+	axios
+	.post('user/signup', payload)
+	.then(response => {
+
+		var data = {
+			'data': response.data.message,
+			'color': 'success'
+		}
+
+		context.commit(types.SHOW_SNACKBAR, data);
+
+		console.log(response);
+	})
+	.catch(error => {
+
+		console.log(error);
+
+		var data = {
+			'data': '500 (Internal Server Error)',
+			'color': 'error'
+		}
+
+		context.commit(types.SHOW_SNACKBAR, data)
+	})
+}
 
 //
 // /**

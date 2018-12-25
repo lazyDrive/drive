@@ -9,7 +9,7 @@
                     <v-card>
                         <v-card-text class="pt-4">
                             <div>
-                                <v-form v-model="valid" ref="form">
+                                <v-form v-model="valid" ref="form" v-on:submit.prevent>
                                     <v-text-field
                                     v-model="name"
                                     :rules="nameRules"
@@ -74,7 +74,13 @@ export default {
     methods: {
         submit () {
             if (this.$refs.form.validate()) {
-                this.$refs.form.$el.submit()
+                const data = {
+                    'name': this.name,
+                    'email': this.email,
+                    'password': this.password,
+                }
+
+                this.$store.dispatch('signup', data);
             }
         },
         clear () {

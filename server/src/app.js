@@ -19,10 +19,11 @@ const app = express();
 mongoose.connect('mongodb://localhost/ninjago', { useNewUrlParser: true });
 mongoose.Promise = global.Promise;
 
-app.use(morgan('dev'));
-app.use(bodyParser.json());
 app.use(cors());
+app.use(morgan('dev'));
 app.use(compression());
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded( { extended: false }));
 
 app.use((req, res, next) => {
   // res.header('Access-Control-Allow-Origin', '*');

@@ -9,7 +9,7 @@
                     <v-card>
                         <v-card-text class="pt-4">
                             <div>
-                                <v-form v-model="valid" ref="form">
+                                <v-form v-model="valid" ref="form" v-on:submit.prevent>
                                     <v-text-field
                                     label="Enter your e-mail address"
                                     v-model="email"
@@ -63,7 +63,12 @@ export default {
     methods: {
         submit () {
             if (this.$refs.form.validate()) {
-                this.$refs.form.$el.submit()
+                const data = {
+                    'email': this.email,
+                    'password': this.password,
+                }
+
+                this.$store.dispatch('login', data);
             }
         },
         clear () {
