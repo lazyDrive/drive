@@ -1,7 +1,8 @@
 .DS_Store
 node_modules
 /dist
-# /uploads/*
+/uploads/*
+!*/uploads/.gitkeep
 
 /tests/e2e/videos/
 /tests/e2e/screenshots/
