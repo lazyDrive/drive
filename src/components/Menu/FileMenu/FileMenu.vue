@@ -69,8 +69,8 @@ export default {
             console.log(e);
         },
         download: function(){
-            var path  = this.$store.state.selectedItems[0].imgUrl;
-            this.$store.dispatch(path);
+            var file  = this.$store.state.selectedItems[0];
+            this.$store.dispatch('download', file);
         },
         getShareableLike: function(e){
             console.log(e);

@@ -1,6 +1,7 @@
 {
     "env": {
         "MONGO_ATLAS_PW": "CTdYB4jqX6uovW7O",
-        "JWT_KEY": "secret"
+        "JWT_KEY": "secret",
+        "BASE_PATH": "./uploads"
     }
 }

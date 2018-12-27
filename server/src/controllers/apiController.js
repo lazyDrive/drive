@@ -4,6 +4,8 @@ const readChunk = require('read-chunk');
 const fileType = require('file-type');
 const sizeOf = require('image-size');
 const crypto = require('crypto');
+const axios = require('axios');
+const Path = require('path');
 
 const imagemin = require('imagemin');
 const imageminJpegtran = require('imagemin-jpegtran');
@@ -77,7 +79,7 @@ exports.getFiles = (req, res) => {
         const dimensions = sizeOf(uploadFolder + file);
         content.dimensions.height = dimensions.height;
         content.dimensions.width = dimensions.width;
-        content.imgLazyUrl = `/api/images/${Buffer.from(uploadFolder + file).toString('base64')}/t/${fileInfo.ext }/d/200/200/m/${fileInfo.mime}/${id}`;
+        content.imgLazyUrl = `/api/images/${Buffer.from(uploadFolder + file).toString('base64')}/t/${fileInfo.ext}/d/200/200/m/${fileInfo.mime}/${id}`;
         content.imgUrl = `/api/images/${Buffer.from(uploadFolder + file).toString('base64')}/t/${fileInfo.ext}/d/200/200/m/${fileInfo.mime}/${id}`;
       } else {
         content.filePath = `/api/files/${Buffer.from(uploadFolder + file).toString('base64')}/t/${fileInfo.ext}/m/${fileInfo.mime}/s/${stats.size}/${id}`;
@@ -248,4 +250,25 @@ exports.serveImages = (req, res, next) => {
       });
     }
   });
+};
+
+
+exports.downloadFile = (req, res, next) => {
+
+  // const filePath = req.params.path;
+
+  const url = 'https://unsplash.com/photos/AaEQmoufHLk/download?force=true';
+  const path = Path.resolve(process.env.BASE_PATH, '/', 'code.jpg');
+
+  axios
+    .get(url, { responseType: 'stream' })
+    .then(response => {
+
+      response.data.pipe(fs.createWriteStream(path));
+
+
+    })
+    .catch(error => {
+      console.log(error);
+    })
 };

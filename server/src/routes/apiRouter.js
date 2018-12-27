@@ -1,4 +1,5 @@
 const express = require('express');
+
 const router = express.Router();
 
 const ApiController = require('../controllers/apiController');
@@ -14,5 +15,8 @@ router.get('/images/:path/t/:type/d/:width/:height/m/:mime1/:mime2/:key', ApiCon
 
 // get files
 router.get('/files/:path/t/:type/m/:mime1/:mime2/s/:size/:key', ApiController.serveFiles);
+
+// Download files
+router.get('/download/file/:path', ApiController.downloadFile);
 
 module.exports = router;

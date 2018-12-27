@@ -1,7 +1,7 @@
 import axios from 'axios'
 import * as types from "./mutation-types";
 // import router from "./../router"
-import * as FileSaver from 'file-saver';
+// import * as FileSaver from 'file-saver';
 
 // Actions are similar to mutations, the difference being that:
 // - Instead of mutating the state, actions commit mutations.
@@ -213,28 +213,30 @@ export const signup = (context, payload) => {
 * @param payload
 */
 export const download = (context, payload) => {
+	axios
+	.get('api/download/file/sa' , payload)
+	.then(response => {
 
-	var file = payload;
-
-	// Converte the base 64 encoded string to a blob
-	var byteCharacters = atob(file.content);
-	var byteArrays = [];
-
-	for (var offset = 0; offset < byteCharacters.length; offset += 512) {
-		var slice = byteCharacters.slice(offset, offset + 512);
-
-		var byteNumbers = new Array(slice.length);
-		for (var i = 0; i < slice.length; i++) {
-			byteNumbers[i] = slice.charCodeAt(i);
+		var data = {
+			'data': response.data.message,
+			'color': 'success'
 		}
 
-		var byteArray = new Uint8Array(byteNumbers);
+		context.commit(types.SHOW_SNACKBAR, data);
 
-		byteArrays.push(byteArray);
-	}
+		console.log(response);
+	})
+	.catch(error => {
 
-	// Open the save as file dialog
-	FileSaver.saveAs(new Blob(byteArrays, {type: file.mime_type}), file.name);
+		console.log(error);
+
+		var data = {
+			'data': '500 (Internal Server Error)',
+			'color': 'error'
+		}
+
+		context.commit(types.SHOW_SNACKBAR, data)
+	})
 }
 //
 // /**
