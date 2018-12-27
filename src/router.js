@@ -8,6 +8,11 @@ const router = new Router({
     base: process.env.BASE_URL,
     routes: [
         {
+            path: '/',
+            name: 'home',
+            component: Home
+        },
+        {
             path: '/drive/u/:adapter/my-drive',
             name: 'my-drive',
             component: Home

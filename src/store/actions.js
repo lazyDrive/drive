@@ -1,4 +1,4 @@
-import axios from 'axios'
+import {api} from "../app/Api";
 import * as types from "./mutation-types";
 // import router from "./../router"
 // import * as FileSaver from 'file-saver';
@@ -31,7 +31,7 @@ export const getContents = (context, payload) => {
 
 	context.commit(types.SET_IS_LOADING, true)
 
-	axios
+	api.axios()
 	.get('api/getFiles')
 	.then(response => {
 		context.commit(types.LOAD_CONTENTS_SUCCESS, response.data.contents)
@@ -62,11 +62,7 @@ export const upload = (context, payload) => {
 	context.commit(types.SET_IS_LOADING, true)
 	context.commit(types.SHOW_TOOL_MODAL, true)
 
-	axios.defaults.headers = {
-		// 'Content-Type': 'application/json',
-		'Authorization': 'Anurag eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImFudXJhZ3ZuczExMTFAZ21haWwuY29tIiwidXNlcklkIjoiNWMxZTRhYjliOTZmNTU2ODc0Yjc1NDI0IiwiaWF0IjoxNTQ1NDg5NTA5LCJleHAiOjE1NDU0OTMxMDl9.OESFK86L7noxiHDjfmoX3-Y-liqYDs1Q4pVLyRR6Oks'
-	}
-	axios
+	api.axios()
 	.post('products', payload, {
 		onUploadProgress: e => context.commit(types.SET_IS_LOADING_MORE, { value: true, per: Math.round(e.loaded * 100 / e.total)})
 	})
@@ -107,7 +103,7 @@ export const loadMoreContents = (context, payload) => {
 
 	context.commit(types.SET_IS_LOADING_MORE, true);
 
-	axios
+	api.axios()
 	.get('loadMoreContents')
 	.then(response => {
 		context.commit(types.LOAD_MORE_CONTENTS_SUCCESS, response.data.contents)
@@ -135,7 +131,7 @@ export const loadMoreContents = (context, payload) => {
 */
 export const login = (context, payload) => {
 
-	axios
+	api.axios()
 	.post('user/login', payload)
 	.then(response => {
 		console.log(response);
@@ -161,7 +157,7 @@ export const login = (context, payload) => {
 */
 export const signup = (context, payload) => {
 
-	axios
+	api.axios()
 	.post('user/signup', payload)
 	.then(response => {
 
@@ -213,7 +209,7 @@ export const signup = (context, payload) => {
 * @param payload
 */
 export const download = (context, payload) => {
-	axios
+	api.axios()
 	.get('api/download/file/sa' , payload)
 	.then(response => {
 
