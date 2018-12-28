@@ -4,8 +4,11 @@
       <v-btn href="/#/" flat>Home</v-btn>
       <v-toolbar-title>Media Manager</v-toolbar-title>
       <v-spacer></v-spacer>
-      <v-btn href="/#/login" flat>Login</v-btn>
-      <v-btn href="/#/signup" flat>Register</v-btn>
+      <v-btn v-on:click.stop.prevent :to="{ path: '/login' }" flat>Login</v-btn>
+      <v-btn v-on:click.stop.prevent :to="{ path: '/signup' }" flat>Register</v-btn>
+      <v-btn icon href="https://github.com/Anu1601CS/media-manager" flat>
+      <v-icon>code</v-icon>
+      </v-btn>
     </v-toolbar>
     <v-content>
       <v-container fluid fill-height class="loginOverlay">
