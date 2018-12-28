@@ -50,6 +50,8 @@ export default {
     isLoading: false,
     // Is mobile
     isMobile:false,
+    // Token
+    token:null,
     // The loadmoreprogress
     loadMoreProgress: false,
     // The Search Query

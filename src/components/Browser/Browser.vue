@@ -8,7 +8,7 @@
             </div>
             <div class="folder">
                 <form enctype="multipart/form-data" ref="formFolder">
-                    <input multiple type="file" webkitdirectory mozdirectory hidden ref="inputFolder" @change="processFile"/>
+                    <input multiple type="file" webkitdirectory mozdirectory hidden ref="inputFolder" @change="processFolder"/>
                 </form>
             </div>
         </div>
@@ -69,7 +69,6 @@ export default {
                 this.$store.dispatch('upload', formData);
             }
 
-
             this.$refs.formFile.reset();
         },
         processFolder: function() {
@@ -82,7 +81,6 @@ export default {
                 formData.append('files', file);
                 this.$store.dispatch('upload', formData);
             }
-
 
             this.$refs.formFolder.reset();
         }

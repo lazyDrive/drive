@@ -1,21 +1,23 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import Home from './views/Home.vue'
+import myDrive from './views/myDrive.vue'
+import {
+    api
+} from "./app/Api";
 
 Vue.use(Router)
 
 const router = new Router({
     base: process.env.BASE_URL,
-    routes: [
-        {
+    routes: [{
             path: '/',
             name: 'home',
-            component: Home
+            component: () => import( /* webpackChunkName: "about" */ './views/Home.vue')
         },
         {
             path: '/drive/u/:adapter/my-drive',
             name: 'my-drive',
-            component: Home
+            component: myDrive
         },
         {
             path: '/login',
@@ -23,7 +25,7 @@ const router = new Router({
             // route level code-splitting
             // this generates a separate chunk (about.[hash].js) for this route
             // which is lazy-loaded when the route is visited.
-            component: () => import(/* webpackChunkName: "about" */ './views/Login.vue')
+            component: () => import( /* webpackChunkName: "about" */ './views/Login.vue')
         },
         {
             path: '/signup',
@@ -31,7 +33,7 @@ const router = new Router({
             // route level code-splitting
             // this generates a separate chunk (about.[hash].js) for this route
             // which is lazy-loaded when the route is visited.
-            component: () => import(/* webpackChunkName: "about" */ './views/Signup.vue')
+            component: () => import( /* webpackChunkName: "about" */ './views/Signup.vue')
         },
         {
             path: '/test',
@@ -39,25 +41,22 @@ const router = new Router({
             // route level code-splitting
             // this generates a separate chunk (about.[hash].js) for this route
             // which is lazy-loaded when the route is visited.
-            component: () => import(/* webpackChunkName: "about" */ './views/Test.vue')
+            component: () => import( /* webpackChunkName: "about" */ './views/Test.vue')
         }
     ]
 })
-
 
 router.beforeEach((to, from, next) => {
     // redirect to login page if not logged in and trying to access a restricted page
     const publicPages = ['/login', '/signup'];
     const authRequired = !publicPages.includes(to.path);
-    localStorage.setItem('user', 1);
-    const loggedIn = localStorage.getItem('user');
+    const loggedIn = api.isLoggedIn();
 
     if (authRequired && !loggedIn) {
-      return next('/login');
+        return next('/login');
     }
 
     next();
 })
-
 
 export default router;

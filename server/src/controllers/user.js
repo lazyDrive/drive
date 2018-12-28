@@ -77,9 +77,14 @@ exports.user_login = (req, res, next) => {
               expiresIn: 1440,
             },
           );
+
+          // eslint-disable-next-line no-param-reassign
+          user[0].password = '';
+
           return res.status(200).json({
             message: 'Auth successful.',
             token,
+            userData: user[0],
           });
         }
 

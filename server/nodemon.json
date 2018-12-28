@@ -2,6 +2,7 @@
     "env": {
         "MONGO_ATLAS_PW": "CTdYB4jqX6uovW7O",
         "JWT_KEY": "secret",
-        "BASE_PATH": "./uploads"
+        "BASE_PATH": "./uploads",
+        "CSRFTOKEN": "C_MW5rCdAz36_3QCXFUECqwjl4qqFTKp113T8bHg"
     }
 }

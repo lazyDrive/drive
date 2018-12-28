@@ -6,6 +6,7 @@ export const persistedStateOptions = {
         'showInfoBar',
         'listView',
         'gridSize',
+        'token',
     ],
     storage: window.sessionStorage,
 };

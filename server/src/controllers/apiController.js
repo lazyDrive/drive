@@ -265,3 +265,7 @@ exports.downloadFile = (req, res, next) => {
       console.log(error);
     });
 };
+
+exports.uploadFiles = (req, res, next) => {
+  res.json({ files: req.files , message: 'success', text: 'File has been uploaded.'})
+};

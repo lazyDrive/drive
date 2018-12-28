@@ -1,4 +1,6 @@
 import {api} from "../app/Api";
+// import store from '@/store/store';
+import router from './../router';
 import * as types from "./mutation-types";
 
 /**
@@ -39,17 +41,15 @@ export const getContents = (context, payload) => {
 export const upload = (context, payload) => {
 
 	context.commit(types.SET_IS_LOADING, true)
-	context.commit(types.SHOW_TOOL_MODAL, true)
+	// context.commit(types.SHOW_TOOL_MODAL, true)
 
 	api.axios()
-	.post('products', payload, {
+	.post('api/upload', payload, {
 		onUploadProgress: e => context.commit(types.SET_IS_LOADING_MORE, { value: true, per: Math.round(e.loaded * 100 / e.total)})
 	})
 	.then(response => {
-		// context.commit(types.LOAD_MORE_CONTENTS_SUCCESS, response.data.file)
-		// context.commit(types.SET_IS_LOADING_MORE, { value: false, per: 0})
-		console.log(response)
 		context.commit(types.SET_IS_LOADING, false)
+		context.dispatch('getContents');
 
 		var data = {
 			'data': response.data.text,
@@ -113,8 +113,14 @@ export const login = (context, payload) => {
 	api.axios()
 	.post('user/login', payload)
 	.then(response => {
-		console.log(response);
 
+		api.mediastorage.cookies.set('name', response.data.userData.name, 5000);
+		api.mediastorage.cookies.set('email', response.data.userData.email, 5000);
+		api.mediastorage.cookies.set('token', response.data.token, 5000);
+
+		if(response.status == 200) {
+			router.push('/drive/u/0/my-drive');
+		}
 	})
 	.catch(error => {
 
