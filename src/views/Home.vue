@@ -7,7 +7,7 @@
         <v-btn href="/#/login" flat>Login</v-btn>
         <v-btn href="/#/signup" flat>Register</v-btn>
         <v-btn icon href="https://github.com/Anu1601CS/media-manager" flat>
-        <v-icon>code</v-icon>
+          <v-icon>code</v-icon>
         </v-btn>
       </v-toolbar>
       <v-content>
@@ -70,8 +70,96 @@
               </v-container>
             </v-flex>
           </v-layout>
+          <v-container grid-list-xl>
+            <v-layout row wrap align-center>
+              <v-flex xs12 sm6 md3>
+                <v-card>
+                  <img src="./../assets/node1.png" width="100%" height="200">
+                  <v-card-title primary-title>
+                    <div>
+                      <h3 class="headline mb-0">Node.js</h3>
+                      <div>Node.js is cross-platform JavaScript run-time environment that executes JavaScript code outside of a browser.</div>
+                    </div>
+                  </v-card-title>
+
+                  <v-card-actions>
+                    <v-btn flat href="https://nodejs.org/en/" color="orange">Explore</v-btn>
+                  </v-card-actions>
+                </v-card>
+              </v-flex>
+              <v-flex xs12 sm6 md3>
+                <v-card>
+                  <img src="./../assets/vue.png" width="100%" height="200">
+
+                  <v-card-title primary-title>
+                    <div>
+                      <h3 class="headline mb-0">Vuejs</h3>
+                      <div>Vue.js is an open-source JavaScript framework for building user interfaces and single-page applications.</div>
+                    </div>
+                  </v-card-title>
+
+                  <v-card-actions>
+                    <v-btn href="https://vuejs.org/" flat color="orange">Explore</v-btn>
+                  </v-card-actions>
+                </v-card>
+              </v-flex>
+              <v-flex xs12 sm6 md3>
+                <v-card>
+                  <img src="./../assets/mongo.png" width="100%" height="200">
+
+                  <v-card-title primary-title>
+                    <div>
+                      <h3 class="headline mb-0">MongoDB</h3>
+                      <div>MongoDB is a NoSQL database program, MongoDB uses JSON-like documents with schemata.</div>
+                    </div>
+                  </v-card-title>
+
+                  <v-card-actions>
+                    <v-btn href="https://www.mongodb.com/" flat color="orange">Explore</v-btn>
+                  </v-card-actions>
+                </v-card>
+              </v-flex>
+              <v-flex xs12 sm6 md3>
+                <v-card>
+                  <img src="./../assets/express.png" width="100%" height="200">
+
+                  <v-card-title primary-title>
+                    <div>
+                      <h3 class="headline mb-0">Express</h3>
+                      <div>
+                        Express.js is a web application framework for Node.js.
+                        It is designed for building web applications and APIs.
+                      </div>
+                    </div>
+                  </v-card-title>
+
+                  <v-card-actions>
+                    <v-btn href="https://expressjs.com/" flat color="orange">Explore</v-btn>
+                  </v-card-actions>
+                </v-card>
+              </v-flex>
+            </v-layout>
+          </v-container>
         </section>
       </v-content>
+      <v-footer dark height="auto">
+        <v-card class="flex" flat tile>
+          <!-- <v-card-title class="teal">
+            <strong class="subheading">Get connected with us on social networks!</strong>
+
+            <v-spacer></v-spacer>
+
+            <v-btn v-for="icon in icons" :key="icon" class="mx-3" dark icon>
+              <v-icon size="24px">{{ icon }}</v-icon>
+            </v-btn>
+          </v-card-title> -->
+
+          <v-card-actions class="grey darken-3 justify-center">
+            &copy;2018 —
+            <strong> Anurag</strong>
+          </v-card-actions>
+        </v-card>
+      </v-footer>
     </v-app>
   </div>
 </template>
@@ -81,7 +169,14 @@ export default {
   name: "media-home",
   data() {
     return {
-      title: "Your Logo"
+      title: "Your Logo",
+      icons: [
+        "fab fa-facebook",
+        "fab fa-twitter",
+        "fab fa-google-plus",
+        "fab fa-linkedin",
+        "fab fa-instagram"
+      ]
     };
   }
 };
