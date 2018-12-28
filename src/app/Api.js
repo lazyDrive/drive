@@ -1,6 +1,6 @@
 import axios from 'axios'
 import store from '@/store/store'
-
+import * as MediaStorage from './Storage.js'
 /**
  * Api class for communication with the server
  */
@@ -10,7 +10,7 @@ class Api {
      * Store constructor
      */
     constructor() {
-
+      this.cookies = MediaStorage;
     }
 
     /**
