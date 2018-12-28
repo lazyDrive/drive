@@ -1,10 +1,46 @@
 const _ = require("underscore");
 
+/* eslint-disable */
+
+/**
+ * Cookies - A small class to manipulate cookies from javascript
+ *
+ * https://developer.mozilla.org/en-US/docs/Web/API/Storage/LocalStorage
+ */
+if (!window.localStorage) {
+    window.localStorage = {
+      getItem: function (sKey) {
+        if (!sKey || !this.hasOwnProperty(sKey)) { return null; }
+        return unescape(document.cookie.replace(new RegExp("(?:^|.*;\\s*)" + escape(sKey).replace(/[\-\.\+\*]/g, "\\$&") + "\\s*\\=\\s*((?:[^;](?!;))*[^;]?).*"), "$1"));
+      },
+      key: function (nKeyId) {
+        return unescape(document.cookie.replace(/\s*\=(?:.(?!;))*$/, "").split(/\s*\=(?:[^;](?!;))*[^;]?;\s*/)[nKeyId]);
+      },
+      setItem: function (sKey, sValue) {
+        if(!sKey) { return; }
+        document.cookie = escape(sKey) + "=" + escape(sValue) + "; expires=Tue, 19 Jan 2038 03:14:07 GMT; path=/";
+        this.length = document.cookie.match(/\=/g).length;
+      },
+      length: 0,
+      removeItem: function (sKey) {
+        if (!sKey || !this.hasOwnProperty(sKey)) { return; }
+        document.cookie = escape(sKey) + "=; expires=Thu, 01 Jan 1970 00:00:00 GMT; path=/";
+        this.length--;
+      },
+      hasOwnProperty: function (sKey) {
+        return (new RegExp("(?:^|;\\s*)" + escape(sKey).replace(/[\-\.\+\*]/g, "\\$&") + "\\s*\\=")).test(document.cookie);
+      }
+    };
+    window.localStorage.length = (document.cookie.match(/\=/g) || window.localStorage).length;
+  }
+
+/* eslint-enable */
+
 /**
  * Cookies - A small class to manipulate cookies from javascript
  *
  */
-export const storage =  {
+export const cookies =  {
     /**
      * Find all cookies.
      *
@@ -79,6 +115,60 @@ export const storage =  {
     destroy: function(name) {
         if (this.get(name) != '' || this.get(name) != null) {
             this.set(name, null, -1000000);
+        }
+        return this;
+    }
+};
+
+
+/**
+ * localStorage - A small class to manipulate localStorage from javascript
+ *
+ */
+export const local =  {
+    /**
+     * Find all localstorage.
+     *
+     * @return String|null
+     */
+    getAll: function() {
+        const items = {...localStorage};
+        return items;
+    },
+
+    /**
+     * Find localstorage.
+     *
+     * @param name
+     * @return String|null
+     */
+    get: function(name) {
+        var item = null;
+        item = localStorage.getItem(name);
+        return item;
+    },
+
+    /**
+     * Create localstorage.
+     *
+     * @param name
+     * @param value
+     * @return this
+     */
+    set: function(name, value) {
+        localStorage.setItem(name, value);
+        return this;
+    },
+
+     /**
+     * Remove a localstorage.
+     *
+     * @param name
+     * @return this
+     */
+    destroy: function(name) {
+        if (this.get(name) != '' || this.get(name) != null) {
+            localStorage.removeItem(name);
         }
         return this;
     }
