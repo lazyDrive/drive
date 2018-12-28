@@ -1,25 +1,25 @@
-const mongoose = require("mongoose");
-const Product = require("../models/product");
+const mongoose = require('mongoose');
+const Product = require('../models/product');
 
-exports.products_get_all = (req, res, next) => {
+exports.products_get_all = (req, res) => {
   Product.find()
-    .select("name price _id productImage")
+    .select('name price _id productImage')
     .exec()
-    .then(docs => {
+    .then((docs) => {
       const response = {
         count: docs.length,
-        products: docs.map(doc => {
-          return {
-            name: doc.name,
-            price: doc.price,
-            productImage: doc.productImage,
-            _id: doc._id,
-            request: {
-              type: "GET",
-              url: "http://localhost:3344/products/" + doc._id
-            }
-          };
-        })
+        products: docs.map(doc => ({
+          name: doc.name,
+          price: doc.price,
+          productImage: doc.productImage,
+          // eslint-disable-next-line no-underscore-dangle
+          _id: doc._id,
+          request: {
+            type: 'GET',
+            // eslint-disable-next-line no-underscore-dangle
+            url: `http://localhost:3344/products/${doc._id}`,
+          },
+        })),
       };
       //   if (docs.length >= 0) {
       res.status(200).json(response);
@@ -29,116 +29,122 @@ exports.products_get_all = (req, res, next) => {
       //       });
       //   }
     })
-    .catch(err => {
+    .catch((err) => {
       console.log(err);
       res.status(500).json({
-        error: err
+        error: err,
       });
     });
 };
 
-exports.products_create_product = (req, res, next) => {
+exports.products_create_product = (req, res) => {
   const product = new Product({
     _id: new mongoose.Types.ObjectId(),
     name: req.body.name,
     price: req.body.price,
-    productImage: req.file.path
+    productImage: req.file.path,
   });
   product
     .save()
-    .then(result => {
+    .then((result) => {
       console.log(result);
       res.status(201).json({
-        message: "Created product successfully",
+        message: 'Created product successfully',
         createdProduct: {
           name: result.name,
           price: result.price,
+          // eslint-disable-next-line no-underscore-dangle
           _id: result._id,
           request: {
-            type: "GET",
-            url: "http://localhost:3344/products/" + result._id
-          }
-        }
+            type: 'GET',
+            url: `http://localhost:3344/products/${result._id}`,
+          },
+        },
       });
     })
-    .catch(err => {
+    .catch((err) => {
+      // eslint-disable-next-line no-console
       console.log(err);
       res.status(500).json({
-        error: err
+        error: err,
       });
     });
 };
 
-exports.products_get_product = (req, res, next) => {
+exports.products_get_product = (req, res) => {
   const id = req.params.productId;
   Product.findById(id)
-    .select("name price _id productImage")
+    .select('name price _id productImage')
     .exec()
-    .then(doc => {
-      console.log("From database", doc);
+    .then((doc) => {
+      // eslint-disable-next-line no-console
+      console.log('From database', doc);
       if (doc) {
         res.status(200).json({
           product: doc,
           request: {
-            type: "GET",
-            url: "http://localhost:3344/products"
-          }
+            type: 'GET',
+            url: 'http://localhost:3344/products',
+          },
         });
       } else {
         res
           .status(404)
-          .json({ message: "No valid entry found for provided ID" });
+          .json({ message: 'No valid entry found for provided ID' });
       }
     })
-    .catch(err => {
+    .catch((err) => {
+      // eslint-disable-next-line no-console
       console.log(err);
       res.status(500).json({ error: err });
     });
 };
 
-exports.products_update_product = (req, res, next) => {
+exports.products_update_product = (req, res) => {
   const id = req.params.productId;
   const updateOps = {};
+  // eslint-disable-next-line no-restricted-syntax
   for (const ops of req.body) {
     updateOps[ops.propName] = ops.value;
   }
   Product.update({ _id: id }, { $set: updateOps })
     .exec()
-    .then(result => {
+    .then(() => {
       res.status(200).json({
-        message: "Product updated",
+        message: 'Product updated',
         request: {
-          type: "GET",
-          url: "http://localhost:3344/products/" + id
-        }
+          type: 'GET',
+          url: `http://localhost:3344/products/${id}`,
+        },
       });
     })
-    .catch(err => {
+    .catch((err) => {
       console.log(err);
       res.status(500).json({
-        error: err
+        error: err,
       });
     });
 };
 
-exports.products_delete = (req, res, next) => {
+exports.products_delete = (req, res) => {
   const id = req.params.productId;
   Product.remove({ _id: id })
     .exec()
-    .then(result => {
+    .then(() => {
       res.status(200).json({
-        message: "Product deleted",
+        message: 'Product deleted',
         request: {
-          type: "POST",
-          url: "http://localhost:3344/products",
-          body: { name: "String", price: "Number" }
-        }
+          type: 'POST',
+          url: 'http://localhost:3344/products',
+          body: { name: 'String', price: 'Number' },
+        },
       });
     })
-    .catch(err => {
+    .catch((err) => {
+      // eslint-disable-next-line no-console
       console.log(err);
       res.status(500).json({
-        error: err
+        error: err,
       });
     });
 };

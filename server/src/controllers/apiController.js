@@ -127,7 +127,7 @@ exports.getFiles = (req, res) => {
       },
     };
 
-    var n = Math.floor((Math.random() * 17) + 1);
+    let n = Math.floor((Math.random() * 17) + 1);
 
     content.type = 'quick';
 
@@ -150,7 +150,6 @@ exports.getFiles = (req, res) => {
 
 
 exports.thirdParty = (req, res) => {
-
   const path = Buffer.from(req.params.path, 'base64').toString('ascii');
   const type = req.params.type;
 
@@ -167,7 +166,6 @@ exports.thirdParty = (req, res) => {
 
 
 exports.serveFiles = (req, res) => {
-
   const path = Buffer.from(req.params.path, 'base64').toString('ascii');
   const type = req.params.type;
   const mime1 = req.params.mime1;
@@ -179,17 +177,16 @@ exports.serveFiles = (req, res) => {
       res.writeHead(400, { 'Content-type': 'text/html' });
       res.end('error');
     } else {
-
       const stat = fs.statSync(path);
       const fileSize = stat.size;
       const range = req.headers.range;
 
-      if(range){
-        const parts = range.replace(/bytes=/, "").split("-");
+      if (range) {
+        const parts = range.replace(/bytes=/, '').split('-');
         const start = parseInt(parts[0], 10);
-        const end = parts[1] ? parseInt(parts[1], 10) : fileSize-1;
-        const chunksize = (end-start)+1;
-        const file = fs.createReadStream(path, {start, end});
+        const end = parts[1] ? parseInt(parts[1], 10) : fileSize - 1;
+        const chunksize = (end - start) + 1;
+        const file = fs.createReadStream(path, { start, end });
 
         const head = {
           'Content-Range': `bytes ${start}-${end}/${fileSize}`,
@@ -200,13 +197,13 @@ exports.serveFiles = (req, res) => {
 
         res.writeHead(206, head);
         file.pipe(res);
-      }else {
+      } else {
         const head = {
           'Content-Length': fileSize,
           'Content-Type': `${mime1}/${mime2}`,
-        }
-        res.writeHead(200, head)
-        fs.createReadStream(path).pipe(res)
+        };
+        res.writeHead(200, head);
+        fs.createReadStream(path).pipe(res);
       }
     }
   });
@@ -239,22 +236,21 @@ exports.serveImages = (req, res, next) => {
           imageminPngquant({ quality: `${quality}-80` }),
         ],
       })
-      .then((compressedImage) => {
-        res.writeHead(200, { 'Content-Type': `${mime1}/${mime2}` });
-        res.writeHead(200, { etag: `'W/${req.params.path}'` });
-        return res.end(compressedImage);
-      })
-      .catch((error) => {
-        console.log(error);
-        return res.end(content);
-      });
+        .then((compressedImage) => {
+          res.writeHead(200, { 'Content-Type': `${mime1}/${mime2}` });
+          res.writeHead(200, { etag: `'W/${req.params.path}'` });
+          return res.end(compressedImage);
+        })
+        .catch((error) => {
+          console.log(error);
+          return res.end(content);
+        });
     }
   });
 };
 
 
 exports.downloadFile = (req, res, next) => {
-
   // const filePath = req.params.path;
 
   const url = 'https://unsplash.com/photos/AaEQmoufHLk/download?force=true';
@@ -262,13 +258,10 @@ exports.downloadFile = (req, res, next) => {
 
   axios
     .get(url, { responseType: 'stream' })
-    .then(response => {
-
+    .then((response) => {
       response.data.pipe(fs.createWriteStream(path));
-
-
     })
-    .catch(error => {
+    .catch((error) => {
       console.log(error);
-    })
+    });
 };
