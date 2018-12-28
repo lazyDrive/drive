@@ -1,7 +1,7 @@
 <template>
   <div class="media-signup">
     <v-toolbar dark>
-      <v-btn href="/#/" flat>Home</v-btn>
+      <v-btn v-on:click.stop.prevent :to="{ path: '/' }" flat>Home</v-btn>
       <v-toolbar-title>Media Manager</v-toolbar-title>
       <v-spacer></v-spacer>
       <v-btn v-on:click.stop.prevent :to="{ path: '/login' }" flat>Login</v-btn>
