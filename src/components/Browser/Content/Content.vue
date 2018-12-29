@@ -189,7 +189,6 @@ export default {
             });
         },
         keyup: function(event){
-            event.preventDefault();
 
             if(this.$store.state.selectedItems.length == 1 && !this.$store.state.showPreviewModal)
             {
@@ -202,7 +201,12 @@ export default {
                         this.$store.commit(types.SELECT_BROWSER_ITEM, this.$store.state.contents[current + 1]);
                     }
                 } else if(event.keyCode == 38){
-                    console.log(event)
+                        event.preventDefault();
+                    //      const current = this.current();
+                    // if(current > 0) {
+                    //     this.$store.commit(types.UNSELECT_ALL_BROWSER_ITEMS);
+                    //     this.$store.commit(types.SELECT_BROWSER_ITEM, this.$store.state.contents[current - 2]);
+                    // }
                 }else if(event.keyCode == 37){
                     const current = this.current();
                     if(current > 0) {
@@ -210,6 +214,7 @@ export default {
                         this.$store.commit(types.SELECT_BROWSER_ITEM, this.$store.state.contents[current - 1]);
                     }
                 } else if(event.keyCode == 40){
+                        event.preventDefault();
                     console.log(event);
                 }else if(event.keyCode == 13){
                     this.$store.commit(types.LOAD_FULL_CONTENTS_SUCCESS, this.$store.state.selectedItems[0]);
@@ -220,12 +225,12 @@ export default {
     },
     created() {
         window.addEventListener('scroll', this.onScroll, false);
-        document.body.addEventListener('keyup', this.keyup, false);
+        document.body.addEventListener('keydown', this.keyup, false);
         document.body.addEventListener('click', this.unselectAllBrowserItems, false);
     },
     destroyed() {
         window.removeEventListener('scroll', this.onScroll, false);
-        document.body.removeEventListener('keyup', this.keyup, false);
+        document.body.removeEventListener('keydown', this.keyup, false);
         document.body.removeEventListener('click', this.unselectAllBrowserItems, false);
     }
 }
