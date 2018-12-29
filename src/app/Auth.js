@@ -15,4 +15,13 @@ export const services = {
       return false;
     }
   },
+
+  /**
+   * Get the contents of a directory from the server
+   * @returns {Promise}
+   */
+  logout() {
+    mediaManagerStorage.session.destroyAll();
+    return true;
+  },
 }
