@@ -1,7 +1,7 @@
 import {
 	api
 } from "../app/Api";
-import router from './../router';
+// import router from './../router';
 import * as types from "./mutation-types";
 
 /**
@@ -83,27 +83,17 @@ export const loadMoreContents = (context) => {
  * @param payload
  */
 export const login = (context, payload) => {
+	return new Promise((resolve, reject) => {
 
-	api.axios()
-		.post('user/login', payload)
-		.then(response => {
-
-			api.mediastorage.cookies.set('name', response.data.userData.name, 5000);
-			api.mediastorage.cookies.set('email', response.data.userData.email, 5000);
-			api.mediastorage.cookies.set('token', response.data.token, 5000);
-			api.mediastorage.session.set('name', response.data.userData.name);
-			api.mediastorage.session.set('email', response.data.userData.email);
-			api.mediastorage.session.set('token', response.data.token);
-			context.state.token = response.data.token;
-			context.state.isUserLoggedIn = true;
-
-			if (response.status == 200) {
-				router.push('/drive/u/0/my-drive');
-			}
-		})
-		.catch((error) => {
-			api._handleError(error)
-		})
+		api.axios()
+			.post('user/login', payload)
+			.then((response) => {
+				resolve(response);
+			})
+			.catch((error) => {
+				reject(error);
+			})
+	})
 }
 
 /**

@@ -4,10 +4,10 @@
       <v-toolbar fixed dark>
         <v-toolbar-title>Media Manager</v-toolbar-title>
         <v-spacer></v-spacer>
-        <v-btn v-if="!isLoggedIn" v-on:click.stop.prevent :to="{ path: '/login' }" flat>Login</v-btn>
-        <v-btn v-if="!isLoggedIn" v-on:click.stop.prevent :to="{ path: '/signup' }"  flat>Register</v-btn>
+        <v-btn v-if="!isLoggedIn" v-on:click.stop.prevent :to="{ path: '/login' }" flat>Sign in</v-btn>
+        <v-btn v-if="!isLoggedIn" v-on:click.stop.prevent :to="{ path: '/signup' }"  flat>Sign up</v-btn>
         <v-btn v-if="isLoggedIn" v-on:click.stop.prevent :to="{ path: '/drive/u/0/my-drive' }"  flat>My Drive</v-btn>
-        <v-btn icon href="https://github.com/Anu1601CS/media-manager" flat>
+        <v-btn icon target="_blank" href="https://github.com/Anu1601CS/media-manager" flat>
           <v-icon>code</v-icon>
         </v-btn>
       </v-toolbar>
@@ -76,7 +76,7 @@
             <v-layout row wrap align-center>
               <v-flex xs12 sm6 md3>
                 <v-card>
-                  <img src="./../assets/node1.png" width="100%" height="150">
+                  <img src="./../assets/node1.png" width="100%" height="180">
                   <v-card-title primary-title>
                     <div>
                       <h3 class="headline mb-0">Node.js</h3>
@@ -85,13 +85,13 @@
                   </v-card-title>
 
                   <v-card-actions>
-                    <v-btn flat href="https://nodejs.org/en/" color="orange">Explore</v-btn>
+                    <v-btn target="_blank" flat href="https://nodejs.org/en/" color="orange">Explore</v-btn>
                   </v-card-actions>
                 </v-card>
               </v-flex>
               <v-flex xs12 sm6 md3>
                 <v-card>
-                  <img src="./../assets/vue.png" width="100%" height="150">
+                  <img src="./../assets/vue.png" width="100%" height="180">
 
                   <v-card-title primary-title>
                     <div>
@@ -101,13 +101,13 @@
                   </v-card-title>
 
                   <v-card-actions>
-                    <v-btn href="https://vuejs.org/" flat color="orange">Explore</v-btn>
+                    <v-btn target="_blank" href="https://vuejs.org/" flat color="orange">Explore</v-btn>
                   </v-card-actions>
                 </v-card>
               </v-flex>
               <v-flex xs12 sm6 md3>
                 <v-card>
-                  <img src="./../assets/mongo.png" width="100%" height="150">
+                  <img src="./../assets/mongo.png" width="100%" height="180">
 
                   <v-card-title primary-title>
                     <div>
@@ -117,13 +117,13 @@
                   </v-card-title>
 
                   <v-card-actions>
-                    <v-btn href="https://www.mongodb.com/" flat color="orange">Explore</v-btn>
+                    <v-btn target="_blank" href="https://www.mongodb.com/" flat color="orange">Explore</v-btn>
                   </v-card-actions>
                 </v-card>
               </v-flex>
               <v-flex xs12 sm6 md3>
                 <v-card>
-                  <img src="./../assets/express.png" width="100%" height="150">
+                  <img src="./../assets/express.png" width="100%" height="180">
 
                   <v-card-title primary-title>
                     <div>
@@ -136,7 +136,7 @@
                   </v-card-title>
 
                   <v-card-actions>
-                    <v-btn href="https://expressjs.com/" flat color="orange">Explore</v-btn>
+                    <v-btn target="_blank" href="https://expressjs.com/" flat color="orange">Explore</v-btn>
                   </v-card-actions>
                 </v-card>
               </v-flex>

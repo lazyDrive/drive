@@ -4,8 +4,8 @@
       <v-btn v-on:click.stop.prevent :to="{ path: '/' }" flat>Home</v-btn>
       <v-toolbar-title>Media Manager</v-toolbar-title>
       <v-spacer></v-spacer>
-      <v-btn v-on:click.stop.prevent :to="{ path: '/login' }" flat>Login</v-btn>
-      <v-btn v-on:click.stop.prevent :to="{ path: '/signup' }" flat>Register</v-btn>
+        <v-btn v-on:click.stop.prevent :to="{ path: '/login' }" flat>Sign in</v-btn>
+        <v-btn v-on:click.stop.prevent :to="{ path: '/signup' }"  flat>Sign up</v-btn>
       <v-btn icon href="https://github.com/Anu1601CS/media-manager" flat>
       <v-icon>code</v-icon>
       </v-btn>

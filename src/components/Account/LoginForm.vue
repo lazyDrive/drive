@@ -4,10 +4,10 @@
       <v-btn v-on:click.stop.prevent :to="{ path: '/' }" flat>Home</v-btn>
       <v-toolbar-title>Media Manager</v-toolbar-title>
       <v-spacer></v-spacer>
-      <v-btn v-on:click.stop.prevent :to="{ path: '/login' }" flat>Login</v-btn>
-      <v-btn v-on:click.stop.prevent :to="{ path: '/signup' }" flat>Register</v-btn>
+      <v-btn v-on:click.stop.prevent :to="{ path: '/login' }" flat>Sign in</v-btn>
+      <v-btn v-on:click.stop.prevent :to="{ path: '/signup' }" flat>Sign up</v-btn>
       <v-btn icon href="https://github.com/Anu1601CS/media-manager" flat>
-      <v-icon>code</v-icon>
+        <v-icon>code</v-icon>
       </v-btn>
     </v-toolbar>
     <v-content>
@@ -47,8 +47,8 @@
                         @click="submit"
                         :class=" { 'blue darken-4 white--text' : valid, disabled: !valid }"
                       >
-                        Login
-                        <span slot="loader">Signing...</span>
+                        Sign in
+                        <span slot="loader">Signing in...</span>
                       </v-btn>
                       <a href>Forgot Password</a>
                     </v-layout>
@@ -63,6 +63,9 @@
   </div>
 </template>
 <script>
+import { api } from "./../../app/Api";
+import router from "./../../router";
+
 export default {
   name: "media-login",
   data() {
@@ -90,8 +93,32 @@ export default {
           email: this.email,
           password: this.password
         };
+        this.loading = true;
 
-        this.$store.dispatch("login", data);
+        this.$store
+          .dispatch("login", data)
+          .then(result => {
+            this.loading = false;
+            this.finalize(result);
+          })
+          .catch(err => {
+            this.loading = false;
+            api._handleError(err);
+          });
+      }
+    },
+    finalize(response) {
+      api.mediastorage.cookies.set("name", response.data.userData.name, 5000);
+      api.mediastorage.cookies.set("email", response.data.userData.email, 5000);
+      api.mediastorage.cookies.set("token", response.data.token, 5000);
+      api.mediastorage.session.set("name", response.data.userData.name);
+      api.mediastorage.session.set("email", response.data.userData.email);
+      api.mediastorage.session.set("token", response.data.token);
+      this.$store.state.token = response.data.token;
+      this.$store.state.isUserLoggedIn = true;
+
+      if (response.status == 200) {
+        router.push("/drive/u/0/my-drive");
       }
     },
     clear() {
