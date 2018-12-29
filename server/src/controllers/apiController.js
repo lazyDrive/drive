@@ -13,7 +13,13 @@ const imageminPngquant = require('imagemin-pngquant');
 const imageminMozjpeg = require('imagemin-mozjpeg');
 const imageminGifsicle = require('imagemin-gifsicle');
 
+const Api = require('../models/apiModel');
+
 const uploadFolder = './uploads/';
+
+if (!fs.existsSync(uploadFolder)) {
+  fs.mkdirSync(uploadFolder);
+}
 
 exports.getFiles = (req, res) => {
   const files = [];
@@ -151,14 +157,17 @@ exports.getFiles = (req, res) => {
 
 exports.thirdParty = (req, res) => {
   const path = Buffer.from(req.params.path, 'base64').toString('ascii');
-  const type = req.params.type;
 
   fs.readFile(path, (err, content) => {
     if (err) {
-      res.writeHead(400, { 'Content-type': 'text/html' });
+      res.writeHead(400, {
+        'Content-type': 'text/html'
+      });
       res.end('error');
     } else {
-      res.writeHead(200, { 'Content-Type': 'image/svg+xml' });
+      res.writeHead(200, {
+        'Content-Type': 'image/svg+xml'
+      });
       res.end(content);
     }
   });
@@ -167,14 +176,14 @@ exports.thirdParty = (req, res) => {
 
 exports.serveFiles = (req, res) => {
   const path = Buffer.from(req.params.path, 'base64').toString('ascii');
-  const type = req.params.type;
   const mime1 = req.params.mime1;
   const mime2 = req.params.mime2;
-  const size = req.params.size;
 
-  fs.readFile(path, (err, content) => {
+  fs.readFile(path, (err) => {
     if (err) {
-      res.writeHead(400, { 'Content-type': 'text/html' });
+      res.writeHead(400, {
+        'Content-type': 'text/html'
+      });
       res.end('error');
     } else {
       const stat = fs.statSync(path);
@@ -186,7 +195,10 @@ exports.serveFiles = (req, res) => {
         const start = parseInt(parts[0], 10);
         const end = parts[1] ? parseInt(parts[1], 10) : fileSize - 1;
         const chunksize = (end - start) + 1;
-        const file = fs.createReadStream(path, { start, end });
+        const file = fs.createReadStream(path, {
+          start,
+          end
+        });
 
         const head = {
           'Content-Range': `bytes ${start}-${end}/${fileSize}`,
@@ -209,19 +221,18 @@ exports.serveFiles = (req, res) => {
   });
 };
 
-exports.serveImages = (req, res, next) => {
-  const height = req.params.height;
-  const width = req.params.width;
+exports.serveImages = (req, res) => {
   const mime1 = req.params.mime1;
   const mime2 = req.params.mime2;
   const path = Buffer.from(req.params.path, 'base64').toString('ascii');
-  const type = req.params.type;
 
   res.set('Cache-Control', 'public, max-age=31557600');
 
   fs.readFile(path, (err, content) => {
     if (err) {
-      res.writeHead(400, { 'Content-type': 'text/html' });
+      res.writeHead(400, {
+        'Content-type': 'text/html'
+      });
       res.end('error');
     } else {
       const quality = 60;
@@ -229,16 +240,29 @@ exports.serveImages = (req, res, next) => {
       const optimizationLevel = (hd || quality >= 60) ? 1 : 2;
 
       imagemin.buffer(content, {
-        plugins: [
-          imageminGifsicle({ optimizationLevel, interlaced: true }),
-          imageminMozjpeg({ quality }),
-          imageminJpegtran({ progressive: true }),
-          imageminPngquant({ quality: `${quality}-80` }),
-        ],
-      })
+          plugins: [
+            imageminGifsicle({
+              optimizationLevel,
+              interlaced: true
+            }),
+            imageminMozjpeg({
+              quality
+            }),
+            imageminJpegtran({
+              progressive: true
+            }),
+            imageminPngquant({
+              quality: `${quality}-80`
+            }),
+          ],
+        })
         .then((compressedImage) => {
-          res.writeHead(200, { 'Content-Type': `${mime1}/${mime2}` });
-          res.writeHead(200, { etag: `'W/${req.params.path}'` });
+          res.writeHead(200, {
+            'Content-Type': `${mime1}/${mime2}`
+          });
+          res.writeHead(200, {
+            etag: `'W/${req.params.path}'`
+          });
           return res.end(compressedImage);
         })
         .catch((error) => {
@@ -250,14 +274,16 @@ exports.serveImages = (req, res, next) => {
 };
 
 
-exports.downloadFile = (req, res, next) => {
+exports.downloadFile = () => {
   // const filePath = req.params.path;
 
   const url = 'https://unsplash.com/photos/AaEQmoufHLk/download?force=true';
   const path = Path.resolve(process.env.BASE_PATH, '/', 'code.jpg');
 
   axios
-    .get(url, { responseType: 'stream' })
+    .get(url, {
+      responseType: 'stream'
+    })
     .then((response) => {
       response.data.pipe(fs.createWriteStream(path));
     })
@@ -266,6 +292,49 @@ exports.downloadFile = (req, res, next) => {
     });
 };
 
-exports.uploadFiles = (req, res, next) => {
-  res.json({ files: req.files , message: 'success', text: 'File has been uploaded.'})
+exports.uploadFiles = (req, res) => {
+  res.json({
+    files: req.files,
+    message: 'success',
+    text: 'File has been uploaded.'
+  })
+};
+
+exports.addRecents = (req, res) => {
+  Api.find({
+      recentId: req.body.id
+    })
+    .exec()
+    .then((file) => {
+
+      if (file.length <= 0) {
+
+        const recents = new Api({
+          recentId: req.body.id,
+          date: new Date(),
+        });
+
+        recents.save()
+          .then(() => {
+            res.status(201).json({
+              message: 'Registered.',
+            });
+          })
+          .catch((err) => {
+            console.log(err);
+            res.status(500).json({
+              error: err,
+            });
+          });
+      } else{
+        res.status(201).json({
+          message: 'Updated.',
+        });
+      }
+    })
+    .catch((err) => {
+      res.status(500).json({
+        error: err,
+      });
+    });
 };

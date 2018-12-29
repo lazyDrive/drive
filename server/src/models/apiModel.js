@@ -2,22 +2,19 @@ const mongoose = require('mongoose');
 
 const Schemas = mongoose.Schema;
 
-// Create ninja Schema & model
+// Create recents Schema & model
 
-const NinjaSchema = new Schemas({
-  name: {
+const RecentSchema = new Schemas({
+  recentId: {
     type: String,
-    required: [true, 'Name field is required.'],
+    required: [true, 'Recent filed is required.'],
   },
-  rank: {
-    type: String,
-  },
-  avaliable: {
-    type: Boolean,
-    default: false,
+  date: {
+    type: Date,
+    default: Date.now,
   },
 });
 
-const ninja = mongoose.model('ninja', NinjaSchema);
+const recents = mongoose.model('recents', RecentSchema);
 
-module.exports = ninja;
+module.exports = recents;
