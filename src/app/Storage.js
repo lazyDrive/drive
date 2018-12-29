@@ -173,3 +173,66 @@ export const local =  {
         return this;
     }
 };
+
+/**
+ * sessionStorage - A small class to manipulate localStorage from javascript
+ *
+ */
+export const session =  {
+    /**
+     * Find all localstorage.
+     *
+     * @return String|null
+     */
+    getAll: function() {
+        const items = {...sessionStorage};
+        return items;
+    },
+
+    /**
+     * Find localstorage.
+     *
+     * @param name
+     * @return String|null
+     */
+    get: function(name) {
+        var item = null;
+        item = sessionStorage.getItem(name);
+        return item;
+    },
+
+    /**
+     * Create localstorage.
+     *
+     * @param name
+     * @param value
+     * @return this
+     */
+    set: function(name, value) {
+        sessionStorage.setItem(name, value);
+        return this;
+    },
+
+     /**
+     * Remove a localstorage.
+     *
+     * @param name
+     * @return this
+     */
+    destroy: function(name) {
+        if (this.get(name) != '' || this.get(name) != null) {
+            sessionStorage.removeItem(name);
+        }
+        return this;
+    },
+
+     /**
+     * Remove a localstorage.
+     *
+     * @param name
+     * @return this
+     */
+    destroyAll: function() {
+        sessionStorage.clear();
+    }
+};

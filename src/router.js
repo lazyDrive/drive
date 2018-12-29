@@ -62,12 +62,17 @@ router.beforeEach((to, from, next) => {
         const loggedIn = api.auth.loggedIn();
 
         if (!loggedIn) {
-            next({
-                path: '/login',
-                query: {
-                    redirect: to.fullPath
-                }
-            })
+            if(to.name != 'login' && to.name != 'signup')
+            {
+                next({
+                    path: '/login',
+                    query: {
+                        redirect: to.fullPath
+                    }
+                })
+            } else {
+                next()
+            }
         } else if (to.name == 'login' || to.name == 'signup') {
             next({
                 path: '/',

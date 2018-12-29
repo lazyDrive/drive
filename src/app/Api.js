@@ -27,6 +27,36 @@ class Api {
       }
     });
   }
+  /**
+   * Handle errors
+   * @param error
+   * @private
+   *
+   * @TODO DN improve error handling
+   */
+  _handleError(error) {
+    switch (error.status) {
+      case 409:
+        // Handled in consumer
+        break;
+      case 404:
+        console.log(error)
+        break;
+      case 401:
+      console.log(error)
+        break;
+      case 403:
+      console.log(error)
+        break;
+      case 500:
+      console.log(error)
+        break;
+      default:
+      console.log(error)
+    }
+
+    throw error;
+  }
 }
 
 

@@ -76,7 +76,7 @@
             <v-layout row wrap align-center>
               <v-flex xs12 sm6 md3>
                 <v-card>
-                  <img src="./../assets/node1.png" width="100%" height="200">
+                  <img src="./../assets/node1.png" width="100%" height="150">
                   <v-card-title primary-title>
                     <div>
                       <h3 class="headline mb-0">Node.js</h3>
@@ -91,7 +91,7 @@
               </v-flex>
               <v-flex xs12 sm6 md3>
                 <v-card>
-                  <img src="./../assets/vue.png" width="100%" height="200">
+                  <img src="./../assets/vue.png" width="100%" height="150">
 
                   <v-card-title primary-title>
                     <div>
@@ -107,7 +107,7 @@
               </v-flex>
               <v-flex xs12 sm6 md3>
                 <v-card>
-                  <img src="./../assets/mongo.png" width="100%" height="200">
+                  <img src="./../assets/mongo.png" width="100%" height="150">
 
                   <v-card-title primary-title>
                     <div>
@@ -123,7 +123,7 @@
               </v-flex>
               <v-flex xs12 sm6 md3>
                 <v-card>
-                  <img src="./../assets/express.png" width="100%" height="200">
+                  <img src="./../assets/express.png" width="100%" height="150">
 
                   <v-card-title primary-title>
                     <div>

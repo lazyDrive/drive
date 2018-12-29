@@ -8,9 +8,11 @@ export const services = {
    * @returns {Promise}
    */
   loggedIn() {
-    if(mediaManagerStorage.cookies.get('email') !== '' && mediaManagerStorage.cookies.get('token') !== '')
-    return true;
-    else
-    return false;
+    if((mediaManagerStorage.session.get('email') !== '' && mediaManagerStorage.session.get('email') !== null)
+      && (mediaManagerStorage.session.get('token') !== '' && mediaManagerStorage.session.get('token') !== null)) {
+      return true;
+    } else {
+      return false;
+    }
   },
 }

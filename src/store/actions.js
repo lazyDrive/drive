@@ -1,7 +1,6 @@
 import {
 	api
 } from "../app/Api";
-// import store from '@/store/store';
 import router from './../router';
 import * as types from "./mutation-types";
 
@@ -10,7 +9,7 @@ import * as types from "./mutation-types";
  * @param commit
  * @param payload
  */
-export const getContents = (context, payload) => {
+export const getContents = (context) => {
 
 	context.commit(types.SET_IS_LOADING, true)
 
@@ -20,17 +19,8 @@ export const getContents = (context, payload) => {
 			context.commit(types.LOAD_CONTENTS_SUCCESS, response.data.contents)
 			context.commit(types.SET_IS_LOADING, false)
 		})
-		.catch(error => {
-			if (payload) {
-				console.log(error)
-			}
-
-			var data = {
-				'data': '500 (Internal Server Error)',
-				'color': 'error'
-			}
-			context.commit(types.SHOW_SNACKBAR, data)
-
+		.catch((error) => {
+			api._handleError(error)
 		})
 }
 
@@ -62,17 +52,8 @@ export const upload = (context, payload) => {
 
 			context.commit(types.SHOW_SNACKBAR, data)
 		})
-		.catch(error => {
-			if (payload) {
-				console.log(error)
-			}
-
-			var data = {
-				'data': '500 (Internal Server Error)',
-				'color': 'error'
-			}
-			context.commit(types.SHOW_SNACKBAR, data)
-
+		.catch((error) => {
+			api._handleError(error)
 		})
 }
 
@@ -81,7 +62,7 @@ export const upload = (context, payload) => {
  * @param commit
  * @param payload
  */
-export const loadMoreContents = (context, payload) => {
+export const loadMoreContents = (context) => {
 
 	context.commit(types.SET_IS_LOADING_MORE, true);
 
@@ -91,17 +72,8 @@ export const loadMoreContents = (context, payload) => {
 			context.commit(types.LOAD_MORE_CONTENTS_SUCCESS, response.data.contents)
 			context.commit(types.SET_IS_LOADING_MORE, false);
 		})
-		.catch(error => {
-			if (payload) {
-				console.log(error)
-			}
-
-			var data = {
-				'data': '500 (Internal Server Error)',
-				'color': 'error'
-			}
-
-			context.commit(types.SHOW_SNACKBAR, data)
+		.catch((error) => {
+			api._handleError(error)
 		})
 }
 
@@ -119,6 +91,9 @@ export const login = (context, payload) => {
 			api.mediastorage.cookies.set('name', response.data.userData.name, 5000);
 			api.mediastorage.cookies.set('email', response.data.userData.email, 5000);
 			api.mediastorage.cookies.set('token', response.data.token, 5000);
+			api.mediastorage.session.set('name', response.data.userData.name);
+			api.mediastorage.session.set('email', response.data.userData.email);
+			api.mediastorage.session.set('token', response.data.token);
 			context.state.token = response.data.token;
 			context.state.isUserLoggedIn = true;
 
@@ -126,16 +101,8 @@ export const login = (context, payload) => {
 				router.push('/drive/u/0/my-drive');
 			}
 		})
-		.catch(error => {
-
-			console.log(error);
-
-			var data = {
-				'data': '500 (Internal Server Error)',
-				'color': 'error'
-			}
-
-			context.commit(types.SHOW_SNACKBAR, data)
+		.catch((error) => {
+			api._handleError(error)
 		})
 }
 
@@ -159,16 +126,8 @@ export const signup = (context, payload) => {
 
 			console.log(response);
 		})
-		.catch(error => {
-
-			console.log(error);
-
-			var data = {
-				'data': '500 (Internal Server Error)',
-				'color': 'error'
-			}
-
-			context.commit(types.SHOW_SNACKBAR, data)
+		.catch((error) => {
+			api._handleError(error)
 		})
 }
 
@@ -191,14 +150,7 @@ export const download = (context, payload) => {
 
 			console.log(response);
 		})
-		.catch(error => {
-			console.log(error.response)
-
-			var data = {
-				'data': '500 (Internal Server Error)',
-				'color': 'error'
-			}
-
-			context.commit(types.SHOW_SNACKBAR, data)
+		.catch((error) => {
+			api._handleError(error)
 		})
 }
