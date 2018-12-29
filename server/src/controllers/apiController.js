@@ -24,134 +24,123 @@ if (!fs.existsSync(uploadFolder)) {
 exports.getFiles = (req, res) => {
   const files = [];
 
-  fs.readdirSync(uploadFolder).forEach((file) => {
-    const content = {
-      id: '',
-      name: '',
-      type: '',
-      path: '',
-      extension: '',
-      extImg: '',
-      size: '',
-      mime_type: '',
-      created_date: '',
-      imgUrl: '',
-      imgLazyUrl: '',
-      color: '',
-      filePath: '',
-      dimensions: {
-        height: '',
-        width: '',
-      },
-    };
+  const quick = [];
 
-    const colors = [
-      '#4CAF50',
-      '#FFC107',
-      '#2196F3',
-      '#FF5252',
-      '#3949AB',
-      '#00BCD4',
-      '#28a745',
-      '#424242',
-      '#1976D2',
-    ];
+  Api.find()
+    .limit(7)
+    .sort({
+      date: -1
+    })
+    .exec()
+    .then((result) => {
 
-    content.name = file;
-    const stats = fs.statSync(uploadFolder + file);
+      result.forEach(val => {
+        quick.push(val.recentId);
+      });
 
-    if (fs.statSync(uploadFolder + file).isDirectory()) {
-      content.type = 'folders';
-      content.mime_type = 'directory';
+      fs.readdirSync(uploadFolder).forEach((file) => {
+        const content = {
+          id: '',
+          name: '',
+          type: '',
+          path: '',
+          extension: '',
+          extImg: '',
+          size: '',
+          mime_type: '',
+          created_date: '',
+          imgUrl: '',
+          imgLazyUrl: '',
+          color: '',
+          filePath: '',
+          dimensions: {
+            height: '',
+            width: '',
+          },
+        };
 
-      const dir = uploadFolder.split('.')[1];
-      content.path = dir + file;
-    } else {
-      content.type = 'files';
+        const colors = [
+          '#4CAF50',
+          '#FFC107',
+          '#2196F3',
+          '#FF5252',
+          '#3949AB',
+          '#00BCD4',
+          '#28a745',
+          '#424242',
+          '#1976D2',
+        ];
 
-      const buffer = readChunk.sync(uploadFolder + file, 0, fileType.minimumBytes);
-      const fileInfo = fileType(buffer);
-      content.extension = fileInfo.ext;
-      content.mime_type = fileInfo.mime;
+        content.name = file;
+        const shasum = crypto.createHash('sha1');
+        shasum.update(uploadFolder + file);
 
-      const dir = uploadFolder.split('.')[1];
-      content.path = dir + file;
+        content.id = shasum.digest('hex');
 
-      const shasum = crypto.createHash('sha1');
-      shasum.update(uploadFolder + file + stats.mtime);
-      const id = shasum.digest('hex');
+        const stats = fs.statSync(uploadFolder + file);
 
-      if (fileInfo.mime === 'image/jpeg' || fileInfo.mime === 'image/png' || fileInfo.mime === 'image/jpg') {
-        const dimensions = sizeOf(uploadFolder + file);
-        content.dimensions.height = dimensions.height;
-        content.dimensions.width = dimensions.width;
-        content.imgLazyUrl = `/api/images/${Buffer.from(uploadFolder + file).toString('base64')}/t/${fileInfo.ext}/d/200/200/m/${fileInfo.mime}/${id}`;
-        content.imgUrl = `/api/images/${Buffer.from(uploadFolder + file).toString('base64')}/t/${fileInfo.ext}/d/200/200/m/${fileInfo.mime}/${id}`;
-      } else {
-        content.filePath = `/api/files/${Buffer.from(uploadFolder + file).toString('base64')}/t/${fileInfo.ext}/m/${fileInfo.mime}/s/${stats.size}/${id}`;
-      }
-    }
+        if (fs.statSync(uploadFolder + file).isDirectory()) {
+          content.type = 'folders';
+          content.mime_type = 'directory';
 
-    dir = uploadFolder.split('.')[1];
+          const dir = uploadFolder.split('.')[1];
+          content.path = dir + file;
+        } else {
 
-    const shasum = crypto.createHash('sha1');
-    shasum.update(uploadFolder + file);
+          const shasum = crypto.createHash('sha1');
+          shasum.update(uploadFolder + file + stats.mtime);
+          const id = shasum.digest('hex');
+          content.type = 'files';
 
-    content.id = shasum.digest('hex');
-    content.color = colors[Math.floor((Math.random() * 8) + 1)];
+          if (quick.indexOf(content.id) !== -1) {
+            content.type = 'quick';
+          } else {
+            content.type = 'files';
+          }
 
-    content.size = stats.size;
-    const mtime = new Date(util.inspect(stats.mtime));
-    content.created_date = mtime;
+          const buffer = readChunk.sync(uploadFolder + file, 0, fileType.minimumBytes);
+          const fileInfo = fileType(buffer);
+          content.extension = fileInfo.ext;
+          content.mime_type = fileInfo.mime;
 
-    const basePath = './thirdParty/';
-    const originalPath = `${basePath + content.extension}.svg`;
+          const dir = uploadFolder.split('.')[1];
+          content.path = dir + file;
 
-    content.extImg = Buffer.from(originalPath).toString('base64');
+          if (fileInfo.mime === 'image/jpeg' || fileInfo.mime === 'image/png' || fileInfo.mime === 'image/jpg') {
+            const dimensions = sizeOf(uploadFolder + file);
+            content.dimensions.height = dimensions.height;
+            content.dimensions.width = dimensions.width;
+            content.imgLazyUrl = `/api/images/${Buffer.from(uploadFolder + file).toString('base64')}/t/${fileInfo.ext}/d/200/200/m/${fileInfo.mime}/${id}`;
+            content.imgUrl = `/api/images/${Buffer.from(uploadFolder + file).toString('base64')}/t/${fileInfo.ext}/d/200/200/m/${fileInfo.mime}/${id}`;
+          } else {
+            content.filePath = `/api/files/${Buffer.from(uploadFolder + file).toString('base64')}/t/${fileInfo.ext}/m/${fileInfo.mime}/s/${stats.size}/${id}`;
+          }
+        }
 
-    files.push(content);
-  });
+        // var dir = uploadFolder.split('.')[1];
+        content.color = colors[Math.floor((Math.random() * 8) + 1)];
 
+        content.size = stats.size;
+        const mtime = new Date(util.inspect(stats.mtime));
+        content.created_date = mtime;
 
-  for (let i = 0; i < 7; i += 1) {
-    const content = {
-      id: '',
-      name: '',
-      type: '',
-      path: '',
-      extension: '',
-      extImg: '',
-      size: '',
-      mime_type: '',
-      created_date: '',
-      imgUrl: '',
-      imgLazyUrl: '',
-      color: '',
-      dimensions: {
-        height: '',
-        width: '',
-      },
-    };
+        const basePath = './thirdParty/';
+        const originalPath = `${basePath + content.extension}.svg`;
 
-    let n = Math.floor((Math.random() * 17) + 1);
+        content.extImg = Buffer.from(originalPath).toString('base64');
 
-    content.type = 'quick';
+        files.push(content);
+      });
 
-    content.imgUrl = `https://picsum.photos/500/300?image=${n * 5 + 10}`;
-    content.imgLazyUrl = `https://picsum.photos/10/6?image=${n * 5 + 10}`;
-    content.name = 'picsum';
-
-    shasum = crypto.createHash('sha1');
-    shasum.update(content.imgLazyUrl + Math.floor((Math.random() * 100000) + 1));
-
-    content.id = shasum.digest('hex');
-
-    files.push(content);
-  }
-
-  res.status(200).send(({
-    contents: files,
-  }));
+      res.status(200).send(({
+        contents: files,
+      }));
+    })
+    .catch((err) => {
+      res.status(500).json({
+        error: err,
+      });
+    });
 };
 
 
@@ -300,7 +289,7 @@ exports.uploadFiles = (req, res) => {
   })
 };
 
-exports.addRecents = (req, res) => {
+exports.log = (req, res, next) => {
   Api.find({
       recentId: req.body.id
     })
@@ -326,10 +315,21 @@ exports.addRecents = (req, res) => {
               error: err,
             });
           });
-      } else{
-        res.status(201).json({
-          message: 'Updated.',
-        });
+      } else {
+
+        Api.update({
+            recentId: req.body.id
+          }, {
+            data: new Date()
+          })
+          .then(() => {
+            res.status(201).json({
+              message: 'Updated.',
+            });
+          })
+          .catch(err => {
+            next(err);
+          })
       }
     })
     .catch((err) => {
@@ -337,4 +337,31 @@ exports.addRecents = (req, res) => {
         error: err,
       });
     });
+};
+
+exports.test = (req, res) => {
+  var quick = [];
+
+  Api.find()
+    .limit(7)
+    .sort({
+      date: 1
+    })
+    .exec()
+    .then((result) => {
+      result.forEach(val => {
+        quick.push(val.recentId);
+      });
+      res.status(200).json({
+        quick,
+        result
+      });
+    })
+    .catch((err) => {
+      res.status(500).json({
+        error: err,
+      });
+    });
+
+
 };

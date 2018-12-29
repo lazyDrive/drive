@@ -125,6 +125,7 @@ export default {
             }
         },
         preview: function(){
+            this.$store.dispatch('log', this.item);
             this.$store.commit(types.LOAD_FULL_CONTENTS_SUCCESS, this.item);
             this.$store.commit(types.SHOW_PREVIEW_MODAL);
         }

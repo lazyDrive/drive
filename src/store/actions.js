@@ -101,6 +101,23 @@ export const login = (context, payload) => {
  * @param commit
  * @param payload
  */
+export const log = (context, payload) => {
+
+	api.axios()
+		.post('api/log', payload)
+		.then(() => {
+
+		})
+		.catch((error) => {
+			api._handleError(error)
+		})
+}
+
+/**
+ * Login
+ * @param commit
+ * @param payload
+ */
 export const signup = (context, payload) => {
 
 	api.axios()

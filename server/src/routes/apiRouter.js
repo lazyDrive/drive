@@ -55,6 +55,9 @@ router.get('/download/file/:path', ApiController.downloadFile);
 router.post('/upload', checkAuth, upload.single('files'), ApiController.uploadFiles);
 
 // Recents
-router.post('/addRecents', ApiController.addRecents);
+router.post('/log', ApiController.log);
+
+// test
+router.post('/test', ApiController.test);
 
 module.exports = router;
