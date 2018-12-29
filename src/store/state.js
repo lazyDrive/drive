@@ -51,7 +51,9 @@ export default {
     // Is mobile
     isMobile:false,
     // Token
-    token:null,
+    token:'',
+    // Islogged in
+    isUserLoggedIn: false,
     // The loadmoreprogress
     loadMoreProgress: false,
     // The Search Query

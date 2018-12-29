@@ -1,6 +1,7 @@
 import axios from 'axios'
 // import store from '@/store/store'
 import * as mediaManagerStorage from './Storage.js'
+import * as auth from './Auth.js'
 /**
  * Api class for communication with the server
  */
@@ -11,6 +12,7 @@ class Api {
    */
   constructor() {
     this.mediastorage = mediaManagerStorage;
+    this.auth = auth.services;
   }
 
   /**
@@ -24,17 +26,6 @@ class Api {
         csrfToken: process.env.VUE_APP_SECRET
       }
     });
-  }
-
-  /**
-   * Get the contents of a directory from the server
-   * @returns {Promise}
-   */
-  isLoggedIn() {
-    if(this.mediastorage.cookies.get('email') !== '' && this.mediastorage.cookies.get('token') !== '')
-    return true;
-    else
-    return false;
   }
 }
 

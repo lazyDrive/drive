@@ -119,6 +119,8 @@ export const login = (context, payload) => {
 			api.mediastorage.cookies.set('name', response.data.userData.name, 5000);
 			api.mediastorage.cookies.set('email', response.data.userData.email, 5000);
 			api.mediastorage.cookies.set('token', response.data.token, 5000);
+			context.state.token = response.data.token;
+			context.state.isUserLoggedIn = true;
 
 			if (response.status == 200) {
 				router.push('/drive/u/0/my-drive');

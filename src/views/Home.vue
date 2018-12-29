@@ -4,8 +4,9 @@
       <v-toolbar fixed dark>
         <v-toolbar-title>Media Manager</v-toolbar-title>
         <v-spacer></v-spacer>
-        <v-btn v-on:click.stop.prevent :to="{ path: '/login' }" flat>Login</v-btn>
-        <v-btn v-on:click.stop.prevent :to="{ path: '/signup' }"  flat>Register</v-btn>
+        <v-btn v-if="!isLoggedIn" v-on:click.stop.prevent :to="{ path: '/login' }" flat>Login</v-btn>
+        <v-btn v-if="!isLoggedIn" v-on:click.stop.prevent :to="{ path: '/signup' }"  flat>Register</v-btn>
+        <v-btn v-if="isLoggedIn" v-on:click.stop.prevent :to="{ path: '/drive/u/0/my-drive' }"  flat>My Drive</v-btn>
         <v-btn icon href="https://github.com/Anu1601CS/media-manager" flat>
           <v-icon>code</v-icon>
         </v-btn>
@@ -17,7 +18,8 @@
               <img src="./../assets/logo11.png" alt="media-manager" height="100">
               <h1 class="white--text mb-2 display-1 text-xs-center">Media Manager</h1>
               <div class="subheading mb-3 text-xs-center">Made with Vuejs and Node.js</div>
-              <v-btn color="black" dark large v-on:click.stop.prevent :to="{ path: '/login' }">Get Started</v-btn>
+              <v-btn v-if="!isLoggedIn" color="black" dark large v-on:click.stop.prevent :to="{ path: '/login' }">Get Started</v-btn>
+              <v-btn v-if="isLoggedIn" color="black" dark large v-on:click.stop.prevent :to="{ path: '/drive/u/0/my-drive' }">Get Started</v-btn>
             </v-layout>
           </v-parallax>
         </section>
@@ -165,6 +167,9 @@
 </template>
 
 <script>
+
+import {api} from './../app/Api';
+
 export default {
   name: "media-home",
   data() {
@@ -178,6 +183,11 @@ export default {
         "fab fa-instagram"
       ]
     };
-  }
+  },
+  computed: {
+    isLoggedIn: function(){
+      return api.auth.loggedIn();
+    }
+  },
 };
 </script>

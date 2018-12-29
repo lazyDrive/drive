@@ -6,14 +6,14 @@
 
         <!-- for audio -->
         <div class="video" v-if="video">
-            <video class="media-video-player" controls>
+            <video class="media-video-player" controls controlsList="nodownload">
                 <source :src="item.filePath" type="video/mp4" />
             </video>
         </div>
 
         <!-- for audio -->
         <div class="audio" v-if="audio">
-            <audio class="media-audio-player" controls>
+            <audio class="media-audio-player" controls controlsList="nodownload">
                 <source :src="item.filePath" type="audio/mpeg" />
             </audio>
         </div>

@@ -17,7 +17,10 @@ const router = new Router({
         {
             path: '/drive/u/:adapter/my-drive',
             name: 'my-drive',
-            component: myDrive
+            component: myDrive,
+            meta: {
+                requiresAuth: true
+            }
         },
         {
             path: '/login',
@@ -25,7 +28,10 @@ const router = new Router({
             // route level code-splitting
             // this generates a separate chunk (about.[hash].js) for this route
             // which is lazy-loaded when the route is visited.
-            component: () => import( /* webpackChunkName: "about" */ './views/Login.vue')
+            component: () => import( /* webpackChunkName: "about" */ './views/Login.vue'),
+            meta: {
+                requiresAuth: true
+            }
         },
         {
             path: '/signup',
@@ -33,7 +39,10 @@ const router = new Router({
             // route level code-splitting
             // this generates a separate chunk (about.[hash].js) for this route
             // which is lazy-loaded when the route is visited.
-            component: () => import( /* webpackChunkName: "about" */ './views/Signup.vue')
+            component: () => import( /* webpackChunkName: "about" */ './views/Signup.vue'),
+            meta: {
+                requiresAuth: true
+            }
         },
         {
             path: '/test',
@@ -47,16 +56,28 @@ const router = new Router({
 })
 
 router.beforeEach((to, from, next) => {
-    // redirect to login page if not logged in and trying to access a restricted page
-    const publicPages = ['/login', '/signup'];
-    const authRequired = !publicPages.includes(to.path);
-    const loggedIn = api.isLoggedIn();
+    if (to.matched.some(record => record.meta.requiresAuth)) {
+        // this route requires auth, check if logged in
+        // if not, redirect to login page.
+        const loggedIn = api.auth.loggedIn();
 
-    if (authRequired && !loggedIn) {
-        return next('/login');
+        if (!loggedIn) {
+            next({
+                path: '/login',
+                query: {
+                    redirect: to.fullPath
+                }
+            })
+        } else if (to.name == 'login' || to.name == 'signup') {
+            next({
+                path: '/',
+            })
+        } else {
+            next()
+        }
+    } else {
+        next() // make sure to always call next()!
     }
-
-    next();
 })
 
 export default router;

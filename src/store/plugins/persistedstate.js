@@ -7,6 +7,7 @@ export const persistedStateOptions = {
         'listView',
         'gridSize',
         'token',
+        'isUserLoggedIn',
     ],
     storage: window.sessionStorage,
 };

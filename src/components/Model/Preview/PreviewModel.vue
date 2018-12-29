@@ -25,13 +25,13 @@
 </v-img>
 
 <div class="video" v-if="video">
-    <video id="media-video" class="media-video-player-preview" controls>
+    <video id="media-video" class="media-video-player-preview" controls controlsList="nodownload">
         <source :src="item.filePath" type="video/mp4" />
     </video>
 </div>
 
 <div class="audio" v-if="audio">
-    <audio id="media-audio" class="media-audio-player-preview" controls>
+    <audio id="media-audio" class="media-audio-player-preview" controls controlsList="nodownload">
         <source :src="audioFile" type="audio/mpeg" />
     </audio>
     <div class="circle-ripple"></div>
