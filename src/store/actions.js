@@ -145,19 +145,16 @@ export const signup = (context, payload) => {
  */
 export const download = (context, payload) => {
 	api.axios()
-		.get('api/download/file/sa', payload)
-		.then(response => {
-
-			var data = {
-				'data': response.data.message,
-				'color': 'success'
-			}
-
-			context.commit(types.SHOW_SNACKBAR, data);
-
-			console.log(response);
-		})
-		.catch((error) => {
-			api._handleError(error)
-		})
+		.get(payload.filePath, {
+			responseType: 'blob'
+		}, )
+		.then((response) => {
+			console.log(response)
+			const url = window.URL.createObjectURL(new Blob([response.data]));
+			const link = document.createElement('a');
+			link.href = url;
+			link.setAttribute('download', payload.name); //or any other extension
+			document.body.appendChild(link);
+			link.click();
+		});
 }

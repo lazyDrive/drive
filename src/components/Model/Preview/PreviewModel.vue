@@ -45,7 +45,7 @@
       &nbsp;&nbsp;{{item.name}}
     </div>
 
-    <div class="previewtool" v-if="item.imgUrl">
+    <div class="previewtool" v-if="item.imgUrl || item.extension == 'pdf'">
       <v-icon color="white" @click="dec()" class="remove">remove</v-icon>
       <v-icon color="white" @click="reset()" class="refresh">refresh</v-icon>
       <v-icon color="white" @click="inc()" class="add">add</v-icon>

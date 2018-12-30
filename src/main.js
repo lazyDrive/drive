@@ -17,6 +17,7 @@ import QuickUpload from '@/components/Browser/QuickUpload/QuickUpload'
 import Settings from '@/components/Browser/Settings/Settings'
 import UploadMenu from '@/components/Browser/UploadMenu/UploadMenu'
 import Model from '@/components/Model/Model'
+import VueProgressBar from 'vue-progressbar'
 import RenameModel from '@/components/Model/Rename/RenameModel'
 import PreviewModel from '@/components/Model/Preview/PreviewModel'
 import ConfirmDeleteModel from '@/components/Model/ConfirmDelete/ConfirmDeleteModel'
@@ -34,6 +35,11 @@ Vue.use(Vuetify)
 Vue.use(VueAnalytics, {
     id: 'UA-131081167-1',
     router
+})
+Vue.use(VueProgressBar, {
+  color: '#0d8aef',
+  failedColor: 'red',
+  height: '2px'
 })
 
 // Load components
