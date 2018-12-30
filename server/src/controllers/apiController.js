@@ -29,12 +29,11 @@ exports.getFiles = (req, res) => {
   Api.find()
     .limit(7)
     .sort({
-      date: -1
+      date: -1,
     })
     .exec()
     .then((result) => {
-
-      result.forEach(val => {
+      result.forEach((val) => {
         quick.push(val.recentId);
       });
 
@@ -86,7 +85,6 @@ exports.getFiles = (req, res) => {
           const dir = uploadFolder.split('.')[1];
           content.path = dir + file;
         } else {
-
           const shasum = crypto.createHash('sha1');
           shasum.update(uploadFolder + file + stats.mtime);
           const id = shasum.digest('hex');
@@ -112,6 +110,7 @@ exports.getFiles = (req, res) => {
             content.dimensions.width = dimensions.width;
             content.imgLazyUrl = `/api/images/${Buffer.from(uploadFolder + file).toString('base64')}/t/${fileInfo.ext}/d/200/200/m/${fileInfo.mime}/${id}`;
             content.imgUrl = `/api/images/${Buffer.from(uploadFolder + file).toString('base64')}/t/${fileInfo.ext}/d/200/200/m/${fileInfo.mime}/${id}`;
+            content.filePath = `/api/images/${Buffer.from(uploadFolder + file).toString('base64')}/t/${fileInfo.ext}/d/200/200/m/${fileInfo.mime}/${id}`;
           } else {
             content.filePath = `/api/files/${Buffer.from(uploadFolder + file).toString('base64')}/t/${fileInfo.ext}/m/${fileInfo.mime}/s/${stats.size}/${id}`;
           }
@@ -150,12 +149,12 @@ exports.thirdParty = (req, res) => {
   fs.readFile(path, (err, content) => {
     if (err) {
       res.writeHead(400, {
-        'Content-type': 'text/html'
+        'Content-type': 'text/html',
       });
       res.end('error');
     } else {
       res.writeHead(200, {
-        'Content-Type': 'image/svg+xml'
+        'Content-Type': 'image/svg+xml',
       });
       res.end(content);
     }
@@ -171,7 +170,7 @@ exports.serveFiles = (req, res) => {
   fs.readFile(path, (err) => {
     if (err) {
       res.writeHead(400, {
-        'Content-type': 'text/html'
+        'Content-type': 'text/html',
       });
       res.end('error');
     } else {
@@ -186,7 +185,7 @@ exports.serveFiles = (req, res) => {
         const chunksize = (end - start) + 1;
         const file = fs.createReadStream(path, {
           start,
-          end
+          end,
         });
 
         const head = {
@@ -220,7 +219,7 @@ exports.serveImages = (req, res) => {
   fs.readFile(path, (err, content) => {
     if (err) {
       res.writeHead(400, {
-        'Content-type': 'text/html'
+        'Content-type': 'text/html',
       });
       res.end('error');
     } else {
@@ -229,28 +228,28 @@ exports.serveImages = (req, res) => {
       const optimizationLevel = (hd || quality >= 60) ? 1 : 2;
 
       imagemin.buffer(content, {
-          plugins: [
-            imageminGifsicle({
-              optimizationLevel,
-              interlaced: true
-            }),
-            imageminMozjpeg({
-              quality
-            }),
-            imageminJpegtran({
-              progressive: true
-            }),
-            imageminPngquant({
-              quality: `${quality}-80`
-            }),
-          ],
-        })
+        plugins: [
+          imageminGifsicle({
+            optimizationLevel,
+            interlaced: true,
+          }),
+          imageminMozjpeg({
+            quality,
+          }),
+          imageminJpegtran({
+            progressive: true,
+          }),
+          imageminPngquant({
+            quality: `${quality}-80`,
+          }),
+        ],
+      })
         .then((compressedImage) => {
           res.writeHead(200, {
-            'Content-Type': `${mime1}/${mime2}`
+            'Content-Type': `${mime1}/${mime2}`,
           });
           res.writeHead(200, {
-            etag: `'W/${req.params.path}'`
+            etag: `'W/${req.params.path}'`,
           });
           return res.end(compressedImage);
         })
@@ -271,7 +270,7 @@ exports.downloadFile = () => {
 
   axios
     .get(url, {
-      responseType: 'stream'
+      responseType: 'stream',
     })
     .then((response) => {
       response.data.pipe(fs.createWriteStream(path));
@@ -285,19 +284,17 @@ exports.uploadFiles = (req, res) => {
   res.json({
     files: req.files,
     message: 'success',
-    text: 'File has been uploaded.'
-  })
+    text: 'File has been uploaded.',
+  });
 };
 
 exports.log = (req, res, next) => {
   Api.find({
-      recentId: req.body.id
-    })
+    recentId: req.body.id,
+  })
     .exec()
     .then((file) => {
-
       if (file.length <= 0) {
-
         const recents = new Api({
           recentId: req.body.id,
           date: new Date(),
@@ -316,20 +313,19 @@ exports.log = (req, res, next) => {
             });
           });
       } else {
-
         Api.update({
-            recentId: req.body.id
-          }, {
-            data: new Date()
-          })
+          recentId: req.body.id,
+        }, {
+          data: new Date(),
+        })
           .then(() => {
             res.status(201).json({
               message: 'Updated.',
             });
           })
-          .catch(err => {
+          .catch((err) => {
             next(err);
-          })
+          });
       }
     })
     .catch((err) => {
@@ -340,21 +336,21 @@ exports.log = (req, res, next) => {
 };
 
 exports.test = (req, res) => {
-  var quick = [];
+  let quick = [];
 
   Api.find()
     .limit(7)
     .sort({
-      date: 1
+      date: 1,
     })
     .exec()
     .then((result) => {
-      result.forEach(val => {
+      result.forEach((val) => {
         quick.push(val.recentId);
       });
       res.status(200).json({
         quick,
-        result
+        result,
       });
     })
     .catch((err) => {
@@ -362,6 +358,4 @@ exports.test = (req, res) => {
         error: err,
       });
     });
-
-
 };
