@@ -25,7 +25,14 @@
     </div>
 
     <div class="pdf" v-if="item.extension == 'pdf'">
-      <pdf class="media-pdf" v-for="i in numPages" :key="i" :src="pdfsrc" :page="i" ></pdf>
+      <pdf
+        ref="myPdfComponent"
+        class="media-pdf"
+        v-for="i in numPages"
+        :key="i"
+        :src="pdfsrc"
+        :page="i"
+      ></pdf>
     </div>
 
     <div class="audio" v-if="audio">
@@ -43,6 +50,18 @@
         :src="`/api/thirdParty/${item.extImg}/t/${item.extension}`"
       >
       &nbsp;&nbsp;{{item.name}}
+    </div>
+
+    <div class="right-tool">
+      <div class="right-tool-item">
+        <v-icon color="white" size="30" @click="download(item)">save_alt</v-icon>
+      </div>
+      <div class="right-tool-item">
+        <v-icon color="white" size="30" @click="print()">print</v-icon>
+      </div>
+      <div class="right-tool-item">
+        <v-icon color="white" size="30">more_vert</v-icon>
+      </div>
     </div>
 
     <div class="previewtool" v-if="item.imgUrl || item.extension == 'pdf'">
@@ -116,8 +135,13 @@ export default {
       this.$store.commit(types.HIDE_PREVIEW_MODAL);
       this.reset();
     },
+    download: function(item) {
+      this.$store.dispatch("download", item);
+    },
+    print: function(){
+      this.$refs.myPdfComponent[0].print();
+    },
     current: function() {
-
       if (this.item.extension == "pdf") {
         this.pdfsrc.then(pdf => {
           this.numPages = pdf.numPages;

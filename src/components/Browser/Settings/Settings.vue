@@ -29,6 +29,7 @@
                         </v-list>
                     </v-menu>
                 </v-toolbar>
+
                 <v-card-text>
                     <v-list three-line subheader>
                         <v-subheader>User Controls</v-subheader>
@@ -73,6 +74,15 @@
                             <v-list-tile-content>
                                 <v-list-tile-title>Auto-add widgets</v-list-tile-title>
                                 <v-list-tile-sub-title>Automatically add home screen widgets</v-list-tile-sub-title>
+                            </v-list-tile-content>
+                        </v-list-tile>
+                            <v-list-tile avatar>
+                            <v-list-tile-action>
+                                <v-checkbox color="primary" v-model="widgets"></v-checkbox>
+                            </v-list-tile-action>
+                            <v-list-tile-content>
+                                <v-list-tile-title>Suggestions</v-list-tile-title>
+                                <v-list-tile-sub-title>Make relevant files handy when you need them in Quick Access.</v-list-tile-sub-title>
                             </v-list-tile-content>
                         </v-list-tile>
                     </v-list>

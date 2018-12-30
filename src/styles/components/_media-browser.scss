@@ -333,3 +333,14 @@
     width: 60%;
     margin: auto;
 }
+
+.right-tool{
+    position: fixed;
+    top: 10px;
+    right:20px;
+}
+.right-tool-item{
+    display: inline;
+    margin: 0 5px;
+    cursor: pointer;
+}

@@ -7,6 +7,7 @@
         app
         width="250"
         >
+
         <v-list dense>
             <template v-for="item in items">
                 <v-layout
@@ -130,45 +131,14 @@ class="hidden-sm-and-down"
               <v-list-tile-title>Anurag</v-list-tile-title>
               <v-list-tile-sub-title>Creator of Media Manager</v-list-tile-sub-title>
             </v-list-tile-content>
-
-            <!-- <v-list-tile-action>
-              <v-btn
-                :class="fav ? 'red--text' : ''"
-                icon
-                @click="fav = !fav"
-              >
-                <v-icon>favorite</v-icon>
-              </v-btn>
-            </v-list-tile-action> -->
           </v-list-tile>
         </v-list>
 
         <v-divider></v-divider>
-
-        <!-- <v-list>
-          <v-list-tile>
-            <v-list-tile-action>
-              <v-switch v-model="message" color="purple"></v-switch>
-            </v-list-tile-action>
-            <v-list-tile-title>Enable messages</v-list-tile-title>
-          </v-list-tile>
-
-          <v-list-tile>
-            <v-list-tile-action>
-              <v-switch v-model="hints" color="purple"></v-switch>
-            </v-list-tile-action>
-            <v-list-tile-title>Enable hints</v-list-tile-title>
-          </v-list-tile> -->
           <v-btn color="red" @click="logout()">
               Logout
             </v-btn>
-             <!-- </v-list> -->
-        <!-- <v-card-actions>
-          <v-spacer></v-spacer>
 
-          <v-btn flat @click="menu = false">Cancel</v-btn>
-          <v-btn color="primary" flat @click="menu = false">Save</v-btn>
-        </v-card-actions> -->
       </v-card>
     </v-menu>
 

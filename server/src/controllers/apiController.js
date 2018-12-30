@@ -116,7 +116,6 @@ exports.getFiles = (req, res) => {
           }
         }
 
-        // var dir = uploadFolder.split('.')[1];
         content.color = colors[Math.floor((Math.random() * 8) + 1)];
 
         content.size = stats.size;
