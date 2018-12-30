@@ -366,9 +366,16 @@ export default {
     * @param state
     */
     [types.SHOW_SNACKBAR]: (state, payload) => {
-        state.showsnackbardata = payload.data;
-        state.showsnackbarcolor = payload.color;
-        state.showsnackbar = true;
+        state.showsnackbar.state = true;
+        state.showsnackbar.data = payload.data;
+
+        if(payload.color) {
+            state.showsnackbar.color = payload.color;
+        }
+
+        if(payload.time == 0) {
+            state.showsnackbar.time = payload.time;
+        }
     },
 
     /**
@@ -376,9 +383,7 @@ export default {
     * @param state
     */
     [types.HIDE_SNACKBAR]: (state) => {
-        state.showsnackbardata = '';
-        state.showsnackbarcolor='default';
-        state.showsnackbar = false;
+        state.showsnackbar = { state: false, data:'', color: 'default', time: 6000 };
     },
 
     /**

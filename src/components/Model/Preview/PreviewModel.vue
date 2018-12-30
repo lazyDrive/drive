@@ -57,9 +57,6 @@
         <v-icon color="white" size="30" @click="download(item)">save_alt</v-icon>
       </div>
       <div class="right-tool-item">
-        <v-icon color="white" size="30" @click="print()" v-if="item.extension == 'pdf'" >print</v-icon>
-      </div>
-      <div class="right-tool-item">
         <v-icon color="white" size="30">more_vert</v-icon>
       </div>
     </div>

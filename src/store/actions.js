@@ -147,8 +147,9 @@ export const signup = (context, payload) => {
 export const download = (context, payload) => {
 
 	var data = {
-		'data': 'Preparing for download...',
-		'color': 'default'
+		data: 'Preparing for download...',
+		color: 'default',
+		time: 0
 	};
 
 	context.commit(types.SHOW_SNACKBAR, data);
@@ -159,13 +160,7 @@ export const download = (context, payload) => {
 		}, )
 		.then((response) => {
 			FileSaver.saveAs(new Blob([response.data]), payload.name);
-
-			var data = {
-				'data': 'Download completed.',
-				'color': 'success'
-			};
-
-			context.commit(types.SHOW_SNACKBAR, data);
+			context.commit(types.HIDE_SNACKBAR);
 		})
 		.catch((error) => {
 			api._handleError(error);

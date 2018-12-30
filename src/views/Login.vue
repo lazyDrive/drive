@@ -1,6 +1,7 @@
 <template>
     <div class="media-login">
     <media-login></media-login>
+    <media-alert></media-alert>
     </div>
 </template>
 

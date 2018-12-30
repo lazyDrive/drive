@@ -1,5 +1,6 @@
 import axios from 'axios'
-// import store from '@/store/store'
+import store from '@/store/store'
+import * as types from "./../store/mutation-types";
 import * as mediaManagerStorage from './Storage.js'
 import * as auth from './Auth.js'
 /**
@@ -30,14 +31,20 @@ class Api {
   /**
    * Handle errors
    * @param error
-   * @private
    *
-   * @TODO DN improve error handling
    */
   _handleError(error) {
-    switch (error.status) {
+
+    var data = {
+      data: error.response.data.message,
+      color: 'error'
+    };
+
+    store.commit(types.SHOW_SNACKBAR, data);
+
+    switch (error.response.status) {
       case 409:
-        // Handled in consumer
+      console.log(error)
         break;
       case 404:
         console.log(error)

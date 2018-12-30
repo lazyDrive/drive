@@ -37,12 +37,8 @@ export default {
     // The state of the music player
     showMusicPlayer: false,
     // The snackbar
-    showsnackbar: false,
+    showsnackbar: { state: false, data:'', color: 'default', time: 6000 },
     // The snackbar
-    showsnackbardata: '',
-    // The sanckbar color
-    showsnackbarcolor: 'default',
-    // The preview item
     previewItem: null,
     // The Search loading value
     loadingValue: 0,

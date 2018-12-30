@@ -36,7 +36,7 @@
                       min="8"
                       :append-icon="e1 ? 'visibility' : 'visibility_off'"
                       :append-icon-cb="() => (e1 = !e1)"
-                      :type="e1 ? 'password' : 'text'"
+                      :type="e1 ? 'text' : 'password'"
                       :rules="passwordRules"
                       counter
                       required
@@ -74,8 +74,7 @@ export default {
       password: "",
       loading: false,
       nameRules: [
-        v => !!v || "Name is required",
-        v => v.length <= 10 || "Name must be less than 10 characters"
+        v => !!v || "Name is required"
       ],
       passwordRules: [v => !!v || "Password is required"],
       email: "",

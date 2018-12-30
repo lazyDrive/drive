@@ -8,9 +8,9 @@
     :timeout="timeout"
     :top="y === 'top'"
     :vertical="mode === 'vertical'"
-    :color="this.$store.state.showsnackbarcolor"
+    :color="this.$store.state.showsnackbar.color"
     >
-    {{ this.$store.state.showsnackbardata }}
+    {{ this.$store.state.showsnackbar.data }}
     <v-btn
     color="white"
     flat
@@ -30,8 +30,7 @@ export default {
         return {
             y: 'bottom',
             x: 'left',
-            mode: '',
-            timeout: 6000
+            mode: ''
         }
     },
     props: {
@@ -40,7 +39,7 @@ export default {
     computed: {
         snackbarState: {
             get: function() {
-                return this.$store.state.showsnackbar;
+                return this.$store.state.showsnackbar.state;
             },
             set: function() {
                 // think about this
@@ -48,7 +47,10 @@ export default {
                     this.$store.commit(types.HIDE_SNACKBAR);
                 }.bind(this), 1000);
             }
-        }
+        },
+        timeout: function(){
+            return this.$store.state.showsnackbar.time;
+        },
     },
     methods:{
         close: function(){

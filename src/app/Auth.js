@@ -8,8 +8,8 @@ export const services = {
    * @returns {Promise}
    */
   loggedIn() {
-    if((mediaManagerStorage.session.get('email') !== '' && mediaManagerStorage.session.get('email') !== null)
-      && (mediaManagerStorage.session.get('token') !== '' && mediaManagerStorage.session.get('token') !== null)) {
+    if((mediaManagerStorage.cookies.get('email') !== '' && mediaManagerStorage.cookies.get('email') !== null)
+      && (mediaManagerStorage.cookies.get('token') !== '' && mediaManagerStorage.cookies.get('token') !== null)) {
       return true;
     } else {
       return false;
@@ -21,7 +21,8 @@ export const services = {
    * @returns {Promise}
    */
   logout() {
-    mediaManagerStorage.session.destroyAll();
+    mediaManagerStorage.cookies.destroy('email');
+    mediaManagerStorage.cookies.destroy('token');
     return true;
   },
 }
