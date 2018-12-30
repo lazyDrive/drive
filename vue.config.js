@@ -1,7 +1,9 @@
 module.exports = {
     baseUrl: "",
     pwa: {
-        name: 'Media Manager'
+      name: 'Media Manager',
+      themeColor: '#9013FE',
+      msTileColor: '#50E3C2'
     },
     devServer: {
         proxy: "http://localhost:3344"

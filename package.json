@@ -2,17 +2,18 @@
   "name": "media-manager",
   "version": "0.1.0",
   "private": true,
+  "description": "<p align=\"center\"><a href=\"http://github.com/anu1601cs/\" target=\"_blank\" rel=\"noopener noreferrer\"><img width=\"100\" src=\"https://vuejs.org/images/logo.png\" alt=\"Vue logo\"></a></p>",
+  "author": "Anurag Kumar (anu1601cs)",
   "scripts": {
     "serve": "vue-cli-service serve --open",
     "build": "vue-cli-service build",
     "lint": "vue-cli-service lint",
+    "deploy": "node ./node_modules/vue-gh-pages/index.js",
     "test:e2e": "vue-cli-service test:e2e",
-    "deploy": "node ./node_modules/vue-gh-pages/index.js"
+    "test:unit": "vue-cli-service test:unit"
   },
   "dependencies": {
-    "FileSaver": "^0.10.0",
     "axios": "^0.18.0",
-    "axios-progress-bar": "^1.2.0",
     "babel-polyfill": "^6.26.0",
     "debug": "^4.1.1",
     "file-saver": "^2.0.0",
@@ -20,13 +21,10 @@
     "jwt-decode": "^2.2.0",
     "lodash": "^4.17.11",
     "material-design-icons-iconfont": "^4.0.3",
-    "pdfjs-dist": "^2.0.943",
-    "pdfvuer": "^1.0.5",
     "register-service-worker": "^1.5.2",
     "underscore": "^1.9.1",
     "vue": "^2.5.21",
     "vue-analytics": "^5.16.1",
-    "vue-cookies": "^1.5.12",
     "vue-gh-pages": "^1.19.0",
     "vue-pdf": "^4.0.5",
     "vue-progressbar": "^0.7.5",
@@ -42,8 +40,12 @@
     "@vue/cli-plugin-e2e-cypress": "^3.2.0",
     "@vue/cli-plugin-eslint": "^3.2.1",
     "@vue/cli-plugin-pwa": "^3.2.0",
+    "@vue/cli-plugin-unit-jest": "^3.2.0",
     "@vue/cli-service": "^3.2.0",
+    "@vue/test-utils": "^1.0.0-beta.20",
+    "babel-core": "7.0.0-bridge.0",
     "babel-eslint": "^10.0.1",
+    "babel-jest": "^23.6.0",
     "cypress": "^3.1.3",
     "eslint": "^5.10.0",
     "eslint-plugin-vue": "^5.0.0",
@@ -54,23 +56,21 @@
     "vue-cli-plugin-vuetify": "^0.4.6",
     "vue-template-compiler": "^2.5.21"
   },
-  "description": "<p align=\"center\"><a href=\"http://github.com/anu1601cs/\" target=\"_blank\" rel=\"noopener noreferrer\"><img width=\"100\" src=\"https://vuejs.org/images/logo.png\" alt=\"Vue logo\"></a></p>",
-  "main": "index.html",
+  "bugs": {
+    "url": "https://github.com/Anu1601CS/media-manager/issues"
+  },
   "directories": {
     "test": "tests"
   },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/Anu1601CS/media-manager.git"
-  },
+  "homepage": "https://github.com/Anu1601CS/media-manager",
   "keywords": [
     "Media",
     "Manager"
   ],
-  "author": "Anurag Kumar (anu1601cs)",
   "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/Anu1601CS/media-manager/issues"
-  },
-  "homepage": "https://github.com/Anu1601CS/media-manager"
+  "main": "index.html",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Anu1601CS/media-manager.git"
+  }
 }
