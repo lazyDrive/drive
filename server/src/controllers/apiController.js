@@ -115,18 +115,19 @@ exports.getFiles = (req, res) => {
             content.filePath = `/api/images/${Buffer.from(uploadFolder + file).toString('base64')}/t/${fileInfo.ext}/d/200/200/m/${fileInfo.mime}/${id}`;
           } else {
             if (fileInfo.ext === 'pdf') {
-              const pdfImage = new PDFImage(uploadFolder + file, {
-                outputDirectory: './.cache/',
-                graphicsMagick: true,
-                convertOptions: {
-                  '-resize': '2000x2000',
-                  '-quality': '75',
-                },
-              });
 
-              pdfImage.convertPage(0).then((imagePath) => {
-                console.log(imagePath);
-              });
+              // const pdfImage = new PDFImage(uploadFolder + file, {
+              //   outputDirectory: './.cache/',
+              //   graphicsMagick: true,
+              //   convertOptions: {
+              //     '-resize': '2000x2000',
+              //     '-quality': '75',
+              //   },
+              // });
+
+              // pdfImage.convertPage(0).then((imagePath) => {
+              //   console.log(imagePath);
+              // });
             }
 
             content.filePath = `/api/files/${Buffer.from(uploadFolder + file).toString('base64')}/t/${fileInfo.ext}/m/${fileInfo.mime}/s/${stats.size}/${id}`;
@@ -171,6 +172,7 @@ exports.thirdParty = (req, res) => {
     } else {
       res.writeHead(200, {
         'Content-Type': 'image/svg+xml',
+        'Cache-Control': 'public, max-age=31557600',
       });
       res.end(content);
     }
@@ -230,8 +232,6 @@ exports.serveImages = (req, res) => {
   const mime2 = req.params.mime2;
   const path = Buffer.from(req.params.path, 'base64').toString('ascii');
 
-  res.set('Cache-Control', 'public, max-age=31557600');
-
   fs.readFile(path, (err, content) => {
     if (err) {
       res.writeHead(400, {
@@ -263,10 +263,10 @@ exports.serveImages = (req, res) => {
         .then((compressedImage) => {
           res.writeHead(200, {
             'Content-Type': `${mime1}/${mime2}`,
-          });
-          res.writeHead(200, {
+            'Cache-Control': 'public, max-age=31557600',
             etag: `'W/${req.params.path}'`,
           });
+
           return res.end(compressedImage);
         })
         .catch((error) => {
@@ -279,7 +279,6 @@ exports.serveImages = (req, res) => {
 
 
 exports.downloadFile = () => {
-  // const filePath = req.params.path;
 
   const url = 'https://unsplash.com/photos/AaEQmoufHLk/download?force=true';
   const path = Path.resolve(process.env.BASE_PATH, '/', 'code.jpg');
