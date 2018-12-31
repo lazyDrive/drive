@@ -202,8 +202,8 @@ export default {
     * Show the folder menu
     * @param state
     */
-    [types.SHOW_FOLDER_MENU]: (state) => {
-        var e = window.event;
+    [types.SHOW_FOLDER_MENU]: (state, payload) => {
+        var e = payload.event || window.event;
         e.preventDefault()
 
         state.showFolderMenuX = e.clientX;
@@ -222,8 +222,8 @@ export default {
     * Show the file menu
     * @param state
     */
-    [types.SHOW_FILE_MENU]: (state) => {
-        var e = window.event;
+    [types.SHOW_FILE_MENU]: (state, payload) => {
+        var e = payload.event || window.event;
         e.preventDefault()
 
         state.showFileMenuX = e.clientX;

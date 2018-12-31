@@ -65,8 +65,11 @@ export default {
         edit : function(e){
             console.log(e);
         },
-        preview : function(e){
-            console.log(e);
+        preview : function(){
+            const item = this.$store.state.selectedItems[0];
+            this.$store.dispatch('log', item);
+            this.$store.commit(types.LOAD_FULL_CONTENTS_SUCCESS, item);
+            this.$store.commit(types.SHOW_PREVIEW_MODAL);
         },
         download: function(){
             var file  = this.$store.state.selectedItems[0];

@@ -12,6 +12,8 @@ const imageminJpegtran = require('imagemin-jpegtran');
 const imageminPngquant = require('imagemin-pngquant');
 const imageminMozjpeg = require('imagemin-mozjpeg');
 const imageminGifsicle = require('imagemin-gifsicle');
+// eslint-disable-next-line prefer-destructuring
+const PDFImage = require('pdf-image').PDFImage;
 
 const Api = require('../models/apiModel');
 
@@ -112,6 +114,21 @@ exports.getFiles = (req, res) => {
             content.imgUrl = `/api/images/${Buffer.from(uploadFolder + file).toString('base64')}/t/${fileInfo.ext}/d/200/200/m/${fileInfo.mime}/${id}`;
             content.filePath = `/api/images/${Buffer.from(uploadFolder + file).toString('base64')}/t/${fileInfo.ext}/d/200/200/m/${fileInfo.mime}/${id}`;
           } else {
+            if (fileInfo.ext === 'pdf') {
+              const pdfImage = new PDFImage(uploadFolder + file, {
+                outputDirectory: './.cache/',
+                graphicsMagick: true,
+                convertOptions: {
+                  '-resize': '2000x2000',
+                  '-quality': '75',
+                },
+              });
+
+              pdfImage.convertPage(0).then((imagePath) => {
+                console.log(imagePath);
+              });
+            }
+
             content.filePath = `/api/files/${Buffer.from(uploadFolder + file).toString('base64')}/t/${fileInfo.ext}/m/${fileInfo.mime}/s/${stats.size}/${id}`;
           }
         }
@@ -335,7 +352,7 @@ exports.log = (req, res, next) => {
 };
 
 exports.test = (req, res) => {
-  let quick = [];
+  const quick = [];
 
   Api.find()
     .limit(7)

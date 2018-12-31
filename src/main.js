@@ -11,7 +11,6 @@ import Content from '@/components/Browser/Content/Content'
 import File from '@/components/Browser/Items/File'
 import InfoBar from '@/components/Browser/InfoBar/InfoBar'
 import Folder from '@/components/Browser/Items/Folder'
-import MediaPlayer from '@/components/Browser/Items/MediaPlayer'
 import Navbar from '@/components/Browser/NavBar/NavBar'
 import QuickUpload from '@/components/Browser/QuickUpload/QuickUpload'
 import Settings from '@/components/Browser/Settings/Settings'
@@ -61,7 +60,6 @@ Vue.component('media-browser', Browser)
 Vue.component('media-model', Model)
 Vue.component('media-menu', Menu)
 Vue.component('media-upload-menu', UploadMenu)
-Vue.component('media-media-player', MediaPlayer)
 Vue.component('media-preview-model', PreviewModel)
 
 // Register MediaManager namespace

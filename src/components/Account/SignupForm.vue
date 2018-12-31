@@ -4,10 +4,10 @@
       <v-btn v-on:click.stop.prevent :to="{ path: '/' }" flat>Home</v-btn>
       <v-toolbar-title>Media Manager</v-toolbar-title>
       <v-spacer></v-spacer>
-        <v-btn v-on:click.stop.prevent :to="{ path: '/login' }" flat>Sign in</v-btn>
-        <v-btn v-on:click.stop.prevent :to="{ path: '/signup' }"  flat>Sign up</v-btn>
+      <v-btn v-on:click.stop.prevent :to="{ path: '/login' }" flat>Sign in</v-btn>
+      <v-btn v-on:click.stop.prevent :to="{ path: '/signup' }" flat>Sign up</v-btn>
       <v-btn icon href="https://github.com/Anu1601CS/media-manager" flat>
-      <v-icon>code</v-icon>
+        <v-icon>code</v-icon>
       </v-btn>
     </v-toolbar>
     <v-content>
@@ -56,6 +56,11 @@
                   </v-form>
                 </div>
               </v-card-text>
+              <v-divider></v-divider>
+              <div>
+                <v-btn color="info">Dropbox</v-btn>
+                <v-btn color="success">Google Drive</v-btn>
+              </div>
             </v-card>
           </v-flex>
         </v-layout>
@@ -73,9 +78,7 @@ export default {
       name: "",
       password: "",
       loading: false,
-      nameRules: [
-        v => !!v || "Name is required"
-      ],
+      nameRules: [v => !!v || "Name is required"],
       passwordRules: [v => !!v || "Password is required"],
       email: "",
       /* eslint-disable */

@@ -17,13 +17,8 @@
     <v-btn icon dark @click="hideInforbar()">
         <v-icon>close</v-icon>
     </v-btn>
-    <v-spacer></v-spacer>
     <v-toolbar-title class="m-d-title">Items Details</v-toolbar-title>
     <v-spacer></v-spacer>
-    <v-btn icon dark @click="toggleMusicPlayer()">
-        <v-icon v-if="!this.$store.state.showMusicPlayer">music_note</v-icon>
-        <v-icon v-if="this.$store.state.showMusicPlayer">music_off</v-icon>
-    </v-btn>
 </v-toolbar>
 
 <v-container
@@ -38,7 +33,6 @@ class="infoBar"
             <h3 class="plz-select headline mb-0">Select file or folder to view its details.</h3>
         </div>
         <div v-if="this.$store.state.selectedItems.length > 0" >
-            <media-media-player v-if="music.length > 0 || this.$store.state.showMusicPlayer" ></media-media-player>
             <media-info-file v-for="item in files" :item="item" :key="item.id"></media-info-file>
         </div>
     </v-flex>

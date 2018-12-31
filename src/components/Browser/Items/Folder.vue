@@ -1,5 +1,5 @@
 <template>
-    <div class="text-xs-center folder" @click="select($event, item)" @contextmenu="show(this, item.id)" id="media-folder" >
+    <div class="text-xs-center folder" @click="select($event, item)" @contextmenu="show($event, item.id)" id="media-folder" >
         <v-chip
         disabled :class="` ${selectedState ? 'selected' : 'unselected'} ${isMobile ? 'm-mobile-chip-size' : (menuState ? 'info-chip-size' : 'm-chip-size')}`"
          color="#CFD8DC" text-color="black" slot="activator">
@@ -49,22 +49,23 @@ export default {
         }
     },
     methods: {
-        show : function(e, id){
-            e = e || window.event;
+        show : function(event, id){
+            var e = event || window.event;
             e.preventDefault()
 
             this.select(e, this.item);
 
-            this.$store.commit(types.HIDE_FILE_MENU, id);
-            this.$store.commit(types.HIDE_FOLDER_MENU, id);
-            this.$store.commit(types.SHOW_FOLDER_MENU, id);
+            console.log(id);
+            this.$store.commit(types.HIDE_FILE_MENU);
+            this.$store.commit(types.HIDE_FOLDER_MENU);
+            this.$store.commit(types.SHOW_FOLDER_MENU, {event: e});
 
             this.$nextTick(() => {
                 this.$store.state.showFolderMenu = true;
             })
         },
-        select: function(e, item){
-            e = e || window.event;
+        select: function(event, item){
+            var e = event || window.event;
             e.preventDefault()
 
             if (!(e.shiftKey || e.ctrlKey )) {

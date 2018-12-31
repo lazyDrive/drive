@@ -1,5 +1,5 @@
 <template>
-    <div class="file" @dblclick.prevent="preview()" @click="select(this, item)" @contextmenu="show($event, item.id)" :item-data="item.id" id="media-file">
+    <div class="file" @dblclick.prevent="preview()" @click="select($event, item)" @contextmenu="show($event, item.id)" :item-data="item.id" id="media-file">
         <v-hover>
             <v-card
             slot-scope="{ hover }"
@@ -95,22 +95,23 @@ export default {
         }
     },
     methods: {
-        show : function(e, id){
-            e = e || window.event;
+        show : function(event, id){
+            var e = event || window.event;
             e.preventDefault()
 
+            console.log(id);
             this.select(e, this.item);
 
-            this.$store.commit(types.HIDE_FOLDER_MENU, id);
-            this.$store.commit(types.HIDE_FILE_MENU, id);
-            this.$store.commit(types.SHOW_FILE_MENU, id);
+            this.$store.commit(types.HIDE_FOLDER_MENU);
+            this.$store.commit(types.HIDE_FILE_MENU);
+            this.$store.commit(types.SHOW_FILE_MENU, {event: e});
 
             this.$nextTick(() => {
                 this.$store.state.showFileMenu = true;
             })
         },
-        select: function(e, item){
-            e = e || window.event;
+        select: function(event, item){
+            var e = event || window.event;
             e.preventDefault()
 
             if (!(e.shiftKey || e.ctrlKey) || (item.type == 'quick')) {
