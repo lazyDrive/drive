@@ -95,12 +95,13 @@ export default {
         }
     },
     methods: {
-        show : function(event, id){
+        show : function(event, item){
             var e = event || window.event;
             e.preventDefault()
 
-            console.log(id);
-            this.select(e, this.item);
+            if (!(e.shiftKey || e.ctrlKey) || (item.type == 'quick')) {
+                this.select(e, this.item);
+            }
 
             this.$store.commit(types.HIDE_FOLDER_MENU);
             this.$store.commit(types.HIDE_FILE_MENU);

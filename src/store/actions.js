@@ -4,6 +4,7 @@ import {
 // import router from './../router';
 import * as types from "./mutation-types";
 import * as FileSaver from 'file-saver';
+import jsZip from 'jszip';
 
 /**
  * Get contents of a directory from the api
@@ -145,7 +146,6 @@ export const signup = (context, payload) => {
  * @param payload
  */
 export const download = (context, payload) => {
-
 	var data = {
 		data: 'Preparing for download...',
 		color: 'default',
@@ -154,15 +154,48 @@ export const download = (context, payload) => {
 
 	context.commit(types.SHOW_SNACKBAR, data);
 
-	api.axios()
-		.get(payload.filePath, {
-			responseType: 'blob'
-		}, )
-		.then((response) => {
-			FileSaver.saveAs(new Blob([response.data]), payload.name);
-			context.commit(types.HIDE_SNACKBAR);
-		})
-		.catch((error) => {
-			api._handleError(error);
+	if (payload.length == 1) {
+		api.axios()
+			.get(payload[0].filePath, {
+				responseType: 'blob'
+			}, )
+			.then((response) => {
+				FileSaver.saveAs(new Blob([response.data]), payload[0].name);
+				context.commit(types.HIDE_SNACKBAR);
+			})
+			.catch((error) => {
+				api._handleError(error);
+			});
+
+	} else {
+		var zip = new jsZip();
+		var count = 0;
+		payload.forEach((file) => {
+
+			api.axios()
+				.get(file.filePath, {
+					responseType: 'blob'
+				}, )
+				.then((response) => {
+
+					zip.file(file.name, response.data, { binary: true });
+
+					++count;
+
+					if (count == payload.length) {
+
+						zip.generateAsync({
+							type: 'blob'
+						}).then(function (content) {
+							FileSaver.saveAs(content, new Date + '.zip');
+							context.commit(types.HIDE_SNACKBAR);
+						});
+					}
+
+				})
+				.catch((error) => {
+					api._handleError(error);
+				});
 		});
+	}
 }

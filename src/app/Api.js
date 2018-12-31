@@ -35,31 +35,30 @@ class Api {
    */
   _handleError(error) {
 
-    var data = {
+    var errorData = {
       data: error.response.data.message,
       color: 'error'
     };
 
-    store.commit(types.SHOW_SNACKBAR, data);
-
     switch (error.response.status) {
       case 409:
-      console.log(error)
+      store.commit(types.SHOW_SNACKBAR, errorData);
         break;
       case 404:
-        console.log(error)
+      store.commit(types.SHOW_SNACKBAR, errorData);
         break;
       case 401:
-      console.log(error)
+      store.commit(types.SHOW_SNACKBAR, errorData);
         break;
       case 403:
-      console.log(error)
+      store.commit(types.SHOW_SNACKBAR, errorData);
         break;
       case 500:
-      console.log(error)
+      errorData.data = 'Server Internal Error.';
+      store.commit(types.SHOW_SNACKBAR, errorData);
         break;
       default:
-      console.log(error)
+      store.commit(types.SHOW_SNACKBAR, errorData);
     }
 
     throw error;

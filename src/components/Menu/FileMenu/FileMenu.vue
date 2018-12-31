@@ -72,8 +72,8 @@ export default {
             this.$store.commit(types.SHOW_PREVIEW_MODAL);
         },
         download: function(){
-            var file  = this.$store.state.selectedItems[0];
-            this.$store.dispatch('download', file);
+            const files  = this.$store.state.selectedItems;
+            this.$store.dispatch('download', files);
         },
         getShareableLike: function(e){
             console.log(e);

@@ -55,7 +55,7 @@ router.get('/download/file/:path', ApiController.downloadFile);
 router.post('/upload', checkAuth, upload.single('files'), ApiController.uploadFiles);
 
 // Recents
-router.post('/log', ApiController.log);
+router.post('/log', checkAuth, ApiController.log);
 
 // test
 router.post('/test', ApiController.test);

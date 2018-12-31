@@ -49,13 +49,14 @@ export default {
         }
     },
     methods: {
-        show : function(event, id){
+        show : function(event, item){
             var e = event || window.event;
             e.preventDefault()
 
-            this.select(e, this.item);
+            if (!(e.shiftKey || e.ctrlKey) || (item.type == 'quick')) {
+                this.select(e, this.item);
+            }
 
-            console.log(id);
             this.$store.commit(types.HIDE_FILE_MENU);
             this.$store.commit(types.HIDE_FOLDER_MENU);
             this.$store.commit(types.SHOW_FOLDER_MENU, {event: e});

@@ -132,8 +132,9 @@ export default {
       this.$store.commit(types.HIDE_PREVIEW_MODAL);
       this.reset();
     },
-    download: function(item) {
-      this.$store.dispatch("download", item);
+    download: function() {
+      const items  = this.$store.state.selectedItems;
+      this.$store.dispatch("download", items);
     },
     print: function(){
       this.$refs.myPdfComponent[0].print();
