@@ -16,8 +16,8 @@
             </v-container>
             <v-card-actions>
                 <v-spacer></v-spacer>
-                <v-btn color="error" @click="hideConfirmDeleteModal()">Cancel</v-btn>
-                <v-btn color="success">Confirm</v-btn>
+                <v-btn color="error" @click.prevent="hideConfirmDeleteModal()">Cancel</v-btn>
+                <v-btn color="success" @click.prevent="deleteFile()">Confirm</v-btn>
             </v-card-actions>
         </v-card>
     </v-dialog>
@@ -47,6 +47,11 @@ export default {
     methods:{
         hideConfirmDeleteModal: function() {
             this.$store.commit(types.HIDE_CONFIRM_DELETE_MODAL);
+        },
+        deleteFile: function(){
+            const item = this.$store.state.selectedItems;
+            this.$store.dispatch('deleteFile', item);
+            this.hideConfirmDeleteModal();
         }
     }
 }

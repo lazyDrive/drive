@@ -54,6 +54,9 @@ router.get('/download/file/:path', ApiController.downloadFile);
 // Upload files
 router.post('/upload', checkAuth, upload.single('files'), ApiController.uploadFiles);
 
+// Delete File
+router.delete('/delete/:path', checkAuth, ApiController.deleteFiles);
+
 // Recents
 router.post('/log', checkAuth, ApiController.log);
 

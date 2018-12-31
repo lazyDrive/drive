@@ -54,6 +54,7 @@ exports.getFiles = (req, res) => {
           imgLazyUrl: '',
           color: '',
           filePath: '',
+          ePath:'',
           dimensions: {
             height: '',
             width: '',
@@ -144,6 +145,7 @@ exports.getFiles = (req, res) => {
         const originalPath = `${basePath + content.extension}.svg`;
 
         content.extImg = Buffer.from(originalPath).toString('base64');
+        content.ePath = Buffer.from(uploadFolder + file).toString('base64');
 
         files.push(content);
       });
@@ -159,6 +161,24 @@ exports.getFiles = (req, res) => {
     });
 };
 
+
+exports.deleteFiles = (req, res) => {
+
+  const path = Buffer.from(req.params.path, 'base64').toString('ascii');
+
+  try {
+    fs.unlinkSync(path);
+
+    res.status(202).json({
+      message: 'Deleted.',
+    });
+
+  } catch (err) {
+    res.status(500).json({
+      error: err,
+    });
+  }
+};
 
 exports.thirdParty = (req, res) => {
   const path = Buffer.from(req.params.path, 'base64').toString('ascii');

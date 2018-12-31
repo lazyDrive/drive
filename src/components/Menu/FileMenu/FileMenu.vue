@@ -58,9 +58,8 @@ export default {
         }
     },
     methods: {
-        delete : function(e){
+        delete : function(){
             this.showConfirmDeleteModal();
-            console.log(e);
         },
         edit : function(e){
             console.log(e);

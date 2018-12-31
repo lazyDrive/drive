@@ -115,6 +115,38 @@ export const log = (context, payload) => {
 		})
 }
 
+
+/**
+ * Delete file
+ * @param commit
+ * @param payload
+ */
+export const deleteFile = (context, payload) => {
+
+	context.commit(types.SET_IS_LOADING, true)
+
+	payload.forEach((file) => {
+		api.axios()
+			.delete('api/delete/' + file.ePath, payload)
+			.then((response) => {
+
+
+				var data = {
+					data: response.data.message,
+					color: 'success',
+				};
+
+				context.commit(types.SHOW_SNACKBAR, data);
+				context.dispatch('getContents');
+			})
+			.catch((error) => {
+				api._handleError(error)
+			})
+	});
+
+	context.commit(types.SET_IS_LOADING, false)
+}
+
 /**
  * Login
  * @param commit
@@ -178,7 +210,9 @@ export const download = (context, payload) => {
 				}, )
 				.then((response) => {
 
-					zip.file(file.name, response.data, { binary: true });
+					zip.file(file.name, response.data, {
+						binary: true
+					});
 
 					++count;
 
