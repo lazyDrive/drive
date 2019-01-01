@@ -54,7 +54,7 @@ exports.getFiles = (req, res) => {
           imgLazyUrl: '',
           color: '',
           filePath: '',
-          ePath:'',
+          ePath: '',
           dimensions: {
             height: '',
             width: '',
@@ -163,7 +163,6 @@ exports.getFiles = (req, res) => {
 
 
 exports.deleteFiles = (req, res) => {
-
   const path = Buffer.from(req.params.path, 'base64').toString('ascii');
 
   try {
@@ -172,7 +171,6 @@ exports.deleteFiles = (req, res) => {
     res.status(202).json({
       message: 'Deleted.',
     });
-
   } catch (err) {
     res.status(500).json({
       error: err,
@@ -299,7 +297,6 @@ exports.serveImages = (req, res) => {
 
 
 exports.downloadFile = () => {
-
   const url = 'https://unsplash.com/photos/AaEQmoufHLk/download?force=true';
   const path = Path.resolve(process.env.BASE_PATH, '/', 'code.jpg');
 
@@ -313,6 +310,26 @@ exports.downloadFile = () => {
     .catch((error) => {
       console.log(error);
     });
+};
+
+exports.renameFile = (req, res) => {
+  const oldPath = req.body.item.path;
+
+  let fileName = oldPath.split('/')[oldPath.length - 1];
+  const newPath = req.body.new;
+
+  fs.rename(oldPath, newPath, (err) => {
+    if (err) throw err;
+
+    fs.stat(newPath, (err, stats) => {
+      if (err) throw err;
+
+      res.status(200).json({
+        message: 'Renamed',
+        stats: JSON.stringify(stats),
+      });
+    });
+  });
 };
 
 exports.uploadFiles = (req, res) => {
