@@ -11,6 +11,7 @@ const readChunk = require('read-chunk');
 const fileType = require('file-type');
 const sizeOf = require('image-size');
 const util = require('util');
+
 class LocalAdapter {
   /**
    * Constructor
@@ -34,28 +35,6 @@ class LocalAdapter {
     } else {
       this.rootPath = './';
     }
-
-    // Structure of data.
-    this.ItemDataStructure = {
-      id: '',
-      name: '',
-      type: '',
-      path: '',
-      extension: '',
-      extImg: '',
-      size: '',
-      mime_type: '',
-      created_date: '',
-      imgUrl: '',
-      imgLazyUrl: '',
-      color: '',
-      filePath: '',
-      ePath: '',
-      dimensions: {
-        height: '',
-        width: '',
-      },
-    };
   }
 
   /**
@@ -71,6 +50,58 @@ class LocalAdapter {
     });
 
     return data;
+  }
+
+  /**
+   *
+   *
+   */
+  static getDir(path) {
+    if (fs.statSync(path).isDirectory()) {
+      return path;
+    }
+    return path.substring(0, path.lastIndexOf('/'));
+  }
+
+  /**
+   *
+   *
+   */
+  static delete(path) {
+    if (!fs.statSync(path).isDirectory() && fs.existsSync(path)) {
+      try {
+        fs.unlinkSync(path);
+        return true;
+      } catch (err) {
+        return err;
+      }
+    } else {
+      this.deleteFolder(path);
+
+      if (fs.existsSync(path)) {
+        return false;
+      }
+    }
+    return true;
+  }
+
+  /**
+   *
+   *
+   */
+  static deleteFolder(path) {
+    if (fs.existsSync(path)) {
+      fs.readdirSync(path).forEach((file) => {
+        const curPath = `${path}/${file}`;
+        if (fs.lstatSync(curPath).isDirectory()) { // recurse
+          this.deleteFolder(curPath);
+        } else {
+          fs.unlinkSync(curPath);
+        }
+      });
+      fs.rmdirSync(path);
+    }
+    return true;
   }
 
   /**
@@ -110,7 +141,6 @@ class LocalAdapter {
     itemDataObj.mime_type = isDir ? 'directory' : '';
 
     if (!isDir && fileBuffer != null) {
-
       const fileInfo = fileType(fileBuffer);
       itemDataObj.extension = fileInfo.ext;
       itemDataObj.mime_type = fileInfo.mime;
@@ -124,7 +154,6 @@ class LocalAdapter {
         itemDataObj.imgLazyUrl = `/api/images/${Buffer.from(path + item).toString('base64')}/t/${fileInfo.ext}/d/200/200/m/${fileInfo.mime}/${itemDataObj.id}`;
         itemDataObj.imgUrl = `/api/images/${Buffer.from(path + item).toString('base64')}/t/${fileInfo.ext}/d/200/200/m/${fileInfo.mime}/${itemDataObj.id}`;
         itemDataObj.filePath = `/api/images/${Buffer.from(path + item).toString('base64')}/t/${fileInfo.ext}/d/200/200/m/${fileInfo.mime}/${itemDataObj.id}`;
-
       } else {
         itemDataObj.filePath = `/api/files/${Buffer.from(path + item).toString('base64')}/t/${fileInfo.ext}/m/${fileInfo.mime}/s/${stats.size}/${itemDataObj.id}`;
       }
