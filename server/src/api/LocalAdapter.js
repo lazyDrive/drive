@@ -67,6 +67,24 @@ class LocalAdapter {
    *
    *
    */
+  static createFolder(name, path) {
+    const dir = path + name;
+
+    if (!fs.existsSync(dir)) {
+      try {
+        fs.mkdirSync(dir);
+        return true;
+      } catch (err) {
+        return err;
+      }
+    }
+    return false;
+  }
+
+  /**
+   *
+   *
+   */
   static delete(path) {
     if (!fs.statSync(path).isDirectory() && fs.existsSync(path)) {
       try {
