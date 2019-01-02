@@ -1,5 +1,6 @@
 import axios from 'axios'
 import store from '@/store/store'
+import router from '@/router';
 import * as types from "./../store/mutation-types";
 import * as mediaManagerStorage from './Storage.js'
 import * as auth from './Auth.js'
@@ -48,6 +49,8 @@ class Api {
       store.commit(types.SHOW_SNACKBAR, errorData);
         break;
       case 401:
+      this.auth.logout();
+      router.push('/login');
       store.commit(types.SHOW_SNACKBAR, errorData);
         break;
       case 403:

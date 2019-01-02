@@ -44,14 +44,6 @@
                 <media-file v-for="item in files" :item="item" :key="item.id" ></media-file>
             </v-layout>
         </div>
-
-        <v-progress-circular
-        :size="50"
-        color="primary"
-        indeterminate
-        v-if="this.$store.state.loadMoreProgress"
-        ></v-progress-circular>
-
     </v-container>
 
     <!-- Add infrobar -->

@@ -2,8 +2,6 @@
 export default {
     // The loaded files
     contents:[],
-    // Files loded for note
-    isContentsLoaded: false,
     // The currently selected items
     selectedItems: [],
     // The state of confirm delete model
@@ -40,8 +38,6 @@ export default {
     showsnackbar: { state: false, data:'', color: 'default', time: 6000 },
     // The snackbar
     previewItem: null,
-    // The Search loading value
-    loadingValue: 0,
     // The loading state
     isLoading: false,
     // Is mobile
@@ -50,8 +46,6 @@ export default {
     token:'',
     // Islogged in
     isUserLoggedIn: false,
-    // The loadmoreprogress
-    loadMoreProgress: false,
     // The Search Query
     search: '',
 }

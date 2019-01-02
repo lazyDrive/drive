@@ -133,7 +133,8 @@ export default {
       this.reset();
     },
     download: function() {
-      const items  = this.$store.state.selectedItems;
+      const items = [];
+      items.push(this.item);
       this.$store.dispatch("download", items);
     },
     print: function(){
