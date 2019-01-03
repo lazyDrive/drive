@@ -6,13 +6,14 @@
  * @license     GNU General Public License
  */
 
-const fs = require('fs');
+const fs = require('fs-extra');
 const readChunk = require('read-chunk');
 const fileType = require('file-type');
 const sizeOf = require('image-size');
 const util = require('util');
 
-const dirPremission = 0755;
+const desiredMode = 0o2775;
+
 class LocalAdapter {
   /**
    * Constructor
@@ -68,25 +69,16 @@ class LocalAdapter {
    *
    *
    */
-  static createDir(path, name) {
-    var dir;
+  static createDir(path) {
+    const dir = path;
 
-    if(name !== null || name !== '') {
-       dir = path + name;
-    } else {
-       dir = path;
-    }
-
-    if (!fs.existsSync(dir)) {
-      try {
-        fs.mkdirSync(dir, dirPremission);
-        return true;
-      } catch (e) {
-        if (e.code != "EEXIST") {
-          throw e;
-        }
-      }
-    }
+    fs.ensureDirSync(dir)
+      .then(() => {
+        console.log('success!');
+      })
+      .catch((err) => {
+        console.error(err);
+      });
   }
 
   /**
@@ -94,16 +86,19 @@ class LocalAdapter {
    *
    */
   static copy(sourcePath, destinationPath) {
+    fs.ensureDirSync(destinationPath, desiredMode, (err) => {
+      console.log(err); // => null
+      // dir has now been created with mode 0o2775, including the directory it is to be placed in
 
-    if (!fs.existsSync(sourcePath)) {
-      throw new Error('Source Path not exist.');
-    }
-
-    if (fs.statSync(sourcePath).isDirectory()) {
-      this.copyDir(sourcePath, destinationPath);
-    } else {
-      this.copyFile(sourcePath, destinationPath);
-    }
+      // Work with both files and dir
+      fs.copySync(sourcePath, destinationPath)
+        .then(() => {
+          console.log('success!');
+        })
+        .catch((err) => {
+          console.error(err);
+        });
+    });
 
     return destinationPath;
   }
@@ -112,32 +107,17 @@ class LocalAdapter {
    *
    *
    */
-  static copyDir(src, dest) {
-    this.createDir(dest);
-    var files = fs.readdirSync(src);
-
-    for (var i = 0; i < files.length; i++) {
-      var current = fs.lstatSync(path.join(src, files[i]));
-      if (current.isDirectory()) {
-        this.copyDir(path.join(src, files[i]), path.join(dest, files[i]));
-      } else if (current.isSymbolicLink()) {
-        var symlink = fs.readlinkSync(path.join(src, files[i]));
-        fs.symlinkSync(symlink, path.join(dest, files[i]));
-      } else {
-        this.copyFile(path.join(src, files[i]), path.join(dest, files[i]));
-      }
-    }
-  }
-
-
-  /**
-   *
-   *
-   */
-  static copyFile(src, dest) {
-    var oldFile = fs.createReadStream(src);
-    var newFile = fs.createWriteStream(dest);
-    util.pump(oldFile, newFile);
+  static move(sourcePath, destinationPath) {
+    // With Promises:
+    fs.moveSync(sourcePath, destinationPath, {
+      overwrite: false,
+    })
+      .then(() => {
+        console.log('success!');
+      })
+      .catch((err) => {
+        console.error(err);
+      });
   }
 
   /**
@@ -145,40 +125,14 @@ class LocalAdapter {
    *
    */
   static delete(path) {
-    if (!fs.statSync(path).isDirectory() && fs.existsSync(path)) {
-      try {
-        fs.unlinkSync(path);
-        return true;
-      } catch (err) {
-        return err;
-      }
-    } else {
-      this.deleteFolder(path);
-
-      if (fs.existsSync(path)) {
-        return false;
-      }
-    }
-    return true;
-  }
-
-  /**
-   *
-   *
-   */
-  static deleteDir(path) {
-    if (fs.existsSync(path)) {
-      fs.readdirSync(path).forEach((file) => {
-        const curPath = `${path}/${file}`;
-        if (fs.lstatSync(curPath).isDirectory()) { // recurse
-          this.deleteFolder(curPath);
-        } else {
-          fs.unlinkSync(curPath);
-        }
+    // With Promises:
+    fs.removeSync(path)
+      .then(() => {
+        console.log('success!');
+      })
+      .catch((err) => {
+        console.error(err);
       });
-      fs.rmdirSync(path);
-    }
-    return true;
   }
 
   /**
