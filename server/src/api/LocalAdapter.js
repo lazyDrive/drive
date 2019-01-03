@@ -12,6 +12,7 @@ const fileType = require('file-type');
 const sizeOf = require('image-size');
 const util = require('util');
 
+const dirPremission = 0755;
 class LocalAdapter {
   /**
    * Constructor
@@ -67,18 +68,76 @@ class LocalAdapter {
    *
    *
    */
-  static createFolder(name, path) {
-    const dir = path + name;
+  static createDir(path, name) {
+    var dir;
+
+    if(name !== null || name !== '') {
+       dir = path + name;
+    } else {
+       dir = path;
+    }
 
     if (!fs.existsSync(dir)) {
       try {
-        fs.mkdirSync(dir);
+        fs.mkdirSync(dir, dirPremission);
         return true;
-      } catch (err) {
-        return err;
+      } catch (e) {
+        if (e.code != "EEXIST") {
+          throw e;
+        }
       }
     }
-    return false;
+  }
+
+  /**
+   *
+   *
+   */
+  static copy(sourcePath, destinationPath) {
+
+    if (!fs.existsSync(sourcePath)) {
+      throw new Error('Source Path not exist.');
+    }
+
+    if (fs.statSync(sourcePath).isDirectory()) {
+      this.copyDir(sourcePath, destinationPath);
+    } else {
+      this.copyFile(sourcePath, destinationPath);
+    }
+
+    return destinationPath;
+  }
+
+  /**
+   *
+   *
+   */
+  static copyDir(src, dest) {
+    this.createDir(dest);
+    var files = fs.readdirSync(src);
+
+    for (var i = 0; i < files.length; i++) {
+      var current = fs.lstatSync(path.join(src, files[i]));
+      if (current.isDirectory()) {
+        this.copyDir(path.join(src, files[i]), path.join(dest, files[i]));
+      } else if (current.isSymbolicLink()) {
+        var symlink = fs.readlinkSync(path.join(src, files[i]));
+        fs.symlinkSync(symlink, path.join(dest, files[i]));
+      } else {
+        this.copyFile(path.join(src, files[i]), path.join(dest, files[i]));
+      }
+    }
+  }
+
+
+  /**
+   *
+   *
+   */
+  static copyFile(src, dest) {
+    var oldFile = fs.createReadStream(src);
+    var newFile = fs.createWriteStream(dest);
+    util.pump(oldFile, newFile);
   }
 
   /**
@@ -107,7 +166,7 @@ class LocalAdapter {
    *
    *
    */
-  static deleteFolder(path) {
+  static deleteDir(path) {
     if (fs.existsSync(path)) {
       fs.readdirSync(path).forEach((file) => {
         const curPath = `${path}/${file}`;
