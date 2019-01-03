@@ -91,11 +91,11 @@
               </v-flex>
               <v-flex xs12 sm6 md3>
                 <v-card>
-                  <img src="./../assets/vue.png" width="100%" height="180">
+                  <img src="./../assets/vue.png">
 
                   <v-card-title primary-title>
                     <div>
-                      <h3 class="headline mb-0">Vuejs</h3>
+                      <h3 class="headline mb-0">Vuejs + Vuex</h3>
                       <div>Vue.js is an open-source JavaScript framework for building user interfaces and single-page applications.</div>
                     </div>
                   </v-card-title>
@@ -123,7 +123,7 @@
               </v-flex>
               <v-flex xs12 sm6 md3>
                 <v-card>
-                  <img src="./../assets/express.png" width="100%" height="180">
+                  <img src="./../assets/express.png" width="90%" height="180">
 
                   <v-card-title primary-title>
                     <div>
