@@ -15,7 +15,7 @@ const router = new Router({
             component: () => import( /* webpackChunkName: "about" */ './views/Home.vue')
         },
         {
-            path: '/drive/u/:adapter/my-drive',
+            path: '/drive/u/:adapter/:path',
             name: 'my-drive',
             component: myDrive,
             meta: {
@@ -51,6 +51,11 @@ const router = new Router({
             // this generates a separate chunk (about.[hash].js) for this route
             // which is lazy-loaded when the route is visited.
             component: () => import( /* webpackChunkName: "about" */ './views/Test.vue')
+        },
+        {
+            path: "*",
+            name: 'PageNotFound',
+            component: () => import( /* webpackChunkName: "about" */ './views/PageNotFound.vue'),
         }
     ]
 })
@@ -62,8 +67,7 @@ router.beforeEach((to, from, next) => {
         const loggedIn = api.auth.loggedIn();
 
         if (!loggedIn) {
-            if(to.name != 'login' && to.name != 'signup')
-            {
+            if (to.name != 'login' && to.name != 'signup') {
                 next({
                     path: '/login',
                     query: {
