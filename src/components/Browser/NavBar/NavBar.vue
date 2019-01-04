@@ -76,10 +76,11 @@
 
 <v-toolbar
 :clipped-left="$vuetify.breakpoint.lgAndUp"
-color="blue darken-3"
-dark
+color="white"
 app
 fixed
+light
+flat
 >
 <v-toolbar-title style="width: 300px" class="ml-0">
     <v-toolbar-side-icon @click.stop="drawer = !drawer"></v-toolbar-side-icon>

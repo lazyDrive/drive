@@ -9,7 +9,7 @@
         fixed
         @click="select()"
         >
-        <v-icon>cloud_upload</v-icon>
+        <v-icon>add</v-icon>
     </v-btn>
 </div>
 </template>
