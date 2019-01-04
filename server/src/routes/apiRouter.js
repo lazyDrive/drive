@@ -61,6 +61,6 @@ router.delete('/delete/:path', checkAuth, ApiController.deleteFiles);
 router.post('/log', checkAuth, ApiController.log);
 
 // test
-router.post('/test', ApiController.test);
+router.get('/test', ApiController.test);
 
 module.exports = router;

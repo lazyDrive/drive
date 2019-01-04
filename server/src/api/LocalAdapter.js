@@ -1,3 +1,4 @@
+/* eslint-disable class-methods-use-this */
 /**
  * @package     Media Manager
  * @SubPackage  LocalAdapter
@@ -11,6 +12,7 @@ const readChunk = require('read-chunk');
 const fileType = require('file-type');
 const sizeOf = require('image-size');
 const util = require('util');
+const crypto = require('crypto');
 
 const desiredMode = 0o2775;
 
@@ -21,7 +23,7 @@ class LocalAdapter {
    * @param
    *
    */
-  constructor(req, res, next, rootPath) {
+  constructor(req, res, next, rootPath = './uploads/') {
     // Request
     this.req = req;
 
@@ -43,7 +45,7 @@ class LocalAdapter {
    *
    *
    */
-  static getFiles(path) {
+  getFiles(path) {
     const data = [];
     // Read each items in folder
     fs.readdirSync(path).forEach((item) => {
@@ -58,7 +60,7 @@ class LocalAdapter {
    *
    *
    */
-  static getDir(path) {
+  getDir(path) {
     if (fs.statSync(path).isDirectory()) {
       return path;
     }
@@ -69,7 +71,7 @@ class LocalAdapter {
    *
    *
    */
-  static createDir(path) {
+  createDir(path) {
     const dir = path;
 
     fs.ensureDirSync(dir)
@@ -85,7 +87,7 @@ class LocalAdapter {
    *
    *
    */
-  static copy(sourcePath, destinationPath) {
+  copy(sourcePath, destinationPath) {
     fs.ensureDirSync(destinationPath, desiredMode, (err) => {
       console.log(err); // => null
       // dir has now been created with mode 0o2775, including the directory it is to be placed in
@@ -107,13 +109,15 @@ class LocalAdapter {
    *
    *
    */
-  static move(sourcePath, destinationPath) {
+  move(sourcePath, destinationPath) {
     // With Promises:
     fs.moveSync(sourcePath, destinationPath, {
-      overwrite: false,
+      overwrite: true,
     })
       .then(() => {
-        console.log('success!');
+        this.res.status(200).json({
+          r: 'srcces',
+        });
       })
       .catch((err) => {
         console.error(err);
@@ -124,7 +128,7 @@ class LocalAdapter {
    *
    *
    */
-  static delete(path) {
+  delete(path) {
     // With Promises:
     fs.removeSync(path)
       .then(() => {
@@ -151,7 +155,7 @@ class LocalAdapter {
    * - thumb_path     The thumbnail path of file, when available
    *
    */
-  static getPathInformation(path, item) {
+  getPathInformation(path, item) {
     const itemDataObj = {};
     const shasum = crypto.createHash('sha1');
     const stats = fs.statSync(path + item);
@@ -173,24 +177,27 @@ class LocalAdapter {
 
     if (!isDir && fileBuffer != null) {
       const fileInfo = fileType(fileBuffer);
-      itemDataObj.extension = fileInfo.ext;
-      itemDataObj.mime_type = fileInfo.mime;
+      if (fileInfo) {
+        itemDataObj.extension = fileInfo.ext;
+        itemDataObj.mime_type = fileInfo.mime;
 
-      if (fileInfo.mime === 'image/jpeg' || fileInfo.mime === 'image/png' || fileInfo.mime === 'image/jpg') {
-        const dimensions = sizeOf(path + item);
+        if (fileInfo.mime === 'image/jpeg' || fileInfo.mime === 'image/png' || fileInfo.mime === 'image/jpg') {
+          const dimensions = sizeOf(path + item);
 
-        itemDataObj.height = !isDir ? dimensions.height : '';
-        itemDataObj.width = !isDir ? dimensions.width : '';
+          itemDataObj.height = !isDir ? dimensions.height : '';
+          itemDataObj.width = !isDir ? dimensions.width : '';
 
-        itemDataObj.imgLazyUrl = `/api/images/${Buffer.from(path + item).toString('base64')}/t/${fileInfo.ext}/d/200/200/m/${fileInfo.mime}/${itemDataObj.id}`;
-        itemDataObj.imgUrl = `/api/images/${Buffer.from(path + item).toString('base64')}/t/${fileInfo.ext}/d/200/200/m/${fileInfo.mime}/${itemDataObj.id}`;
-        itemDataObj.filePath = `/api/images/${Buffer.from(path + item).toString('base64')}/t/${fileInfo.ext}/d/200/200/m/${fileInfo.mime}/${itemDataObj.id}`;
-      } else {
-        itemDataObj.filePath = `/api/files/${Buffer.from(path + item).toString('base64')}/t/${fileInfo.ext}/m/${fileInfo.mime}/s/${stats.size}/${itemDataObj.id}`;
+          itemDataObj.imgLazyUrl = `/api/images/${Buffer.from(path + item).toString('base64')}/t/${fileInfo.ext}/d/200/200/m/${fileInfo.mime}/${itemDataObj.id}`;
+          itemDataObj.imgUrl = `/api/images/${Buffer.from(path + item).toString('base64')}/t/${fileInfo.ext}/d/200/200/m/${fileInfo.mime}/${itemDataObj.id}`;
+          itemDataObj.filePath = `/api/images/${Buffer.from(path + item).toString('base64')}/t/${fileInfo.ext}/d/200/200/m/${fileInfo.mime}/${itemDataObj.id}`;
+        } else {
+          itemDataObj.filePath = `/api/files/${Buffer.from(path + item).toString('base64')}/t/${fileInfo.ext}/m/${fileInfo.mime}/s/${stats.size}/${itemDataObj.id}`;
+        }
       }
 
-      const originalPath = `/api/thirdParty/${itemDataObj.extension}.svg`;
-      itemDataObj.extImg = Buffer.from(originalPath).toString('base64');
+      const extImgPath = `./thirdParty/${itemDataObj.extension}.svg`;
+
+      itemDataObj.extImg = `/api/thirdParty/${Buffer.from(extImgPath).toString('base64')}/t/${itemDataObj.extension}`;
     }
 
     itemDataObj.color = isDir ? '#3949AB' : '';
@@ -206,12 +213,8 @@ class LocalAdapter {
 
     itemDataObj.path = path + item;
 
-    itemDataObj.uid = stats.uid;
-
     return itemDataObj;
   }
 }
 
-const Adapter = new LocalAdapter();
-
-module.exports = Adapter;
+module.exports = LocalAdapter;

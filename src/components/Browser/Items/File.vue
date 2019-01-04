@@ -32,7 +32,7 @@
             <!-- <v-icon  :size="`${isMobile ? '80' : '120'}`">{{ icon }}</v-icon> -->
 
     <v-card-title>
-        <img v-if="item.extImg && !isMobile" class="extensionImage" :src="`/api/thirdParty/${item.extImg}/t/${item.extension}`" />
+        <img v-if="item.extImg && !isMobile" class="extensionImage" :src="item.extImg" />
         <span class="file-text">{{ getName }}</span>
     </v-card-title>
 </v-card>

@@ -1,9 +1,4 @@
-const util = require('util');
 const fs = require('fs');
-const readChunk = require('read-chunk');
-const fileType = require('file-type');
-const sizeOf = require('image-size');
-const crypto = require('crypto');
 const axios = require('axios');
 const Path = require('path');
 
@@ -13,9 +8,10 @@ const imageminPngquant = require('imagemin-pngquant');
 const imageminMozjpeg = require('imagemin-mozjpeg');
 const imageminGifsicle = require('imagemin-gifsicle');
 // eslint-disable-next-line prefer-destructuring
-const PDFImage = require('pdf-image').PDFImage;
+// const PDFImage = require('pdf-image').PDFImage;
 
 const Api = require('../models/apiModel');
+const LocalAdapter = require('./../api/LocalAdapter');
 
 const uploadFolder = './uploads/';
 
@@ -23,142 +19,16 @@ if (!fs.existsSync(uploadFolder)) {
   fs.mkdirSync(uploadFolder);
 }
 
-exports.getFiles = (req, res) => {
-  const files = [];
+exports.getFiles = (req, res, next) => {
 
-  const quick = [];
+  const adapter = new LocalAdapter(req, res, next, './');
 
-  Api.find()
-    .limit(7)
-    .sort({
-      date: -1,
-    })
-    .exec()
-    .then((result) => {
-      result.forEach((val) => {
-        quick.push(val.recentId);
-      });
+  const files = adapter.getFiles('./uploads/');
 
-      fs.readdirSync(uploadFolder).forEach((file) => {
-        const content = {
-          id: '',
-          name: '',
-          type: '',
-          path: '',
-          extension: '',
-          extImg: '',
-          size: '',
-          mime_type: '',
-          created_date: '',
-          imgUrl: '',
-          imgLazyUrl: '',
-          color: '',
-          filePath: '',
-          ePath: '',
-          dimensions: {
-            height: '',
-            width: '',
-          },
-        };
+  res.status(200).send(({
+    contents: files,
+  }));
 
-        const colors = [
-          '#4CAF50',
-          '#FFC107',
-          '#2196F3',
-          '#FF5252',
-          '#3949AB',
-          '#00BCD4',
-          '#28a745',
-          '#424242',
-          '#1976D2',
-        ];
-
-        content.name = file;
-        const shasum = crypto.createHash('sha1');
-        shasum.update(uploadFolder + file);
-
-        content.id = shasum.digest('hex');
-
-        const stats = fs.statSync(uploadFolder + file);
-
-        if (fs.statSync(uploadFolder + file).isDirectory()) {
-          content.type = 'folders';
-          content.mime_type = 'directory';
-
-          const dir = uploadFolder.split('.')[1];
-          content.path = dir + file;
-        } else {
-          const shasum = crypto.createHash('sha1');
-          shasum.update(uploadFolder + file + stats.mtime);
-          const id = shasum.digest('hex');
-          content.type = 'files';
-
-          if (quick.indexOf(content.id) !== -1) {
-            content.type = 'quick';
-          } else {
-            content.type = 'files';
-          }
-
-          const buffer = readChunk.sync(uploadFolder + file, 0, fileType.minimumBytes);
-          const fileInfo = fileType(buffer);
-          content.extension = fileInfo.ext;
-          content.mime_type = fileInfo.mime;
-
-          const dir = uploadFolder.split('.')[1];
-          content.path = dir + file;
-
-          if (fileInfo.mime === 'image/jpeg' || fileInfo.mime === 'image/png' || fileInfo.mime === 'image/jpg') {
-            const dimensions = sizeOf(uploadFolder + file);
-            content.dimensions.height = dimensions.height;
-            content.dimensions.width = dimensions.width;
-            content.imgLazyUrl = `/api/images/${Buffer.from(uploadFolder + file).toString('base64')}/t/${fileInfo.ext}/d/200/200/m/${fileInfo.mime}/${id}`;
-            content.imgUrl = `/api/images/${Buffer.from(uploadFolder + file).toString('base64')}/t/${fileInfo.ext}/d/200/200/m/${fileInfo.mime}/${id}`;
-            content.filePath = `/api/images/${Buffer.from(uploadFolder + file).toString('base64')}/t/${fileInfo.ext}/d/200/200/m/${fileInfo.mime}/${id}`;
-          } else {
-            if (fileInfo.ext === 'pdf') {
-
-              // const pdfImage = new PDFImage(uploadFolder + file, {
-              //   outputDirectory: './.cache/',
-              //   graphicsMagick: true,
-              //   convertOptions: {
-              //     '-resize': '2000x2000',
-              //     '-quality': '75',
-              //   },
-              // });
-
-              // pdfImage.convertPage(0).then((imagePath) => {
-              //   console.log(imagePath);
-              // });
-            }
-
-            content.filePath = `/api/files/${Buffer.from(uploadFolder + file).toString('base64')}/t/${fileInfo.ext}/m/${fileInfo.mime}/s/${stats.size}/${id}`;
-          }
-        }
-
-        content.color = colors[Math.floor((Math.random() * 8) + 1)];
-
-        content.size = stats.size;
-        const mtime = new Date(util.inspect(stats.mtime));
-        content.created_date = mtime;
-
-        const basePath = './thirdParty/';
-        const originalPath = `${basePath + content.extension}.svg`;
-
-        content.extImg = Buffer.from(originalPath).toString('base64');
-        content.ePath = Buffer.from(uploadFolder + file).toString('base64');
-
-        files.push(content);
-      });
-
-      res.status(200).send(({
-        contents: files,
-      }));
-    })
-    .catch((err) => {
-      res.status(500).json({
-        error: err,
-      });
-    });
 };
 
 
@@ -262,22 +132,22 @@ exports.serveImages = (req, res) => {
       const optimizationLevel = (hd || quality >= 60) ? 1 : 2;
 
       imagemin.buffer(content, {
-        plugins: [
-          imageminGifsicle({
-            optimizationLevel,
-            interlaced: true,
-          }),
-          imageminMozjpeg({
-            quality,
-          }),
-          imageminJpegtran({
-            progressive: true,
-          }),
-          imageminPngquant({
-            quality: `${quality}-80`,
-          }),
-        ],
-      })
+          plugins: [
+            imageminGifsicle({
+              optimizationLevel,
+              interlaced: true,
+            }),
+            imageminMozjpeg({
+              quality,
+            }),
+            imageminJpegtran({
+              progressive: true,
+            }),
+            imageminPngquant({
+              quality: `${quality}-80`,
+            }),
+          ],
+        })
         .then((compressedImage) => {
           res.writeHead(200, {
             'Content-Type': `${mime1}/${mime2}`,
@@ -342,8 +212,8 @@ exports.uploadFiles = (req, res) => {
 
 exports.log = (req, res, next) => {
   Api.find({
-    recentId: req.body.id,
-  })
+      recentId: req.body.id,
+    })
     .exec()
     .then((file) => {
       if (file.length <= 0) {
@@ -366,10 +236,10 @@ exports.log = (req, res, next) => {
           });
       } else {
         Api.update({
-          recentId: req.body.id,
-        }, {
-          data: new Date(),
-        })
+            recentId: req.body.id,
+          }, {
+            data: new Date(),
+          })
           .then(() => {
             res.status(201).json({
               message: 'Updated.',

@@ -79,12 +79,12 @@ export default {
         },
         folders: function() {
             return this.$store.state.contents.filter(
-                item => (item.type == 'folders' && item.name.toLowerCase().includes(this.$store.state.search.toLowerCase()))
+                item => (item.type == 'dir' && item.name.toLowerCase().includes(this.$store.state.search.toLowerCase()))
             );
         },
         files: function() {
             return this.$store.state.contents.filter(
-                item => (item.type == 'files' && item.name.toLowerCase().includes(this.$store.state.search.toLowerCase()))
+                item => (item.type == 'file' && item.name.toLowerCase().includes(this.$store.state.search.toLowerCase()))
             );
         }
     },

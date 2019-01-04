@@ -47,7 +47,7 @@
       <img
         v-if="item.extImg"
         class="extensionImage"
-        :src="`/api/thirdParty/${item.extImg}/t/${item.extension}`"
+        :src="item.extImg"
       >
       &nbsp;&nbsp;{{item.name}}
     </div>
