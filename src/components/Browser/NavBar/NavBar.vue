@@ -81,6 +81,7 @@ app
 fixed
 light
 flat
+class="m-over-toolbar"
 >
 <v-toolbar-title style="width: 300px" class="ml-0">
     <v-toolbar-side-icon @click.stop="drawer = !drawer"></v-toolbar-side-icon>
