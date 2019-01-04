@@ -25,7 +25,7 @@
 
         <!-- for other files -->
         <div class="file" v-if="file">
-            <v-img aspect-ratio="1.75" contain :src="`/api/thirdParty/${item.extImg}/t/${item.extension}`" :lazy-src="`/api/thirdParty/${item.extImg}/t/${item.extension}`"></v-img>
+            <v-img aspect-ratio="1.75" contain :src="item.extImg" :lazy-src="item.extImg"></v-img>
         </div>
 
         <br>
@@ -61,7 +61,7 @@
                 </tr>
                 <tr>
                     <td class="m-d-td">Dimensions</td>
-                    <td class="m-d-td"><strong>{{ item.dimensions.height }} x {{ item.dimensions.width }}</strong></td>
+                    <td class="m-d-td"><strong>{{ item.height }} x {{ item.width }}</strong></td>
                 </tr>
                 <tr>
                     <td class="m-d-td">Owner</td>

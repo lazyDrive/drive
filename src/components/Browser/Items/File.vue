@@ -12,7 +12,7 @@
             <v-img
             class="m-gradient"
             :aspect-ratio="16/10"
-            v-if="item.imgUrl != ''"
+            v-if="item.imgUrl"
             :src="item.imgUrl"
             :alt="item.name"
             :lazy-src="item.imgLazyUrl"
@@ -21,8 +21,8 @@
 
             <v-img
             :aspect-ratio="16/10"
-            v-if="item.imgUrl == ''"
-            :src="`/api/thirdParty/${item.extImg}/t/${item.extension}`"
+            v-if="!item.imgUrl"
+            :src="item.extImg"
             :alt="item.name"
             contain
             :lazy-src="item.imgLazyUrl"
