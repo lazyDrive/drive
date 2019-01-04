@@ -38,6 +38,8 @@ export default {
     showsnackbar: { state: false, data:'', color: 'default', time: 6000 },
     // The snackbar
     previewItem: null,
+    // The backdrop
+    modelBackdrop: false,
     // The loading state
     isLoading: false,
     // Is mobile

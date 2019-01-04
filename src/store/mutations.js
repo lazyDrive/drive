@@ -171,6 +171,7 @@ export default {
     * @param state
     */
     [types.SHOW_CREATE_FOLDER_MODAL]: (state) => {
+        state.modelBackdrop = true;
         state.showCreateFolderModal = true;
     },
 
@@ -179,6 +180,7 @@ export default {
     * @param state
     */
     [types.HIDE_CREATE_FOLDER_MODAL]: (state) => {
+        state.modelBackdrop = false;
         state.showCreateFolderModal = false;
     },
 
@@ -276,6 +278,7 @@ export default {
     * @param state
     */
     [types.SHOW_PREVIEW_MODAL]: (state) => {
+        state.modelBackdrop = true;
         state.showPreviewModal = true;
     },
 
@@ -284,6 +287,7 @@ export default {
     * @param state
     */
     [types.HIDE_PREVIEW_MODAL]: (state) => {
+        state.modelBackdrop = false;
         state.showPreviewModal = false;
     },
 
@@ -318,6 +322,7 @@ export default {
     * @param state
     */
     [types.SHOW_RENAME_MODAL]: (state) => {
+        state.modelBackdrop = true;
         state.showRenameModal = true;
     },
 
@@ -327,6 +332,7 @@ export default {
     */
     [types.HIDE_RENAME_MODAL]: (state) => {
         state.showRenameModal = false;
+        state.modelBackdrop = false;
     },
 
     /**
@@ -438,6 +444,7 @@ export default {
     * @param state
     */
     [types.SHOW_CONFIRM_DELETE_MODAL]: (state) => {
+        state.modelBackdrop = true;
         state.showConfirmDeleteModal = true;
     },
 
@@ -446,6 +453,7 @@ export default {
     * @param state
     */
     [types.HIDE_CONFIRM_DELETE_MODAL]: (state) => {
+        state.modelBackdrop = false;
         state.showConfirmDeleteModal = false;
     },
 }

@@ -8,7 +8,7 @@
             </div>
             <div class="folder">
                 <form enctype="multipart/form-data" ref="formFolder">
-                    <input multiple type="file" webkitdirectory mozdirectory hidden ref="inputFolder" @change="processFolder"/>
+                    <input multiple type="file" directory webkitdirectory mozdirectory hidden ref="inputFolder" @change="processFolder"/>
                 </form>
             </div>
         </div>
@@ -77,6 +77,9 @@ export default {
             for( var i = 0; i < files.length; i++ ){
                 const formData = new FormData();
                 let file = files[i];
+
+                // Use this
+                console.log(file.webkitRelativePath)
 
                 formData.append('files', file);
                 this.$store.dispatch('upload', formData);

@@ -1,7 +1,7 @@
 <template>
   <div id="media-preview-modal" v-if="isActive" class="modal">
-    <v-icon color="white" @click="hidePreviewModal()" class="close">arrow_back</v-icon>
-    <v-icon color="white" @click="prev()" class="prev">arrow_back_ios</v-icon>
+    <v-icon color="white" @click.prevent="hidePreviewModal()" class="close">arrow_back</v-icon>
+    <v-icon color="white" @click.prevent="prev()" class="prev">arrow_back_ios</v-icon>
     <v-img
       class="modal-content"
       :src="item.imgUrl"
@@ -42,7 +42,7 @@
       <div class="circle-ripple"></div>
     </div>
 
-    <v-icon color="white" @click="next()" class="next">arrow_forward_ios</v-icon>
+    <v-icon color="white" @click.prevent="next()" class="next">arrow_forward_ios</v-icon>
     <div class="caption">
       <img
         v-if="item.extImg"
@@ -54,7 +54,7 @@
 
     <div class="right-tool">
       <div class="right-tool-item">
-        <v-icon color="white" size="30" @click="download(item)">save_alt</v-icon>
+        <v-icon color="white" size="30" @click.prevent="download(item)">save_alt</v-icon>
       </div>
       <div class="right-tool-item">
         <v-icon color="white" size="30">more_vert</v-icon>

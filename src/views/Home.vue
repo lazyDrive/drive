@@ -19,7 +19,7 @@
               <h1 class="white--text mb-2 display-1 text-xs-center">Media Manager</h1>
               <div class="subheading mb-3 text-xs-center">Made with Vuejs and Node.js</div>
               <v-btn v-if="!isLoggedIn" color="black" dark large v-on:click.stop.prevent :to="{ path: '/login' }">Get Started</v-btn>
-              <v-btn v-if="isLoggedIn" color="black" dark large v-on:click.stop.prevent :to="{ path: '/drive/u/0/my-drive' }">Get Started</v-btn>
+              <v-btn v-if="isLoggedIn" color="black" dark large v-on:click.stop.prevent :to="{ path: '/drive/u/0/my-drive' }">Go To Drive</v-btn>
             </v-layout>
           </v-parallax>
         </section>

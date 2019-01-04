@@ -211,7 +211,7 @@ class LocalAdapter {
     itemDataObj.modified_date = mtime;
     itemDataObj.created_date = ctime;
 
-    itemDataObj.path = path + item;
+    itemDataObj.path = Buffer.from(path + item).toString('base64');
 
     return itemDataObj;
   }

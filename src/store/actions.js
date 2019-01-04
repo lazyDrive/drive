@@ -127,7 +127,7 @@ export const deleteFile = (context, payload) => {
 
 	payload.forEach((file) => {
 		api.axios()
-			.delete('api/delete/' + file.ePath, payload)
+			.delete('api/delete/' + file.path, payload)
 			.then((response) => {
 
 
