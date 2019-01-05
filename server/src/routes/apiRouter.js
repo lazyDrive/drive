@@ -10,7 +10,14 @@ const ApiController = require('../controllers/apiController');
 
 const storage = multer.diskStorage({
   destination: (req, file, cb) => {
-    cb(null, './uploads/');
+
+    let targetPath = './uploads/';
+
+    if (req.params.path !== 'my-drive') {
+      targetPath = Buffer.from(req.params.path, 'base64').toString('ascii');
+    }
+
+    cb(null, targetPath);
   },
 
   filename: (req, file, cb) => {
@@ -52,7 +59,7 @@ router.get('/files/:path/t/:type/m/:mime1/:mime2/s/:size/:key', ApiController.se
 router.get('/download/file/:path', ApiController.downloadFile);
 
 // Upload files
-router.post('/upload', checkAuth, upload.single('files'), ApiController.uploadFiles);
+router.post('/upload/:path', checkAuth, upload.single('files'), ApiController.uploadFiles);
 
 // Delete File
 router.delete('/delete/:path', checkAuth, ApiController.deleteFiles);

@@ -71,7 +71,7 @@ export default {
                 formData.append('files', file);
                 formData.append('uploadPath', uploadPath);
 
-                this.$store.dispatch('upload', {formData, file});
+                this.$store.dispatch('upload', {formData, uploadPath});
             }
 
             this.$refs.formFile.reset();
@@ -84,14 +84,13 @@ export default {
                 let file = files[i];
                 file.id = i;
 
-                // Use this
-                console.log(file.webkitRelativePath)
 
                 const formData = new FormData();
                 formData.append('files', file);
                 formData.append('uploadPath', uploadPath);
+                formData.append('webkitRelativePath', file.webkitRelativePath);
 
-                this.$store.dispatch('upload', {formData, file});
+                this.$store.dispatch('upload', {formData, uploadPath});
             }
 
             this.$refs.formFolder.reset();

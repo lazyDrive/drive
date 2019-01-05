@@ -46,7 +46,7 @@ export const upload = (context, payload) => {
 	// context.commit(types.SHOW_TOOL_MODAL, true)
 
 	api.axios()
-		.post('api/upload', payload.formData, {
+		.post(`api/upload/${payload.uploadPath}`, payload.formData, {
 			// onUploadProgress: e => context.commit(types.SET_IS_LOADING_MORE, {
 			// 	value: true,
 			// 	per: Math.round(e.loaded * 100 / e.total)
