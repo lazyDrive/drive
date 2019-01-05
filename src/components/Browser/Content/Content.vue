@@ -1,15 +1,14 @@
 <template>
     <v-content id="media-content" >
         <v-container fluid grid-list-md>
-            <div class="media-toolbar">
-                <div class="media-loader" v-if="this.$store.state.isLoading"></div>
-            </div>
 
             <v-breadcrumbs :items="items">
                 <v-icon slot="divider">chevron_right</v-icon>
             </v-breadcrumbs>
 
-            <div class="media-toolbar"></div>
+            <div class="media-toolbar">
+                <div class="media-loader" v-if="this.$store.state.isLoading"></div>
+            </div>
 
             <div id="media-items"
             @dragenter="onDragEnter"

@@ -13,7 +13,7 @@ const userRoutes = require('./routes/user');
 const app = express();
 
 // Connect to mongodb
-mongoose.connect('mongodb://localhost/ninjago', { useNewUrlParser: true });
+mongoose.connect('mongodb://localhost/ninjago', { useCreateIndex: true, useNewUrlParser: true });
 mongoose.Promise = global.Promise;
 
 app.use(cors());
