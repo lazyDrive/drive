@@ -200,6 +200,36 @@ export const createDirectory = (context, payload) => {
 }
 
 /**
+ * Rename
+ * @param commit
+ * @param payload
+ */
+export const rename = (context, payload) => {
+
+	context.commit(types.SET_IS_LOADING, true)
+
+	api.axios()
+		.put(`api/rename/${payload.path}`, payload)
+		.then((response) => {
+
+			var data = {
+				data: response.data.message,
+				color: 'success',
+			};
+			context.state.showRenameModal = false;
+			context.commit(types.SHOW_SNACKBAR, data);
+			context.dispatch('getContents', {
+				path: context.state.selectedDirectory
+			});
+		})
+		.catch((error) => {
+			api._handleError(error)
+		})
+
+	context.commit(types.SET_IS_LOADING, false)
+}
+
+/**
  * Login
  * @param commit
  * @param payload

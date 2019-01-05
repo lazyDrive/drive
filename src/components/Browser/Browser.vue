@@ -96,8 +96,6 @@ export default {
 
                 const uploadPath = Buffer.from(encodePath).toString('base64');
 
-                console.log(encodePath)
-
                 this.$store.dispatch('upload', {formData, uploadPath});
             }
 

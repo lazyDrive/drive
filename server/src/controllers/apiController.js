@@ -193,24 +193,12 @@ exports.createDirectory = (req, res, next) => {
 };
 
 
-exports.renameFile = (req, res) => {
-  const oldPath = req.body.item.path;
-
-  const fileName = oldPath.split('/')[oldPath.length - 1];
-  const newPath = req.body.new;
-
-  fs.rename(oldPath, newPath, (err) => {
-    if (err) throw err;
-
-    fs.stat(newPath, (err, stats) => {
-      if (err) throw err;
-
-      res.status(200).json({
-        message: 'Renamed',
-        stats: JSON.stringify(stats),
-      });
-    });
-  });
+exports.rename = (req, res, next) => {
+  const path = Buffer.from(req.params.path, 'base64').toString('ascii');
+  res.status(200).send(({
+    message:'Renamed',
+    path,
+  }));
 };
 
 exports.uploadFiles = (req, res) => {

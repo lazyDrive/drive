@@ -83,6 +83,9 @@ router.delete('/delete/:path', checkAuth, ApiController.deleteFiles);
 // Create Directory
 router.put('/createDirectory/:path', checkAuth, ApiController.createDirectory);
 
+// rename
+router.put('/rename/:path', checkAuth, ApiController.rename);
+
 // Recents
 router.post('/log', checkAuth, ApiController.log);
 

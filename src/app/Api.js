@@ -46,6 +46,7 @@ class Api {
       store.commit(types.SHOW_SNACKBAR, errorData);
         break;
       case 404:
+      errorData.data = 'Something went wrong.';
       store.commit(types.SHOW_SNACKBAR, errorData);
         break;
       case 401:
