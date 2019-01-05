@@ -3,7 +3,7 @@
         <v-container fluid grid-list-md>
 
             <v-breadcrumbs :items="items">
-                <v-icon slot="divider">chevron_right</v-icon>
+                <v-icon slot="divider" @click="loadDir()">chevron_right</v-icon>
             </v-breadcrumbs>
 
             <div class="media-toolbar">
@@ -42,6 +42,7 @@
             <v-layout row wrap>
                 <media-file v-for="item in files" :item="item" :key="item.id" ></media-file>
             </v-layout>
+
         </div>
     </v-container>
 
@@ -102,6 +103,9 @@ export default {
                 this.$store.commit(types.SET_IS_LOADING_MORE, false);
             }
         },
+        loadDir: function(){
+            console.log('yes')
+        },
         /* Unselect all browser items */
         unselectAllBrowserItems(event) {
             const notClickedBrowserItems = (this.$refs.browserItems && !this.$refs.browserItems.contains(event.target)) || event.target === this.$refs.browserItems;
@@ -140,7 +144,8 @@ export default {
                 console.log(content)
                 const formData = new FormData()
                 formData.append('files', file);
-                this.$store.dispatch('upload', formData);
+                const uploadPath = this.$store.state.selectedDirectory;
+                this.$store.dispatch('upload', {formData, uploadPath});
             };
 
             reader.readAsDataURL(file);

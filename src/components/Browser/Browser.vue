@@ -69,7 +69,6 @@ export default {
 
                 const formData = new FormData();
                 formData.append('files', file);
-                formData.append('uploadPath', uploadPath);
 
                 this.$store.dispatch('upload', {formData, uploadPath});
             }

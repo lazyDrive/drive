@@ -1,4 +1,4 @@
-const fs = require('fs');
+const fs = require('fs-extra');
 const axios = require('axios');
 const Path = require('path');
 
@@ -110,10 +110,12 @@ exports.serveFiles = (req, res) => {
   });
 };
 
-exports.serveImages = (req, res) => {
+exports.serveImages = (req, res, next) => {
   const mime1 = req.params.mime1;
   const mime2 = req.params.mime2;
   const path = Buffer.from(req.params.path, 'base64').toString('ascii');
+
+  const adapter = new LocalAdapter(req, res, next, path);
 
   fs.readFile(path, (err, content) => {
     if (err) {
@@ -127,23 +129,38 @@ exports.serveImages = (req, res) => {
       const optimizationLevel = (hd || quality >= 60) ? 1 : 2;
 
       imagemin.buffer(content, {
-        plugins: [
-          imageminGifsicle({
-            optimizationLevel,
-            interlaced: true,
-          }),
-          imageminMozjpeg({
-            quality,
-          }),
-          imageminJpegtran({
-            progressive: true,
-          }),
-          imageminPngquant({
-            quality: `${quality}-80`,
-          }),
-        ],
-      })
+          plugins: [
+            imageminGifsicle({
+              optimizationLevel,
+              interlaced: true,
+            }),
+            imageminMozjpeg({
+              quality,
+            }),
+            imageminJpegtran({
+              progressive: true,
+            }),
+            imageminPngquant({
+              quality: `${quality}-80`,
+            }),
+          ],
+        })
         .then((compressedImage) => {
+
+          const name = Path.basename(path);
+          const cacheFolder = adapter.getDir(path);
+
+          const targetFolder = './.cache' + cacheFolder.split('.')[1];
+          fs.ensureDir(targetFolder)
+            .then(() => {
+              fs.writeFile(`${targetFolder}/${name}`, compressedImage, function (err) {
+                if (err) throw err;
+              });
+            })
+            .catch((err) => {
+              console.log(err)
+            });
+
           res.writeHead(200, {
             'Content-Type': `${mime1}/${mime2}`,
             'Cache-Control': 'public, max-age=31557600',
@@ -196,7 +213,7 @@ exports.createDirectory = (req, res, next) => {
 exports.rename = (req, res, next) => {
   const path = Buffer.from(req.params.path, 'base64').toString('ascii');
   res.status(200).send(({
-    message:'Renamed',
+    message: 'Renamed',
     path,
   }));
 };
@@ -210,8 +227,8 @@ exports.uploadFiles = (req, res) => {
 
 exports.log = (req, res, next) => {
   Api.find({
-    recentId: req.body.id,
-  })
+      recentId: req.body.id,
+    })
     .exec()
     .then((file) => {
       if (file.length <= 0) {
@@ -234,10 +251,10 @@ exports.log = (req, res, next) => {
           });
       } else {
         Api.update({
-          recentId: req.body.id,
-        }, {
-          data: new Date(),
-        })
+            recentId: req.body.id,
+          }, {
+            data: new Date(),
+          })
           .then(() => {
             res.status(201).json({
               message: 'Updated.',
