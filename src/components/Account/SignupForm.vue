@@ -58,8 +58,10 @@
               </v-card-text>
               <v-divider></v-divider>
               <div>
-                <v-btn color="info">Dropbox</v-btn>
-                <v-btn color="success">Google Drive</v-btn>
+                <br>
+                <a href>
+                  <img src="./../../assets/google_signin.png">
+                </a>
               </div>
             </v-card>
           </v-flex>

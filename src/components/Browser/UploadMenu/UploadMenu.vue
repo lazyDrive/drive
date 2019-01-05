@@ -21,6 +21,7 @@
         </v-toolbar>
 
         <v-list subheader class="scroll-section" v-if="expand">
+
             <v-subheader><strong>Folders</strong></v-subheader>
             <v-list-tile v-for="item in itemsupload" :key="item.title" avatar @click="1">
                 <div class="progress" :style="`width: ${value}%`"></div>
@@ -36,7 +37,9 @@
                     </v-btn>
                 </v-list-tile-action>
             </v-list-tile>
+
             <v-divider></v-divider>
+
             <v-subheader>Files</v-subheader>
             <v-list-tile v-for="item in items2upload" :key="item.title" @click="1">
                 <div class="progress" :style="`width: ${value}%`"></div>

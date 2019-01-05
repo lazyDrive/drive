@@ -37,15 +37,17 @@ export const upload = (context, payload) => {
 	// context.commit(types.SHOW_TOOL_MODAL, true)
 
 	api.axios()
-		.post('api/upload', payload, {
-			onUploadProgress: e => context.commit(types.SET_IS_LOADING_MORE, {
-				value: true,
-				per: Math.round(e.loaded * 100 / e.total)
-			})
+		.post('api/upload', payload.formData, {
+			// onUploadProgress: e => context.commit(types.SET_IS_LOADING_MORE, {
+			// 	value: true,
+			// 	per: Math.round(e.loaded * 100 / e.total)
+			// })
 		})
 		.then(response => {
 			context.commit(types.SET_IS_LOADING, false)
 			context.dispatch('getContents');
+
+			// context.state.loadingValue = 'fuck';
 
 			var data = {
 				'data': response.data.text,

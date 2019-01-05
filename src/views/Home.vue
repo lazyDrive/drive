@@ -15,7 +15,7 @@
         <section>
           <v-parallax src="https://cdn.vuetifyjs.com/images/parallax/material.jpg" height="600">
             <v-layout column align-center justify-center class="white--text">
-              <img src="./../assets/logo11.png" alt="media-manager" height="100">
+              <img src="./../assets/logo.png" alt="media-manager" height="100">
               <h1 class="white--text mb-2 display-1 text-xs-center">Media Manager</h1>
               <div class="subheading mb-3 text-xs-center">Made with Vuejs and Node.js</div>
               <v-btn v-if="!isLoggedIn" color="black" dark large v-on:click.stop.prevent :to="{ path: '/login' }">Get Started</v-btn>
@@ -76,7 +76,7 @@
             <v-layout row wrap align-center>
               <v-flex xs12 sm6 md3>
                 <v-card>
-                  <img src="./../assets/node1.png" width="100%" height="180">
+                  <img src="./../assets/node.png" width="100%" height="180">
                   <v-card-title primary-title>
                     <div>
                       <h3 class="headline mb-0">Node.js</h3>

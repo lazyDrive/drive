@@ -31,6 +31,7 @@
 </template>
 
 <script>
+
 export default {
     name: 'media-browser',
     data(){
@@ -63,10 +64,12 @@ export default {
 
             for( var i = 0; i < files.length; i++ ){
                 let file = files[i];
-                const formData = new FormData();
+                file.id = i;
 
+                const formData = new FormData();
                 formData.append('files', file);
-                this.$store.dispatch('upload', formData);
+
+                this.$store.dispatch('upload', {formData, file});
             }
 
             this.$refs.formFile.reset();
@@ -75,14 +78,15 @@ export default {
             var files = this.$refs.inputFolder.files;
 
             for( var i = 0; i < files.length; i++ ){
-                const formData = new FormData();
                 let file = files[i];
+                file.id = i;
 
                 // Use this
                 console.log(file.webkitRelativePath)
 
+                const formData = new FormData();
                 formData.append('files', file);
-                this.$store.dispatch('upload', formData);
+                this.$store.dispatch('upload', {formData, file});
             }
 
             this.$refs.formFolder.reset();
