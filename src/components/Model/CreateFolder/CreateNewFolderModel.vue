@@ -23,7 +23,7 @@
             <v-card-actions>
                 <v-spacer></v-spacer>
                 <v-btn color="error" @click="hideCreateFolderModal()">Cancel</v-btn>
-                <v-btn color="success">Create</v-btn>
+                <v-btn color="success" @click="create()">Create</v-btn>
             </v-card-actions>
         </v-card>
     </v-dialog>
@@ -39,16 +39,13 @@ export default {
         defaultData:'Untitled Folder'
     }),
 
-    props: {
-        text: {
-            type: String,
-            default: ''
-        }
-    },
-
     methods:{
         hideCreateFolderModal: function() {
             this.$store.commit(types.HIDE_CREATE_FOLDER_MODAL);
+        },
+        create: function() {
+            const foldername = this.defaultData;
+            this.$store.dispatch('createDirectory', {foldername})
         }
     }
 }

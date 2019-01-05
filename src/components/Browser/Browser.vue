@@ -78,17 +78,25 @@ export default {
         },
         processFolder: function() {
             var files = this.$refs.inputFolder.files;
-            const uploadPath = this.$store.state.selectedDirectory;
+            let selectedPath = this.$store.state.selectedDirectory;
 
             for( var i = 0; i < files.length; i++ ){
                 let file = files[i];
                 file.id = i;
 
-
                 const formData = new FormData();
                 formData.append('files', file);
-                formData.append('uploadPath', uploadPath);
-                formData.append('webkitRelativePath', file.webkitRelativePath);
+
+                let encodePath = '';
+                if(selectedPath == 'my-drive') {
+                    encodePath = `./uploads/${file.webkitRelativePath.substring(0, file.webkitRelativePath.lastIndexOf('/'))}`;
+                } else {
+                    encodePath = `${Buffer.from(selectedPath, 'base64').toString('ascii')}/${file.webkitRelativePath.substring(0, file.webkitRelativePath.lastIndexOf('/'))}`;
+                }
+
+                const uploadPath = Buffer.from(encodePath).toString('base64');
+
+                console.log(encodePath)
 
                 this.$store.dispatch('upload', {formData, uploadPath});
             }

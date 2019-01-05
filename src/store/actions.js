@@ -22,10 +22,14 @@ export const getContents = (context, payload) => {
 		.get(`api/getFiles/${path}`)
 		.then(response => {
 			context.state.selectedDirectory = path;
-			if(path != 'my-drive') {
-				router.push({ path: `/drive/u/0/folder/${path}`})
+			if (path != 'my-drive') {
+				router.push({
+					path: `/drive/u/0/folder/${path}`
+				})
 			} else {
-				router.push({ path: `/drive/u/0/my-drive`})
+				router.push({
+					path: `/drive/u/0/my-drive`
+				})
 			}
 			context.commit(types.LOAD_CONTENTS_SUCCESS, response.data.contents)
 			context.commit(types.SET_IS_LOADING, false)
@@ -54,7 +58,9 @@ export const upload = (context, payload) => {
 		})
 		.then(response => {
 			context.commit(types.SET_IS_LOADING, false)
-			context.dispatch('getContents', {path: context.state.selectedDirectory});
+			context.dispatch('getContents', {
+				path: context.state.selectedDirectory
+			});
 
 			// context.state.loadingValue = 'fuck';
 
@@ -138,22 +144,57 @@ export const deleteFile = (context, payload) => {
 
 	payload.forEach((file) => {
 		api.axios()
-			.delete('api/delete/' + file.path, payload)
+			.delete('api/delete/' + file.path)
 			.then((response) => {
-
 
 				var data = {
 					data: response.data.message,
 					color: 'success',
 				};
 
+				context.state.showConfirmDeleteModal = false;
 				context.commit(types.SHOW_SNACKBAR, data);
-				context.dispatch('getContents', {path: context.state.selectedDirectory});
+				context.dispatch('getContents', {
+					path: context.state.selectedDirectory
+				});
 			})
 			.catch((error) => {
 				api._handleError(error)
 			})
 	});
+
+	context.commit(types.SET_IS_LOADING, false)
+}
+
+
+/**
+ * Create directory
+ * @param commit
+ * @param payload
+ */
+export const createDirectory = (context, payload) => {
+
+	context.commit(types.SET_IS_LOADING, true)
+
+	const path = context.state.selectedDirectory;
+
+	api.axios()
+		.put(`api/createDirectory/${path}`, payload)
+		.then((response) => {
+
+			var data = {
+				data: response.data.message,
+				color: 'success',
+			};
+			context.state.showCreateFolderModal = false;
+			context.commit(types.SHOW_SNACKBAR, data);
+			context.dispatch('getContents', {
+				path: context.state.selectedDirectory
+			});
+		})
+		.catch((error) => {
+			api._handleError(error)
+		})
 
 	context.commit(types.SET_IS_LOADING, false)
 }

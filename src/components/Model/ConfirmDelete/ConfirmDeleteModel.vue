@@ -51,7 +51,6 @@ export default {
         deleteFile: function(){
             const item = this.$store.state.selectedItems;
             this.$store.dispatch('deleteFile', item);
-            this.hideConfirmDeleteModal();
         }
     }
 }

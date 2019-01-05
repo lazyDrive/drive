@@ -74,13 +74,26 @@ class LocalAdapter {
   createDir(path) {
     const dir = path;
 
-    fs.ensureDirSync(dir)
-      .then(() => {
-        console.log('success!');
-      })
-      .catch((err) => {
-        console.error(err);
+    if (fs.existsSync(dir) && fs.statSync(dir).isDirectory()) {
+      this.res.status(409).json({
+        message: 'Folder already exist.',
+        dir,
       });
+    } else {
+      fs.ensureDir(dir)
+        .then(() => {
+          this.res.status(200).json({
+            message: 'Created',
+            dir,
+          });
+        })
+        .catch((err) => {
+          this.res.status(500).json({
+            error: err,
+            dir,
+          });
+        });
+    }
   }
 
   /**
@@ -93,7 +106,7 @@ class LocalAdapter {
       // dir has now been created with mode 0o2775, including the directory it is to be placed in
 
       // Work with both files and dir
-      fs.copySync(sourcePath, destinationPath)
+      fs.copy(sourcePath, destinationPath)
         .then(() => {
           console.log('success!');
         })
@@ -111,9 +124,9 @@ class LocalAdapter {
    */
   move(sourcePath, destinationPath) {
     // With Promises:
-    fs.moveSync(sourcePath, destinationPath, {
-      overwrite: true,
-    })
+    fs.move(sourcePath, destinationPath, {
+        overwrite: true,
+      })
       .then(() => {
         this.res.status(200).json({
           r: 'srcces',
@@ -130,12 +143,18 @@ class LocalAdapter {
    */
   delete(path) {
     // With Promises:
-    fs.removeSync(path)
+    fs.remove(path)
       .then(() => {
-        console.log('success!');
+        this.res.status(200).json({
+          message: 'Deleted',
+          path,
+        });
       })
       .catch((err) => {
-        console.error(err);
+        this.res.status(500).json({
+          error: err,
+          path,
+        });
       });
   }
 
@@ -160,7 +179,6 @@ class LocalAdapter {
     const shasum = crypto.createHash('sha1');
     const stats = fs.statSync(path + item);
     let isDir = false;
-    const fileBuffer = null;
 
     if (fs.statSync(path + item).isDirectory()) {
       isDir = true;

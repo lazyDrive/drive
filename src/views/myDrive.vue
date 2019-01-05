@@ -29,7 +29,17 @@ export default {
       this.$store.commit(types.IS_MOBILE, false);
     }
 
-    this.$store.dispatch("getContents", {path: 'my-drive'});
+    if (this.$route.name == 'my-drive') {
+
+      const dir = this.$route.params.dir;
+      const path = this.$route.params.path;
+
+      if (dir !== undefined && path == 'folder') {
+        this.$store.dispatch("getContents", {path: dir});
+      } else {
+        this.$store.dispatch("getContents", {path: 'my-drive'});
+      }
+    }
   },
   methods: {
     /* eslint-disable */

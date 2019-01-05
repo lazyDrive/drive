@@ -25,17 +25,11 @@ exports.getFiles = (req, res, next) => {
   let dir = './uploads/';
 
 
-  if (req.params.dir != 'my-drive') {
+  if (req.params.dir !== 'my-drive') {
     dir = `${Buffer.from(req.params.dir, 'base64').toString('ascii')  }/`;
   }
 
   const files = adapter.getFiles(dir);
-
-  // files.sort((a, b) => {
-  //   // Sort by type and alphabetically
-  //   return (a.name.toUpperCase() < b.name.toUpperCase()) ? -1 : 1;
-  // });
-
 
   res.status(200).send(({
     contents: files,
@@ -43,20 +37,10 @@ exports.getFiles = (req, res, next) => {
 };
 
 
-exports.deleteFiles = (req, res) => {
+exports.deleteFiles = (req, res, next) => {
   const path = Buffer.from(req.params.path, 'base64').toString('ascii');
-
-  try {
-    fs.unlinkSync(path);
-
-    res.status(202).json({
-      message: 'Deleted.',
-    });
-  } catch (err) {
-    res.status(500).json({
-      error: err,
-    });
-  }
+  const adapter = new LocalAdapter(req, res, next, path);
+  adapter.delete(path);
 };
 
 exports.thirdParty = (req, res) => {
@@ -192,6 +176,22 @@ exports.downloadFile = () => {
       console.log(error);
     });
 };
+
+exports.createDirectory = (req, res, next) => {
+
+  let path = './uploads/';
+
+  if (req.params.path !== 'my-drive') {
+    path = Buffer.from(req.params.path, 'base64').toString('ascii');
+  }
+
+  const adapter = new LocalAdapter(req, res, next, path);
+
+  const targetFolder = `${path}/${req.body.foldername}`;
+
+  adapter.createDir(targetFolder);
+};
+
 
 exports.renameFile = (req, res) => {
   const oldPath = req.body.item.path;

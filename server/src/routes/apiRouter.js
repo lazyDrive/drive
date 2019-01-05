@@ -4,20 +4,36 @@ const router = express.Router();
 
 const multer = require('multer');
 
+const fs = require('fs-extra');
+
 const checkAuth = require('../middleware/check-auth');
 
 const ApiController = require('../controllers/apiController');
 
 const storage = multer.diskStorage({
   destination: (req, file, cb) => {
-
     let targetPath = './uploads/';
 
     if (req.params.path !== 'my-drive') {
       targetPath = Buffer.from(req.params.path, 'base64').toString('ascii');
-    }
 
-    cb(null, targetPath);
+      if (fs.existsSync(targetPath) && fs.statSync(targetPath).isDirectory()) {
+        cb(null, targetPath);
+      } else {
+        fs.ensureDir(targetPath)
+          .then(() => {
+            cb(null, targetPath);
+          })
+          .catch((err) => {
+            this.res.status(500).json({
+              error: err,
+              targetPath,
+            });
+          });
+      }
+    } else {
+      cb(null, targetPath);
+    }
   },
 
   filename: (req, file, cb) => {
@@ -28,9 +44,9 @@ const storage = multer.diskStorage({
 const fileFilter = (req, file, cb) => {
   // reject a file
   // if (file.mimetype === 'image/jpeg' || file.mimetype === 'image/png') {
-    cb(null, true);
+  cb(null, true);
   // } else {
-    // cb(null, false);
+  // cb(null, false);
   // }
 };
 
@@ -63,6 +79,9 @@ router.post('/upload/:path', checkAuth, upload.single('files'), ApiController.up
 
 // Delete File
 router.delete('/delete/:path', checkAuth, ApiController.deleteFiles);
+
+// Create Directory
+router.put('/createDirectory/:path', checkAuth, ApiController.createDirectory);
 
 // Recents
 router.post('/log', checkAuth, ApiController.log);
