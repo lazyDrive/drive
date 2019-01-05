@@ -25,6 +25,11 @@ exports.getFiles = (req, res, next) => {
 
   const files = adapter.getFiles('./uploads/');
 
+  // files.sort((a, b) => {
+  //   // Sort by type and alphabetically
+  //   return (a.name.toUpperCase() < b.name.toUpperCase()) ? -1 : 1;
+  // });
+
   res.status(200).send(({
     contents: files,
   }));

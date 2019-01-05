@@ -18,13 +18,13 @@
       </v-layout>
     </v-img>
 
-    <div class="video" v-if="video">
+    <div class="video" v-else-if="video">
       <video id="media-video" class="media-video-player-preview" controls controlslist="nodownload">
         <source :src="item.filePath" type="video/mp4">
       </video>
     </div>
 
-    <div class="pdf" v-if="item.extension == 'pdf'">
+    <div class="pdf" v-else-if="item.extension == 'pdf'">
       <pdf
         ref="myPdfComponent"
         class="media-pdf"
@@ -35,20 +35,20 @@
       ></pdf>
     </div>
 
-    <div class="audio" v-if="audio">
+    <div class="audio" v-else-if="audio">
       <audio id="media-audio" class="media-audio-player-preview" controls controlslist="nodownload">
         <source :src="audioFile" type="audio/mpeg">
       </audio>
       <div class="circle-ripple"></div>
     </div>
 
+    <div class="audio" v-else>
+      <h1 style="color:white">Preview not available.</h1>
+    </div>
+
     <v-icon color="white" @click.prevent="next()" class="next">arrow_forward_ios</v-icon>
     <div class="caption">
-      <img
-        v-if="item.extImg"
-        class="extensionImage"
-        :src="item.extImg"
-      >
+      <img v-if="item.extImg" class="extensionImage" :src="item.extImg">
       &nbsp;&nbsp;{{item.name}}
     </div>
 
@@ -137,7 +137,7 @@ export default {
       items.push(this.item);
       this.$store.dispatch("download", items);
     },
-    print: function(){
+    print: function() {
       this.$refs.myPdfComponent[0].print();
     },
     current: function() {
