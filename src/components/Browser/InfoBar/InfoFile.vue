@@ -2,7 +2,7 @@
     <div class="m-d-img" id="media-info-file">
 
         <!-- for image -->
-        <v-img aspect-ratio="1.75" :src="item.imgUrl" v-if="image" :lazy-src="item.imgLazyUrl"></v-img>
+        <v-img class="m-gradient" aspect-ratio="1.75" :src="item.imgUrl" v-if="image" :lazy-src="item.imgLazyUrl"></v-img>
 
         <!-- for audio -->
         <div class="video" v-if="video">
