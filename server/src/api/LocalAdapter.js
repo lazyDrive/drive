@@ -8,10 +8,10 @@
  */
 
 const fs = require('fs-extra');
-const readChunk = require('read-chunk');
-const fileType = require('file-type');
+const pathModule = require('path');
 const sizeOf = require('image-size');
 const util = require('util');
+const mime = require('mime-types');
 const crypto = require('crypto');
 
 const desiredMode = 0o2775;
@@ -160,12 +160,10 @@ class LocalAdapter {
     const shasum = crypto.createHash('sha1');
     const stats = fs.statSync(path + item);
     let isDir = false;
-    let fileBuffer = null;
+    const fileBuffer = null;
 
     if (fs.statSync(path + item).isDirectory()) {
       isDir = true;
-    } else {
-      fileBuffer = readChunk.sync(path + item, 0, fileType.minimumBytes);
     }
 
     itemDataObj.name = item;
@@ -175,25 +173,24 @@ class LocalAdapter {
     itemDataObj.type = !isDir ? 'file' : 'dir';
     itemDataObj.mime_type = isDir ? 'directory' : '';
 
-    if (!isDir && fileBuffer != null) {
-      const fileInfo = fileType(fileBuffer);
-      if (fileInfo) {
-        itemDataObj.extension = fileInfo.ext;
-        itemDataObj.mime_type = fileInfo.mime;
+    if (!isDir) {
+      // eslint-disable-next-line prefer-destructuring
+      itemDataObj.extension = pathModule.extname(path + item).split('.')[1];
+      itemDataObj.mime_type = mime.lookup(path + item);
 
-        if (fileInfo.mime === 'image/jpeg' || fileInfo.mime === 'image/png' || fileInfo.mime === 'image/jpg') {
-          const dimensions = sizeOf(path + item);
+      if (itemDataObj.mime_type === 'image/jpeg' || itemDataObj.mime_type === 'image/png' || itemDataObj.mime_type === 'image/jpg' || itemDataObj.mime_type === 'image/gif') {
+        const dimensions = sizeOf(path + item);
 
-          itemDataObj.height = !isDir ? dimensions.height : '';
-          itemDataObj.width = !isDir ? dimensions.width : '';
+        itemDataObj.height = !isDir ? dimensions.height : '';
+        itemDataObj.width = !isDir ? dimensions.width : '';
 
-          itemDataObj.imgLazyUrl = `/api/images/${Buffer.from(path + item).toString('base64')}/t/${fileInfo.ext}/d/200/200/m/${fileInfo.mime}/${itemDataObj.id}`;
-          itemDataObj.imgUrl = `/api/images/${Buffer.from(path + item).toString('base64')}/t/${fileInfo.ext}/d/200/200/m/${fileInfo.mime}/${itemDataObj.id}`;
-          itemDataObj.filePath = `/api/images/${Buffer.from(path + item).toString('base64')}/t/${fileInfo.ext}/d/200/200/m/${fileInfo.mime}/${itemDataObj.id}`;
-        } else {
-          itemDataObj.filePath = `/api/files/${Buffer.from(path + item).toString('base64')}/t/${fileInfo.ext}/m/${fileInfo.mime}/s/${stats.size}/${itemDataObj.id}`;
-        }
+        itemDataObj.imgLazyUrl = `/api/images/${Buffer.from(path + item).toString('base64')}/t/${itemDataObj.extension}/d/200/200/m/${itemDataObj.mime_type}/${itemDataObj.id}`;
+        itemDataObj.imgUrl = `/api/images/${Buffer.from(path + item).toString('base64')}/t/${itemDataObj.extension}/d/200/200/m/${itemDataObj.mime_type}/${itemDataObj.id}`;
+        itemDataObj.filePath = `/api/images/${Buffer.from(path + item).toString('base64')}/t/${itemDataObj.extension}/d/200/200/m/${itemDataObj.mime_type}/${itemDataObj.id}`;
+      } else {
+        itemDataObj.filePath = `/api/files/${Buffer.from(path + item).toString('base64')}/t/${itemDataObj.extension}/m/${itemDataObj.mime_type}/s/${stats.size}/${itemDataObj.id}`;
       }
+
 
       const extImgPath = `./thirdParty/${itemDataObj.extension}.svg`;
 

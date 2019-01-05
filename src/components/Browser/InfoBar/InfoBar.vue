@@ -12,12 +12,15 @@
     style="max-width: 400px; margin: auto;"
     >
     <v-toolbar
-    color="blue darken-3"
+    color="white"
+    light
+    flat
+    class="m-over-toolbar"
     >
-    <v-btn icon dark @click="hideInforbar()">
+    <v-btn icon  @click="hideInforbar()">
         <v-icon>close</v-icon>
     </v-btn>
-    <v-toolbar-title class="m-d-title">Items Details</v-toolbar-title>
+    <v-toolbar-title style="color:black!important" class="m-d-title">Items Details</v-toolbar-title>
     <v-spacer></v-spacer>
 </v-toolbar>
 
