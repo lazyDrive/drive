@@ -1,5 +1,5 @@
 <template>
-    <div class="text-xs-center folder" @click="select($event, item)" @contextmenu="show($event, item.id)" id="media-folder" >
+    <div @dblclick.prevent="openFolder()" class="text-xs-center folder" @click="select($event, item)" @contextmenu="show($event, item.id)" id="media-folder" >
         <v-chip
         disabled :class="` ${selectedState ? 'selected' : 'unselected'} ${isMobile ? 'm-mobile-chip-size' : (menuState ? 'info-chip-size' : 'm-chip-size')}`"
          color="#CFD8DC" text-color="black" slot="activator">
@@ -79,6 +79,9 @@ export default {
             }else {
                 this.$store.commit(types.SELECT_BROWSER_ITEM, item);
             }
+        },
+        openFolder: function() {
+            this.$store.dispatch('getContents', this.item);
         }
     }
 }

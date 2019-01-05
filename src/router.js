@@ -15,7 +15,7 @@ const router = new Router({
             component: () => import( /* webpackChunkName: "about" */ './views/Home.vue')
         },
         {
-            path: '/drive/u/:adapter/:path',
+            path: '/drive/u/:adapter/:path/:dir?',
             name: 'my-drive',
             component: myDrive,
             meta: {

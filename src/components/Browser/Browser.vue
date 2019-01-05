@@ -61,6 +61,7 @@ export default {
         },
         processFile: function() {
             var files = this.$refs.inputFile.files;
+            const uploadPath = this.$store.state.selectedDirectory;
 
             for( var i = 0; i < files.length; i++ ){
                 let file = files[i];
@@ -68,6 +69,7 @@ export default {
 
                 const formData = new FormData();
                 formData.append('files', file);
+                formData.append('uploadPath', uploadPath);
 
                 this.$store.dispatch('upload', {formData, file});
             }
@@ -76,6 +78,7 @@ export default {
         },
         processFolder: function() {
             var files = this.$refs.inputFolder.files;
+            const uploadPath = this.$store.state.selectedDirectory;
 
             for( var i = 0; i < files.length; i++ ){
                 let file = files[i];
@@ -86,6 +89,8 @@ export default {
 
                 const formData = new FormData();
                 formData.append('files', file);
+                formData.append('uploadPath', uploadPath);
+
                 this.$store.dispatch('upload', {formData, file});
             }
 

@@ -20,20 +20,26 @@ if (!fs.existsSync(uploadFolder)) {
 }
 
 exports.getFiles = (req, res, next) => {
-
   const adapter = new LocalAdapter(req, res, next, './');
 
-  const files = adapter.getFiles('./uploads/');
+  let dir = './uploads/';
+
+
+  if (req.params.dir != 'my-drive') {
+    dir = `${Buffer.from(req.params.dir, 'base64').toString('ascii')  }/`;
+  }
+
+  const files = adapter.getFiles(dir);
 
   // files.sort((a, b) => {
   //   // Sort by type and alphabetically
   //   return (a.name.toUpperCase() < b.name.toUpperCase()) ? -1 : 1;
   // });
 
+
   res.status(200).send(({
     contents: files,
   }));
-
 };
 
 
@@ -137,22 +143,22 @@ exports.serveImages = (req, res) => {
       const optimizationLevel = (hd || quality >= 60) ? 1 : 2;
 
       imagemin.buffer(content, {
-          plugins: [
-            imageminGifsicle({
-              optimizationLevel,
-              interlaced: true,
-            }),
-            imageminMozjpeg({
-              quality,
-            }),
-            imageminJpegtran({
-              progressive: true,
-            }),
-            imageminPngquant({
-              quality: `${quality}-80`,
-            }),
-          ],
-        })
+        plugins: [
+          imageminGifsicle({
+            optimizationLevel,
+            interlaced: true,
+          }),
+          imageminMozjpeg({
+            quality,
+          }),
+          imageminJpegtran({
+            progressive: true,
+          }),
+          imageminPngquant({
+            quality: `${quality}-80`,
+          }),
+        ],
+      })
         .then((compressedImage) => {
           res.writeHead(200, {
             'Content-Type': `${mime1}/${mime2}`,
@@ -190,7 +196,7 @@ exports.downloadFile = () => {
 exports.renameFile = (req, res) => {
   const oldPath = req.body.item.path;
 
-  let fileName = oldPath.split('/')[oldPath.length - 1];
+  const fileName = oldPath.split('/')[oldPath.length - 1];
   const newPath = req.body.new;
 
   fs.rename(oldPath, newPath, (err) => {
@@ -209,7 +215,6 @@ exports.renameFile = (req, res) => {
 
 exports.uploadFiles = (req, res) => {
   res.json({
-    files: req.files,
     message: 'success',
     text: 'File has been uploaded.',
   });
@@ -217,8 +222,8 @@ exports.uploadFiles = (req, res) => {
 
 exports.log = (req, res, next) => {
   Api.find({
-      recentId: req.body.id,
-    })
+    recentId: req.body.id,
+  })
     .exec()
     .then((file) => {
       if (file.length <= 0) {
@@ -241,10 +246,10 @@ exports.log = (req, res, next) => {
           });
       } else {
         Api.update({
-            recentId: req.body.id,
-          }, {
-            data: new Date(),
-          })
+          recentId: req.body.id,
+        }, {
+          data: new Date(),
+        })
           .then(() => {
             res.status(201).json({
               message: 'Updated.',

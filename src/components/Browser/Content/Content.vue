@@ -208,8 +208,13 @@ export default {
                         event.preventDefault();
                     console.log(event);
                 }else if(event.keyCode == 13){
-                    this.$store.commit(types.LOAD_FULL_CONTENTS_SUCCESS, this.$store.state.selectedItems[0]);
-                    this.$store.commit(types.SHOW_PREVIEW_MODAL);
+                    const item = this.$store.state.selectedItems[0];
+                    if (item.type == 'dir') {
+                        this.$store.dispatch('getContents', item);
+                    } else {
+                        this.$store.commit(types.LOAD_FULL_CONTENTS_SUCCESS, this.$store.state.selectedItems[0]);
+                        this.$store.commit(types.SHOW_PREVIEW_MODAL);
+                    }
                 }
             }
         }

@@ -5,19 +5,28 @@ import {
 import * as types from "./mutation-types";
 import * as FileSaver from 'file-saver';
 import jsZip from 'jszip';
+import router from './../router'
 
 /**
  * Get contents of a directory from the api
  * @param commit
  * @param payload
  */
-export const getContents = (context) => {
+export const getContents = (context, payload) => {
 
 	context.commit(types.SET_IS_LOADING, true)
 
+	let path = payload.path || context.state.selectedDirectory;
+
 	api.axios()
-		.get('api/getFiles')
+		.get(`api/getFiles/${path}`)
 		.then(response => {
+			context.state.selectedDirectory = path;
+			if(path != 'my-drive') {
+				router.push({ path: `/drive/u/0/folder/${path}`})
+			} else {
+				router.push({ path: `/drive/u/0/my-drive`})
+			}
 			context.commit(types.LOAD_CONTENTS_SUCCESS, response.data.contents)
 			context.commit(types.SET_IS_LOADING, false)
 		})
@@ -45,7 +54,7 @@ export const upload = (context, payload) => {
 		})
 		.then(response => {
 			context.commit(types.SET_IS_LOADING, false)
-			context.dispatch('getContents');
+			context.dispatch('getContents', {path: context.state.selectedDirectory});
 
 			// context.state.loadingValue = 'fuck';
 
@@ -110,7 +119,7 @@ export const log = (context, payload) => {
 	api.axios()
 		.post('api/log', payload)
 		.then(() => {
-
+			// context.dispatch('getContents', {path: context.state.selectedDirectory});
 		})
 		.catch((error) => {
 			api._handleError(error)
@@ -139,7 +148,7 @@ export const deleteFile = (context, payload) => {
 				};
 
 				context.commit(types.SHOW_SNACKBAR, data);
-				context.dispatch('getContents');
+				context.dispatch('getContents', {path: context.state.selectedDirectory});
 			})
 			.catch((error) => {
 				api._handleError(error)
