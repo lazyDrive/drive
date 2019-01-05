@@ -3,7 +3,7 @@
         <v-hover>
             <v-card
             slot-scope="{ hover }"
-            :class="`${ hover } ${selectedState ? 'selected' : 'unselected'} responsize-view elevation-0`"
+            :class="`${ hover } ${selectedState ? 'selected' : 'unselected'} responsize-view`"
             class="mx-auto"
             :width="`${isMobile ? '145' : (menuState ? '192' : '210')}`"
             :height="`${isMobile ? '140' : (menuState ? '175' : '190')}`"
