@@ -223,7 +223,7 @@ class LocalAdapter {
 
       itemDataObj.extImg = `/api/thirdParty/${Buffer.from(extImgPath).toString('base64')}/t/${itemDataObj.extension}`;
 
-      itemDataObj.imgLazyUrl = itemDataObj.extImg;
+      // itemDataObj.imgLazyUrl = itemDataObj.extImg;
     }
 
     itemDataObj.color = isDir ? '#3949AB' : '';

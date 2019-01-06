@@ -2,29 +2,29 @@
     <div class="m-d-img" id="media-info-file">
 
         <!-- for image -->
-        <v-img class="m-gradient" aspect-ratio="1.75" :src="item.imgUrl" v-if="image" :lazy-src="item.imgLazyUrl"></v-img>
+        <v-img class="m-gradient" aspect-ratio="1.75" :src="item.imgUrl" v-if="image || item.extension == 'pdf'" :lazy-src="item.imgLazyUrl"></v-img>
 
         <!-- for audio -->
-        <div class="video" v-if="video">
+        <div class="video" v-else-if="video">
             <video class="media-video-player" controls controlsList="nodownload">
                 <source :src="item.filePath" type="video/mp4" />
             </video>
         </div>
 
         <!-- for audio -->
-        <div class="audio" v-if="audio">
+        <div class="audio" v-else-if="audio">
             <audio class="media-audio-player" controls controlsList="nodownload">
                 <source :src="item.filePath" type="audio/mpeg" />
             </audio>
         </div>
 
         <!-- for folder -->
-        <div class="folder" v-if="folder">
+        <div class="folder" v-else-if="folder">
             <v-icon size="150">folder</v-icon>
         </div>
 
         <!-- for other files -->
-        <div class="file" v-if="file">
+        <div class="file" v-else>
             <v-img aspect-ratio="1.75" contain :src="item.extImg" :lazy-src="item.extImg"></v-img>
         </div>
 
