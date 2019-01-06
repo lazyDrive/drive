@@ -35,6 +35,9 @@
 
     # npm
 
+    Install imagemagick
+    sudo apt-get install imagemagick ghostscript poppler-utils
+
     # In root and server run
     npm install
 
@@ -46,7 +49,7 @@
 
     # Done! Magic happens on port: http://localhost:8080
 
-## Some Screenshot    
+## Some Screenshot
 
 <br>
 <p align="center">
