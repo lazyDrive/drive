@@ -31,13 +31,14 @@ export default {
     data: () => ({
         itemId: Math.floor((Math.random() * 100000000) + 1),
         items: [
+            { title: 'Open', icon:'open_in_browser', link: 'open' },
             { title: 'Delete', icon:'delete', link: 'delete' },
             { title: 'Share', icon:'share', link: 'share' },
             { title: 'Rename', icon:'spellcheck', link: 'rename' },
             { title: 'Download', icon:'cloud_download', link: 'download' },
             { title: 'Change Color', icon:'color_lens', link: 'changeColor' },
             { title: 'Stars', icon:'stars', link: 'stars' },
-            { title: 'View Details', icon:'priority_high', link: 'viewDetails' },
+            { title: 'View Details', icon:'info', link: 'viewDetails' },
             { title: 'Get shareable link', icon:'link', link: 'getShareableLink' }
         ]
     }),
@@ -78,6 +79,10 @@ export default {
         },
         stars: function(e) {
             console.log(e);
+        },
+        open: function(){
+            const item = this.$store.state.selectedItems[0];
+            this.$store.dispatch('getContents', item);
         },
         showConfirmDeleteModal: function() {
             this.$store.commit(types.SHOW_CONFIRM_DELETE_MODAL);

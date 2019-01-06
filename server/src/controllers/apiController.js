@@ -13,7 +13,7 @@ const imageminGifsicle = require('imagemin-gifsicle');
 const Api = require('../models/apiModel');
 const LocalAdapter = require('./../api/LocalAdapter');
 
-const uploadFolder = './uploads/';
+const uploadFolder = 'uploads/';
 
 if (!fs.existsSync(uploadFolder)) {
   fs.mkdirSync(uploadFolder);
@@ -22,7 +22,7 @@ if (!fs.existsSync(uploadFolder)) {
 exports.getFiles = (req, res, next) => {
   const adapter = new LocalAdapter(req, res, next, './');
 
-  let dir = './uploads/';
+  let dir = 'uploads/';
 
 
   if (req.params.dir !== 'my-drive') {
@@ -157,15 +157,16 @@ exports.serveImages = (req, res, next) => {
           const name = Path.basename(path);
           const cacheFolder = adapter.getDir(path);
 
-          const targetFolder = './.cache' + cacheFolder.split('.')[1];
+          const targetFolder = '.cache/' + cacheFolder;
           fs.ensureDir(targetFolder)
             .then(() => {
               fs.writeFile(`${targetFolder}/${name}`, compressedImage, function (err) {
                 if (err) throw err;
+                console.log('Cached.');
               });
             })
             .catch((err) => {
-              console.log(err)
+              console.log(err);
             });
 
           res.writeHead(200, {
@@ -182,6 +183,7 @@ exports.serveImages = (req, res, next) => {
         });
     }
   });
+
 };
 
 
@@ -203,7 +205,7 @@ exports.downloadFile = () => {
 
 exports.createDirectory = (req, res, next) => {
 
-  let path = './uploads/';
+  let path = 'uploads/';
 
   if (req.params.path !== 'my-drive') {
     path = Buffer.from(req.params.path, 'base64').toString('ascii');

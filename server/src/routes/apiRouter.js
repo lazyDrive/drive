@@ -12,7 +12,7 @@ const ApiController = require('../controllers/apiController');
 
 const storage = multer.diskStorage({
   destination: (req, file, cb) => {
-    let targetPath = './uploads/';
+    let targetPath = 'uploads/';
 
     if (req.params.path !== 'my-drive') {
       targetPath = Buffer.from(req.params.path, 'base64').toString('ascii');

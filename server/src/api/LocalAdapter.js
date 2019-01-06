@@ -23,7 +23,7 @@ class LocalAdapter {
    * @param
    *
    */
-  constructor(req, res, next, rootPath = './uploads/') {
+  constructor(req, res, next, rootPath = 'uploads/') {
     // Request
     this.req = req;
 
@@ -37,7 +37,7 @@ class LocalAdapter {
     if (fs.statSync(rootPath).isDirectory()) {
       this.rootPath = rootPath;
     } else {
-      this.rootPath = './';
+      this.rootPath = '/';
     }
   }
 

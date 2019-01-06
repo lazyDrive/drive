@@ -88,7 +88,7 @@ export default {
 
                 let encodePath = '';
                 if(selectedPath == 'my-drive') {
-                    encodePath = `./uploads/${file.webkitRelativePath.substring(0, file.webkitRelativePath.lastIndexOf('/'))}`;
+                    encodePath = `uploads/${file.webkitRelativePath.substring(0, file.webkitRelativePath.lastIndexOf('/'))}`;
                 } else {
                     encodePath = `${Buffer.from(selectedPath, 'base64').toString('ascii')}/${file.webkitRelativePath.substring(0, file.webkitRelativePath.lastIndexOf('/'))}`;
                 }

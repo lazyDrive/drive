@@ -39,7 +39,7 @@ export default {
             { title: 'Rename', icon:'spellcheck', link: 'rename' },
             { title: 'Download', icon:'cloud_download', link: 'download' },
             { title: 'Stars', icon:'stars', link: 'stars' },
-            { title: 'View Details', icon:'priority_high', link: 'viewDetails' },
+            { title: 'View Details', icon:'info', link: 'viewDetails' },
             { title: 'Get shareable link', icon:'link', link: 'getShareableLike' }
         ]
     }),

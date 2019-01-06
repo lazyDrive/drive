@@ -54,7 +54,7 @@
 
     <div class="right-tool">
       <div class="right-tool-item">
-        <v-icon color="white" size="30" @click.prevent="download(item)">save_alt</v-icon>
+        <v-icon color="white" size="30" @click.prevent="download(item)">get_app</v-icon>
       </div>
       <div class="right-tool-item">
         <v-icon color="white" size="30">more_vert</v-icon>
