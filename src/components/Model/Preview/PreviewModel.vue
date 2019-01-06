@@ -6,7 +6,7 @@
       class="modal-content"
       :src="item.imgUrl"
       ref="prevImage"
-      v-if="item.imgUrl"
+      v-if="item.imgUrl && item.extension != 'pdf'"
       :width="width"
       contain
       :alt="item.name"

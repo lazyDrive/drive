@@ -13,6 +13,7 @@ const sizeOf = require('image-size');
 const util = require('util');
 const mime = require('mime-types');
 const crypto = require('crypto');
+const cacheApi = require('./CacheApi');
 
 const desiredMode = 0o2775;
 
@@ -206,13 +207,23 @@ class LocalAdapter {
         itemDataObj.imgUrl = `/api/images/${Buffer.from(path + item).toString('base64')}/t/${itemDataObj.extension}/d/200/200/m/${itemDataObj.mime_type}/${itemDataObj.id}`;
         itemDataObj.filePath = `/api/images/${Buffer.from(path + item).toString('base64')}/t/${itemDataObj.extension}/d/200/200/m/${itemDataObj.mime_type}/${itemDataObj.id}`;
       } else {
+
+        if(itemDataObj.extension == 'pdf') {
+          const padfImagePath = cacheApi.genPdfImage(path + item);
+
+          itemDataObj.imgLazyUrl = `/api/images/${Buffer.from(padfImagePath).toString('base64')}/t/${itemDataObj.extension}/d/200/200/m/${itemDataObj.mime_type}/${itemDataObj.id}`;
+          itemDataObj.imgUrl = `/api/images/${Buffer.from(padfImagePath).toString('base64')}/t/${itemDataObj.extension}/d/200/200/m/${itemDataObj.mime_type}/${itemDataObj.id}`;
+        }
+
         itemDataObj.filePath = `/api/files/${Buffer.from(path + item).toString('base64')}/t/${itemDataObj.extension}/m/${itemDataObj.mime_type}/s/${stats.size}/${itemDataObj.id}`;
       }
 
-
       const extImgPath = `./thirdParty/${itemDataObj.extension}.svg`;
 
+
       itemDataObj.extImg = `/api/thirdParty/${Buffer.from(extImgPath).toString('base64')}/t/${itemDataObj.extension}`;
+
+      itemDataObj.imgLazyUrl = itemDataObj.extImg;
     }
 
     itemDataObj.color = isDir ? '#3949AB' : '';

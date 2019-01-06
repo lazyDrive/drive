@@ -5,27 +5,14 @@ const Path = require('path');
 // eslint-disable-next-line prefer-destructuring
 const PDFImage = require('pdf-image').PDFImage;
 
-exports.genPdfImage = (req) => {
+exports.genPdfImage = (filePath) => {
 
-  const path = Buffer.from(req.params.path, 'base64').toString('ascii');
+  const name = Path.basename(filePath).split('.').slice(0, -1).join('.');
+  const cacheFolder = Path.dirname(filePath);
+  const targetFolder = '.cache/' + cacheFolder;
 
-  const name = Path.basename(path);
-  const cacheFolder = path.dirname(path);
-
-  const targetFolder = '.cache' + cacheFolder.split('.')[1];
-  fs.ensureDir(targetFolder)
-    .then(() => {
-      fs.writeFile(`${targetFolder}/${name}`, compressedImage, function (err) {
-        if (err) throw err;
-        console.log('Cached.');
-      });
-    })
-    .catch((err) => {
-      console.log(err);
-    });
-
-  const pdfImage = new PDFImage(uploadFolder + file, {
-    outputDirectory: './.cache/',
+  const pdfImage = new PDFImage(filePath, {
+    outputDirectory: targetFolder,
     graphicsMagick: true,
     convertOptions: {
       '-resize': '2000x2000',
@@ -33,7 +20,11 @@ exports.genPdfImage = (req) => {
     },
   });
 
-  pdfImage.convertPage(0).then((imagePath) => {
-    console.log(imagePath);
+  fs.ensureDirSync(targetFolder);
+
+  pdfImage.convertPage(0).then(imagePath => {
+    console.log(Generated + imagePath);
   });
+
+  return `${targetFolder}/${name}-0.png`;
 };
