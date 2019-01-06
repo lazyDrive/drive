@@ -158,6 +158,7 @@ export default {
       });
     },
     next: function() {
+      this.reset();
       var current = this.current();
 
       if (current < this.files.length - 1) {
@@ -167,6 +168,7 @@ export default {
       }
     },
     prev: function() {
+      this.reset();
       var current = this.current();
 
       if (current > 0) {
@@ -178,12 +180,16 @@ export default {
       this.height = 450;
     },
     dec: function() {
+      if(this.item.imgUrl){
       this.width = this.width - 150;
       this.height = this.height - 150;
+      }
     },
     inc: function() {
-      this.width = this.width + 150;
-      this.height = this.height + 150;
+      if(this.item.imgUrl){
+        this.width = this.width + 150;
+        this.height = this.height + 150;
+      }
     },
     keyup: function(event) {
       event.preventDefault();

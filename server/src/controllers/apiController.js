@@ -31,6 +31,13 @@ exports.getFiles = (req, res, next) => {
 
   const files = adapter.getFiles(dir);
 
+  files.sort(function (a, b) {
+    if (a.type == 'dir') return -1;
+    if (b.type == 'file') return 1;
+
+    return 0;
+  });
+
   res.status(200).send(({
     contents: files,
   }));

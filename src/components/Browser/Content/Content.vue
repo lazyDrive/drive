@@ -175,6 +175,47 @@ export default {
             document.querySelector('.media-dragoutline').classList.remove('active');
             return false;
         },
+        findNext: function(code){
+            const current = this.current();
+            const total = this.$store.state.contents.length;
+            // const numFolder = this.folders.length;
+            // const numFile = this.files.length;
+            const infobar = this.$store.state.showInfoBar;
+            const next = current;
+
+            if (code == 40){
+                if(infobar){
+                    if(total > current + 6 ) {
+                        return current + 6;
+                        } else {
+                            return next;
+                        }
+                    } else {
+                        if(total > current + 7 ) {
+                        return current + 7;
+                        } else {
+                            return next;
+                        }
+                    }
+            }
+
+            if (code == 38){
+                if(infobar){
+                    if(0 <= current - 6 ) {
+                        return current - 6;
+                        } else {
+                            return next;
+                        }
+                    } else {
+                        if(0 <= current - 7 ) {
+                        return current - 7;
+                        } else {
+                            return next;
+                        }
+                    }
+            }
+
+        },
         current: function(){
             const selected = this.$store.state.selectedItems[0];
 
@@ -186,10 +227,13 @@ export default {
         },
         keyup: function(event){
 
-            if(this.$store.state.selectedItems.length == 1 && !this.$store.state.showPreviewModal)
+            if(this.$store.state.selectedItems.length == 1 && !this.$store.state.modelBackdrop)
             {
                 if(event.keyCode == 27){
-                    console.log(event);
+                    event.preventDefault();
+                    // const next = this.findNext(event.keyCode);
+                    // this.$store.commit(types.UNSELECT_ALL_BROWSER_ITEMS);
+                    // this.$store.commit(types.SELECT_BROWSER_ITEM, this.$store.state.contents[next]);
                 } else if(event.keyCode == 39){
                     const current = this.current();
                     if(current < this.$store.state.contents.length-1) {
@@ -198,11 +242,9 @@ export default {
                     }
                 } else if(event.keyCode == 38){
                         event.preventDefault();
-                    //      const current = this.current();
-                    // if(current > 0) {
-                    //     this.$store.commit(types.UNSELECT_ALL_BROWSER_ITEMS);
-                    //     this.$store.commit(types.SELECT_BROWSER_ITEM, this.$store.state.contents[current - 2]);
-                    // }
+                        const next = this.findNext(event.keyCode);
+                        this.$store.commit(types.UNSELECT_ALL_BROWSER_ITEMS);
+                        this.$store.commit(types.SELECT_BROWSER_ITEM, this.$store.state.contents[next]);
                 }else if(event.keyCode == 37){
                     const current = this.current();
                     if(current > 0) {
@@ -210,8 +252,10 @@ export default {
                         this.$store.commit(types.SELECT_BROWSER_ITEM, this.$store.state.contents[current - 1]);
                     }
                 } else if(event.keyCode == 40){
-                        event.preventDefault();
-                    console.log(event);
+                    event.preventDefault();
+                    const next = this.findNext(event.keyCode);
+                    this.$store.commit(types.UNSELECT_ALL_BROWSER_ITEMS);
+                    this.$store.commit(types.SELECT_BROWSER_ITEM, this.$store.state.contents[next]);
                 }else if(event.keyCode == 13){
                     const item = this.$store.state.selectedItems[0];
                     if (item.type == 'dir') {
