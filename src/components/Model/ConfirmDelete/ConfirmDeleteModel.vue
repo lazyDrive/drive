@@ -16,8 +16,8 @@
             </v-container>
             <v-card-actions>
                 <v-spacer></v-spacer>
-                <v-btn color="error" @click.prevent="hideConfirmDeleteModal()">Cancel</v-btn>
-                <v-btn color="success" @click.prevent="deleteFile()">Confirm</v-btn>
+                <v-btn flat color="error" @click.prevent="hideConfirmDeleteModal()">Cancel</v-btn>
+                <v-btn flat color="success" @click.prevent="deleteFile()">Confirm</v-btn>
             </v-card-actions>
         </v-card>
     </v-dialog>

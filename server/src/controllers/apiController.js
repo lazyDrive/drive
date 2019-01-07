@@ -26,14 +26,14 @@ exports.getFiles = (req, res, next) => {
 
 
   if (req.params.dir !== 'my-drive') {
-    dir = `${Buffer.from(req.params.dir, 'base64').toString('ascii')  }/`;
+    dir = `${Buffer.from(req.params.dir, 'base64').toString('ascii')}/`;
   }
 
   const files = adapter.getFiles(dir);
 
-  files.sort(function (a, b) {
-    if (a.type == 'dir') return -1;
-    if (b.type == 'file') return 1;
+  files.sort((a, b) => {
+    if (a.type === 'dir') return -1;
+    if (b.type === 'file') return 1;
 
     return 0;
   });
@@ -47,7 +47,14 @@ exports.getFiles = (req, res, next) => {
 exports.deleteFiles = (req, res, next) => {
   const path = Buffer.from(req.params.path, 'base64').toString('ascii');
   const adapter = new LocalAdapter(req, res, next, path);
+
+  // Original
   adapter.delete(path);
+
+  // // Delete Cache
+  // if (fs.existsSync(`.cache/${path}`)) {
+  //   adapter.delete(`.cache/${path}`);
+  // }
 };
 
 exports.thirdParty = (req, res) => {
@@ -136,42 +143,41 @@ exports.serveImages = (req, res, next) => {
       const optimizationLevel = (hd || quality >= 60) ? 1 : 2;
 
       imagemin.buffer(content, {
-          plugins: [
-            imageminGifsicle({
-              optimizationLevel,
-              interlaced: true,
-            }),
-            imageminMozjpeg({
-              quality,
-            }),
-            imageminJpegtran({
-              progressive: true,
-            }),
-            imageminPngquant({
-              quality: `${quality}-80`,
-            }),
-          ],
-        })
+        plugins: [
+          imageminGifsicle({
+            optimizationLevel,
+            interlaced: true,
+          }),
+          imageminMozjpeg({
+            quality,
+          }),
+          imageminJpegtran({
+            progressive: true,
+          }),
+          imageminPngquant({
+            quality: `${quality}-80`,
+          }),
+        ],
+      })
         .then((compressedImage) => {
-
           const name = Path.basename(path);
           const cacheFolder = adapter.getDir(path);
 
           // Check for cache
           const iscacheFolder = cacheFolder.split('/')[0];
 
-          if(iscacheFolder != '.cache') {
-            const targetFolder = '.cache/' + cacheFolder;
+          if (iscacheFolder != '.cache') {
+            const targetFolder = `.cache/${cacheFolder}`;
             fs.ensureDir(targetFolder)
-            .then(() => {
-              fs.writeFile(`${targetFolder}/${name}`, compressedImage, function (err) {
-                if (err) throw err;
-                console.log('Cached.');
+              .then(() => {
+                fs.writeFile(`${targetFolder}/${name}`, compressedImage, (err) => {
+                  if (err) throw err;
+                  console.log('Cached.');
+                });
+              })
+              .catch((err) => {
+                console.log(err);
               });
-            })
-            .catch((err) => {
-              console.log(err);
-            });
           }
 
           res.writeHead(200, {
@@ -188,7 +194,6 @@ exports.serveImages = (req, res, next) => {
         });
     }
   });
-
 };
 
 
@@ -209,7 +214,6 @@ exports.downloadFile = () => {
 };
 
 exports.createDirectory = (req, res, next) => {
-
   let path = 'uploads/';
 
   if (req.params.path !== 'my-drive') {
@@ -241,8 +245,8 @@ exports.uploadFiles = (req, res) => {
 
 exports.log = (req, res, next) => {
   Api.find({
-      recentId: req.body.id,
-    })
+    recentId: req.body.id,
+  })
     .exec()
     .then((file) => {
       if (file.length <= 0) {
@@ -265,10 +269,10 @@ exports.log = (req, res, next) => {
           });
       } else {
         Api.update({
-            recentId: req.body.id,
-          }, {
-            data: new Date(),
-          })
+          recentId: req.body.id,
+        }, {
+          data: new Date(),
+        })
           .then(() => {
             res.status(201).json({
               message: 'Updated.',

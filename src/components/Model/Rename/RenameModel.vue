@@ -19,8 +19,8 @@
         </v-container>
         <v-card-actions>
           <v-spacer></v-spacer>
-          <v-btn color="error" @click.prevent="hideRenameModal()">Cancel</v-btn>
-          <v-btn color="success" @click.prevent="rename()">Ok</v-btn>
+          <v-btn flat color="error" @click.prevent="hideRenameModal()">Cancel</v-btn>
+          <v-btn flat color="success" @click.prevent="rename()">Ok</v-btn>
         </v-card-actions>
       </v-card>
     </v-dialog>

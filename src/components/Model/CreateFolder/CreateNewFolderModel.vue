@@ -22,8 +22,8 @@
             </v-container>
             <v-card-actions>
                 <v-spacer></v-spacer>
-                <v-btn color="error" @click="hideCreateFolderModal()">Cancel</v-btn>
-                <v-btn color="success" @click="create()">Create</v-btn>
+                <v-btn flat color="error" @click="hideCreateFolderModal()">Cancel</v-btn>
+                <v-btn flat color="success" @click="create()">Create</v-btn>
             </v-card-actions>
         </v-card>
     </v-dialog>
