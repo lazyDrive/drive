@@ -13,7 +13,7 @@
         :class="`${ hover } ${selectedState ? 'selected' : 'unselected'} responsize-view`"
         class="mx-auto"
         :width="`${isMobile ? '145' : (menuState ? '192' : '210')}`"
-        :height="`${isMobile ? '140' : (menuState ? '175' : '190')}`"
+        :height="`${isMobile ? '140' : (menuState ? '170' : '185')}`"
       >
         <v-img
           class="m-gradient"
