@@ -231,7 +231,7 @@ class LocalAdapter {
 
             ffmpeg(path + item)
             .screenshots({
-              timestamps: ['10%'],
+              timestamps: ['1%'],
               filename: name,
               count: 1,
               folder: '.cache/' + path,

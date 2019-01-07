@@ -151,7 +151,7 @@ export default {
       }
 
       this.files = this.$store.state.contents.filter(
-        item => item.type != "folders"
+        item => item.type != "dir"
       );
 
       return this.files.findIndex(file => {
