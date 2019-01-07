@@ -29,8 +29,6 @@
             >
             </v-img>
 
-            <!-- <v-icon  :size="`${isMobile ? '80' : '120'}`">{{ icon }}</v-icon> -->
-
     <v-card-title>
         <img v-if="item.extImg && !isMobile" class="extensionImage" :src="item.extImg" />
         <span class="file-text">{{ getName }}</span>

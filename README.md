@@ -35,7 +35,7 @@
 
     # npm
 
-    Install imagemagick
+    # Install imagemagick
     sudo apt-get install imagemagick ghostscript poppler-utils
 
     # In root and server run
@@ -53,15 +53,7 @@
 
 <br>
 <p align="center">
-  <img  src="public/img/1.png">
-</p>
-<br>
-<p align="center">
-  <img  src="public/img/2.png">
-</p>
-<br>
-<p align="center">
-  <img  src="public/img/3.png">
+  <img  src="public/img/pre.gif">
 </p>
 
 ## License

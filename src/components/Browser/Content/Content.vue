@@ -60,14 +60,9 @@ export default {
         response:'',
         items: [
             {
-                text: 'Home',
+                text: 'My-Drive',
                 disabled: false,
                 href: '#/'
-            },
-            {
-                text: 'about',
-                disabled: false,
-                href: '#/about'
             }
         ]
     }),
