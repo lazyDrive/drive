@@ -13,6 +13,7 @@ const sizeOf = require('image-size');
 const util = require('util');
 const mime = require('mime-types');
 const crypto = require('crypto');
+const ffmpeg = require('fluent-ffmpeg');
 const cacheApi = require('./CacheApi');
 
 const desiredMode = 0o2775;
@@ -211,9 +212,33 @@ class LocalAdapter {
         if(itemDataObj.extension == 'pdf') {
           const padfImagePath = cacheApi.genPdfImage(path + item);
 
-          itemDataObj.imgLazyUrl = `/api/images/${Buffer.from(padfImagePath).toString('base64')}/t/${itemDataObj.extension}/d/200/200/m/${itemDataObj.mime_type}/${itemDataObj.id}`;
-          itemDataObj.imgUrl = `/api/images/${Buffer.from(padfImagePath).toString('base64')}/t/${itemDataObj.extension}/d/200/200/m/${itemDataObj.mime_type}/${itemDataObj.id}`;
-        }
+          if(fs.existsSync(padfImagePath)) {
+            itemDataObj.imgLazyUrl = `/api/images/${Buffer.from(padfImagePath).toString('base64')}/t/png/d/200/200/m/image/png/${itemDataObj.id}`;
+            itemDataObj.imgUrl = `/api/images/${Buffer.from(padfImagePath).toString('base64')}/t/png/d/200/200/m/image/png/${itemDataObj.id}`;
+          }
+        } else if(itemDataObj.extension == 'mp4') {
+
+          const name = item.split('.').slice(0, -1).join('.') + '.png';
+
+          const targeVideo = '.cache/' + path + name;
+
+          if(fs.existsSync(targeVideo)) {
+              itemDataObj.imgLazyUrl = `/api/images/${Buffer.from(targeVideo).toString('base64')}/t/png/d/200/200/m/image/png/${itemDataObj.id}`;
+              itemDataObj.imgUrl = `/api/images/${Buffer.from(targeVideo).toString('base64')}/t/png/d/200/200/m/image/png/${itemDataObj.id}`;
+          } else {
+
+            fs.ensureDirSync('.cache/' + path);
+
+            ffmpeg(path + item)
+            .screenshots({
+              timestamps: ['10%'],
+              filename: name,
+              count: 1,
+              folder: '.cache/' + path,
+              size: '800x450'
+            });
+          }
+      }
 
         itemDataObj.filePath = `/api/files/${Buffer.from(path + item).toString('base64')}/t/${itemDataObj.extension}/m/${itemDataObj.mime_type}/s/${stats.size}/${itemDataObj.id}`;
       }

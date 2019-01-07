@@ -6,7 +6,7 @@
       class="modal-content"
       :src="item.imgUrl"
       ref="prevImage"
-      v-if="item.imgUrl && item.extension != 'pdf'"
+      v-if="item.imgUrl && item.extension != 'pdf' && item.extension != 'mp4'"
       :width="width"
       contain
       :alt="item.name"
@@ -43,7 +43,10 @@
     </div>
 
     <div class="audio" v-else>
-      <h1 style="color:white">Preview not available.</h1>
+      <h1 style="color:white">No preview available</h1>
+        <div>
+          <v-btn color="info" dark large @click.prevent="download(item)">Download</v-btn>
+        </div>
     </div>
 
     <v-icon color="white" @click.prevent="next()" class="next">arrow_forward_ios</v-icon>
@@ -80,7 +83,7 @@ export default {
     height: 450,
     files: [],
     numPages: undefined,
-    videoExt: ["mp4"],
+    videoExt: ["mp4", "ogv", "avi"],
     audioExt: ["mp3", "webm"]
   }),
   components: {

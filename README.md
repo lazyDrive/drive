@@ -49,7 +49,7 @@
 
     # Done! Magic happens on port: http://localhost:8080
 
-## Some Screenshot
+## Demo
 
 <br>
 <p align="center">

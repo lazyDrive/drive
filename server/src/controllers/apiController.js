@@ -157,8 +157,12 @@ exports.serveImages = (req, res, next) => {
           const name = Path.basename(path);
           const cacheFolder = adapter.getDir(path);
 
-          const targetFolder = '.cache/' + cacheFolder;
-          fs.ensureDir(targetFolder)
+          // Check for cache
+          const iscacheFolder = cacheFolder.split('/')[0];
+
+          if(iscacheFolder != '.cache') {
+            const targetFolder = '.cache/' + cacheFolder;
+            fs.ensureDir(targetFolder)
             .then(() => {
               fs.writeFile(`${targetFolder}/${name}`, compressedImage, function (err) {
                 if (err) throw err;
@@ -168,6 +172,7 @@ exports.serveImages = (req, res, next) => {
             .catch((err) => {
               console.log(err);
             });
+          }
 
           res.writeHead(200, {
             'Content-Type': `${mime1}/${mime2}`,
