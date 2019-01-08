@@ -104,16 +104,19 @@ class LocalAdapter {
    */
   copy(sourcePath, destinationPath) {
     fs.ensureDirSync(destinationPath, desiredMode, (err) => {
+      // eslint-disable-next-line no-console
       console.log(err); // => null
       // dir has now been created with mode 0o2775, including the directory it is to be placed in
 
       // Work with both files and dir
       fs.copy(sourcePath, destinationPath)
         .then(() => {
+          // eslint-disable-next-line no-console
           console.log('success!');
         })
         .catch((err) => {
-          console.error(err);
+          // eslint-disable-next-line no-console
+          console.warn(err);
         });
     });
 
@@ -127,14 +130,15 @@ class LocalAdapter {
   move(sourcePath, destinationPath) {
     // With Promises:
     fs.move(sourcePath, destinationPath, {
-        overwrite: true,
-      })
+      overwrite: true,
+    })
       .then(() => {
         this.res.status(200).json({
           r: 'srcces',
         });
       })
       .catch((err) => {
+        // eslint-disable-next-line no-console
         console.error(err);
       });
   }
@@ -206,49 +210,47 @@ class LocalAdapter {
 
         itemDataObj.imgLazyUrl = `/api/images/${Buffer.from(path + item).toString('base64')}/t/${itemDataObj.extension}/d/200/200/m/${itemDataObj.mime_type}/${itemDataObj.id}`;
         itemDataObj.imgUrl = `/api/images/${Buffer.from(path + item).toString('base64')}/t/${itemDataObj.extension}/d/200/200/m/${itemDataObj.mime_type}/${itemDataObj.id}`;
-        itemDataObj.filePath = `/api/images/${Buffer.from(path + item).toString('base64')}/t/${itemDataObj.extension}/d/200/200/m/${itemDataObj.mime_type}/${itemDataObj.id}`;
-      } else {
+        // itemDataObj.filePath = `/api/images/${Buffer.from(path + item).toString('base64')}/t/${itemDataObj.extension}/d/200/200/m/${itemDataObj.mime_type}/${itemDataObj.id}`;
+      } else if (itemDataObj.extension === 'pdf') {
+        const padfImagePath = cacheApi.genPdfImage(path + item);
 
-        if(itemDataObj.extension == 'pdf') {
-          const padfImagePath = cacheApi.genPdfImage(path + item);
+        if (fs.existsSync(padfImagePath)) {
+          itemDataObj.imgLazyUrl = `/api/images/${Buffer.from(padfImagePath).toString('base64')}/t/png/d/200/200/m/image/png/${itemDataObj.id}`;
+          itemDataObj.imgUrl = `/api/images/${Buffer.from(padfImagePath).toString('base64')}/t/png/d/200/200/m/image/png/${itemDataObj.id}`;
+        }
+      } else if (itemDataObj.extension === 'mp4') {
+        const name = `${item.split('.').slice(0, -1).join('.')}.png`;
 
-          if(fs.existsSync(padfImagePath)) {
-            itemDataObj.imgLazyUrl = `/api/images/${Buffer.from(padfImagePath).toString('base64')}/t/png/d/200/200/m/image/png/${itemDataObj.id}`;
-            itemDataObj.imgUrl = `/api/images/${Buffer.from(padfImagePath).toString('base64')}/t/png/d/200/200/m/image/png/${itemDataObj.id}`;
-          }
-        } else if(itemDataObj.extension == 'mp4') {
+        const targeVideo = `.cache/${path}${name}`;
 
-          const name = item.split('.').slice(0, -1).join('.') + '.png';
+        if (fs.existsSync(targeVideo)) {
+          itemDataObj.imgLazyUrl = `/api/images/${Buffer.from(targeVideo).toString('base64')}/t/png/d/200/200/m/image/png/${itemDataObj.id}`;
+          itemDataObj.imgUrl = `/api/images/${Buffer.from(targeVideo).toString('base64')}/t/png/d/200/200/m/image/png/${itemDataObj.id}`;
+        } else {
+          fs.ensureDirSync(`.cache/${path}`);
 
-          const targeVideo = '.cache/' + path + name;
-
-          if(fs.existsSync(targeVideo)) {
-              itemDataObj.imgLazyUrl = `/api/images/${Buffer.from(targeVideo).toString('base64')}/t/png/d/200/200/m/image/png/${itemDataObj.id}`;
-              itemDataObj.imgUrl = `/api/images/${Buffer.from(targeVideo).toString('base64')}/t/png/d/200/200/m/image/png/${itemDataObj.id}`;
-          } else {
-
-            fs.ensureDirSync('.cache/' + path);
-
-            ffmpeg(path + item)
+          ffmpeg(path + item)
             .screenshots({
               timestamps: ['1%'],
               filename: name,
               count: 1,
-              folder: '.cache/' + path,
-              size: '800x450'
+              folder: `.cache/${path}`,
+              size: '800x450',
             });
-          }
+        }
       }
 
-        itemDataObj.filePath = `/api/files/${Buffer.from(path + item).toString('base64')}/t/${itemDataObj.extension}/m/${itemDataObj.mime_type}/s/${stats.size}/${itemDataObj.id}`;
+      let extImgPath = '';
+      if (itemDataObj.extension) {
+        extImgPath = `./thirdParty/${itemDataObj.extension}.svg`;
+        itemDataObj.extImg = `/api/thirdParty/${Buffer.from(extImgPath).toString('base64')}/t/${itemDataObj.extension}`;
+      } else {
+        extImgPath = './thirdParty/file.svg';
+        itemDataObj.extImg = `/api/thirdParty/${Buffer.from(extImgPath).toString('base64')}/t/file`;
       }
 
-      const extImgPath = `./thirdParty/${itemDataObj.extension}.svg`;
-
-
-      itemDataObj.extImg = `/api/thirdParty/${Buffer.from(extImgPath).toString('base64')}/t/${itemDataObj.extension}`;
-
-      // itemDataObj.imgLazyUrl = itemDataObj.extImg;
+      itemDataObj.filePath = `/api/files/${Buffer.from(path + item).toString('base64')}/t/${itemDataObj.extension}/m/${itemDataObj.mime_type}/s/${stats.size}/${itemDataObj.id}`;
+      itemDataObj.imgLazyUrl = itemDataObj.extImg;
     }
 
     itemDataObj.color = isDir ? '#3949AB' : '';

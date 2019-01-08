@@ -4,14 +4,14 @@
     <v-icon color="white" @click.prevent="prev()" class="prev">arrow_back_ios</v-icon>
     <v-img
       class="modal-content"
-      :src="item.imgUrl"
+      :src="item.filePath"
       ref="prevImage"
       v-if="item.imgUrl && item.extension != 'pdf' && item.extension != 'mp4'"
       :width="width"
       contain
       :alt="item.name"
       :height="height"
-      :lazy-src="item.imgLazyUrl"
+      :lazy-src="item.filePath"
     >
       <v-layout slot="placeholder" fill-height align-center justify-center ma-0>
         <v-progress-circular indeterminate color="grey lighten-5"></v-progress-circular>

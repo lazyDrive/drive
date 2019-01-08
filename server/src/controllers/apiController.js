@@ -69,7 +69,7 @@ exports.thirdParty = (req, res) => {
     } else {
       res.writeHead(200, {
         'Content-Type': 'image/svg+xml',
-        'Cache-Control': 'public, max-age=31557600',
+        'Cache-Control': 'private, max-age=86400, no-transform',
       });
       res.end(content);
     }
@@ -79,8 +79,8 @@ exports.thirdParty = (req, res) => {
 
 exports.serveFiles = (req, res) => {
   const path = Buffer.from(req.params.path, 'base64').toString('ascii');
-  const mime1 = req.params.mime1;
-  const mime2 = req.params.mime2;
+  const { mime1 } = req.params;
+  const { mime2 } = req.params;
 
   fs.readFile(path, (err) => {
     if (err) {
@@ -91,7 +91,7 @@ exports.serveFiles = (req, res) => {
     } else {
       const stat = fs.statSync(path);
       const fileSize = stat.size;
-      const range = req.headers.range;
+      const { range } = req.headers;
 
       if (range) {
         const parts = range.replace(/bytes=/, '').split('-');
@@ -107,6 +107,7 @@ exports.serveFiles = (req, res) => {
           'Content-Range': `bytes ${start}-${end}/${fileSize}`,
           'Accept-Ranges': 'bytes',
           'Content-Length': chunksize,
+          status:200,
           'Content-Type': `${mime1}/${mime2}`,
         };
 
@@ -114,6 +115,8 @@ exports.serveFiles = (req, res) => {
         file.pipe(res);
       } else {
         const head = {
+          data: new Date(),
+          status:200,
           'Content-Length': fileSize,
           'Content-Type': `${mime1}/${mime2}`,
         };
@@ -125,11 +128,26 @@ exports.serveFiles = (req, res) => {
 };
 
 exports.serveImages = (req, res, next) => {
-  const mime1 = req.params.mime1;
-  const mime2 = req.params.mime2;
-  const path = Buffer.from(req.params.path, 'base64').toString('ascii');
+  const { mime1 } = req.params;
+  const { mime2 } = req.params;
+  let cached = false;
+  let path = Buffer.from(req.params.path, 'base64').toString('ascii');
 
   const adapter = new LocalAdapter(req, res, next, path);
+
+  if (fs.existsSync(`.cache/${path}`)) {
+    path = `.cache/${path}`;
+    cached = true;
+  }
+
+  // const stat = fs.statSync(path);
+  // const fileSize = stat.size;
+
+  res.writeHead(200, {
+    // 'Content-Length': fileSize,
+    'Cache-Control': 'private, max-age=86400, no-transform',
+    'Content-Type': `${mime1}/${mime2}`,
+  });
 
   fs.readFile(path, (err, content) => {
     if (err) {
@@ -137,7 +155,7 @@ exports.serveImages = (req, res, next) => {
         'Content-type': 'text/html',
       });
       res.end('error');
-    } else {
+    } else if (!cached) {
       const quality = 60;
       const hd = null;
       const optimizationLevel = (hd || quality >= 60) ? 1 : 2;
@@ -166,7 +184,7 @@ exports.serveImages = (req, res, next) => {
           // Check for cache
           const iscacheFolder = cacheFolder.split('/')[0];
 
-          if (iscacheFolder != '.cache') {
+          if (iscacheFolder !== '.cache') {
             const targetFolder = `.cache/${cacheFolder}`;
             fs.ensureDir(targetFolder)
               .then(() => {
@@ -179,19 +197,14 @@ exports.serveImages = (req, res, next) => {
                 console.log(err);
               });
           }
-
-          res.writeHead(200, {
-            'Content-Type': `${mime1}/${mime2}`,
-            'Cache-Control': 'public, max-age=31557600',
-            etag: `'W/${req.params.path}'`,
-          });
-
           return res.end(compressedImage);
         })
         .catch((error) => {
           console.log(error);
           return res.end(content);
         });
+    } else {
+      return res.end(content);
     }
   });
 };
@@ -228,7 +241,7 @@ exports.createDirectory = (req, res, next) => {
 };
 
 
-exports.rename = (req, res, next) => {
+exports.rename = (req, res) => {
   const path = Buffer.from(req.params.path, 'base64').toString('ascii');
   res.status(200).send(({
     message: 'Renamed',

@@ -6,10 +6,9 @@ const Path = require('path');
 const PDFImage = require('pdf-image').PDFImage;
 
 exports.genPdfImage = (filePath) => {
-
   const name = Path.basename(filePath).split('.').slice(0, -1).join('.');
   const cacheFolder = Path.dirname(filePath);
-  const targetFolder = '.cache/' + cacheFolder;
+  const targetFolder = `.cache/${  cacheFolder}`;
 
   const pdfImage = new PDFImage(filePath, {
     outputDirectory: targetFolder,
@@ -22,7 +21,7 @@ exports.genPdfImage = (filePath) => {
 
   fs.ensureDirSync(targetFolder);
 
-  pdfImage.convertPage(0).then(imagePath => {
+  pdfImage.convertPage(0).then((imagePath) => {
     console.log(Generated + imagePath);
   });
 
