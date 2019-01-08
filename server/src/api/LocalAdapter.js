@@ -210,7 +210,6 @@ class LocalAdapter {
 
         itemDataObj.imgLazyUrl = `/api/images/${Buffer.from(path + item).toString('base64')}/t/${itemDataObj.extension}/d/200/200/m/${itemDataObj.mime_type}/${itemDataObj.id}`;
         itemDataObj.imgUrl = `/api/images/${Buffer.from(path + item).toString('base64')}/t/${itemDataObj.extension}/d/200/200/m/${itemDataObj.mime_type}/${itemDataObj.id}`;
-        // itemDataObj.filePath = `/api/images/${Buffer.from(path + item).toString('base64')}/t/${itemDataObj.extension}/d/200/200/m/${itemDataObj.mime_type}/${itemDataObj.id}`;
       } else if (itemDataObj.extension === 'pdf') {
         const padfImagePath = cacheApi.genPdfImage(path + item);
 
@@ -229,14 +228,16 @@ class LocalAdapter {
         } else {
           fs.ensureDirSync(`.cache/${path}`);
 
-          ffmpeg(path + item)
-            .screenshots({
-              timestamps: ['1%'],
-              filename: name,
-              count: 1,
-              folder: `.cache/${path}`,
-              size: '800x450',
-            });
+          if (!fs.existsSync(`.cache/${path + item}`)) {
+            ffmpeg(path + item)
+              .screenshots({
+                timestamps: ['1%'],
+                filename: name,
+                count: 1,
+                folder: `.cache/${path}`,
+                size: '800x450',
+              });
+          }
         }
       }
 

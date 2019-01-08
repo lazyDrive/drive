@@ -8,22 +8,24 @@ const PDFImage = require('pdf-image').PDFImage;
 exports.genPdfImage = (filePath) => {
   const name = Path.basename(filePath).split('.').slice(0, -1).join('.');
   const cacheFolder = Path.dirname(filePath);
-  const targetFolder = `.cache/${  cacheFolder}`;
+  const targetFolder = `.cache/${cacheFolder}`;
 
-  const pdfImage = new PDFImage(filePath, {
-    outputDirectory: targetFolder,
-    graphicsMagick: true,
-    convertOptions: {
-      '-resize': '2000x2000',
-      '-quality': '75',
-    },
-  });
+  if (!fs.existsSync(`.cache/${filePath}`)) {
+    const pdfImage = new PDFImage(filePath, {
+      outputDirectory: targetFolder,
+      graphicsMagick: true,
+      convertOptions: {
+        '-resize': '2000x2000',
+        '-quality': '75',
+      },
+    });
 
-  fs.ensureDirSync(targetFolder);
+    fs.ensureDirSync(targetFolder);
 
-  pdfImage.convertPage(0).then((imagePath) => {
-    console.log(Generated + imagePath);
-  });
+    pdfImage.convertPage(0).then(() => {
+      console.log('PDF Cached.')
+    });
+  }
 
   return `${targetFolder}/${name}-0.png`;
 };

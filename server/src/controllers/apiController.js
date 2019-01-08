@@ -107,7 +107,6 @@ exports.serveFiles = (req, res) => {
           'Content-Range': `bytes ${start}-${end}/${fileSize}`,
           'Accept-Ranges': 'bytes',
           'Content-Length': chunksize,
-          status:200,
           'Content-Type': `${mime1}/${mime2}`,
         };
 
@@ -115,8 +114,6 @@ exports.serveFiles = (req, res) => {
         file.pipe(res);
       } else {
         const head = {
-          data: new Date(),
-          status:200,
           'Content-Length': fileSize,
           'Content-Type': `${mime1}/${mime2}`,
         };
