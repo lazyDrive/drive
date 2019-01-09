@@ -237,6 +237,8 @@ class LocalAdapter {
                 folder: `.cache/${path}`,
                 size: '800x450',
               });
+
+            console.log('Video Thumb generated.')
           }
         }
       }

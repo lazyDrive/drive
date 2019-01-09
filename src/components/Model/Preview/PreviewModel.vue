@@ -18,11 +18,7 @@
       </v-layout>
     </v-img>
 
-    <div class="video" v-else-if="video">
-      <video id="media-video" class="media-video-player-preview" controls controlslist="nodownload">
-        <source :src="item.filePath" type="video/mp4">
-      </video>
-    </div>
+    <media-video :item="item" v-else-if="video"></media-video>
 
     <div class="pdf" v-else-if="item.extension == 'pdf'">
       <pdf
@@ -74,6 +70,7 @@
 
 <script>
 import * as types from "./../../../store/mutation-types";
+import Video from './item/Video';
 import pdf from "vue-pdf";
 
 export default {
@@ -87,7 +84,8 @@ export default {
     audioExt: ["mp3", "webm"]
   }),
   components: {
-    pdf
+    pdf,
+    'media-video': Video,
   },
   watch: {
     isActive: function(val) {

@@ -10,7 +10,7 @@ exports.genPdfImage = (filePath) => {
   const cacheFolder = Path.dirname(filePath);
   const targetFolder = `.cache/${cacheFolder}`;
 
-  if (!fs.existsSync(`.cache/${filePath}`)) {
+  if (!fs.existsSync(`${targetFolder}/${name}-0.png`)) {
     const pdfImage = new PDFImage(filePath, {
       outputDirectory: targetFolder,
       graphicsMagick: true,
