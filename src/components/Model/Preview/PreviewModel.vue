@@ -2,23 +2,15 @@
   <div id="media-preview-modal" v-if="isActive" class="modal">
     <v-icon color="white" @click.prevent="hidePreviewModal()" class="close">arrow_back</v-icon>
     <v-icon color="white" @click.prevent="prev()" class="prev">arrow_back_ios</v-icon>
-    <v-img
-      class="modal-content"
-      :src="item.filePath"
-      ref="prevImage"
-      v-if="item.imgUrl && item.extension != 'pdf' && item.extension != 'mp4'"
-      :width="width"
-      contain
-      :alt="item.name"
-      :height="height"
-      :lazy-src="item.filePath"
-    >
-      <v-layout slot="placeholder" fill-height align-center justify-center ma-0>
-        <v-progress-circular indeterminate color="grey lighten-5"></v-progress-circular>
-      </v-layout>
-    </v-img>
 
-    <media-video :item="item" v-else-if="video"></media-video>
+    <media-image
+      v-if="item.imgUrl && item.extension != 'pdf' && item.extension != 'mp4'"
+      :item="item"
+    ></media-image>
+
+    <media-video v-else-if="video" :item="item"></media-video>
+
+    <media-audio v-else-if="audio" :item="item"></media-audio>
 
     <div class="pdf" v-else-if="item.extension == 'pdf'">
       <pdf
@@ -31,18 +23,11 @@
       ></pdf>
     </div>
 
-    <div class="audio" v-else-if="audio">
-      <audio id="media-audio" class="media-audio-player-preview" controls controlslist="nodownload">
-        <source :src="audioFile" type="audio/mpeg">
-      </audio>
-      <div class="circle-ripple"></div>
-    </div>
-
-    <div class="audio" v-else>
+    <div class="download" v-else>
       <h1 style="color:white">No preview available</h1>
-        <div>
-          <v-btn color="info" dark large @click.prevent="download(item)">Download</v-btn>
-        </div>
+      <div>
+        <v-btn color="info" dark large @click.prevent="download(item)">Download</v-btn>
+      </div>
     </div>
 
     <v-icon color="white" @click.prevent="next()" class="next">arrow_forward_ios</v-icon>
@@ -59,25 +44,19 @@
         <v-icon color="white" size="30">more_vert</v-icon>
       </div>
     </div>
-
-    <div class="previewtool" v-if="item.imgUrl || item.extension == 'pdf'">
-      <v-icon color="white" @click="dec()" class="remove">remove</v-icon>
-      <v-icon color="white" @click="reset()" class="refresh">refresh</v-icon>
-      <v-icon color="white" @click="inc()" class="add">add</v-icon>
-    </div>
   </div>
 </template>
 
 <script>
 import * as types from "./../../../store/mutation-types";
-import Video from './item/Video';
+import Video from "./item/Video";
+import Audio from "./item/Audio";
+import Image from "./item/Image";
 import pdf from "vue-pdf";
 
 export default {
   name: "media-create-folder",
   data: () => ({
-    width: 800,
-    height: 450,
     files: [],
     numPages: undefined,
     videoExt: ["mp4", "ogv", "avi"],
@@ -85,7 +64,9 @@ export default {
   }),
   components: {
     pdf,
-    'media-video': Video,
+    "media-video": Video,
+    "media-audio": Audio,
+    "media-image": Image
   },
   watch: {
     isActive: function(val) {
@@ -131,7 +112,6 @@ export default {
   methods: {
     hidePreviewModal: function() {
       this.$store.commit(types.HIDE_PREVIEW_MODAL);
-      this.reset();
     },
     download: function() {
       const items = [];
@@ -159,9 +139,7 @@ export default {
       });
     },
     next: function() {
-      this.reset();
       var current = this.current();
-
       if (current < this.files.length - 1) {
         this.$store.state.previewItem = this.files[current + 1];
       } else {
@@ -169,27 +147,9 @@ export default {
       }
     },
     prev: function() {
-      this.reset();
       var current = this.current();
-
       if (current > 0) {
         this.$store.state.previewItem = this.files[current - 1];
-      }
-    },
-    reset: function() {
-      this.width = 800;
-      this.height = 450;
-    },
-    dec: function() {
-      if(this.item.imgUrl){
-      this.width = this.width - 150;
-      this.height = this.height - 150;
-      }
-    },
-    inc: function() {
-      if(this.item.imgUrl){
-        this.width = this.width + 150;
-        this.height = this.height + 150;
       }
     },
     keyup: function(event) {
@@ -200,12 +160,8 @@ export default {
           this.hidePreviewModal();
         } else if (event.keyCode == 39) {
           this.next();
-        } else if (event.keyCode == 38) {
-          this.inc();
         } else if (event.keyCode == 37) {
           this.prev();
-        } else if (event.keyCode == 40) {
-          this.dec();
         }
       }
     }

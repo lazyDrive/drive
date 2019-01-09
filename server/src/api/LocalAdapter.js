@@ -244,7 +244,7 @@ class LocalAdapter {
       }
 
       let extImgPath = '';
-      if (itemDataObj.extension) {
+      if (itemDataObj.extension && fs.existsSync(`./thirdParty/${itemDataObj.extension}.svg`)) {
         extImgPath = `./thirdParty/${itemDataObj.extension}.svg`;
         itemDataObj.extImg = `/api/thirdParty/${Buffer.from(extImgPath).toString('base64')}/t/${itemDataObj.extension}`;
       } else {
