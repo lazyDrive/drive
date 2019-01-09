@@ -8,6 +8,8 @@ const fs = require('fs-extra');
 
 const checkAuth = require('../middleware/check-auth');
 
+const checkFileAccess = require('../middleware/checkFileAccess');
+
 const ApiController = require('../controllers/apiController');
 
 const storage = multer.diskStorage({
@@ -63,16 +65,16 @@ const upload = multer({
 router.get('/getFiles/:dir', checkAuth, ApiController.getFiles);
 
 // get thirdParty files
-router.get('/thirdParty/:path/t/:type', ApiController.thirdParty);
+router.get('/thirdParty/:path/t/:type', checkFileAccess, ApiController.thirdParty);
 
 // get images
-router.get('/images/:path/t/:type/d/:width/:height/m/:mime1/:mime2/:key', ApiController.serveImages);
+router.get('/images/:path/t/:type/d/:width/:height/m/:mime1/:mime2/:key', checkFileAccess, ApiController.serveImages);
 
 // get files
-router.get('/files/:path/t/:type/m/:mime1/:mime2/s/:size/:key', ApiController.serveFiles);
+router.get('/files/:path/t/:type/m/:mime1/:mime2/s/:size/:key', checkFileAccess, ApiController.serveFiles);
 
 // Download files
-router.get('/download/file/:path', ApiController.downloadFile);
+router.get('/download/file/:path', checkFileAccess, ApiController.downloadFile);
 
 // Upload files
 router.post('/upload/:path', checkAuth, upload.single('files'), ApiController.uploadFiles);

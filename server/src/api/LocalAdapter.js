@@ -131,8 +131,8 @@ class LocalAdapter {
   move(sourcePath, destinationPath) {
     return new Promise((resolve, reject) => {
       fs.move(sourcePath, destinationPath, {
-        overwrite: true,
-      })
+          overwrite: true,
+        })
         .then(() => {
           resolve();
         })
