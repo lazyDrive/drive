@@ -48,13 +48,17 @@ exports.deleteFiles = (req, res, next) => {
   const path = Buffer.from(req.params.path, 'base64').toString('ascii');
   const adapter = new LocalAdapter(req, res, next, path);
 
-  // Original
-  adapter.delete(path);
-
-  // // Delete Cache
-  // if (fs.existsSync(`.cache/${path}`)) {
-  //   adapter.delete(`.cache/${path}`);
-  // }
+  adapter.delete(path).then(() => {
+    res.status(200).json({
+      message: 'Deleted',
+      path,
+    });
+  }).catch((err) => {
+    res.status(500).json({
+      error: err,
+      path,
+    });
+  });
 };
 
 exports.thirdParty = (req, res) => {
@@ -79,8 +83,12 @@ exports.thirdParty = (req, res) => {
 
 exports.serveFiles = (req, res) => {
   const path = Buffer.from(req.params.path, 'base64').toString('ascii');
-  const { mime1 } = req.params;
-  const { mime2 } = req.params;
+  const {
+    mime1,
+  } = req.params;
+  const {
+    mime2,
+  } = req.params;
 
   fs.readFile(path, (err) => {
     if (err) {
@@ -91,7 +99,9 @@ exports.serveFiles = (req, res) => {
     } else {
       const stat = fs.statSync(path);
       const fileSize = stat.size;
-      const { range } = req.headers;
+      const {
+        range,
+      } = req.headers;
 
       if (range) {
         const parts = range.replace(/bytes=/, '').split('-');
@@ -125,8 +135,12 @@ exports.serveFiles = (req, res) => {
 };
 
 exports.serveImages = (req, res, next) => {
-  const { mime1 } = req.params;
-  const { mime2 } = req.params;
+  const {
+    mime1,
+  } = req.params;
+  const {
+    mime2,
+  } = req.params;
   let cached = false;
   let path = Buffer.from(req.params.path, 'base64').toString('ascii');
 
@@ -238,12 +252,26 @@ exports.createDirectory = (req, res, next) => {
 };
 
 
-exports.rename = (req, res) => {
-  const path = Buffer.from(req.params.path, 'base64').toString('ascii');
-  res.status(200).send(({
-    message: 'Renamed',
-    path,
-  }));
+exports.rename = (req, res, next) => {
+  const oldPath = Buffer.from(req.params.path, 'base64').toString('ascii');
+  const {
+    newName,
+  } = req.body;
+  const dir = Path.dirname(oldPath);
+  const newPath = Path.join(dir, newName);
+
+  const adapter = new LocalAdapter(req, res, next, oldPath);
+
+  adapter.move(oldPath, newPath).then(() => {
+    res.status(200).json({
+      message: 'Renamed',
+    });
+  })
+    .catch((err) => {
+      res.status(500).json({
+        error: err,
+      });
+    });
 };
 
 exports.uploadFiles = (req, res) => {

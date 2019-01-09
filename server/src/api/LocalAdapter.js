@@ -128,19 +128,17 @@ class LocalAdapter {
    *
    */
   move(sourcePath, destinationPath) {
-    // With Promises:
-    fs.move(sourcePath, destinationPath, {
-      overwrite: true,
-    })
-      .then(() => {
-        this.res.status(200).json({
-          r: 'srcces',
-        });
+    return new Promise((resolve, reject) => {
+      fs.move(sourcePath, destinationPath, {
+        overwrite: true,
       })
-      .catch((err) => {
-        // eslint-disable-next-line no-console
-        console.error(err);
-      });
+        .then(() => {
+          resolve();
+        })
+        .catch((err) => {
+          reject(err);
+        });
+    });
   }
 
   /**
@@ -148,20 +146,15 @@ class LocalAdapter {
    *
    */
   delete(path) {
-    // With Promises:
-    fs.remove(path)
-      .then(() => {
-        this.res.status(200).json({
-          message: 'Deleted',
-          path,
+    return new Promise((resolve, reject) => {
+      fs.remove(path)
+        .then(() => {
+          resolve();
+        })
+        .catch((err) => {
+          reject(err);
         });
-      })
-      .catch((err) => {
-        this.res.status(500).json({
-          error: err,
-          path,
-        });
-      });
+    });
   }
 
   /**
@@ -238,7 +231,7 @@ class LocalAdapter {
                 size: '800x450',
               });
 
-            console.log('Video Thumb generated.')
+            console.log('Video Thumb generated.');
           }
         }
       }

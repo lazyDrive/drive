@@ -26,8 +26,8 @@
 export default {
   name: "media-video",
   data: () => ({
-    width: 800,
-    height: 450
+    width: 1000,
+    height: 500
   }),
   props: ["item"],
   watch: {
@@ -37,8 +37,8 @@ export default {
   },
   methods: {
     reset: function() {
-      this.width = 800;
-      this.height = 450;
+      this.width = 1000;
+      this.height = 500;
     },
     dec: function() {
       if (this.item.imgUrl) {

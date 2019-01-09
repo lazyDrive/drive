@@ -26,11 +26,8 @@ export const getContents = (context, payload) => {
 				router.push({
 					path: `/drive/u/0/folder/${path}`
 				})
-			} else {
-				router.push({
-					path: `/drive/u/0/my-drive`
-				})
 			}
+
 			context.commit(types.LOAD_CONTENTS_SUCCESS, response.data.contents)
 			context.commit(types.SET_IS_LOADING, false)
 		})
