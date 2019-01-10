@@ -326,7 +326,7 @@
     overflow-y: hidden!important;
 }
 
-.pdf{
+.media-pdf{
     width: 60%;
     margin: auto;
 }
@@ -351,12 +351,13 @@
     margin: auto;
 }
 
-.media-file, .noPreview{
+.media-file, .noPreview, .media-pdf{
     padding-top: 60px;
 }
-.media-pdf{
-    padding-top: 40px;
+.media-pdf-view{
+    padding-top: 10px;
 }
+
 .media-video, .media-image, .media-audio{
     padding-top: 100px;
 }

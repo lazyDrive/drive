@@ -12,10 +12,10 @@
 
     <media-audio v-else-if="audio" :item="item"></media-audio>
 
-    <div class="pdf" v-else-if="item.extension == 'pdf'">
+    <div class="media-pdf" v-else-if="item.extension == 'pdf'">
       <pdf
         ref="myPdfComponent"
-        class="media-pdf"
+        class="media-pdf-view"
         v-for="i in numPages"
         :key="i"
         :src="pdfsrc"

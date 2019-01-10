@@ -146,19 +146,6 @@ class LocalAdapter {
    *
    *
    */
-  getFileData(path) {
-    return new Promise((resolve, reject) => {
-      fs.readFile(path, 'utf-8', (err, buf) => {
-        resolve(buf.toString());
-        reject(err);
-      });
-    });
-  }
-
-  /**
-   *
-   *
-   */
   delete(path) {
     return new Promise((resolve, reject) => {
       fs.remove(path)
@@ -170,22 +157,6 @@ class LocalAdapter {
         });
     });
   }
-
-  //   /**
-  //  *
-  //  *
-  //  */
-  // getFileData(path) {
-  //   return new Promise((resolve, reject) => {
-  //     fs.remove(path)
-  //       .then(() => {
-  //         resolve();
-  //       })
-  //       .catch((err) => {
-  //         reject(err);
-  //       });
-  //   });
-  // }
 
   /**
    * Returns the folder or file information for the given path. The returned object
@@ -280,7 +251,7 @@ class LocalAdapter {
         //   // Do not forget to close the file once you're done
         //   zip.close();
         // });
-      } else if (itemDataObj.extension === 'txt' || itemDataObj.extension === 'js') {
+      } else if (itemDataObj.extension === 'txt' || itemDataObj.extension === 'js' || itemDataObj.extension === 'php') {
         itemDataObj.fileData = fs.readFileSync(path + item, 'utf8');
       }
 
