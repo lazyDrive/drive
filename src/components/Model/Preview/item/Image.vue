@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="media-image">
     <v-img
       class="modal-content"
       :src="item.filePath"

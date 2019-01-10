@@ -1,5 +1,5 @@
 <template>
-  <div id="media-video">
+  <div id="media-video" class="media-video">
     <video ref="mVideo" id="media-video" class="media-video-player-preview" controls controlslist="nodownload">
       <source ref="mVideoSrc" :src="item.filePath" type="video/mp4">
     </video>

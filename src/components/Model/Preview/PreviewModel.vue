@@ -23,7 +23,9 @@
       ></pdf>
     </div>
 
-    <div class="download" v-else>
+    <media-file v-else-if="fileText" :item="item"></media-file>
+
+    <div class="noPreview" v-else>
       <h1 style="color:white">No preview available</h1>
       <div>
         <v-btn color="info" dark large @click.prevent="download(item)">Download</v-btn>
@@ -52,6 +54,7 @@ import * as types from "./../../../store/mutation-types";
 import Video from "./item/Video";
 import Audio from "./item/Audio";
 import Image from "./item/Image";
+import FileText from "./item/FileText";
 import pdf from "vue-pdf";
 
 export default {
@@ -60,13 +63,15 @@ export default {
     files: [],
     numPages: undefined,
     videoExt: ["mp4", "ogv", "avi"],
-    audioExt: ["mp3", "webm"]
+    audioExt: ["mp3", "webm"],
+    fileExt: ["txt", "js", "css", "php", "vue", "go", "html", "c", "c++", "sql", "java", "shell"],
   }),
   components: {
     pdf,
     "media-video": Video,
     "media-audio": Audio,
-    "media-image": Image
+    "media-image": Image,
+    "media-file": FileText
   },
   watch: {
     isActive: function(val) {
@@ -93,6 +98,13 @@ export default {
     },
     video: function() {
       if (this.videoExt.indexOf(this.item.extension) != -1) {
+        return true;
+      } else {
+        return false;
+      }
+    },
+    fileText: function() {
+      if (this.fileExt.indexOf(this.item.extension) != -1) {
         return true;
       } else {
         return false;
