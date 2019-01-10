@@ -34,8 +34,6 @@ export default {
     showToolModal: false,
     // The state of the infobar
     showInfoBar: false,
-    // The state of the music player
-    showMusicPlayer: false,
     // The snackbar
     showsnackbar: { state: false, data:'', color: 'default', time: 6000 },
     // The snackbar
