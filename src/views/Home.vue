@@ -63,7 +63,7 @@
                         <v-icon x-large class="blue--text text--lighten-2">build</v-icon>
                       </v-card-text>
                       <v-card-title primary-title class="layout justify-center">
-                        <div class="headline text-xs-center">Completely Open Sourced</div>
+                        <div class="headline text-xs-center">Completely Open Source</div>
                       </v-card-title>
                       <v-card-text>This project is completely open source so everyone can takes the benefits of this application.</v-card-text>
                     </v-card>
