@@ -33,9 +33,10 @@ export default {
             }
         },
         getName: function(){
-            if(this.item.name.length >= 15)
+             const len = this.$store.state.isMobile ? 13 : 15;
+            if(this.item.name.length >= len)
             {
-                return this.item.name.substring(0, 15) + "..";
+                return this.item.name.substring(0, len) + "..";
             } else {
 
                 return this.item.name;

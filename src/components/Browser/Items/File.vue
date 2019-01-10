@@ -12,8 +12,8 @@
         slot-scope="{ hover }"
         :class="`${ hover } ${selectedState ? 'selected' : 'unselected'} responsize-view`"
         class="mx-auto"
-        :width="`${isMobile ? '145' : (menuState ? '192' : '210')}`"
-        :height="`${isMobile ? '140' : (menuState ? '170' : '185')}`"
+        :width="`${isMobile ? '146' : (menuState ? '192' : '210')}`"
+        :height="`${isMobile ? '138' : (menuState ? '170' : '185')}`"
       >
         <v-img
           class="m-gradient"
@@ -73,8 +73,9 @@ export default {
       }
     },
     getName: function() {
-      if (this.item.name.length >= 15) {
-        return this.item.name.substring(0, 15) + "..";
+      const len = this.$store.state.isMobile ? 13 : 15;
+      if (this.item.name.length >= len) {
+        return this.item.name.substring(0, len) + "..";
       } else {
         return this.item.name;
       }

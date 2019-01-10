@@ -2,7 +2,7 @@
     <v-navigation-drawer
     v-model="menuState"
     right
-    app
+    :app="!this.$store.state.isMobile"
     width="343"
     fixed
     :stateless="true"

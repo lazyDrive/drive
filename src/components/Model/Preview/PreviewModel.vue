@@ -1,7 +1,7 @@
 <template>
   <div id="media-preview-modal" v-if="isActive" class="modal">
-    <v-icon color="white" @click.prevent="hidePreviewModal()" class="close">arrow_back</v-icon>
-    <v-icon color="white" @click.prevent="prev()" class="prev">arrow_back_ios</v-icon>
+    <v-icon color="white" @click.prevent="hidePreviewModal()" size="25" class="close">arrow_back</v-icon>
+    <v-icon color="white" @click.prevent="prev()" size="25" class="prev">arrow_back_ios</v-icon>
 
     <media-image
       v-if="item.imgUrl && item.extension != 'pdf' && item.extension != 'mp4'"
@@ -35,15 +35,15 @@
     <v-icon color="white" @click.prevent="next()" class="next">arrow_forward_ios</v-icon>
     <div class="caption">
       <img v-if="item.extImg" class="extensionImage" :src="item.extImg">
-      &nbsp;&nbsp;{{item.name}}
+      &nbsp;&nbsp;{{getName()}}
     </div>
 
     <div class="right-tool">
       <div class="right-tool-item">
-        <v-icon color="white" size="30" @click.prevent="download(item)">get_app</v-icon>
+        <v-icon color="white" size="25" @click.prevent="download(item)">get_app</v-icon>
       </div>
       <div class="right-tool-item">
-        <v-icon color="white" size="30">more_vert</v-icon>
+        <v-icon color="white" size="25">more_vert</v-icon>
       </div>
     </div>
   </div>
@@ -64,7 +64,20 @@ export default {
     numPages: undefined,
     videoExt: ["mp4", "ogv", "avi"],
     audioExt: ["mp3", "webm"],
-    fileExt: ["txt", "js", "css", "php", "vue", "go", "html", "c", "c++", "sql", "java", "shell"],
+    fileExt: [
+      "txt",
+      "js",
+      "css",
+      "php",
+      "vue",
+      "go",
+      "html",
+      "c",
+      "c++",
+      "sql",
+      "java",
+      "shell"
+    ]
   }),
   components: {
     pdf,
@@ -129,6 +142,13 @@ export default {
       const items = [];
       items.push(this.item);
       this.$store.dispatch("download", items);
+    },
+    getName: function() {
+      if (this.item.name.length >= 20 && this.$store.state.isMobile) {
+        return this.item.name.substring(0, 20) + "..";
+      } else {
+        return this.item.name;
+      }
     },
     print: function() {
       this.$refs.myPdfComponent[0].print();

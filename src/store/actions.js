@@ -1,7 +1,6 @@
 import {
 	api
 } from "../app/Api";
-// import router from './../router';
 import * as types from "./mutation-types";
 import * as FileSaver from 'file-saver';
 import jsZip from 'jszip';
@@ -41,36 +40,33 @@ export const getContents = (context, payload) => {
  * @param commit
  * @param payload object with the new folder name and its parent directory
  */
-export const upload = (context, payload) => {
+export const  upload = (context, payload) => {
 
-	context.commit(types.SET_IS_LOADING, true)
-	// context.commit(types.SHOW_TOOL_MODAL, true)
+	return new Promise((resolve, reject) => {
 
-	api.axios()
-		.post(`api/upload/${payload.uploadPath}`, payload.formData, {
-			// onUploadProgress: e => context.commit(types.SET_IS_LOADING_MORE, {
-			// 	value: true,
-			// 	per: Math.round(e.loaded * 100 / e.total)
-			// })
-		})
-		.then(response => {
-			context.commit(types.SET_IS_LOADING, false)
-			context.dispatch('getContents', {
-				path: context.state.selectedDirectory
-			});
+		context.commit(types.SET_IS_LOADING, true)
+		// context.commit(types.SHOW_TOOL_MODAL, true)
 
-			// context.state.loadingValue = 'fuck';
+		api.axios()
+			.post(`api/upload/${payload.uploadPath}`, payload.formData, {
+				// onUploadProgress: e => context.commit(types.SET_IS_LOADING_MORE, {
+				// 	value: true,
+				// 	per: Math.round(e.loaded * 100 / e.total)
+				// })
+			})
+			.then(response => {
+				context.commit(types.SET_IS_LOADING, false)
+				context.dispatch('getContents', {
+					path: context.state.selectedDirectory
+				});
+				resolve(response);
 
-			var data = {
-				'data': response.data.text,
-				'color': response.data.message
-			}
-
-			context.commit(types.SHOW_SNACKBAR, data)
-		})
-		.catch((error) => {
-			api._handleError(error)
-		})
+			})
+			.catch((error) => {
+				api._handleError(error)
+				reject(error);
+			})
+	});
 }
 
 /**

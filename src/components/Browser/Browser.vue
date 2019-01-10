@@ -59,7 +59,7 @@ export default {
                 console.log('error');
             }
         },
-        processFile: function() {
+        processFile: async function() {
             var files = this.$refs.inputFile.files;
             const uploadPath = this.$store.state.selectedDirectory;
 
@@ -70,12 +70,13 @@ export default {
                 const formData = new FormData();
                 formData.append('files', file);
 
-                this.$store.dispatch('upload', {formData, uploadPath});
+               await this.$store.dispatch('upload', {formData, uploadPath});
+
             }
 
             this.$refs.formFile.reset();
         },
-        processFolder: function() {
+        processFolder: async function() {
             var files = this.$refs.inputFolder.files;
             let selectedPath = this.$store.state.selectedDirectory;
 
@@ -95,7 +96,7 @@ export default {
 
                 const uploadPath = Buffer.from(encodePath).toString('base64');
 
-                this.$store.dispatch('upload', {formData, uploadPath});
+               await this.$store.dispatch('upload', {formData, uploadPath});
             }
 
             this.$refs.formFolder.reset();
