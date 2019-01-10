@@ -45,7 +45,7 @@
                 </tr>
                 <tr>
                     <td class="m-d-td">Modified Date</td>
-                    <td class="m-d-td"><strong>{{ item.created_date }}</strong></td>
+                    <td class="m-d-td"><strong>{{ item.modified_date }}</strong></td>
                 </tr>
                 <tr>
                     <td class="m-d-td">Size</td>
