@@ -75,25 +75,21 @@ class LocalAdapter {
    *
    */
   createDir(path) {
-    const dir = path;
 
-    if (fs.existsSync(dir) && fs.statSync(dir).isDirectory()) {
+    if (fs.existsSync(path) && fs.statSync(path).isDirectory()) {
       this.res.status(409).json({
         message: 'Folder already exist.',
-        dir,
       });
     } else {
-      fs.ensureDir(dir)
+      fs.ensureDir(path)
         .then(() => {
           this.res.status(200).json({
             message: 'Created',
-            dir,
           });
         })
         .catch((err) => {
           this.res.status(500).json({
             error: err,
-            dir,
           });
         });
     }
@@ -104,35 +100,26 @@ class LocalAdapter {
    *
    */
   copy(sourcePath, destinationPath) {
-    fs.ensureDirSync(destinationPath, desiredMode, (err) => {
-      // eslint-disable-next-line no-console
-      console.log(err); // => null
-      // dir has now been created with mode 0o2775, including the directory it is to be placed in
-
-      // Work with both files and dir
+    return new Promise((resolve, reject) => {
       fs.copy(sourcePath, destinationPath)
         .then(() => {
-          // eslint-disable-next-line no-console
-          console.log('success!');
+          resolve(destinationPath);
         })
         .catch((err) => {
-          // eslint-disable-next-line no-console
-          console.warn(err);
+          reject(err);
         });
     });
-
-    return destinationPath;
   }
 
   /**
    *
    *
    */
-  move(sourcePath, destinationPath) {
+  move(sourcePath, destinationPath, force = true) {
     return new Promise((resolve, reject) => {
       fs.move(sourcePath, destinationPath, {
-          overwrite: true,
-        })
+        overwrite: force,
+      })
         .then(() => {
           resolve();
         })
