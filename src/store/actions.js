@@ -36,11 +36,30 @@ export const getContents = (context, payload) => {
 }
 
 /**
+ * Get contents of a directory from the api
+ * @param commit
+ * @param payload
+ */
+export const update = (context, payload) => {
+
+	let path = payload.path || context.state.selectedDirectory;
+
+	api.axios()
+		.get(`api/getFiles/${path}`)
+		.then(response => {
+			context.commit(types.LOAD_CONTENTS_SUCCESS, response.data.contents)
+		})
+		.catch((error) => {
+			api._handleError(error)
+		})
+}
+
+/**
  * Create a new folder
  * @param commit
  * @param payload object with the new folder name and its parent directory
  */
-export const  upload = (context, payload) => {
+export const upload = (context, payload) => {
 
 	return new Promise((resolve, reject) => {
 
@@ -55,8 +74,7 @@ export const  upload = (context, payload) => {
 				// })
 			})
 			.then(response => {
-				context.commit(types.SET_IS_LOADING, false)
-				context.dispatch('getContents', {
+				context.dispatch('update', {
 					path: context.state.selectedDirectory
 				});
 				resolve(response);
@@ -67,26 +85,6 @@ export const  upload = (context, payload) => {
 				reject(error);
 			})
 	});
-}
-
-/**
- * Get contents of a directory from the api
- * @param commit
- * @param payload
- */
-export const loadMoreContents = (context) => {
-
-	context.commit(types.SET_IS_LOADING_MORE, true);
-
-	api.axios()
-		.get('loadMoreContents')
-		.then(response => {
-			context.commit(types.LOAD_MORE_CONTENTS_SUCCESS, response.data.contents)
-			context.commit(types.SET_IS_LOADING_MORE, false);
-		})
-		.catch((error) => {
-			api._handleError(error)
-		})
 }
 
 /**
@@ -118,7 +116,7 @@ export const log = (context, payload) => {
 	api.axios()
 		.post('api/log', payload)
 		.then(() => {
-			// context.dispatch('getContents', {path: context.state.selectedDirectory});
+			// context.dispatch('update', {path: context.state.selectedDirectory});
 		})
 		.catch((error) => {
 			api._handleError(error)
@@ -147,7 +145,7 @@ export const deleteFile = (context, payload) => {
 
 				context.state.showConfirmDeleteModal = false;
 				context.commit(types.SHOW_SNACKBAR, data);
-				context.dispatch('getContents', {
+				context.dispatch('update', {
 					path: context.state.selectedDirectory
 				});
 			})
@@ -181,7 +179,7 @@ export const createDirectory = (context, payload) => {
 			};
 			context.state.showCreateFolderModal = false;
 			context.commit(types.SHOW_SNACKBAR, data);
-			context.dispatch('getContents', {
+			context.dispatch('update', {
 				path: context.state.selectedDirectory
 			});
 		})
@@ -211,7 +209,7 @@ export const rename = (context, payload) => {
 			};
 			context.state.showRenameModal = false;
 			context.commit(types.SHOW_SNACKBAR, data);
-			context.dispatch('getContents', {
+			context.dispatch('update', {
 				path: context.state.selectedDirectory
 			});
 		})

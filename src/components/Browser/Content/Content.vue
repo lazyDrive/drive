@@ -109,7 +109,7 @@ export default {
             if (clickedOutside && !this.$store.state.modelBackdrop) {
                 this.$store.commit(types.UNSELECT_ALL_BROWSER_ITEMS);
             }else{
-                this.$store.dispatch('getContents', 20);
+                this.$store.dispatch('update', {path: this.$store.state.selectedDirectory});
             }
         },
         // Listeners for drag and drop

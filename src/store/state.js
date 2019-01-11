@@ -4,6 +4,8 @@ export default {
     contents:[],
     // The currently selected items
     selectedItems: [],
+    // The currently selected items
+    uploadItems: [],
     // The currently selected dir
     selectedDirectory: 'my-drive',
     // The state of confirm delete model
