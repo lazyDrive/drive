@@ -12,7 +12,7 @@
 </template>
 
 <script>
-import * as types from './../../../../store/mutation-types.js';
+import * as types from "./../../../../store/mutation-types.js";
 
 export default {
   name: "media-video",

@@ -33,7 +33,7 @@ import * as types from "./../../../store/mutation-types";
 export default {
   name: "media-rename",
   data: () => ({
-    defaultData: ''
+    defaultData: ""
   }),
 
   computed: {
@@ -42,11 +42,11 @@ export default {
         if (this.$store.state.showRenameModal) {
           return this.$store.state.selectedItems[0].name;
         } else {
-          return '';
+          return "";
         }
       },
       set: function(data) {
-          this.defaultData = data;
+        this.defaultData = data;
       }
     }
   },
@@ -55,13 +55,13 @@ export default {
       this.$store.commit(types.HIDE_RENAME_MODAL);
     },
     rename: function() {
-        if (this.defaultData != '') {
-            const item = this.$store.state.selectedItems[0];
-            item.newName = this.defaultData;
-            this.$store.dispatch("rename", item);
-        } else {
-            this.hideRenameModal();
-        }
+      if (this.defaultData != "") {
+        const item = this.$store.state.selectedItems[0];
+        item.newName = this.defaultData;
+        this.$store.dispatch("rename", item);
+      } else {
+        this.hideRenameModal();
+      }
     }
   }
 };

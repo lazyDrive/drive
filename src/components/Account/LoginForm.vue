@@ -58,7 +58,9 @@
               <v-divider></v-divider>
               <div>
                 <br>
-                <a href=""><img src="./../../assets/google_signin.png"></a>
+                <a href>
+                  <img src="./../../assets/google_signin.png">
+                </a>
               </div>
             </v-card>
           </v-flex>

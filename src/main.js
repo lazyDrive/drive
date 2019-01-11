@@ -32,8 +32,8 @@ import './styles/mediamanager.scss'
 
 Vue.use(Vuetify)
 Vue.use(VueAnalytics, {
-    id: 'UA-131081167-1',
-    router
+  id: 'UA-131081167-1',
+  router
 })
 Vue.use(VueProgressBar, {
   color: '#0d8aef',

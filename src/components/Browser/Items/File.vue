@@ -33,7 +33,11 @@
           :lazy-src="item.imgLazyUrl"
         ></v-img>
 
-        <v-icon size="50" class="m-video-play-icon" v-if="item.extension == 'mp4'">play_circle_filled</v-icon>
+        <v-icon
+          size="50"
+          class="m-video-play-icon"
+          v-if="item.extension == 'mp4'"
+        >play_circle_filled</v-icon>
 
         <v-card-title>
           <img v-if="item.extImg && !isMobile" class="extensionImage" :src="item.extImg">

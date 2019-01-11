@@ -75,6 +75,11 @@ export default {
         formData.append("files", file);
 
         await this.$store.dispatch("upload", { formData, uploadPath });
+
+        this.$store.dispatch("update", {
+          path: this.$store.state.selectedDirectory
+        });
+        console.log(file);
       }
 
       this.$store.commit(types.SET_IS_LOADING, false);
@@ -110,6 +115,11 @@ export default {
         const uploadPath = Buffer.from(encodePath).toString("base64");
 
         await this.$store.dispatch("upload", { formData, uploadPath });
+
+        this.$store.dispatch("update", {
+          path: this.$store.state.selectedDirectory
+        });
+        console.log(file);
       }
       this.$store.commit(types.SET_IS_LOADING, false);
       this.$refs.formFolder.reset();

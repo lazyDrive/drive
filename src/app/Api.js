@@ -43,26 +43,26 @@ class Api {
 
     switch (error.response.status) {
       case 409:
-      store.commit(types.SHOW_SNACKBAR, errorData);
+        store.commit(types.SHOW_SNACKBAR, errorData);
         break;
       case 404:
-      errorData.data = 'Something went wrong.';
-      store.commit(types.SHOW_SNACKBAR, errorData);
+        errorData.data = 'Something went wrong.';
+        store.commit(types.SHOW_SNACKBAR, errorData);
         break;
       case 401:
-      this.auth.logout();
-      router.push('/login');
-      store.commit(types.SHOW_SNACKBAR, errorData);
+        this.auth.logout();
+        router.push('/login');
+        store.commit(types.SHOW_SNACKBAR, errorData);
         break;
       case 403:
-      store.commit(types.SHOW_SNACKBAR, errorData);
+        store.commit(types.SHOW_SNACKBAR, errorData);
         break;
       case 500:
-      errorData.data = 'Server Internal Error.';
-      store.commit(types.SHOW_SNACKBAR, errorData);
+        errorData.data = 'Server Internal Error.';
+        store.commit(types.SHOW_SNACKBAR, errorData);
         break;
       default:
-      store.commit(types.SHOW_SNACKBAR, errorData);
+        store.commit(types.SHOW_SNACKBAR, errorData);
     }
 
     throw error;

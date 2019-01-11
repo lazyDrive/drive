@@ -33,19 +33,19 @@ export default {
       // const audioSrc = this.$refs.mAudioSrc;
       if (this.$store.state.showPreviewModal) {
         if (event.keyCode == 32) {
-          if(audio.paused) {
+          if (audio.paused) {
             audio.play();
           } else {
             audio.pause();
           }
         } else if (event.keyCode == 38) {
-          if(audio.volume <= 0.9) {
+          if (audio.volume <= 0.9) {
             audio.volume = audio.volume + 0.1;
           } else {
             audio.volume = 1;
           }
-        }else if (event.keyCode == 40) {
-           if(audio.volume >= 0.1) {
+        } else if (event.keyCode == 40) {
+          if (audio.volume >= 0.1) {
             audio.volume = audio.volume - 0.1;
           } else {
             audio.volume = 0;
