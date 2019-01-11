@@ -1,8 +1,13 @@
 <template>
   <v-content id="media-content">
     <v-container fluid grid-list-md>
-      <v-breadcrumbs :items="items">
-        <v-icon slot="divider" @click="loadDir()">chevron_right</v-icon>
+      <v-breadcrumbs :items="diskLoaded">
+        <template slot="item" slot-scope="props">
+          <a
+            :href="props.item.href"
+            :class="[props.item.disabled && 'disabled']"
+          >{{ props.item.text }}</a>
+        </template>
       </v-breadcrumbs>
 
       <div class="media-toolbar">
@@ -61,19 +66,13 @@ import * as types from "./../../../store/mutation-types";
 
 export default {
   name: "media-content",
-  data: () => ({
-    response: "",
-    items: [
-      {
-        text: "My-Drive",
-        disabled: false,
-        href: "#/"
-      }
-    ]
-  }),
+  data: () => ({}),
   computed: {
     quick: function() {
       return this.$store.state.contents.filter(item => item.type == "quick");
+    },
+    diskLoaded: function() {
+      return this.$store.state.diskLoaded;
     },
     folders: function() {
       return this.$store.state.contents.filter(

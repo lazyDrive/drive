@@ -375,3 +375,7 @@
     text-align: left!important;
     margin: 0 10%;
 }
+.disabled{
+  color: grey;
+  pointer-events: none;
+}

@@ -29,19 +29,65 @@ export default {
       this.$store.commit(types.IS_MOBILE, false);
     }
 
-    if (this.$route.name == 'my-drive') {
+    if (this.$route.params.dir) {
+      this.findDisk(this.$route);
+    } else {
+      const disk = {};
+      this.$store.state.diskLoaded = [];
+      disk.text = "my-drive";
+      disk.href = `/#/drive/u/0/my-drive/`;
+      disk.disabled = true;
+      this.$store.state.diskLoaded.push(disk);
+    }
 
+    if (this.$route.name == "my-drive") {
       const dir = this.$route.params.dir;
       const path = this.$route.params.path;
 
-      if (dir !== undefined && path == 'folder') {
-        this.$store.dispatch("getContents", {path: dir});
+      if (dir !== undefined && path == "folder") {
+        this.$store.dispatch("getContents", { path: dir });
       } else {
-        this.$store.dispatch("getContents", {path: 'my-drive'});
+        this.$store.dispatch("getContents", { path: "my-drive" });
       }
     }
   },
   methods: {
+    findDisk: function(to) {
+      if (to.params.dir) {
+        const diskPath = Buffer.from(to.params.dir, "base64").toString("ascii");
+
+        const splitedPath = diskPath.split("/");
+        this.$store.state.diskLoaded = [];
+
+        let count = 0;
+        while (splitedPath.length > 0) {
+          const disk = {};
+          const joinDisk = splitedPath.join("/");
+          const encodePath = Buffer.from(joinDisk).toString("base64");
+          const name = splitedPath.pop();
+
+          if (name != "uploads") {
+            disk.text = name;
+            disk.href = `/#/drive/u/0/folder/${encodePath}`;
+          } else {
+            disk.text = "my-drive";
+            disk.href = `/#/drive/u/0/my-drive/`;
+          }
+          if (count == 0) {
+            disk.disabled = true;
+          }
+          ++count;
+          this.$store.state.diskLoaded.unshift(disk);
+        }
+      } else {
+        const disk = {};
+        this.$store.state.diskLoaded = [];
+        disk.text = "my-drive";
+        disk.href = `/#/drive/u/0/my-drive/`;
+        disk.disabled = true;
+        this.$store.state.diskLoaded.push(disk);
+      }
+    },
     /* eslint-disable */
     isMobile: function() {
       var check = false;
@@ -63,10 +109,12 @@ export default {
   watch: {
     // eslint-disable-next-line
     $route(to, from) {
-      if(to.params.dir) {
-        this.$store.dispatch("getContents", {path: to.params.dir});
+      this.findDisk(to, from);
+
+      if (to.params.dir) {
+        this.$store.dispatch("getContents", { path: to.params.dir });
       } else {
-        this.$store.dispatch("getContents", {path: 'my-drive'});
+        this.$store.dispatch("getContents", { path: "my-drive" });
       }
     }
   }

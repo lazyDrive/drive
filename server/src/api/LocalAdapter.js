@@ -238,7 +238,7 @@ class LocalAdapter {
         //   // Do not forget to close the file once you're done
         //   zip.close();
         // });
-      } else if (itemDataObj.extension === 'txt' || itemDataObj.extension === 'js' || itemDataObj.extension === 'c') {
+      } else if (itemDataObj.extension === 'txt' || itemDataObj.extension === 'js' || itemDataObj.extension === 'html ') {
         itemDataObj.fileData = fs.readFileSync(path + item, 'utf8');
       }
 
