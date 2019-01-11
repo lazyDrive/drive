@@ -87,11 +87,11 @@ export default {
         const uploadPath = item.path;
 
         await this.$store.dispatch("upload", { formData, uploadPath });
-      }
 
-      this.$store.dispatch("update", {
-        path: this.$store.state.selectedDirectory
-      });
+        this.$store.dispatch("update", {
+          path: this.$store.state.selectedDirectory
+        });
+      }
 
       this.$store.commit(types.SET_IS_LOADING, false);
 
