@@ -136,23 +136,23 @@
     left: 0;
     right: 0;
     z-index: 0;
-    background: linear-gradient(to right, white , #38b8e9);
+    background :#38b8e9;
     position: absolute!important;
 }
 .progress .pgoing{
-    background: linear-gradient(to right, white , #38b8e9);
+    background: #38b8e9;
 }
 
 .progress .--error{
-    background: linear-gradient(to right, white , #ff5252);
+    background: #ff5252;
 }
 
 .progress .--success{
-    background: linear-gradient(to right, white , #4caf50);
+    background: #4caf50;
 }
 
 .progress .--paused{
-    background: linear-gradient(to right, white , #ffc107);
+    background: #ffc107;
 }
 .taskContainer{
     text-align: left;

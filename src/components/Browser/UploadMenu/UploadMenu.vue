@@ -21,7 +21,7 @@
           <strong>Folders</strong>
         </v-subheader>
         <v-list-tile v-for="item in itemsupload" :key="item.title" avatar @click="1">
-          <div class="progress" :style="`width: ${value}%`"></div>
+          <div class="progress" :style="`width: ${item.prog}%`"></div>
           <v-list-tile-avatar>
             <v-icon :class="[item.iconClass]">{{ item.icon }}</v-icon>
           </v-list-tile-avatar>
@@ -39,7 +39,7 @@
 
         <v-subheader>Files</v-subheader>
         <v-list-tile v-for="item in items2upload" :key="item.title" @click="1">
-          <div class="progress" :style="`width: ${value}%`"></div>
+          <div class="progress" :style="`width: ${item.prog}%`"></div>
           <v-list-tile-avatar>
             <v-icon :class="[item.iconClass]">{{ item.icon }}</v-icon>
           </v-list-tile-avatar>
@@ -68,18 +68,21 @@ export default {
         icon: "folder",
         iconClass: "grey lighten-1 white--text",
         title: "Photos",
-        subtitle: "Jan 9, 2014"
+        subtitle: "Jan 9, 2014",
+        prog:12,
       },
       {
         icon: "folder",
         iconClass: "grey lighten-1 white--text",
         title: "Recipes",
+        prog:40,
         subtitle: "Jan 17, 2014"
       },
       {
         icon: "folder",
         iconClass: "grey lighten-1 white--text",
         title: "Work",
+        prog:19,
         subtitle: "Jan 28, 2014"
       }
     ],
@@ -88,12 +91,14 @@ export default {
         icon: "assignment",
         iconClass: "blue white--text",
         title: "Vacation itinerary",
+        prog:92,
         subtitle: "Jan 20, 2014"
       },
       {
         icon: "call_to_action",
         iconClass: "amber white--text",
         title: "Kitchen remodel",
+        prog:82,
         subtitle: "Jan 10, 2014"
       }
     ]

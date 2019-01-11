@@ -68,19 +68,30 @@ export default {
       const uploadPath = this.$store.state.selectedDirectory;
 
       for (var i = 0; i < files.length; i++) {
+        const item = {};
         let file = files[i];
         file.id = i;
 
         const formData = new FormData();
         formData.append("files", file);
 
-        await this.$store.dispatch("upload", { formData, uploadPath });
+        item.file = formData;
+        item.path = uploadPath;
 
-        this.$store.dispatch("update", {
-          path: this.$store.state.selectedDirectory
-        });
-        console.log(file);
+        this.$store.state.uploadItems.push(item);
       }
+
+      while (this.$store.state.uploadItems.length > 0) {
+        const item = this.$store.state.uploadItems.shift();
+        const formData = item.file;
+        const uploadPath = item.path;
+
+        await this.$store.dispatch("upload", { formData, uploadPath });
+      }
+
+      this.$store.dispatch("update", {
+        path: this.$store.state.selectedDirectory
+      });
 
       this.$store.commit(types.SET_IS_LOADING, false);
 
@@ -91,6 +102,7 @@ export default {
       let selectedPath = this.$store.state.selectedDirectory;
 
       for (var i = 0; i < files.length; i++) {
+        const item = {};
         let file = files[i];
         file.id = i;
 
@@ -114,13 +126,24 @@ export default {
 
         const uploadPath = Buffer.from(encodePath).toString("base64");
 
-        await this.$store.dispatch("upload", { formData, uploadPath });
+        item.file = formData;
+        item.path = uploadPath;
 
-        this.$store.dispatch("update", {
-          path: this.$store.state.selectedDirectory
-        });
-        console.log(file);
+        this.$store.state.uploadItems.push(item);
       }
+
+      while (this.$store.state.uploadItems.length > 0) {
+        const item = this.$store.state.uploadItems.shift();
+        const formData = item.file;
+        const uploadPath = item.path;
+
+        await this.$store.dispatch("upload", { formData, uploadPath });
+      }
+
+      this.$store.dispatch("update", {
+        path: this.$store.state.selectedDirectory
+      });
+
       this.$store.commit(types.SET_IS_LOADING, false);
       this.$refs.formFolder.reset();
     }
