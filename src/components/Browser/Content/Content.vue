@@ -3,10 +3,10 @@
     <v-container fluid grid-list-md>
       <v-breadcrumbs :items="diskLoaded">
         <template slot="item" slot-scope="props">
-          <a
-            :href="props.item.href"
+          <router-link
+            :to="{ path: props.item.href }"
             :class="[props.item.disabled && 'disabled']"
-          >{{ props.item.text }}</a>
+          >{{ props.item.text }}</router-link>
         </template>
       </v-breadcrumbs>
 

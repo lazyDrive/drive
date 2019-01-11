@@ -35,7 +35,7 @@ export default {
       const disk = {};
       this.$store.state.diskLoaded = [];
       disk.text = "my-drive";
-      disk.href = `/#/drive/u/0/my-drive/`;
+      disk.href = `/drive/u/0/my-drive/`;
       disk.disabled = true;
       this.$store.state.diskLoaded.push(disk);
     }
@@ -68,10 +68,10 @@ export default {
 
           if (name != "uploads") {
             disk.text = name;
-            disk.href = `/#/drive/u/0/folder/${encodePath}`;
+            disk.href = `/drive/u/0/folder/${encodePath}`;
           } else {
             disk.text = "my-drive";
-            disk.href = `/#/drive/u/0/my-drive/`;
+            disk.href = `/drive/u/0/my-drive/`;
           }
           if (count == 0) {
             disk.disabled = true;
@@ -83,7 +83,7 @@ export default {
         const disk = {};
         this.$store.state.diskLoaded = [];
         disk.text = "my-drive";
-        disk.href = `/#/drive/u/0/my-drive/`;
+        disk.href = `/drive/u/0/my-drive/`;
         disk.disabled = true;
         this.$store.state.diskLoaded.push(disk);
       }
