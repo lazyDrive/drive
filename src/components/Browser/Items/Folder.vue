@@ -77,6 +77,8 @@ export default {
       e.preventDefault();
 
       if (!(e.shiftKey || e.ctrlKey)) {
+        // this.$store.state.selectAllFile = false;
+        // this.$store.state.selectAllFolder = false;
         this.$store.commit(types.UNSELECT_ALL_BROWSER_ITEMS);
       }
 

@@ -57,6 +57,10 @@ export default {
   isMobile: false,
   // Token
   token: '',
+  // Select all files
+  selectAllFile: false,
+  // Select all folders
+  selectAllFolder: false,
   // Islogged in
   isUserLoggedIn: false,
   // The Search Query

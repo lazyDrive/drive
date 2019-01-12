@@ -110,7 +110,7 @@ export default {
     // eslint-disable-next-line
     $route(to, from) {
       this.findDisk(to, from);
-
+      this.$store.commit(types.UNSELECT_ALL_BROWSER_ITEMS);
       if (to.params.dir) {
         this.$store.dispatch("getContents", { path: to.params.dir });
       } else {

@@ -74,10 +74,7 @@ import * as types from "./../../../store/mutation-types";
 
 export default {
   name: "media-content",
-  data: () => ({
-    selectAllFile: false,
-    selectAllFolder: false
-  }),
+  data: () => ({}),
   watch: {
     selectAllFile: function(val) {
       if (val) {
@@ -95,6 +92,22 @@ export default {
     }
   },
   computed: {
+    selectAllFile: {
+      get: function() {
+        return this.$store.state.selectAllFile;
+      },
+      set: function(val) {
+        this.$store.state.selectAllFile = val;
+      }
+    },
+    selectAllFolder: {
+      get: function() {
+        return this.$store.state.selectAllFolder;
+      },
+      set: function(val) {
+        this.$store.state.selectAllFolder = val;
+      }
+    },
     quick: function() {
       return this.$store.state.contents.filter(item => item.type == "quick");
     },
