@@ -105,10 +105,10 @@
       <v-spacer></v-spacer>
 
       <v-btn icon class="uploading" v-if="this.$store.state.isUploading == true">
-        <v-icon medium color="green">cloud_upload</v-icon>
+        <v-icon medium color="green" @click.prevent="showUploadMenu()">cloud_upload</v-icon>
       </v-btn>
       <v-btn icon v-else-if="this.$store.state.isUploading == 2">
-        <v-icon medium color="green">cloud_done</v-icon>
+        <v-icon medium color="green" @click.prevent="showUploadMenu()">cloud_done</v-icon>
       </v-btn>
 
       <v-btn icon>
@@ -202,6 +202,9 @@ export default {
   methods: {
     newFolder: function() {
       this.$store.commit(types.SHOW_CREATE_FOLDER_MODAL);
+    },
+    showUploadMenu: function(){
+      this.$store.state.showUploadMenu = true;
     },
     settings: function() {
       this.$store.commit(types.SHOW_SETTINGS);

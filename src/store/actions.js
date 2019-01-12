@@ -61,17 +61,19 @@ export const update = (context, payload) => {
  */
 export const upload = (context, payload) => {
 
+  const foundIndex = context.state.uploadItemsMenu.findIndex(x => (x.id == payload.id && x.type == 'file'));
+
   return new Promise((resolve, reject) => {
 
     context.commit(types.SET_IS_UPLOADING, true)
-    // context.commit(types.SHOW_TOOL_MODAL, true)
 
     api.axios()
       .post(`api/upload/${payload.uploadPath}`, payload.formData, {
-        // onUploadProgress: e => context.commit(types.SET_IS_LOADING_MORE, {
-        // 	value: true,
-        // 	per: Math.round(e.loaded * 100 / e.total)
-        // })
+        onUploadProgress: e => {
+          if (foundIndex !== -1) {
+            context.state.uploadItemsMenu[foundIndex].uploadPercent = Math.round(e.loaded * 100 / e.total);
+          }
+        }
       })
       .then(response => {
         resolve(response);

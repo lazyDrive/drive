@@ -25,10 +25,10 @@
     <media-nav-bar @tiggerSelectFile="selectFile" @tiggerSelectFolder="selectFolder"></media-nav-bar>
 
     <!-- Media content -->
-    <media-content></media-content>
+    <media-content @tiggerdragUpload="processUpload"></media-content>
 
     <!-- Media Upload Menu -->
-    <media-upload-menu></media-upload-menu>
+    <media-upload-menu @tiggerSelectFile="selectFile" @tiggerSelectFolder="selectFolder"></media-upload-menu>
 
     <!-- quick upload -->
     <media-quick-upload @tiggerSelectFile="selectFile"></media-quick-upload>
@@ -47,48 +47,22 @@ export default {
     return {};
   },
   methods: {
-    selectFile: function() {
-      const inputFile = this.$refs.inputFile;
-      if (inputFile) {
-        inputFile.click();
-      } else {
-        console.log("error");
-      }
-    },
-    selectFolder: function() {
-      const inputFolder = this.$refs.inputFolder;
-      if (inputFolder) {
-        inputFolder.click();
-      } else {
-        console.log("error");
-      }
-    },
-    processFile: async function() {
-      var files = this.$refs.inputFile.files;
-      const uploadPath = this.$store.state.selectedDirectory;
-
-      for (var i = 0; i < files.length; i++) {
-        const item = {};
-        let file = files[i];
-        file.id = i;
-
-        const formData = new FormData();
-        formData.append("files", file);
-
-        item.file = formData;
-        item.path = uploadPath;
-
-        this.$store.state.uploadItems.push(item);
-      }
-
+    processUpload: async function(type) {
       let uploadSuccess = 0;
       while (this.$store.state.uploadItems.length > 0) {
         const item = this.$store.state.uploadItems.shift();
         const formData = item.file;
         const uploadPath = item.path;
+        const id = item.id;
+        const type = item.type;
 
         try {
-          await this.$store.dispatch("upload", { formData, uploadPath });
+          await this.$store.dispatch("upload", {
+            formData,
+            uploadPath,
+            id,
+            type
+          });
           uploadSuccess = uploadSuccess + 1;
         } catch (error) {
           console.error(error);
@@ -107,12 +81,69 @@ export default {
       this.$store.commit(types.SHOW_SNACKBAR, data);
       this.$store.commit(types.SET_IS_UPLOADING, 2);
 
-      this.$refs.formFile.reset();
+      if (type == "file") {
+        this.$refs.formFile.reset();
+      } else if (type == "folder") {
+        this.$refs.formFolder.reset();
+      }
+    },
+    selectFile: function() {
+      const inputFile = this.$refs.inputFile;
+      if (inputFile) {
+        inputFile.click();
+      } else {
+        console.log("error");
+      }
+    },
+    selectFolder: function() {
+      const inputFolder = this.$refs.inputFolder;
+      if (inputFolder) {
+        inputFolder.click();
+      } else {
+        console.log("error");
+      }
+    },
+    processFile: function() {
+      var files = this.$refs.inputFile.files;
+      const uploadPath = this.$store.state.selectedDirectory;
+
+      for (var i = 0; i < files.length; i++) {
+        const item = {};
+        let file = files[i];
+        file.id = i;
+
+        const formData = new FormData();
+        formData.append("files", file);
+
+        item.id =
+          file.name +
+          i +
+          file.lastModified +
+          Math.random() +
+          file.size +
+          Date.now();
+        item.icon = "assessment";
+        item.file = formData;
+        item.path = uploadPath;
+
+        item.type = "file";
+        item.iconClass = "grey lighten-1 white--text";
+        item.title = file.name;
+        item.subtitle = "";
+        item.uploadPercent = 0;
+        item.size = file.size;
+
+        this.$store.state.uploadItems.push(item);
+        this.$store.state.uploadItemsMenu.push(item);
+      }
+
+      this.processUpload("file");
     },
     processFolder: async function() {
       var files = this.$refs.inputFolder.files;
       let selectedPath = this.$store.state.selectedDirectory;
 
+      // let size = 0;
       for (var i = 0; i < files.length; i++) {
         const item = {};
         let file = files[i];
@@ -138,40 +169,41 @@ export default {
 
         const uploadPath = Buffer.from(encodePath).toString("base64");
 
+        item.id =
+          file.name +
+          i +
+          Math.random() +
+          file.lastModified +
+          file.size +
+          Date.now();
+        item.icon = "assessment";
         item.file = formData;
         item.path = uploadPath;
 
+        item.type = "file";
+        item.iconClass = "grey lighten-1 white--text";
+        item.title = file.name;
+        item.subtitle = "";
+        item.uploadPercent = 0;
+        item.size = file.size;
+        // item.id = file.name + i + file.lastModified + file.size + Date.now();
+        // item.file = formData;
+        // item.path = uploadPath;
+        // size = size + file.size;
+
         this.$store.state.uploadItems.push(item);
+        this.$store.state.uploadItemsMenu.push(item);
       }
 
-      let uploadSuccess = 0;
-      while (this.$store.state.uploadItems.length > 0) {
-        const item = this.$store.state.uploadItems.shift();
-        const formData = item.file;
-        const uploadPath = item.path;
+      // item.size = size;
+      // item.type = "folder";
+      // item.iconClass = "grey lighten-1 white--text";
+      // item.uploadPercent = 0;
+      // item.icon = "folder";
+      // item.itemUploaded = 0;
+      // this.$store.state.uploadItemsMenu.push(item);
 
-        try {
-          await this.$store.dispatch("upload", { formData, uploadPath });
-
-          uploadSuccess = uploadSuccess + 1;
-        } catch (error) {
-          console.error(error);
-        }
-
-        this.$store.dispatch("update", {
-          path: this.$store.state.selectedDirectory
-        });
-      }
-
-      var data = {
-        data: `${uploadSuccess} files uploaded.`,
-        color: "success"
-      };
-
-      this.$store.commit(types.SHOW_SNACKBAR, data);
-
-      this.$store.commit(types.SET_IS_UPLOADING, 2);
-      this.$refs.formFolder.reset();
+      this.processUpload("folder");
     }
   }
 };

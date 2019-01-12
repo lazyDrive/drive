@@ -7,6 +7,8 @@ export default {
   // The currently selected items
   uploadItems: [],
   // The currently selected items
+  uploadItemsMenu: [],
+  // The currently selected items
   diskLoaded: [],
   // The currently selected dir
   selectedDirectory: 'my-drive',
@@ -14,6 +16,8 @@ export default {
   showConfirmDeleteModal: false,
   // The state of create folder model
   showCreateFolderModal: false,
+  // The state of showUploadMenu
+  showUploadMenu: false,
   // The state of preview model
   showPreviewModal: false,
   // The state of share model

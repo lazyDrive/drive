@@ -257,14 +257,22 @@ export default {
           const item = {};
 
           formData.append("files", file);
-
-          item.id = i;
+          item.id = file.name + i + file.lastModified + file.size + Date.now();
+          item.icon = "assessment";
           item.file = formData;
           item.path = uploadPath;
+          item.type = 'file';
+          item.iconClass = "grey lighten-1 white--text";
+          item.title = file.name;
+          item.subtitle = "";
+          item.size = file.size;
+          item.uploadPercent = 0;
 
           this.$store.state.uploadItems.push(item);
+          this.$store.state.uploadItemsMenu.push(item);
         }
-        this.dragUpload();
+
+        this.$emit("tiggerdragUpload");
       }
 
       document.querySelector(".media-dragoutline").classList.remove("active");

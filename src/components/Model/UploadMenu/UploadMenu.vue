@@ -1,46 +1,55 @@
 <template>
   <div id="media-create-folder">
-    <v-dialog v-model="yes" persistent width="800px">
+    <v-dialog v-model="this.$store.state.showUploadMenu" persistent width="800px">
       <v-card class="elevation-12">
-        <v-toolbar height="50px" light>
+        <v-toolbar height="50px" light flat>
           <strong>Upload details</strong>
           <v-spacer></v-spacer>
-          <v-btn small color="success">Add more files</v-btn>
-          <v-btn small color="primary">Hide</v-btn>
+
+          <v-menu offset-y>
+            <v-btn slot="activator" color="primary" small>Add more files</v-btn>
+            <v-list>
+              <v-list-tile v-for="(item, index) in items" :key="index" @click="fire(item.link)">
+                <v-list-tile-title>{{ item.title }}</v-list-tile-title>
+              </v-list-tile>
+            </v-list>
+          </v-menu>
+
+          <v-btn
+            small
+            color="success"
+            @click.prevent="done()"
+            v-if="this.$store.state.isUploading == 2"
+          >Done</v-btn>
+          <v-btn small color="error" @click.prevent="hide()" v-else>Hide</v-btn>
         </v-toolbar>
+
         <v-list subheader class="scroll-section">
-          <v-subheader>
-            <strong>Folders</strong>
-          </v-subheader>
-          <v-list-tile v-for="item in itemsupload" :key="item.title" avatar @click="1">
-            <div class="progress" :style="`width: ${item.prog}%`"></div>
+          <v-subheader>Files & Folder</v-subheader>
+          <v-list-tile v-for="item in uploadingItems" :key="item.id" @click="1">
+            <div
+              class="progress progress--going"
+              v-if="item.uploadPercent < 100"
+              :style="`width: ${item.uploadPercent}%`"
+            ></div>
+            <div
+              class="progress progress--success"
+              v-else-if="item.uploadPercent = 100"
+              :style="`width: ${item.uploadPercent}%`"
+            ></div>
             <v-list-tile-avatar>
               <v-icon :class="[item.iconClass]">{{ item.icon }}</v-icon>
             </v-list-tile-avatar>
             <v-list-tile-content>
               <v-list-tile-title style="font-size: 14px;">{{ item.title }}</v-list-tile-title>
+              <v-list-tile-title style="font-size: 14px;"><span style="color:blue">Size: {{ item.size }}</span></v-list-tile-title>
             </v-list-tile-content>
             <v-list-tile-action>
-              <v-btn small icon color="error">
-                <v-icon color="white lighten-1">close</v-icon>
-              </v-btn>
-            </v-list-tile-action>
-          </v-list-tile>
-
-          <v-divider></v-divider>
-
-          <v-subheader>Files</v-subheader>
-          <v-list-tile v-for="item in items2upload" :key="item.title" @click="1">
-            <div class="progress" :style="`width: ${item.prog}%`"></div>
-            <v-list-tile-avatar>
-              <v-icon :class="[item.iconClass]">{{ item.icon }}</v-icon>
-            </v-list-tile-avatar>
-            <v-list-tile-content>
-              <v-list-tile-title style="font-size: 14px;">{{ item.title }}</v-list-tile-title>
-            </v-list-tile-content>
-            <v-list-tile-action>
-              <v-btn small icon color="success">
+              <v-btn small icon color="success" v-if="item.uploadPercent == 100">
                 <v-icon color="white lighten-1">check</v-icon>
+              </v-btn>
+              <v-btn small icon color="error" v-else>
+                <v-icon color="white lighten-1">close</v-icon>
               </v-btn>
             </v-list-tile-action>
           </v-list-tile>
@@ -51,95 +60,35 @@
 </template>
 
 <script>
-import * as types from "./../../../store/mutation-types";
-
 export default {
   name: "media-upload-menu",
   data: () => ({
-    yes: true,
-    itemsupload: [
-      {
-        icon: "folder",
-        iconClass: "grey lighten-1 white--text",
-        title: "Photos",
-        subtitle: "Jan 9, 2014",
-        prog: 12
-      },
-      {
-        icon: "folder",
-        iconClass: "grey lighten-1 white--text",
-        title: "Recipes",
-        prog: 40,
-        subtitle: "Jan 17, 2014"
-      },
-      {
-        icon: "folder",
-        iconClass: "grey lighten-1 white--text",
-        title: "Work",
-        prog: 19,
-        subtitle: "Jan 28, 2014"
-      }
-    ],
-    items2upload: [
-      {
-        icon: "assignment",
-        iconClass: "blue white--text",
-        title: "Vacation itinerary",
-        prog: 92,
-        subtitle: "Jan 20, 2014"
-      },
-      {
-        icon: "call_to_action",
-        iconClass: "amber white--text",
-        title: "Kitchen remodel",
-        prog: 82,
-        subtitle: "Jan 10, 2014"
-      },
-      {
-        icon: "call_to_action",
-        iconClass: "amber white--text",
-        title: "Kitchen remodel",
-        prog: 82,
-        subtitle: "Jan 10, 2014"
-      },
-      {
-        icon: "call_to_action",
-        iconClass: "amber white--text",
-        title: "Kitchen remodel",
-        prog: 82,
-        subtitle: "Jan 10, 2014"
-      },
-      {
-        icon: "call_to_action",
-        iconClass: "amber white--text",
-        title: "Kitchen remodel",
-        prog: 82,
-        subtitle: "Jan 10, 2014"
-      },
-      {
-        icon: "call_to_action",
-        iconClass: "amber white--text",
-        title: "Kitchen remodel",
-        prog: 82,
-        subtitle: "Jan 10, 2014"
-      },
-      {
-        icon: "call_to_action",
-        iconClass: "amber white--text",
-        title: "Kitchen remodel",
-        prog: 82,
-        subtitle: "Jan 10, 2014"
-      }
+    items: [
+      { title: "Upload File", link: "fileUpload" },
+      { title: "Upload Folder", link: "folderUpload" }
     ]
   }),
-
+  computed: {
+    uploadingItems: function() {
+      return this.$store.state.uploadItemsMenu;
+    }
+  },
   methods: {
-    hideCreateFolderModal: function() {
-      this.$store.commit(types.HIDE_CREATE_FOLDER_MODAL);
+    hide: function() {
+      this.$store.state.isUploading = false;
+      this.$store.state.showUploadMenu = false;
     },
-    create: function() {
-      const foldername = this.defaultData;
-      this.$store.dispatch("createDirectory", { foldername });
+    done: function() {
+      this.hide();
+    },
+    fileUpload: function() {
+      this.$emit("tiggerSelectFile");
+    },
+    folderUpload: function() {
+      this.$emit("tiggerSelectFolder");
+    },
+    fire: function(a) {
+      this[a](a);
     }
   }
 };

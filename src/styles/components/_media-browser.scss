@@ -136,22 +136,19 @@
     left: 0;
     right: 0;
     z-index: 0;
-    background :#38b8e9;
+    border-bottom: 0.1px solid grey;
     position: absolute!important;
 }
-.progress .pgoing{
-    background: #38b8e9;
+.progress--going{
+    background: #c8ddf3;
 }
-
-.progress .--error{
-    background: #ff5252;
+.progress--error{
+    background: #ff525278;
 }
-
-.progress .--success{
-    background: #4caf50;
+.progress--success{
+    background: #edfaf1;
 }
-
-.progress .--paused{
+.progress--paused{
     background: #ffc107;
 }
 .taskContainer{
