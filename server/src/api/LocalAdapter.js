@@ -167,6 +167,10 @@ class LocalAdapter {
    *
    */
   getPathInformation(path, item) {
+    const eventType = this.req.params.type;
+    const eventCache = this.req.params.cache;
+    const eventControl = this.req.params.event;
+
     const itemDataObj = {};
     const shasum = crypto.createHash('sha1');
     const stats = fs.statSync(path + item);
@@ -196,14 +200,14 @@ class LocalAdapter {
 
         itemDataObj.imgLazyUrl = `/api/images/${Buffer.from(path + item).toString('base64')}/t/${itemDataObj.extension}/d/200/200/m/${itemDataObj.mime_type}/${itemDataObj.id}`;
         itemDataObj.imgUrl = `/api/images/${Buffer.from(path + item).toString('base64')}/t/${itemDataObj.extension}/d/200/200/m/${itemDataObj.mime_type}/${itemDataObj.id}`;
-      } else if (itemDataObj.extension === 'pdf') {
+      } else if (itemDataObj.extension === 'pdf' && eventControl !== 'subscribe') {
         const padfImagePath = cacheApi.genPdfImage(path + item);
 
         if (fs.existsSync(padfImagePath)) {
           itemDataObj.imgLazyUrl = `/api/images/${Buffer.from(padfImagePath).toString('base64')}/t/png/d/200/200/m/image/png/${itemDataObj.id}`;
           itemDataObj.imgUrl = `/api/images/${Buffer.from(padfImagePath).toString('base64')}/t/png/d/200/200/m/image/png/${itemDataObj.id}`;
         }
-      } else if (itemDataObj.extension === 'mp4') {
+      } else if (itemDataObj.extension === 'mp4' && eventControl !== 'subscribe') {
         const name = `${item.split('.').slice(0, -1).join('.')}.png`;
 
         const targeVideo = `.cache/${path}${name}`;
@@ -243,7 +247,7 @@ class LocalAdapter {
         //   // Do not forget to close the file once you're done
         //   zip.close();
         // });
-      } else if (itemDataObj.extension === 'txt' || itemDataObj.extension === 'js' || itemDataObj.extension === 'html ') {
+      } else if (itemDataObj.extension === 'txt' || itemDataObj.extension === 'js' || itemDataObj.extension === 'html ' && eventControl !== 'subscribe') {
         itemDataObj.fileData = fs.readFileSync(path + item, 'utf8');
       }
 

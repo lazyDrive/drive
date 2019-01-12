@@ -137,7 +137,9 @@ export default {
         this.$store.state.uploadItemsMenu.push(item);
       }
 
-      this.processUpload("file");
+      if (this.$store.state.isUploading !== true) {
+        this.processUpload("file");
+      }
     },
     processFolder: async function() {
       var files = this.$refs.inputFolder.files;
@@ -202,8 +204,9 @@ export default {
       // item.icon = "folder";
       // item.itemUploaded = 0;
       // this.$store.state.uploadItemsMenu.push(item);
-
-      this.processUpload("folder");
+      if (this.$store.state.isUploading !== true) {
+        this.processUpload("folder");
+      }
     }
   }
 };

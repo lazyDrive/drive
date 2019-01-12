@@ -25,6 +25,7 @@ class Api {
     return axios.create({
       headers: {
         Authorization: `Bearer ${this.mediastorage.cookies.get('token')}`,
+        'X-Requested-With': 'XMLHttpRequest',
         csrfToken: process.env.VUE_APP_SECRET
       }
     });

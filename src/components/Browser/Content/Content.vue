@@ -261,7 +261,7 @@ export default {
           item.icon = "assessment";
           item.file = formData;
           item.path = uploadPath;
-          item.type = 'file';
+          item.type = "file";
           item.iconClass = "grey lighten-1 white--text";
           item.title = file.name;
           item.subtitle = "";
@@ -271,8 +271,9 @@ export default {
           this.$store.state.uploadItems.push(item);
           this.$store.state.uploadItemsMenu.push(item);
         }
-
-        this.$emit("tiggerdragUpload");
+        if (this.$store.state.isUploading !== true) {
+          this.$emit("tiggerdragUpload");
+        }
       }
 
       document.querySelector(".media-dragoutline").classList.remove("active");

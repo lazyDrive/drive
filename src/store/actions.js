@@ -44,8 +44,10 @@ export const update = (context, payload) => {
 
   let path = payload.path || context.state.selectedDirectory;
 
+  const state = (context.state.isUploading === true) ? 'subscribe' : 'eventCacheUpdate';
+
   api.axios()
-    .get(`api/getFiles/${path}`)
+    .get(`api/getFiles/${path}/update/nocache/${state}`)
     .then(response => {
       context.commit(types.LOAD_CONTENTS_SUCCESS, response.data.contents)
     })

@@ -62,7 +62,7 @@ const upload = multer({
 
 
 // Get fies
-router.get('/getFiles/:dir', checkAuth, ApiController.getFiles);
+router.get('/getFiles/:dir/:type?/:cache?/:event?', checkAuth, ApiController.getFiles);
 
 // get thirdParty files
 router.get('/thirdParty/:path/t/:type', checkFileAccess, ApiController.thirdParty);
