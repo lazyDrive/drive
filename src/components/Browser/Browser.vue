@@ -81,18 +81,30 @@ export default {
         this.$store.state.uploadItems.push(item);
       }
 
+      let uploadSuccess = 0;
       while (this.$store.state.uploadItems.length > 0) {
         const item = this.$store.state.uploadItems.shift();
         const formData = item.file;
         const uploadPath = item.path;
 
-        await this.$store.dispatch("upload", { formData, uploadPath });
+        try {
+          await this.$store.dispatch("upload", { formData, uploadPath });
+          uploadSuccess = uploadSuccess + 1;
+        } catch (error) {
+          console.error(error);
+        }
 
         this.$store.dispatch("update", {
           path: this.$store.state.selectedDirectory
         });
       }
 
+      var data = {
+        data: `${uploadSuccess} files uploaded.`,
+        color: "success"
+      };
+
+      this.$store.commit(types.SHOW_SNACKBAR, data);
       this.$store.commit(types.SET_IS_UPLOADING, 2);
 
       this.$refs.formFile.reset();
@@ -132,17 +144,31 @@ export default {
         this.$store.state.uploadItems.push(item);
       }
 
+      let uploadSuccess = 0;
       while (this.$store.state.uploadItems.length > 0) {
         const item = this.$store.state.uploadItems.shift();
         const formData = item.file;
         const uploadPath = item.path;
 
-        await this.$store.dispatch("upload", { formData, uploadPath });
+        try {
+          await this.$store.dispatch("upload", { formData, uploadPath });
+
+          uploadSuccess = uploadSuccess + 1;
+        } catch (error) {
+          console.error(error);
+        }
+
+        this.$store.dispatch("update", {
+          path: this.$store.state.selectedDirectory
+        });
       }
 
-      this.$store.dispatch("update", {
-        path: this.$store.state.selectedDirectory
-      });
+      var data = {
+        data: `${uploadSuccess} files uploaded.`,
+        color: "success"
+      };
+
+      this.$store.commit(types.SHOW_SNACKBAR, data);
 
       this.$store.commit(types.SET_IS_UPLOADING, 2);
       this.$refs.formFolder.reset();

@@ -29,7 +29,9 @@
 
         <v-layout row wrap class="m-section" v-if="isEmpty.length > 0">
           <v-spacer></v-spacer>
-          <strong>Drop your files here or use upload button.</strong>
+          <div class="empty-folder">
+            <strong>Drop your files here or use upload button.</strong>
+          </div>
           <v-spacer></v-spacer>
         </v-layout>
 
@@ -162,7 +164,7 @@ export default {
       console.log("yes");
     },
     /* Unselect all browser items */
-    unselectAllBrowserItems(event) {
+    unselectAllBrowserItems: function(event) {
       const notClickedBrowserItems =
         (this.$refs.browserItems &&
           !this.$refs.browserItems.contains(event.target)) ||
@@ -183,41 +185,50 @@ export default {
       }
     },
     // Listeners for drag and drop
-    onDragEnter(event) {
+    onDragEnter: function(event) {
       event.stopPropagation();
       return false;
     },
 
     // Notify user when file is over the drop area
-    onDragOver(event) {
+    onDragOver: function(event) {
       event.preventDefault();
       document.querySelector(".media-dragoutline").classList.add("active");
       return false;
     },
 
     /* Upload files */
-    async upload() {
+    dragUpload: async function() {
+      let uploadSuccess = 0;
       while (this.$store.state.uploadItems.length > 0) {
         const item = this.$store.state.uploadItems.shift();
         const formData = item.file;
         const uploadPath = item.path;
 
-        await this.$store.dispatch("upload", { formData, uploadPath });
+        try {
+          await this.$store.dispatch("upload", { formData, uploadPath });
+          uploadSuccess = uploadSuccess + 1;
+        } catch (error) {
+          console.error(error);
+        }
 
         this.$store.dispatch("update", {
           path: this.$store.state.selectedDirectory
         });
       }
+      var data = {
+        data: `${uploadSuccess} files uploaded.`,
+        color: "success"
+      };
 
+      this.$store.commit(types.SHOW_SNACKBAR, data);
       this.$store.commit(types.SET_IS_UPLOADING, 2);
     },
 
-    // Logic for the dropped file
-    onDrop(event) {
+    onDrop: function(event) {
       event.preventDefault();
       const uploadPath = this.$store.state.selectedDirectory;
 
-      // Loop through array of files and upload each file
       if (
         event.dataTransfer &&
         event.dataTransfer.files &&
@@ -240,14 +251,14 @@ export default {
 
           this.$store.state.uploadItems.push(item);
         }
-        this.upload();
+        this.dragUpload();
       }
 
       document.querySelector(".media-dragoutline").classList.remove("active");
     },
 
     // Reset the drop area border
-    onDragLeave(event) {
+    onDragLeave: function(event) {
       event.stopPropagation();
       event.preventDefault();
       document.querySelector(".media-dragoutline").classList.remove("active");
