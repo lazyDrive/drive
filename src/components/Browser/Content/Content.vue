@@ -36,20 +36,20 @@
           <media-file v-for="item in quick" :item="item" :key="item.id"></media-file>
         </v-layout>
 
-        <v-layout row wrap class="m-section" v-if="folders.length > 0">
-          <span class="media-section-title">
+        <v-checkbox v-model="selectAllFolder" color="indigo" v-if="folders.length > 0">
+          <div slot="label">
             <strong>Folders</strong>
-          </span>
-        </v-layout>
+          </div>
+        </v-checkbox>
         <v-layout row wrap>
           <media-folder v-for="item in folders" :item="item" :key="item.id"></media-folder>
         </v-layout>
 
-        <v-layout row wrap class="m-section" v-if="files.length > 0">
-          <span class="media-section-title">
+        <v-checkbox v-model="selectAllFile" color="indigo"  v-if="files.length > 0">
+          <div slot="label">
             <strong>Files</strong>
-          </span>
-        </v-layout>
+          </div>
+        </v-checkbox>
         <v-layout row wrap>
           <media-file v-for="item in files" :item="item" :key="item.id"></media-file>
         </v-layout>
@@ -57,7 +57,7 @@
     </v-container>
 
     <!-- Add infrobar -->
-    <media-infrobar ref="infobar"></media-infrobar>
+    <media-infrobar v-if="this.$store.state.showInfoBar" ref="infobar"></media-infrobar>
   </v-content>
 </template>
 
@@ -66,7 +66,26 @@ import * as types from "./../../../store/mutation-types";
 
 export default {
   name: "media-content",
-  data: () => ({}),
+  data: () => ({
+    selectAllFile: false,
+    selectAllFolder: false
+  }),
+  watch: {
+    selectAllFile: function(val) {
+      if (val) {
+        this.selectAllFiles();
+      } else {
+        this.unselectAllFiles();
+      }
+    },
+    selectAllFolder: function(val) {
+      if (val) {
+        this.selectAllFolders();
+      } else {
+        this.unselectAllFolders();
+      }
+    }
+  },
   computed: {
     quick: function() {
       return this.$store.state.contents.filter(item => item.type == "quick");
@@ -105,6 +124,30 @@ export default {
       } else {
         this.$store.commit(types.SET_IS_LOADING_MORE, false);
       }
+    },
+    selectAllFiles: function() {
+      const files = this.files;
+      files.forEach(item => {
+        this.$store.commit(types.SELECT_BROWSER_ITEM, item);
+      });
+    },
+    unselectAllFiles: function() {
+      const files = this.files;
+      files.forEach(item => {
+        this.$store.commit(types.UNSELECT_BROWSER_ITEM, item);
+      });
+    },
+    selectAllFolders: function() {
+      const folders = this.folders;
+      folders.forEach(item => {
+        this.$store.commit(types.SELECT_BROWSER_ITEM, item);
+      });
+    },
+    unselectAllFolders: function() {
+      const folders = this.folders;
+      folders.forEach(item => {
+        this.$store.commit(types.UNSELECT_BROWSER_ITEM, item);
+      });
     },
     loadDir: function() {
       console.log("yes");
