@@ -164,6 +164,8 @@ export default {
       const clickedOutside = notClickedBrowserItems && (notClickedInfobar || !this.$store.state.showInfoBar);
       if (clickedOutside && !this.$store.state.modelBackdrop) {
         this.$store.commit(types.UNSELECT_ALL_BROWSER_ITEMS);
+        this.selectAllFile = false;
+        this.selectAllFolder = false;
       } else {
         this.$store.dispatch("update", {
           path: this.$store.state.selectedDirectory
