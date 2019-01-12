@@ -161,7 +161,7 @@ export default {
       const notClickedInfobar =
         this.$refs.infobar !== undefined &&
         !this.$refs.infobar.$el.contains(event.target);
-      const clickedOutside = notClickedBrowserItems && notClickedInfobar;
+      const clickedOutside = notClickedBrowserItems && (notClickedInfobar || !this.$store.state.showInfoBar);
       if (clickedOutside && !this.$store.state.modelBackdrop) {
         this.$store.commit(types.UNSELECT_ALL_BROWSER_ITEMS);
       } else {

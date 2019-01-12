@@ -104,7 +104,6 @@
       ></v-text-field>
       <v-spacer></v-spacer>
 
-      <!-- <v-progress-circular :width="2" color="blue" indeterminate></v-progress-circular> -->
       <v-btn icon class="uploading" v-if="this.$store.state.isUploading == true">
         <v-icon medium color="green">cloud_upload</v-icon>
       </v-btn>
