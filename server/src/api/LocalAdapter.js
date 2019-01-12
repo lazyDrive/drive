@@ -56,6 +56,12 @@ class LocalAdapter {
       data.push(itemData);
     });
 
+    if (data.length === 0) {
+      const itemDataObj = {};
+      itemDataObj.type = 'empty';
+      data.push(itemDataObj);
+    }
+
     return data;
   }
 
@@ -75,7 +81,6 @@ class LocalAdapter {
    *
    */
   createDir(path) {
-
     if (fs.existsSync(path) && fs.statSync(path).isDirectory()) {
       this.res.status(409).json({
         message: 'Folder already exist.',

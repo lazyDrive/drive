@@ -23,9 +23,15 @@
         ref="browserItems"
       >
         <div class="media-dragoutline">
-          <v-icon size="200">cloud_upload</v-icon>
+          <v-icon size="100">cloud_upload</v-icon>
           <p>Drop file(s) to Upload</p>
         </div>
+
+        <v-layout row wrap class="m-section" v-if="isEmpty.length > 0">
+          <v-spacer></v-spacer>
+          <strong>Drop your files here or use upload button.</strong>
+          <v-spacer></v-spacer>
+        </v-layout>
 
         <v-layout row wrap class="m-section" v-if="quick.length > 0">
           <span class="media-section-title">
@@ -45,7 +51,7 @@
           <media-folder v-for="item in folders" :item="item" :key="item.id"></media-folder>
         </v-layout>
 
-        <v-checkbox v-model="selectAllFile" color="indigo"  v-if="files.length > 0">
+        <v-checkbox v-model="selectAllFile" color="indigo" v-if="files.length > 0">
           <div slot="label">
             <strong>Files</strong>
           </div>
@@ -92,6 +98,9 @@ export default {
     },
     diskLoaded: function() {
       return this.$store.state.diskLoaded;
+    },
+    isEmpty: function() {
+      return this.$store.state.contents.filter(item => item.type == "empty");
     },
     folders: function() {
       return this.$store.state.contents.filter(
@@ -161,7 +170,8 @@ export default {
       const notClickedInfobar =
         this.$refs.infobar !== undefined &&
         !this.$refs.infobar.$el.contains(event.target);
-      const clickedOutside = notClickedBrowserItems && (notClickedInfobar || !this.$store.state.showInfoBar);
+      const clickedOutside = notClickedBrowserItems && notClickedInfobar;
+
       if (clickedOutside && !this.$store.state.modelBackdrop) {
         this.$store.commit(types.UNSELECT_ALL_BROWSER_ITEMS);
         this.selectAllFile = false;
@@ -186,29 +196,26 @@ export default {
     },
 
     /* Upload files */
-    upload(file) {
-      // Create a new file reader instance
-      let reader = new FileReader();
+    async upload() {
+      while (this.$store.state.uploadItems.length > 0) {
+        const item = this.$store.state.uploadItems.shift();
+        const formData = item.file;
+        const uploadPath = item.path;
 
-      // Add the on load callback
-      reader.onload = progressEvent => {
-        const result = progressEvent.target.result,
-          splitIndex = result.indexOf("base64") + 7,
-          content = result.slice(splitIndex, result.length);
+        await this.$store.dispatch("upload", { formData, uploadPath });
 
-        console.log(content);
-        const formData = new FormData();
-        formData.append("files", file);
-        const uploadPath = this.$store.state.selectedDirectory;
-        this.$store.dispatch("upload", { formData, uploadPath });
-      };
+        this.$store.dispatch("update", {
+          path: this.$store.state.selectedDirectory
+        });
+      }
 
-      reader.readAsDataURL(file);
+      this.$store.commit(types.SET_IS_UPLOADING, 2);
     },
 
     // Logic for the dropped file
     onDrop(event) {
       event.preventDefault();
+      const uploadPath = this.$store.state.selectedDirectory;
 
       // Loop through array of files and upload each file
       if (
@@ -221,8 +228,19 @@ export default {
           document
             .querySelector(".media-dragoutline")
             .classList.remove("active");
-          this.upload(file);
+
+          const formData = new FormData();
+          const item = {};
+
+          formData.append("files", file);
+
+          item.id = i;
+          item.file = formData;
+          item.path = uploadPath;
+
+          this.$store.state.uploadItems.push(item);
         }
+        this.upload();
       }
 
       document.querySelector(".media-dragoutline").classList.remove("active");
