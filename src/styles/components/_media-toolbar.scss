@@ -5,6 +5,7 @@
   background-color: $toolbar-bg;
   border-bottom: 1px solid $border-color;
   border-radius: $border-radius $border-radius 0 0;
+
   input {
     padding: .375rem .75rem;
     color: #495057;
@@ -21,6 +22,7 @@
   text-align: center;
   border-left: 1px solid $border-color;
   box-shadow: 1px 0 #fefefe inset;
+
   &:hover {
     background-color: $toolbar-icon-bg-hover;
     box-shadow: none;
@@ -36,7 +38,9 @@
     span {
       opacity: .3;
     }
-    &:hover, span:hover {
+
+    &:hover,
+    span:hover {
       cursor: default;
     }
   }
@@ -69,6 +73,21 @@
   }
 }
 
-.m-over-toolbar{
-  border-bottom: 1px solid #ced4da!important;
+.m-over-toolbar {
+  border-bottom: 1px solid #ced4da !important;
+}
+
+.uploading{
+  animation: changeColor 1s infinite;
+}
+
+
+@keyframes changeColor {
+  from {
+    box-shadow:  0 0 20px 3px gold;
+  }
+
+  to {
+    box-shadow:  0 0 0 3px skyblue;
+  }
 }

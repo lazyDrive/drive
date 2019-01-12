@@ -50,7 +50,6 @@ export default {
       for (var i = 0; i < items.length; i++) {
         const item = items[i];
         response = await this.$store.dispatch("deleteFile", item);
-        console.log(response);
       }
 
       var data = {

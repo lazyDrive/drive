@@ -104,13 +104,21 @@
       ></v-text-field>
       <v-spacer></v-spacer>
 
+      <!-- <v-progress-circular :width="2" color="blue" indeterminate></v-progress-circular> -->
+      <v-btn icon class="uploading" v-if="this.$store.state.isUploading == true">
+        <v-icon medium color="green">cloud_upload</v-icon>
+      </v-btn>
+      <v-btn icon v-else-if="this.$store.state.isUploading == 2">
+        <v-icon medium color="green">cloud_done</v-icon>
+      </v-btn>
+
       <v-btn icon>
-        <v-icon large>notifications</v-icon>
+        <v-icon medium>settings</v-icon>
       </v-btn>
 
       <v-menu v-model="menu" :close-on-content-click="false" :nudge-width="200" offset-y>
-        <v-btn icon large slot="activator">
-          <v-avatar size="32px" tile>
+        <v-btn icon slot="activator">
+          <v-avatar size="30px" tile>
             <img src="./../../../assets/profile.png" alt="Profile Image">
           </v-avatar>
         </v-btn>

@@ -63,7 +63,7 @@ export const upload = (context, payload) => {
 
   return new Promise((resolve, reject) => {
 
-    context.commit(types.SET_IS_LOADING, true)
+    context.commit(types.SET_IS_UPLOADING, true)
     // context.commit(types.SHOW_TOOL_MODAL, true)
 
     api.axios()

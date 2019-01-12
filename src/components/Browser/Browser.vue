@@ -93,7 +93,7 @@ export default {
         });
       }
 
-      this.$store.commit(types.SET_IS_LOADING, false);
+      this.$store.commit(types.SET_IS_UPLOADING, 2);
 
       this.$refs.formFile.reset();
     },
@@ -144,7 +144,7 @@ export default {
         path: this.$store.state.selectedDirectory
       });
 
-      this.$store.commit(types.SET_IS_LOADING, false);
+      this.$store.commit(types.SET_IS_UPLOADING, 2);
       this.$refs.formFolder.reset();
     }
   }

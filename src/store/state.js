@@ -51,6 +51,8 @@ export default {
   modelBackdrop: false,
   // The loading state
   isLoading: false,
+  // The loading state
+  isUploading: false,
   // Is mobile
   isMobile: false,
   // Token

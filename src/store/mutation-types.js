@@ -1,6 +1,8 @@
 // Loading state
 export const SET_IS_LOADING = 'SET_IS_LOADING';
 
+export const SET_IS_UPLOADING = 'SET_IS_UPLOADING';
+
 export const SET_IS_LOADING_MORE = 'SET_IS_LOADING_MORE';
 
 // Selecting media items
