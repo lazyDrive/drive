@@ -18,7 +18,10 @@ export const getContents = (context, payload) => {
   let path = payload.path || context.state.selectedDirectory;
 
   api.axios()
-    .get(`api/getFiles/${path}`)
+    .get(`api/getFiles/${path}`, {
+      retry: 10,
+      retryDelay: 1000
+    })
     .then(response => {
       context.state.selectedDirectory = path;
       if (path != 'my-drive') {
@@ -71,6 +74,8 @@ export const upload = (context, payload) => {
 
     api.axios()
       .post(`api/upload/${payload.uploadPath}`, payload.formData, {
+        retry: 10,
+        retryDelay: 1000,
         onUploadProgress: e => {
           if (foundIndex !== -1) {
             context.state.uploadItemsMenu[foundIndex].uploadPercent = Math.round(e.loaded * 100 / e.total);
