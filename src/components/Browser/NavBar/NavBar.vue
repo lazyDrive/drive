@@ -104,11 +104,11 @@
       ></v-text-field>
       <v-spacer></v-spacer>
 
-      <v-btn icon class="uploading" v-if="this.$store.state.isUploading == true">
-        <v-icon medium color="green" @click.prevent="showUploadMenu()">cloud_upload</v-icon>
+      <v-btn icon class="uploading" @click="showUploadMenu()" v-if="this.$store.state.isUploading == true">
+        <v-icon medium color="green" >cloud_upload</v-icon>
       </v-btn>
-      <v-btn icon v-else-if="this.$store.state.isUploading == 2">
-        <v-icon medium color="green" @click.prevent="showUploadMenu()">cloud_done</v-icon>
+      <v-btn icon @click="showUploadMenu()" v-else-if="this.$store.state.isUploading == 2">
+        <v-icon medium color="green" >cloud_done</v-icon>
       </v-btn>
 
       <v-btn icon>
