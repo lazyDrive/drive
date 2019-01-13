@@ -73,9 +73,8 @@ export default {
     getShareableLike: function(e) {
       console.log(e);
     },
-    viewDetails: function(e) {
+    viewDetails: function() {
       this.$store.commit(types.SHOW_INFOBAR);
-      console.log(e);
     },
     stars: function(e) {
       console.log(e);

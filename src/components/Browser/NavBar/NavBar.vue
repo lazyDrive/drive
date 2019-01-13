@@ -103,17 +103,45 @@
         class="hidden-sm-and-down"
       ></v-text-field>
       <v-spacer></v-spacer>
-
-      <v-btn icon class="uploading" @click="showUploadMenu()" v-if="this.$store.state.isUploading == true">
-        <v-icon medium color="green" >cloud_upload</v-icon>
+      <v-btn
+        icon
+        class="uploading"
+        @click="showUploadMenu()"
+        v-if="this.$store.state.isUploading == true"
+      >
+        <v-icon medium color="green">cloud_upload</v-icon>
       </v-btn>
       <v-btn icon @click="showUploadMenu()" v-else-if="this.$store.state.isUploading == 2">
-        <v-icon medium color="green" >cloud_done</v-icon>
+        <v-icon medium color="green">cloud_done</v-icon>
       </v-btn>
 
-      <v-btn icon>
-        <v-icon medium>settings</v-icon>
-      </v-btn>
+      <div v-if="this.$store.state.selectedItems.length > 0">
+        <v-tooltip bottom>
+          <v-btn icon slot="activator">
+            <v-icon medium>link</v-icon>
+          </v-btn>
+          <span>Get Shareable Link</span>
+        </v-tooltip>
+        <v-tooltip bottom>
+          <v-btn icon slot="activator" @click="showDeleteModel()">
+            <v-icon medium>delete</v-icon>
+          </v-btn>
+          <span>Delete</span>
+        </v-tooltip>
+        <v-tooltip bottom>
+          <v-btn icon slot="activator" @click="viewDetails()">
+            <v-icon medium>info</v-icon>
+          </v-btn>
+          <span>View Details</span>
+        </v-tooltip>
+      </div>
+
+      <v-tooltip bottom>
+        <v-btn icon slot="activator" @click="settings()">
+          <v-icon medium>settings</v-icon>
+        </v-btn>
+        <span>Settings</span>
+      </v-tooltip>
 
       <v-menu v-model="menu" :close-on-content-click="false" :nudge-width="200" offset-y>
         <v-btn icon slot="activator">
@@ -200,10 +228,16 @@ export default {
   components: {},
   mounted() {},
   methods: {
+    viewDetails: function() {
+      this.$store.commit(types.SHOW_INFOBAR);
+    },
+    showDeleteModel: function() {
+      this.$store.commit(types.SHOW_CONFIRM_DELETE_MODAL);
+    },
     newFolder: function() {
       this.$store.commit(types.SHOW_CREATE_FOLDER_MODAL);
     },
-    showUploadMenu: function(){
+    showUploadMenu: function() {
       this.$store.state.showUploadMenu = true;
     },
     settings: function() {
