@@ -91,3 +91,17 @@
     box-shadow:  0 0 5px 3px #4DD0E1;
   }
 }
+
+.sync{
+  animation: syncColor 2s infinite ease-in-out;
+}
+
+@keyframes syncColor {
+  from {
+    box-shadow:  0 0 10px 3px rgb(77, 225, 126);
+  }
+
+  to {
+    box-shadow:  0 0 5px 3px rgb(77, 225, 126);
+  }
+}
