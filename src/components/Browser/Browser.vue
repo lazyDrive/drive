@@ -188,22 +188,11 @@ export default {
         item.subtitle = "";
         item.uploadPercent = 0;
         item.size = file.size;
-        // item.id = file.name + i + file.lastModified + file.size + Date.now();
-        // item.file = formData;
-        // item.path = uploadPath;
-        // size = size + file.size;
 
         this.$store.state.uploadItems.push(item);
         this.$store.state.uploadItemsMenu.push(item);
       }
 
-      // item.size = size;
-      // item.type = "folder";
-      // item.iconClass = "grey lighten-1 white--text";
-      // item.uploadPercent = 0;
-      // item.icon = "folder";
-      // item.itemUploaded = 0;
-      // this.$store.state.uploadItemsMenu.push(item);
       if (this.$store.state.isUploading !== true) {
         this.processUpload("folder");
       }

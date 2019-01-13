@@ -1,6 +1,6 @@
 <template>
   <div id="media-create-folder">
-    <v-dialog v-model="this.$store.state.showUploadMenu" persistent width="800px">
+    <v-dialog v-model="this.$store.state.showUploadMenu" persistent width="800px" transition="fade-transition">
       <v-card class="elevation-12">
         <v-toolbar height="50px" light flat>
           <strong>Upload details</strong>
@@ -75,7 +75,6 @@ export default {
   },
   methods: {
     hide: function() {
-      this.$store.state.isUploading = false;
       this.$store.state.showUploadMenu = false;
     },
     getSize: function (_size) {
@@ -84,7 +83,8 @@ export default {
         return (Math.round(_size*100)/100)+' '+fSExt[i];
     },
     done: function() {
-      this.hide();
+      this.$store.state.isUploading = false;
+      this.$store.state.showUploadMenu = false;
     },
     fileUpload: function() {
       this.$emit("tiggerSelectFile");

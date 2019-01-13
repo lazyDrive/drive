@@ -63,7 +63,7 @@
         <tr>
           <td class="m-d-td">Size</td>
           <td class="m-d-td">
-            <strong>{{ item.size }} KB</strong>
+            <strong>{{ getSize(item.size) }}</strong>
           </td>
         </tr>
         <tr>
@@ -150,7 +150,7 @@ export default {
       }
     },
     folder: function() {
-      if (this.item.type == "folders") {
+      if (this.item.type == "dir") {
         return true;
       } else {
         return false;
@@ -167,6 +167,16 @@ export default {
       }
     }
   },
-  methods: {}
+  methods: {
+    getSize: function(_size) {
+      var fSExt = new Array("Bytes", "KB", "MB", "GB"),
+        i = 0;
+      while (_size > 900) {
+        _size /= 1024;
+        i++;
+      }
+      return Math.round(_size * 100) / 100 + " " + fSExt[i];
+    },
+  }
 };
 </script>

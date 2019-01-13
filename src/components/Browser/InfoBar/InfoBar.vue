@@ -20,7 +20,7 @@
         <v-layout row wrap>
           <v-flex>
             <div v-if="this.$store.state.selectedItems.length <= 0">
-              <v-icon size="100">comment</v-icon>
+              <v-icon size="100">description</v-icon>
               <h3 class="plz-select headline mb-0">Select file or folder to view its details.</h3>
             </div>
             <div v-if="this.$store.state.selectedItems.length > 0">
@@ -44,7 +44,6 @@ export default {
   }),
   components: {
     "media-info-file": InfoFile
-    // 'media-info-folder': InfoFolder
   },
   computed: {
     menuState: {

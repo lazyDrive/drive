@@ -1,6 +1,6 @@
 <template>
   <div id="media-confirm-model">
-    <v-dialog v-model="this.$store.state.showConfirmDeleteModal" persistent width="500px">
+    <v-dialog v-model="this.$store.state.showConfirmDeleteModal" persistent width="500px" transition="fade-transition">
       <v-card>
         <v-card-title class="grey lighten-4 title">Confirm Delete
           <v-spacer></v-spacer>

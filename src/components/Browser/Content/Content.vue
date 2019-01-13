@@ -289,8 +289,6 @@ export default {
     findNext: function(code) {
       const current = this.current();
       const total = this.$store.state.contents.length;
-      // const numFolder = this.folders.length;
-      // const numFile = this.files.length;
       const infobar = this.$store.state.showInfoBar;
       const next = current;
 
