@@ -3,7 +3,7 @@
     v-model="menuState"
     right
     :app="!this.$store.state.isMobile"
-    width="343"
+    :width="width"
     fixed
     :stateless="true"
   >
@@ -50,9 +50,12 @@ export default {
       get: function() {
         return this.$store.state.showInfoBar;
       },
-      set: function() {
-        this.$store.state.showInfoBar = false;
+      set: function(val) {
+        this.$store.state.showInfoBar = val;
       }
+    },
+    width: function(){
+      return this.$store.state.isMobile ? '100%' : '343';
     },
     files: function() {
       return this.$store.state.selectedItems;
