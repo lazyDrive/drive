@@ -19,7 +19,7 @@ export const getContents = (context, payload) => {
 
   api.axios()
     .get(`api/getFiles/${path}`, {
-      retry: 10,
+      retry: 5,
       retryDelay: 1000
     })
     .then(response => {
@@ -50,7 +50,10 @@ export const update = (context, payload) => {
   const state = (context.state.isUploading === true) ? 'subscribe' : 'eventCacheUpdate';
 
   api.axios()
-    .get(`api/getFiles/${path}/update/nocache/${state}`)
+    .get(`api/getFiles/${path}/update/nocache/${state}`, {
+      retry: 5,
+      retryDelay: 1000
+    })
     .then(response => {
       context.commit(types.LOAD_CONTENTS_SUCCESS, response.data.contents)
     })
@@ -74,7 +77,7 @@ export const upload = (context, payload) => {
 
     api.axios()
       .post(`api/upload/${payload.uploadPath}`, payload.formData, {
-        retry: 10,
+        retry: 5,
         retryDelay: 1000,
         onUploadProgress: e => {
           if (foundIndex !== -1) {
