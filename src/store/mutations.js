@@ -42,23 +42,9 @@ export default {
    * @param state
    * @param payload
    */
+  // eslint-disable-next-line
   [types.UPLOAD_SUCCESS]: (state, payload) => {
-    const file = payload;
-    const isNew = (!state.files.some(existing => (existing.path === file.path)));
 
-    // TODO handle file_exists
-    if (isNew) {
-      const parentDirectory = state.directories.find((existing) => (existing.path === file.directory));
-      const parentDirectoryIndex = state.directories.indexOf(parentDirectory);
-
-      // Add the new file to the files array
-      state.files.push(file);
-
-      // Update the relation to the parent directory
-      state.directories.splice(parentDirectoryIndex, 1, Object.assign({}, parentDirectory, {
-        files: [...parentDirectory.files, file.path]
-      }));
-    }
   },
 
   /**
@@ -66,23 +52,9 @@ export default {
    * @param state
    * @param payload
    */
+  // eslint-disable-next-line
   [types.CREATE_DIRECTORY_SUCCESS]: (state, payload) => {
 
-    const directory = payload;
-    const isNew = (!state.directories.some(existing => (existing.path === directory.path)));
-
-    if (isNew) {
-      const parentDirectory = state.directories.find((existing) => (existing.path === directory.directory));
-      const parentDirectoryIndex = state.directories.indexOf(parentDirectory);
-
-      // Add the new directory to the directory
-      state.directories.push(directory);
-
-      // Update the relation to the parent directory
-      state.directories.splice(parentDirectoryIndex, 1, Object.assign({}, parentDirectory, {
-        directories: [...parentDirectory.directories, directory.path]
-      }));
-    }
   },
 
   /**
@@ -90,17 +62,9 @@ export default {
    * @param state
    * @param payload
    */
+  // eslint-disable-next-line
   [types.RENAME_SUCCESS]: (state, payload) => {
 
-    const item = payload.item;
-    const oldPath = payload.oldPath;
-    if (item.type === 'file') {
-      const index = state.files.findIndex((file) => (file.path === oldPath));
-      state.files.splice(index, 1, item)
-    } else {
-      const index = state.directories.findIndex((directory) => (directory.path === oldPath));
-      state.directories.splice(index, 1, item)
-    }
   },
 
   /**
@@ -359,22 +323,6 @@ export default {
    */
   [types.HIDE_SETTINGS]: (state) => {
     state.showSettings = false;
-  },
-
-  /**
-   * Show the music player
-   * @param state
-   */
-  [types.SHOW_MUSIC_PLAYER]: (state) => {
-    state.showMusicPlayer = true;
-  },
-
-  /**
-   * Hide the settings
-   * @param state
-   */
-  [types.HIDE_MUSIC_PLAYER]: (state) => {
-    state.showMusicPlayer = false;
   },
 
   /**

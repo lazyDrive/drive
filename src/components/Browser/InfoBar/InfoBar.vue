@@ -51,16 +51,11 @@ export default {
         return this.$store.state.showInfoBar;
       },
       set: function() {
-        // this.$store.commit(types.HIDE_INFOBAR);
+        this.$store.state.showInfoBar = false;
       }
     },
     files: function() {
       return this.$store.state.selectedItems;
-    },
-    music: function() {
-      return this.$store.state.selectedItems
-        .filter(item => item.type == "music")
-        .reverse();
     }
   },
   methods: {
@@ -68,13 +63,6 @@ export default {
     settings: function() {},
     hideInforbar: function() {
       this.$store.commit(types.HIDE_INFOBAR);
-    },
-    toggleMusicPlayer: function() {
-      if (!this.$store.state.showMusicPlayer) {
-        this.$store.commit(types.SHOW_MUSIC_PLAYER);
-      } else {
-        this.$store.commit(types.HIDE_MUSIC_PLAYER);
-      }
     },
     fire: function(a) {
       this[a](a);

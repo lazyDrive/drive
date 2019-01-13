@@ -1,6 +1,6 @@
 <template>
   <div id="media-create-folder">
-    <v-dialog v-model="this.$store.state.showUploadMenu" persistent width="800px" transition="fade-transition">
+    <v-dialog v-model="uploadMenu" width="800px" transition="fade-transition">
       <v-card class="elevation-12">
         <v-toolbar height="50px" light flat>
           <strong>Upload details</strong>
@@ -42,7 +42,9 @@
             </v-list-tile-avatar>
             <v-list-tile-content>
               <v-list-tile-title style="font-size: 14px;">{{ item.title }}</v-list-tile-title>
-              <v-list-tile-title style="font-size: 14px;"><span style="color:blue">Size: {{ getSize(item.size) }}</span></v-list-tile-title>
+              <v-list-tile-title style="font-size: 14px;">
+                <span style="color:blue">Size: {{ getSize(item.size) }}</span>
+              </v-list-tile-title>
             </v-list-tile-content>
             <v-list-tile-action>
               <v-btn small icon color="success" v-if="item.uploadPercent == 100">
@@ -71,16 +73,28 @@ export default {
   computed: {
     uploadingItems: function() {
       return this.$store.state.uploadItemsMenu;
+    },
+    uploadMenu: {
+      get: function() {
+        return this.$store.state.showUploadMenu;
+      },
+      set: function() {
+        this.$store.state.showUploadMenu = false;
+      }
     }
   },
   methods: {
     hide: function() {
       this.$store.state.showUploadMenu = false;
     },
-    getSize: function (_size) {
-      var fSExt = new Array('Bytes', 'KB', 'MB', 'GB'),
-        i=0;while(_size>900){_size/=1024;i++;}
-        return (Math.round(_size*100)/100)+' '+fSExt[i];
+    getSize: function(_size) {
+      var fSExt = new Array("Bytes", "KB", "MB", "GB"),
+        i = 0;
+      while (_size > 900) {
+        _size /= 1024;
+        i++;
+      }
+      return Math.round(_size * 100) / 100 + " " + fSExt[i];
     },
     done: function() {
       this.$store.state.isUploading = false;
