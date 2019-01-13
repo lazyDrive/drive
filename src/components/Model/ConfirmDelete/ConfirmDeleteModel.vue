@@ -52,6 +52,8 @@ export default {
         response = await this.$store.dispatch("deleteFile", item);
       }
 
+      this.$store.commit(types.UNSELECT_ALL_BROWSER_ITEMS);
+
       var data = {
         data: response.data.message,
         color: "success"
