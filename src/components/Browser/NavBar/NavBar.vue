@@ -122,7 +122,6 @@
         </v-btn>
         <span>SYNC</span>
       </v-tooltip>
-
       <v-tooltip bottom v-if="this.$store.state.selectedItems.length > 0">
         <v-btn icon slot="activator">
           <v-icon medium>link</v-icon>
@@ -141,12 +140,23 @@
         </v-btn>
         <span>View Details</span>
       </v-tooltip>
-
       <v-tooltip bottom>
         <v-btn icon slot="activator" @click="settings()">
           <v-icon medium>settings</v-icon>
         </v-btn>
         <span>Settings</span>
+      </v-tooltip>
+      <v-tooltip bottom v-if="this.$store.state.view == 'grid'">
+        <v-btn icon slot="activator" @click="changeView('list')">
+          <v-icon >view_list</v-icon>
+        </v-btn>
+        <span>List View</span>
+      </v-tooltip>
+      <v-tooltip bottom v-if="this.$store.state.view == 'list'">
+        <v-btn icon slot="activator" @click="changeView('grid')">
+          <v-icon>view_module</v-icon>
+        </v-btn>
+        <span>Grid view</span>
       </v-tooltip>
 
       <v-menu v-model="menu" :close-on-content-click="false" :nudge-width="200" offset-y>
@@ -210,7 +220,6 @@ export default {
       },
       { icon: "query_builder", text: "Recents", link: "about" },
       { icon: "delete", text: "Bin", link: "about" },
-      { icon: "content_copy", text: "Make Duplicate", link: "about" },
       {
         icon: "keyboard_arrow_up",
         "icon-alt": "keyboard_arrow_down",
@@ -218,8 +227,7 @@ export default {
         model: false,
         children: [
           { text: "Import", link: "export" },
-          { text: "Export", link: "export" },
-          { text: "Print", link: "export" }
+          { text: "Export", link: "export" }
         ]
       },
       { icon: "settings", text: "Settings", link: "settings" },
@@ -234,6 +242,9 @@ export default {
   components: {},
   mounted() {},
   methods: {
+    changeView: function(view){
+      this.$store.commit(types.CHANGE_VIEW, view);
+    },
     unselectAllBrowserItems: function() {
       this.$store.commit(types.UNSELECT_ALL_BROWSER_ITEMS);
       this.selectAllFile = false;

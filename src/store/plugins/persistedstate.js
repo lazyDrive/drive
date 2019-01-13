@@ -4,8 +4,7 @@ export const persistedStateOptions = {
     paths: [
         'selectedDirectory',
         'showInfoBar',
-        'listView',
-        'gridSize',
+        'view',
         'token',
         'isUserLoggedIn',
     ],

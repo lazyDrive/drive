@@ -226,8 +226,8 @@ export default {
    * Define the list grid view
    * @param state
    */
-  [types.CHANGE_LIST_VIEW]: (state, view) => {
-    state.listView = view;
+  [types.CHANGE_VIEW]: (state, view) => {
+    state.view = view;
   },
 
   /**

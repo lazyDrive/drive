@@ -63,7 +63,7 @@ export const DELETE_SUCCESS = 'DELETE_SUCCESS';
 export const IS_MOBILE = 'IS_MOBILE';
 
 // List view
-export const CHANGE_LIST_VIEW = 'CHANGE_LIST_VIEW';
+export const CHANGE_VIEW = 'CHANGE_VIEW';
 
 // Preview modal
 export const SHOW_PREVIEW_MODAL = 'SHOW_PREVIEW_MODAL';

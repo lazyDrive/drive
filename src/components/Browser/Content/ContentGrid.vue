@@ -44,7 +44,7 @@
           <media-file v-for="item in quick" :item="item" :key="item.id"></media-file>
         </v-layout>
 
-        <v-checkbox v-model="selectAllFolder" color="indigo" v-if="folders.length > 0">
+        <v-checkbox  hide-details v-model="selectAllFolder" color="indigo" v-if="folders.length > 0">
           <div slot="label">
             <strong>Folders</strong>
           </div>
@@ -53,7 +53,7 @@
           <media-folder v-for="item in folders" :item="item" :key="item.id"></media-folder>
         </v-layout>
 
-        <v-checkbox v-model="selectAllFile" color="indigo" v-if="files.length > 0">
+        <v-checkbox  hide-details v-model="selectAllFile" color="indigo" v-if="files.length > 0">
           <div slot="label">
             <strong>Files</strong>
           </div>

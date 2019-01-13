@@ -8,7 +8,7 @@
   >
     <v-chip
       disabled
-      :class="` ${selectedState ? 'selected' : 'unselected'} ${isMobile ? 'm-mobile-chip-size' : (menuState ? 'info-chip-size' : 'm-chip-size')}`"
+      :class="` ${selectedState ? 'selected' : ''} ${isMobile ? 'm-mobile-chip-size' : (menuState ? 'info-chip-size' : 'm-chip-size')}`"
       color="#CFD8DC"
       text-color="black"
       slot="activator"

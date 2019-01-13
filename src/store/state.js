@@ -6,6 +6,8 @@ export default {
   selectedItems: [],
   // The currently selected items
   uploadItems: [],
+  // View
+  view: 'grid',
   // The currently selected items
   uploadItemsMenu: [],
   // The currently selected items
@@ -63,6 +65,8 @@ export default {
   token: '',
   // Select all files
   selectAllFile: false,
+  // Select all files
+  selectAll: false,
   // Select all folders
   selectAllFolder: false,
   // Islogged in
