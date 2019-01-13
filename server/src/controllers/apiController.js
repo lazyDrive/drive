@@ -184,7 +184,7 @@ exports.serveImages = (req, res, next) => {
             progressive: true,
           }),
           imageminPngquant({
-            quality: `${quality}-80`,
+            quality: [0.3, 0.5],
           }),
         ],
       })
