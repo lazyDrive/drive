@@ -1,79 +1,47 @@
 <template>
-  <v-content id="media-content" style="padding-top: 35px;">
-    <v-container fluid grid-list-md>
-      <v-breadcrumbs :items="diskLoaded">
-        <template slot="item" slot-scope="props">
-          <router-link
-            :to="{ path: props.item.href }"
-            :class="[props.item.disabled && 'disabled']"
-          >{{ props.item.text }}</router-link>
-        </template>
-      </v-breadcrumbs>
-
-      <div class="media-toolbar">
-        <div class="media-loader" v-if="this.$store.state.isLoading"></div>
+  <div id="media-content-grid" class="media-content-grid">
+    <v-layout row wrap class="m-section" v-if="isEmpty.length > 0">
+      <v-spacer></v-spacer>
+      <div class="empty-folder">
+        <strong>Drop your files here or use upload button.</strong>
       </div>
+      <v-spacer></v-spacer>
+    </v-layout>
 
-      <div
-        id="media-items"
-        @dragenter="onDragEnter"
-        @drop="onDrop"
-        @dragover="onDragOver"
-        @dragleave="onDragLeave"
-        ref="browserItems"
-      >
-        <div class="media-dragoutline">
-          <v-icon size="100">cloud_upload</v-icon>
-          <p>Drop file(s) to Upload</p>
-        </div>
+    <v-layout row wrap class="m-section" v-if="quick.length > 0">
+      <span class="media-section-title">
+        <strong>Recents & Quick Access</strong>
+      </span>
+    </v-layout>
+    <v-layout row wrap>
+      <media-file v-for="item in quick" :item="item" :key="item.id"></media-file>
+    </v-layout>
 
-        <v-layout row wrap class="m-section" v-if="isEmpty.length > 0">
-          <v-spacer></v-spacer>
-          <div class="empty-folder">
-            <strong>Drop your files here or use upload button.</strong>
-          </div>
-          <v-spacer></v-spacer>
-        </v-layout>
-
-        <v-layout row wrap class="m-section" v-if="quick.length > 0">
-          <span class="media-section-title">
-            <strong>Recents & Quick Access</strong>
-          </span>
-        </v-layout>
-        <v-layout row wrap>
-          <media-file v-for="item in quick" :item="item" :key="item.id"></media-file>
-        </v-layout>
-
-        <v-checkbox  hide-details v-model="selectAllFolder" color="indigo" v-if="folders.length > 0">
-          <div slot="label">
-            <strong>Folders</strong>
-          </div>
-        </v-checkbox>
-        <v-layout row wrap>
-          <media-folder v-for="item in folders" :item="item" :key="item.id"></media-folder>
-        </v-layout>
-
-        <v-checkbox  hide-details v-model="selectAllFile" color="indigo" v-if="files.length > 0">
-          <div slot="label">
-            <strong>Files</strong>
-          </div>
-        </v-checkbox>
-        <v-layout row wrap>
-          <media-file v-for="item in files" :item="item" :key="item.id"></media-file>
-        </v-layout>
+    <v-checkbox hide-details v-model="selectAllFolder" color="indigo" v-if="folders.length > 0">
+      <div slot="label">
+        <strong>Folders</strong>
       </div>
-    </v-container>
+    </v-checkbox>
+    <v-layout row wrap>
+      <media-folder v-for="item in folders" :item="item" :key="item.id"></media-folder>
+    </v-layout>
 
-    <!-- Add infrobar -->
-    <media-infrobar v-if="this.$store.state.showInfoBar" ref="infobar"></media-infrobar>
-  </v-content>
+    <v-checkbox hide-details v-model="selectAllFile" color="indigo" v-if="files.length > 0">
+      <div slot="label">
+        <strong>Files</strong>
+      </div>
+    </v-checkbox>
+    <v-layout row wrap>
+      <media-file v-for="item in files" :item="item" :key="item.id"></media-file>
+    </v-layout>
+  </div>
 </template>
 
 <script>
-import * as types from "./../../../store/mutation-types";
+import * as types from "./../../../../store/mutation-types";
 
 export default {
-  name: "media-content",
+  name: "media-content-grid",
   data: () => ({}),
   watch: {
     selectAllFile: function(val) {
@@ -111,9 +79,6 @@ export default {
     quick: function() {
       return this.$store.state.contents.filter(item => item.type == "quick");
     },
-    diskLoaded: function() {
-      return this.$store.state.diskLoaded;
-    },
     isEmpty: function() {
       return this.$store.state.contents.filter(item => item.type == "empty");
     },
@@ -137,18 +102,6 @@ export default {
     }
   },
   methods: {
-    onScroll: function() {
-      if (window.innerHeight + window.scrollY >= document.body.scrollHeight) {
-        if (this.$store.state.isContentsLoaded) {
-          setTimeout(function() {
-            console.log("asas");
-          }, 500);
-          // this.$store.dispatch('getContents');
-        }
-      } else {
-        this.$store.commit(types.SET_IS_LOADING_MORE, false);
-      }
-    },
     selectAllFiles: function() {
       const files = this.files;
       files.forEach(item => {
@@ -173,9 +126,6 @@ export default {
         this.$store.commit(types.UNSELECT_BROWSER_ITEM, item);
       });
     },
-    loadDir: function() {
-      console.log("yes");
-    },
     /* Unselect all browser items */
     unselectAllBrowserItems: function(event) {
       const notClickedBrowserItems =
@@ -196,95 +146,6 @@ export default {
           path: this.$store.state.selectedDirectory
         });
       }
-    },
-    // Listeners for drag and drop
-    onDragEnter: function(event) {
-      event.stopPropagation();
-      return false;
-    },
-
-    // Notify user when file is over the drop area
-    onDragOver: function(event) {
-      event.preventDefault();
-      document.querySelector(".media-dragoutline").classList.add("active");
-      return false;
-    },
-
-    /* Upload files */
-    dragUpload: async function() {
-      let uploadSuccess = 0;
-      while (this.$store.state.uploadItems.length > 0) {
-        const item = this.$store.state.uploadItems.shift();
-        const formData = item.file;
-        const uploadPath = item.path;
-
-        try {
-          await this.$store.dispatch("upload", { formData, uploadPath });
-          uploadSuccess = uploadSuccess + 1;
-        } catch (error) {
-          console.error(error);
-        }
-
-        this.$store.dispatch("update", {
-          path: this.$store.state.selectedDirectory
-        });
-      }
-      var data = {
-        data: `${uploadSuccess} files uploaded.`,
-        color: "success"
-      };
-
-      this.$store.commit(types.SHOW_SNACKBAR, data);
-      this.$store.commit(types.SET_IS_UPLOADING, 2);
-    },
-
-    onDrop: function(event) {
-      event.preventDefault();
-      const uploadPath = this.$store.state.selectedDirectory;
-
-      if (
-        event.dataTransfer &&
-        event.dataTransfer.files &&
-        event.dataTransfer.files.length > 0
-      ) {
-        for (var i = 0; i < event.dataTransfer.files.length; i++) {
-          let file = event.dataTransfer.files[i];
-          document
-            .querySelector(".media-dragoutline")
-            .classList.remove("active");
-
-          const formData = new FormData();
-          const item = {};
-
-          formData.append("files", file);
-          item.id = file.name + i + file.lastModified + file.size + Date.now();
-          item.icon = "assessment";
-          item.file = formData;
-          item.path = uploadPath;
-          item.type = "file";
-          item.iconClass = "grey lighten-1 white--text";
-          item.title = file.name;
-          item.subtitle = "";
-          item.size = file.size;
-          item.uploadPercent = 0;
-
-          this.$store.state.uploadItems.push(item);
-          this.$store.state.uploadItemsMenu.push(item);
-        }
-        if (this.$store.state.isUploading !== true) {
-          this.$emit("tiggerdragUpload");
-        }
-      }
-
-      document.querySelector(".media-dragoutline").classList.remove("active");
-    },
-
-    // Reset the drop area border
-    onDragLeave: function(event) {
-      event.stopPropagation();
-      event.preventDefault();
-      document.querySelector(".media-dragoutline").classList.remove("active");
-      return false;
     },
     findNext: function(code) {
       const current = this.current();
@@ -393,7 +254,6 @@ export default {
     }
   },
   created() {
-    window.addEventListener("scroll", this.onScroll, false);
     document.body.addEventListener("keydown", this.keyup, false);
     document.body.addEventListener(
       "click",
@@ -402,7 +262,6 @@ export default {
     );
   },
   destroyed() {
-    window.removeEventListener("scroll", this.onScroll, false);
     document.body.removeEventListener("keydown", this.keyup, false);
     document.body.removeEventListener(
       "click",

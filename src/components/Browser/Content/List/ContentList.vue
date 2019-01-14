@@ -1,79 +1,64 @@
 <template>
-  <v-content id="media-content" style="padding-top: 35px;">
-    <v-container fluid grid-list-md>
-      <v-breadcrumbs :items="diskLoaded">
-        <template slot="item" slot-scope="props">
-          <router-link
-            :to="{ path: props.item.href }"
-            :class="[props.item.disabled && 'disabled']"
-          >{{ props.item.text }}</router-link>
-        </template>
-      </v-breadcrumbs>
-      <div class="media-toolbar">
-        <div class="media-loader" v-if="this.$store.state.isLoading"></div>
+  <div class="media-content-list">
+    <v-layout row wrap class="m-section" v-if="isEmpty.length > 0">
+      <v-spacer></v-spacer>
+      <div class="empty-folder">
+        <strong>Drop your files here or use upload button.</strong>
       </div>
-      <v-layout row wrap class="m-section" v-if="isEmpty.length > 0">
-        <v-spacer></v-spacer>
-        <div class="empty-folder">
-          <strong>Drop your files here or use upload button.</strong>
-        </div>
-        <v-spacer></v-spacer>
-      </v-layout>
-      <v-data-table
-        v-model="selected"
-        :headers="headers"
-        hide-actions
-        :items="getContent"
-        select-all
-        item-key="name"
-        class="elevation-1"
-        v-else
-      >
-        <template slot="headers" slot-scope="props">
-          <tr>
-            <th>
-              <v-checkbox color="indigo" primary hide-details v-model="selectAllFiles"></v-checkbox>
-            </th>
-            <th
-              v-for="header in props.headers"
-              :key="header.text"
-              :class="['column sortable', pagination.descending ? 'desc' : 'asc', header.value === pagination.sortBy ? 'active' : '']"
-              @click="changeSort(header.value)"
-            >
-              <v-icon small>arrow_upward</v-icon>
-              {{ header.text }}
-            </th>
-          </tr>
-        </template>
-        <template slot="items" slot-scope="props">
-          <tr
-            @dblclick.prevent="doubleAction(props.item)"
-            @contextmenu="show($event, props.item)"
-            @click="select($event, props.item)"
-            :class="`m-listView ${selectedState(props.item) ? 'selected' : ''}`"
-            :item-id="props.item.id"
+      <v-spacer></v-spacer>
+    </v-layout>
+    <v-data-table
+      v-model="selected"
+      :headers="headers"
+      hide-actions
+      :items="getContent"
+      select-all
+      item-key="name"
+      class="elevation-1"
+      v-else
+    >
+      <template slot="headers" slot-scope="props">
+        <tr>
+          <th>
+            <v-checkbox color="indigo" primary hide-details v-model="selectAllFiles"></v-checkbox>
+          </th>
+          <th
+            v-for="header in props.headers"
+            :key="header.text"
+            :class="['column sortable', pagination.descending ? 'desc' : 'asc', header.value === pagination.sortBy ? 'active' : '']"
+            @click="changeSort(header.value)"
           >
-            <td>
-              <v-checkbox disabled :input-value="selectedState(props.item)" primary hide-details></v-checkbox>
-            </td>
-            <td>
-              <v-icon>{{ icon(props.item) }}</v-icon>
-            </td>
-            <td>{{ props.item.name }}</td>
-            <td class="text-xs-right">{{ props.item.created_date }}</td>
-            <td class="text-xs-right">{{ getSize(props.item.size) }}</td>
-          </tr>
-        </template>
-      </v-data-table>
-
-      <!--Remove it later -->
-      <media-infrobar v-if="this.$store.state.showInfoBar"></media-infrobar>
-    </v-container>
-  </v-content>
+            <v-icon small>arrow_upward</v-icon>
+            {{ header.text }}
+          </th>
+        </tr>
+      </template>
+      <template slot="items" slot-scope="props">
+        <tr
+          @dblclick.prevent="doubleAction(props.item)"
+          @contextmenu="show($event, props.item)"
+          @click="select($event, props.item)"
+          :class="`m-listView ${selectedState(props.item) ? 'selected' : ''}`"
+          :item-id="props.item.id"
+        >
+          <td>
+            <v-checkbox disabled :input-value="selectedState(props.item)" primary hide-details></v-checkbox>
+          </td>
+          <td>
+            <v-icon>{{ icon(props.item) }}</v-icon>
+          </td>
+          <td>{{ props.item.name }}</td>
+          <td>{{ props.item.owner }}</td>
+          <td class="text-xs-right">{{ props.item.created_date }}</td>
+          <td class="text-xs-right">{{ getSize(props.item.size) }}</td>
+        </tr>
+      </template>
+    </v-data-table>
+  </div>
 </template>
 
 <script>
-import * as types from "./../../../store/mutation-types";
+import * as types from "./../../../../store/mutation-types";
 
 export default {
   data: () => ({
@@ -85,6 +70,7 @@ export default {
       mp3: "library_music",
       zip: "archive",
       mp4: "movie",
+      dir: "folder",
       png: "insert_photo",
       jpeg: "insert_photo",
       jpg: "insert_photo",
@@ -100,6 +86,11 @@ export default {
         text: "Name",
         align: "left",
         value: "name"
+      },
+      {
+        text: "Owner",
+        align: "left",
+        value: "owner"
       },
       { text: "Created date", value: "created_date" },
       { text: "Size", value: "size" }
@@ -179,6 +170,8 @@ export default {
         this.iconsMap[item.extension] != ""
       ) {
         return this.iconsMap[item.extension];
+      } else if (item.type == "dir") {
+        return this.iconsMap["dir"];
       } else {
         return this.iconsMap["default"];
       }
@@ -229,7 +222,61 @@ export default {
       this.$store.dispatch("log", item);
       this.$store.commit(types.LOAD_FULL_CONTENTS_SUCCESS, item);
       this.$store.commit(types.SHOW_PREVIEW_MODAL);
+    },
+    current: function() {
+      const selected = this.$store.state.selectedItems[0];
+
+      return this.$store.state.contents.findIndex(file => {
+        if (file.id === selected.id) {
+          return true;
+        }
+      });
+    },
+    keyup: function(event) {
+      if (
+        this.$store.state.selectedItems.length == 1 &&
+        !this.$store.state.modelBackdrop
+      ) {
+        if (event.keyCode == 40) {
+          event.preventDefault();
+          const current = this.current();
+          if (current < this.$store.state.contents.length - 1) {
+            this.$store.commit(types.UNSELECT_ALL_BROWSER_ITEMS);
+            this.$store.commit(
+              types.SELECT_BROWSER_ITEM,
+              this.$store.state.contents[current + 1]
+            );
+          }
+        } else if (event.keyCode == 38) {
+          event.preventDefault();
+          const current = this.current();
+          if (current > 0) {
+            this.$store.commit(types.UNSELECT_ALL_BROWSER_ITEMS);
+            this.$store.commit(
+              types.SELECT_BROWSER_ITEM,
+              this.$store.state.contents[current - 1]
+            );
+          }
+        } else if (event.keyCode == 13) {
+          const item = this.$store.state.selectedItems[0];
+          if (item.type == "dir") {
+            this.$store.dispatch("getContents", item);
+          } else {
+            this.$store.commit(
+              types.LOAD_FULL_CONTENTS_SUCCESS,
+              this.$store.state.selectedItems[0]
+            );
+            this.$store.commit(types.SHOW_PREVIEW_MODAL);
+          }
+        }
+      }
     }
+  },
+  created() {
+    document.body.addEventListener("keydown", this.keyup, false);
+  },
+  destroyed() {
+    document.body.removeEventListener("keydown", this.keyup, false);
   }
 };
 </script>

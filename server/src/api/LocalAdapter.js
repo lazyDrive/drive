@@ -167,8 +167,8 @@ class LocalAdapter {
    *
    */
   getPathInformation(path, item) {
-    const eventType = this.req.params.type;
-    const eventCache = this.req.params.cache;
+    // const eventType = this.req.params.type;
+    // const eventCache = this.req.params.cache;
     const eventControl = this.req.params.event;
 
     const itemDataObj = {};
@@ -181,6 +181,7 @@ class LocalAdapter {
     }
 
     itemDataObj.name = item;
+    itemDataObj.owner = 'me';
 
     shasum.update(path + item + stats.mtime);
     itemDataObj.id = shasum.digest('hex');

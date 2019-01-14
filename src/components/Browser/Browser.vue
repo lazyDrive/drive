@@ -25,10 +25,10 @@
     <media-nav-bar @tiggerSelectFile="selectFile" @tiggerSelectFolder="selectFolder"></media-nav-bar>
 
     <!-- Media content list view-->
-    <media-content-list @tiggerdragUpload="processUpload" v-if="this.$store.state.view == 'list'"></media-content-list>
-
-    <!-- Media content list view-->
-    <media-content-grid @tiggerdragUpload="processUpload" v-if="this.$store.state.view == 'grid'"></media-content-grid>
+    <media-main-content @tiggerdragUpload="processUpload">
+      <media-content-list v-if="this.$store.state.view == 'list'" slot="contentList"></media-content-list>
+      <media-content-grid v-if="this.$store.state.view == 'grid'" slot="contentGrid"></media-content-grid>
+    </media-main-content>
 
     <!-- Media Upload Menu -->
     <media-upload-menu @tiggerSelectFile="selectFile" @tiggerSelectFolder="selectFolder"></media-upload-menu>
@@ -43,11 +43,19 @@
 
 <script>
 import * as types from "./.././../store/mutation-types.js";
+import mainContent from "./../Browser/Content/MainContent";
+import ContentGrid from "./../Browser/Content/Grid/ContentGrid";
+import ContentList from "./../Browser/Content/List/ContentList";
 
 export default {
   name: "media-browser",
   data() {
     return {};
+  },
+  components: {
+    "media-main-content": mainContent,
+    "media-content-list": ContentList,
+    "media-content-grid": ContentGrid
   },
   methods: {
     processUpload: async function(type) {

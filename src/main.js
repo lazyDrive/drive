@@ -7,8 +7,6 @@ import store from './store/store'
 import './registerServiceWorker'
 import VueAnalytics from 'vue-analytics'
 import Browser from '@/components/Browser/Browser'
-import ContentGrid from '@/components/Browser/Content/ContentGrid'
-import ContentList from '@/components/Browser/Content/ContentList'
 import File from '@/components/Browser/Items/File'
 import InfoBar from '@/components/Browser/InfoBar/InfoBar'
 import Folder from '@/components/Browser/Items/Folder'
@@ -47,8 +45,6 @@ Vue.component('media-alert', Alert)
 Vue.component('media-file', File)
 Vue.component('media-folder', Folder)
 Vue.component('media-online-state', OnlineState)
-Vue.component('media-content-grid', ContentGrid)
-Vue.component('media-content-list', ContentList)
 Vue.component('media-nav-bar', Navbar)
 Vue.component('media-infrobar', InfoBar)
 Vue.component('media-quick-upload', QuickUpload)
