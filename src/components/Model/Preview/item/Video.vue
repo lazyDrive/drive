@@ -1,5 +1,5 @@
 <template>
-  <div id="media-video" class="media-video">
+  <div class="video">
     <video
       ref="mVideo"
       id="media-video"
