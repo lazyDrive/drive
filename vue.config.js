@@ -7,6 +7,6 @@ module.exports = {
     msTileColor: '#50E3C2'
   },
   devServer: {
-    proxy: "http://localhost:334"
+    proxy: "http://localhost:3344"
   }
 };
