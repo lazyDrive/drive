@@ -13,20 +13,25 @@ const userRoutes = require('./routes/user');
 const app = express();
 
 // Connect to mongodb
-mongoose.connect('mongodb://localhost/ninjago', { useCreateIndex: true, useNewUrlParser: true });
+mongoose.connect('mongodb://localhost/ninjago', {
+  useCreateIndex: true,
+  useNewUrlParser: true,
+});
 mongoose.Promise = global.Promise;
 
 app.use(cors());
 app.use(morgan('dev'));
 app.use(compression());
 app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.urlencoded({
+  extended: false,
+}));
 
 app.use((req, res, next) => {
   // res.header('Access-Control-Allow-Origin', '*');
   res.header(
     'Access-Control-Allow-Headers',
-    'Origin, X-Requested-With, Content-Type, Accept, Authorization'
+    'Origin, X-Requested-With, Content-Type, Accept, Authorization',
   );
   if (req.method === 'OPTIONS') {
     res.header('Access-Control-Allow-Methods', 'PUT, POST, PATCH, DELETE, GET');
@@ -39,6 +44,13 @@ app.use((req, res, next) => {
 // Add routes
 app.use('/api', apiRouter);
 app.use('/user', userRoutes);
+
+// Production
+if (process.env.NODE_ENV !== 'production') {
+  app.use(express.static(`${__dirname}/../public`));
+
+  app.get(/.*/, (req, res) => res.sendFile(`${__dirname}/../public/index.html`));
+}
 
 app.use((req, res, next) => {
   const error = new Error('Not found');

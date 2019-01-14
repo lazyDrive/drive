@@ -3,6 +3,7 @@ node_modules
 /dist
 /.cache/*
 /uploads/*
+/public
 
 /tests/e2e/videos/
 /tests/e2e/screenshots/

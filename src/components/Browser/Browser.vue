@@ -24,7 +24,7 @@
     <!-- media nav -->
     <media-nav-bar @tiggerSelectFile="selectFile" @tiggerSelectFolder="selectFolder"></media-nav-bar>
 
-    <!-- Media content list view-->
+    <!-- Media content view-->
     <media-main-content @tiggerdragUpload="processUpload">
       <media-content-list v-if="this.$store.state.view == 'list'" slot="contentList"></media-content-list>
       <media-content-grid v-if="this.$store.state.view == 'grid'" slot="contentGrid"></media-content-grid>
