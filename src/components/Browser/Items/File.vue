@@ -7,44 +7,42 @@
     :item-data="item.id"
     id="media-file"
   >
-    <v-hover>
-      <v-card
-        slot-scope="{ hover }"
-        :class="`${ hover } ${selectedState ? 'selected' : ''} responsize-view`"
-        class="mx-auto"
-        :width="`${isMobile ? '146' : (menuState ? '192' : '210')}`"
-        :height="`${isMobile ? '138' : (menuState ? '170' : '185')}`"
-      >
-        <v-img
-          class="m-gradient"
-          :aspect-ratio="16/10"
-          v-if="item.imgUrl"
-          :src="item.imgUrl"
-          :alt="item.name"
-          :lazy-src="item.imgLazyUrl"
-        ></v-img>
+    <v-card
+      elevation="0"
+      :class="`${selectedState ? 'selected' : ''} responsize-view`"
+      class="mx-auto"
+      :width="`${isMobile ? '146' : (menuState ? '192' : '210')}`"
+      :height="`${isMobile ? '138' : (menuState ? '170' : '185')}`"
+    >
+      <v-img
+        class="m-gradient"
+        :aspect-ratio="16/10"
+        v-if="item.imgUrl"
+        :src="item.imgUrl"
+        :alt="item.name"
+        :lazy-src="item.imgLazyUrl"
+      ></v-img>
 
-        <v-img
-          :aspect-ratio="16/10"
-          v-if="!item.imgUrl"
-          :src="item.extImg"
-          :alt="item.name"
-          contain
-          :lazy-src="item.imgLazyUrl"
-        ></v-img>
+      <v-img
+        :aspect-ratio="16/10"
+        v-if="!item.imgUrl"
+        :src="item.extImg"
+        :alt="item.name"
+        contain
+        :lazy-src="item.imgLazyUrl"
+      ></v-img>
 
-        <v-icon
-          size="50"
-          class="m-video-play-icon"
-          v-if="item.extension.toLowerCase() == 'mp4'"
-        >play_circle_filled</v-icon>
+      <v-icon
+        size="50"
+        class="m-video-play-icon"
+        v-if="item.extension.toLowerCase() == 'mp4'"
+      >play_circle_filled</v-icon>
 
-        <v-card-title>
-          <img v-if="item.extImg && !isMobile" class="extensionImage" :src="item.extImg">
-          <span class="file-text">{{ getName }}</span>
-        </v-card-title>
-      </v-card>
-    </v-hover>
+      <v-card-title>
+        <img v-if="item.extImg && !isMobile" class="extensionImage" :src="item.extImg">
+        <span class="file-text">{{ getName }}</span>
+      </v-card-title>
+    </v-card>
   </div>
 </template>
 
