@@ -1,10 +1,10 @@
 <template>
   <div
     @dblclick.prevent="openFolder()"
-    class="text-xs-center folder"
+    class="text-xs-center folder media-item-folder"
     @click="select($event, item)"
     @contextmenu="show($event, item.id)"
-    id="media-folder"
+    :data-item="item.id"
   >
     <v-chip
       disabled

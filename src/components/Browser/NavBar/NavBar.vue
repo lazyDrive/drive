@@ -1,5 +1,5 @@
 <template>
-  <div class="navbar" id="media-navbar">
+  <div class="navbar media-navbar">
     <div @click="unselectAllBrowserItems()">
       <v-navigation-drawer
         :clipped="$vuetify.breakpoint.lgAndUp"
@@ -148,7 +148,7 @@
       </v-tooltip>
       <v-tooltip bottom v-if="this.$store.state.view == 'grid'">
         <v-btn icon slot="activator" @click="changeView('list')">
-          <v-icon >view_list</v-icon>
+          <v-icon>view_list</v-icon>
         </v-btn>
         <span>List View</span>
       </v-tooltip>
@@ -242,7 +242,7 @@ export default {
   components: {},
   mounted() {},
   methods: {
-    changeView: function(view){
+    changeView: function(view) {
       this.$store.commit(types.CHANGE_VIEW, view);
     },
     unselectAllBrowserItems: function() {

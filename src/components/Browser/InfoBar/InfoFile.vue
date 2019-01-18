@@ -1,5 +1,5 @@
 <template>
-  <div class="m-d-img" id="media-info-file">
+  <div class="m-d-img media-info-file" >
     <!-- for image -->
     <v-img
       class="m-gradient"

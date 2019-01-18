@@ -1,5 +1,5 @@
 <template>
-  <v-content id="media-content" style="padding-top: 35px;">
+  <v-content class="media-content" style="padding-top: 35px;">
     <v-container fluid grid-list-md>
       <v-breadcrumbs :items="diskLoaded">
         <template slot="item" slot-scope="props">

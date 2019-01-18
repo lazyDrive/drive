@@ -1,5 +1,5 @@
 <template>
-  <div id="media-content-grid" class="media-content-grid">
+  <div class="media-content-grid">
     <v-layout row wrap class="m-section" v-if="isEmpty.length > 0">
       <v-spacer></v-spacer>
       <div class="empty-folder">

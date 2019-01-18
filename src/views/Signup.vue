@@ -1,18 +1,17 @@
 <template>
-    <div class="media-signup">
+  <div class="media-main-signup">
     <media-signup></media-signup>
     <media-alert></media-alert>
-    </div>
+  </div>
 </template>
 
 <script>
-
-import SignupForm from '@/components/Account/SignupForm'
+import SignupForm from "@/components/Account/SignupForm";
 
 export default {
-    name: 'media-main-signup',
-    components:{
-        'media-signup': SignupForm
-    }
-}
+  name: "media-main-signup",
+  components: {
+    "media-signup": SignupForm
+  }
+};
 </script>

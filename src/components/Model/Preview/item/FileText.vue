@@ -1,5 +1,5 @@
 <template>
-  <div id="media-file" class="media-file">
+  <div class="media-file">
     <div class="file-data">
       <pre class="file-data-view">
           {{ item.fileData }}

@@ -1,5 +1,5 @@
 <template>
-  <div id="media-preview-modal" v-if="isActive" class="modal">
+  <div v-if="isActive" class="modal media-preview-modal">
     <v-icon color="white" @click.prevent="hidePreviewModal()" size="25" class="close">arrow_back</v-icon>
     <v-icon color="white" @click.prevent="prev()" size="25" class="prev">arrow_back_ios</v-icon>
 

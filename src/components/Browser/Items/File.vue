@@ -1,11 +1,10 @@
 <template>
   <div
-    class="file"
+    class="file media-item-file"
     @dblclick.prevent="preview()"
     @click="select($event, item)"
     @contextmenu="show($event, item.id)"
-    :item-data="item.id"
-    id="media-file"
+    :data-item="item.id"
   >
     <v-card
       elevation="0"

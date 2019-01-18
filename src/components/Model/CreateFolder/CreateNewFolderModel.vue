@@ -1,5 +1,5 @@
 <template>
-  <div id="media-create-folder">
+  <div class="media-create-folder">
     <v-dialog v-model="this.$store.state.showCreateFolderModal" persistent width="500px" transition="fade-transition">
       <v-card>
         <v-card-title class="grey lighten-4 title">New Folder

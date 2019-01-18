@@ -3,11 +3,15 @@ const bodyParser = require('body-parser');
 const cors = require('cors');
 const morgan = require('morgan');
 const mongoose = require('mongoose');
+const ora = require('ora');
 const compression = require('compression');
 
 // import routes
 const apiRouter = require('./routes/apiRouter');
 const userRoutes = require('./routes/user');
+
+// Start spinner
+const spinner = ora('Starting server.').start();
 
 // get express app instance
 const app = express();
@@ -67,4 +71,10 @@ app.use((error, req, res, next) => {
   });
 });
 
-app.listen(3344, () => console.log('Running on locahost:3344'));
+const port = process.env.PORT || 3344;
+
+app.listen(port, () => {
+  spinner.text = 'Running on locahost:3344';
+  spinner.color = 'green';
+  spinner.succeed();
+});

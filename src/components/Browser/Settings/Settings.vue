@@ -1,5 +1,5 @@
 <template>
-  <div id="media-settings">
+  <div class="media-settings">
     <v-layout row justify-center>
       <v-dialog
         v-model="this.$store.state.showSettings"

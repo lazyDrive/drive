@@ -1,5 +1,5 @@
 <template>
-  <div id="media-create-folder">
+  <div class="media-create-folder">
     <v-dialog v-model="uploadMenu" width="800px" transition="fade-transition">
       <v-card class="elevation-12">
         <v-toolbar height="50px" light flat>

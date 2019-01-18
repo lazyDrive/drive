@@ -1,5 +1,5 @@
 <template>
-  <div class="media-home">
+  <div class="media-drive">
     <!-- Media browser -->
     <media-browser></media-browser>
 
@@ -21,7 +21,7 @@
 import * as types from "./../store/mutation-types";
 
 export default {
-  name: "media-home",
+  name: "media-drive",
   mounted() {
     if (this.isMobile()) {
       this.$store.commit(types.IS_MOBILE, true);

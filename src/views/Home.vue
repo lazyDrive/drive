@@ -1,5 +1,5 @@
 <template>
-  <div id="app">
+  <div class="media-home">
     <v-app>
       <v-toolbar fixed dark>
         <v-toolbar-title>Media Manager</v-toolbar-title>

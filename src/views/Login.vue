@@ -1,18 +1,17 @@
 <template>
-    <div class="media-login">
+  <div class="media-main-login">
     <media-login></media-login>
     <media-alert></media-alert>
-    </div>
+  </div>
 </template>
 
 <script>
-
-import LoginForm from '@/components/Account/LoginForm'
+import LoginForm from "@/components/Account/LoginForm";
 
 export default {
-    name: 'media-main-login',
-    components:{
-        'media-login': LoginForm
-    }
-}
+  name: "media-main-login",
+  components: {
+    "media-login": LoginForm
+  }
+};
 </script>

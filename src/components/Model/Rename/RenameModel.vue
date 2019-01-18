@@ -1,5 +1,5 @@
 <template>
-  <div id="media-rename">
+  <div class="media-rename">
     <v-dialog v-model="this.$store.state.showRenameModal" persistent width="500px" transition="fade-transition">
       <v-card>
         <v-card-title class="grey lighten-4 title">Rename

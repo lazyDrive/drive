@@ -1,5 +1,5 @@
 <template>
-  <div id="media-audio" class="media-audio">
+  <div class="media-audio">
     <audio
       ref="mAudio"
       id="media-audio"
