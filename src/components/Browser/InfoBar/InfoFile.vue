@@ -87,7 +87,7 @@
         <tr>
           <td class="m-d-td">Owner</td>
           <td class="m-d-td">
-            <strong>Me</strong>
+            <strong>{{ item.owner }}</strong>
           </td>
         </tr>
       </table>

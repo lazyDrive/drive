@@ -93,7 +93,7 @@
 }
 
 .sync{
-  animation: syncColor 2s infinite ease-in-out;
+  animation: syncColor 1.5s infinite ease-in-out;
 }
 
 @keyframes syncColor {
@@ -102,6 +102,6 @@
   }
 
   to {
-    box-shadow:  0 0 5px 3px rgb(77, 225, 126);
+    box-shadow:  0 0 0px 3px rgb(77, 225, 126);
   }
 }
