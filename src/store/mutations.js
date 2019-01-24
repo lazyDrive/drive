@@ -174,7 +174,6 @@ export default {
     var e = payload.event || window.event;
     e.preventDefault()
 
-    state.showMenu.state = true;
     state.showMenu.x = e.clientX;
     state.showMenu.y = e.clientY;
   },
