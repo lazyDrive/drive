@@ -21,8 +21,6 @@ import PreviewModel from '@/components/Model/Preview/PreviewModel'
 import ConfirmDeleteModel from '@/components/Model/ConfirmDelete/ConfirmDeleteModel'
 import CreateNewFolderModel from '@/components/Model/CreateFolder/CreateNewFolderModel'
 import Menu from '@/components/Menu/Menu'
-import FileMenu from '@/components/Menu/FileMenu/FileMenu'
-import FolderMenu from '@/components/Menu/FolderMenu/FolderMenu'
 import OnlineState from '@/components/Tool/OnlineState'
 import Alert from '@/components/Tool/Alert'
 
@@ -52,8 +50,6 @@ Vue.component('media-confirm-delete-model', ConfirmDeleteModel)
 Vue.component('media-create-folder-model', CreateNewFolderModel)
 Vue.component('media-rename-model', RenameModel)
 Vue.component('media-settings', Settings)
-Vue.component('media-file-menu', FileMenu)
-Vue.component('media-folder-menu', FolderMenu)
 Vue.component('media-browser', Browser)
 Vue.component('media-model', Model)
 Vue.component('media-menu', Menu)

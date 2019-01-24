@@ -8,7 +8,6 @@ const imageminPngquant = require('imagemin-pngquant');
 const imageminMozjpeg = require('imagemin-mozjpeg');
 const imageminGifsicle = require('imagemin-gifsicle');
 // eslint-disable-next-line prefer-destructuring
-// const PDFImage = require('pdf-image').PDFImage;
 
 const Api = require('../models/apiModel');
 const LocalAdapter = require('./../api/LocalAdapter');

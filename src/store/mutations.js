@@ -167,43 +167,24 @@ export default {
   },
 
   /**
-   * Show the folder menu
+   * Show the menu
    * @param state
    */
-  [types.SHOW_FOLDER_MENU]: (state, payload) => {
+  [types.SHOW_MENU]: (state, payload) => {
     var e = payload.event || window.event;
     e.preventDefault()
 
-    state.showFolderMenuX = e.clientX;
-    state.showFolderMenuY = e.clientY;
+    state.showMenu.state = true;
+    state.showMenu.x = e.clientX;
+    state.showMenu.y = e.clientY;
   },
 
   /**
-   * Hide the folder menu
+   * Hide the menu
    * @param state
    */
-  [types.HIDE_FOLDER_MENU]: (state) => {
-    state.showFolderMenu = false;
-  },
-
-  /**
-   * Show the file menu
-   * @param state
-   */
-  [types.SHOW_FILE_MENU]: (state, payload) => {
-    var e = payload.event || window.event;
-    e.preventDefault()
-
-    state.showFileMenuX = e.clientX;
-    state.showFileMenuY = e.clientY;
-  },
-
-  /**
-   * Hide the file menu
-   * @param state
-   */
-  [types.HIDE_FILE_MENU]: (state) => {
-    state.showFileMenu = false;
+  [types.HIDE_MENU]: (state) => {
+    state.showMenu.state = false;
   },
 
   /**

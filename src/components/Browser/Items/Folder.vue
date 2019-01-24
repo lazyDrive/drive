@@ -64,12 +64,11 @@ export default {
         this.select(e, this.item);
       }
 
-      this.$store.commit(types.HIDE_FILE_MENU);
-      this.$store.commit(types.HIDE_FOLDER_MENU);
-      this.$store.commit(types.SHOW_FOLDER_MENU, { event: e });
+      this.$store.commit(types.HIDE_MENU);
+      this.$store.commit(types.SHOW_MENU, { event: e });
 
       this.$nextTick(() => {
-        this.$store.state.showFolderMenu = true;
+        this.$store.state.showMenu.state = true;
       });
     },
     select: function(event, item) {

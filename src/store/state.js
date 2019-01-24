@@ -29,18 +29,12 @@ export default {
   // The state of  settings
   showSettings: false,
   // The state of file menu
-  showFileMenu: false,
+  showMenu: {
+    state: false,
+    x:0,
+    y:0
+  },
   // The state of x in settings
-  showFileMenuX: 0,
-  // The state of y in settings
-  showFileMenuY: 0,
-  // The state of settings
-  showFolderMenu: false,
-  // The state of x in folder menu
-  showFolderMenuX: 0,
-  // The state of y in folder menu
-  showFolderMenuY: 0,
-  // The state of tools
   showToolModal: false,
   // The state of the infobar
   showInfoBar: false,
