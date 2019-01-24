@@ -129,7 +129,13 @@ export default {
   [types.UNSELECT_ALL_BROWSER_ITEMS]: (state, payload) => {
     state.selectAllFile = false;
     state.selectAllFolder = false;
-    state.selectedItems = [];
+    if (payload) {
+      state.selectedItems.splice(state.selectedItems.findIndex(
+        file => file.type === payload.type
+      ));
+    } else {
+      state.selectedItems = [];
+    }
   },
 
   /**

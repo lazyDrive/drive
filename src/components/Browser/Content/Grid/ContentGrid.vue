@@ -109,10 +109,7 @@ export default {
       });
     },
     unselectAllFiles: function() {
-      const files = this.files;
-      files.forEach(item => {
-        this.$store.commit(types.UNSELECT_BROWSER_ITEM, item);
-      });
+      this.$store.commit(types.UNSELECT_ALL_BROWSER_ITEMS, { type: "file" });
     },
     selectAllFolders: function() {
       const folders = this.folders;
@@ -121,10 +118,7 @@ export default {
       });
     },
     unselectAllFolders: function() {
-      const folders = this.folders;
-      folders.forEach(item => {
-        this.$store.commit(types.UNSELECT_BROWSER_ITEM, item);
-      });
+      this.$store.commit(types.UNSELECT_ALL_BROWSER_ITEMS, { type: "dir" });
     },
     /* Unselect all browser items */
     unselectAllBrowserItems: function(event) {
