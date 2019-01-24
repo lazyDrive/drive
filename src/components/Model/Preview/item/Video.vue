@@ -54,10 +54,10 @@ export default {
     }
   },
   created() {
-    window.addEventListener("keyup", this.keyup);
+    window.addEventListener("keyup", this.keyup, false);
   },
   destroyed() {
-    window.removeEventListener("keyup", this.keyup);
+    window.removeEventListener("keyup", this.keyup, false);
   }
 };
 </script>

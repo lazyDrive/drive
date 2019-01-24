@@ -25,7 +25,8 @@
           <th
             v-for="header in props.headers"
             :key="header.text"
-            :class="['column sortable', pagination.descending ? 'desc' : 'asc', header.value === pagination.sortBy ? 'active' : '']"
+            class=""
+            :class="header.text =='Name' ? 'text-xs-left' : '' ['column sortable', pagination.descending ? 'desc' : 'asc', header.value === pagination.sortBy ? 'active' : '']"
             @click="changeSort(header.value)"
           >
             <v-icon small>arrow_upward</v-icon>
@@ -47,7 +48,7 @@
           <td>
             <v-icon>{{ icon(props.item) }}</v-icon>
           </td>
-          <td>{{ props.item.name }}</td>
+          <td class="text-xs-left">{{ props.item.name }}</td>
           <td>{{ props.item.owner }}</td>
           <td class="text-xs-right">{{ props.item.created_date }}</td>
           <td class="text-xs-right">{{ getSize(props.item.size) }}</td>
