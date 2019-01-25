@@ -65,8 +65,9 @@ export default {
     changeColor: function(e) {
       console.log(e);
     },
-    download: function(e) {
-      console.log(e);
+    download: function() {
+      const items = this.$store.state.selectedItems;
+      this.$store.dispatch("download", items);
     },
     getShareableLike: function(e) {
       console.log(e);
