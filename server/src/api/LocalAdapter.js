@@ -55,23 +55,48 @@ class LocalAdapter {
    *
    */
   getFiles(path) {
-    const data = [];
-    // Read each items in folder
-    fs.readdirSync(path).forEach((item) => {
-      this.count = this.count + 1;
-      if (this.count <= this.fileLimit) {
-        const itemData = this.getPathInformation(path, item);
-        data.push(itemData);
+    return new Promise((resolve, reject) => {
+      const data = [];
+      const tempData = [];
+
+      try {
+        fs.readdirSync(path).forEach((item) => {
+          const tempStruct = {};
+          if (fs.statSync(path + item).isDirectory()) {
+            tempStruct.type = 'dir';
+          } else {
+            tempStruct.type = 'file';
+          }
+          tempStruct.tempPath = path;
+          tempStruct.tempName = item;
+          tempData.push(tempStruct);
+        });
+      } catch (e) {
+        reject(e);
       }
+
+      tempData.sort((a, b) => {
+        if (a.type === 'dir') return -1;
+        if (b.type === 'file') return 1;
+        return 0;
+      });
+
+      tempData.forEach((item) => {
+        this.count = this.count + 1;
+        if (this.count <= this.fileLimit) {
+          const itemData = this.getPathInformation(item.tempPath, item.tempName);
+          data.push(itemData);
+        }
+      });
+
+      if (data.length === 0) {
+        const itemDataObj = {};
+        itemDataObj.type = 'empty';
+        data.push(itemDataObj);
+      }
+
+      resolve(data);
     });
-
-    if (data.length === 0) {
-      const itemDataObj = {};
-      itemDataObj.type = 'empty';
-      data.push(itemDataObj);
-    }
-
-    return data;
   }
 
   /**
@@ -132,8 +157,8 @@ class LocalAdapter {
   move(sourcePath, destinationPath, force = true) {
     return new Promise((resolve, reject) => {
       fs.move(sourcePath, destinationPath, {
-        overwrite: force,
-      })
+          overwrite: force,
+        })
         .then(() => {
           resolve();
         })
