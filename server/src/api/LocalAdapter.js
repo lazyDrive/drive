@@ -36,6 +36,12 @@ class LocalAdapter {
     // Next
     this.next = next;
 
+    // File load limit
+    this.fileLimit = req.params.limit;
+
+    // File Count
+    this.count = 0;
+
     // Root Path
     if (fs.statSync(rootPath).isDirectory()) {
       this.rootPath = rootPath;
@@ -52,8 +58,11 @@ class LocalAdapter {
     const data = [];
     // Read each items in folder
     fs.readdirSync(path).forEach((item) => {
-      const itemData = this.getPathInformation(path, item);
-      data.push(itemData);
+      this.count = this.count + 1;
+      if (this.count <= this.fileLimit) {
+        const itemData = this.getPathInformation(path, item);
+        data.push(itemData);
+      }
     });
 
     if (data.length === 0) {

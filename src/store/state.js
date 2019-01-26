@@ -2,6 +2,8 @@
 export default {
   // The loaded files
   contents: [],
+  // Files loaded limit
+  loadLimit:30,
   // The currently selected items
   selectedItems: [],
   // The currently selected items

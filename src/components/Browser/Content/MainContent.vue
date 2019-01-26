@@ -48,16 +48,19 @@ export default {
     }
   },
   methods: {
-    onScroll: function() {
+    onScroll: async function() {
       if (window.innerHeight + window.scrollY >= document.body.scrollHeight) {
-        if (this.$store.state.isContentsLoaded) {
-          setTimeout(function() {
-            console.log("asas");
-          }, 500);
-          // this.$store.dispatch('getContents');
+        this.$store.state.loadLimit = this.$store.state.loadLimit + 10;
+
+        const dir = this.$route.params.dir;
+        const path = this.$route.params.path;
+
+        this.$store.commit(types.SET_IS_LOADING, true);
+        if (dir !== undefined && path == "folder") {
+          await this.$store.dispatch("update", { path: dir });
+        } else {
+          await this.$store.dispatch("update", { path: "my-drive" });
         }
-      } else {
-        this.$store.commit(types.SET_IS_LOADING_MORE, false);
       }
     },
     // Listeners for drag and drop

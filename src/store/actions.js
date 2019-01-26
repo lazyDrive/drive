@@ -16,9 +16,10 @@ export const getContents = (context, payload) => {
   context.commit(types.SET_IS_LOADING, true)
 
   let path = payload.path || context.state.selectedDirectory;
+  let limit = payload.limit || context.state.loadLimit;
 
   api.axios()
-    .get(`api/getFiles/${path}`, {
+    .get(`api/getFiles/${path}/${limit}`, {
       retry: 5,
       retryDelay: 1000
     })
@@ -46,16 +47,18 @@ export const getContents = (context, payload) => {
 export const update = (context, payload) => {
 
   let path = payload.path || context.state.selectedDirectory;
+  let limit = payload.limit || context.state.loadLimit;
 
   const state = (context.state.isUploading === true) ? 'subscribe' : 'eventCacheUpdate';
 
   api.axios()
-    .get(`api/getFiles/${path}/update/nocache/${state}`, {
+    .get(`api/getFiles/${path}/${limit}/update/nocache/${state}`, {
       retry: 5,
       retryDelay: 1000
     })
     .then(response => {
       context.commit(types.LOAD_CONTENTS_SUCCESS, response.data.contents)
+      context.commit(types.SET_IS_LOADING, false)
     })
     .catch((error) => {
       api._handleError(error)
