@@ -213,7 +213,7 @@ class LocalAdapter {
       } else if (itemDataObj.extension === 'pdf' && eventControl !== 'subscribe') {
         const pdfImagePath = cacheApi.genPdfImage(path + item);
 
-        if (fs.existsSync(pdfImagePath)) {
+        if (pdfImagePath !== false && fs.existsSync(pdfImagePath)) {
           itemDataObj.imgLazyUrl = `/api/images/${Buffer.from(pdfImagePath).toString('base64')}/t/png/d/200/200/m/image/png/${itemDataObj.id}`;
           itemDataObj.imgUrl = `/api/images/${Buffer.from(pdfImagePath).toString('base64')}/t/png/d/200/200/m/image/png/${itemDataObj.id}`;
         }
