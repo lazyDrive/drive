@@ -211,11 +211,11 @@ class LocalAdapter {
         itemDataObj.imgLazyUrl = `/api/images/${Buffer.from(path + item).toString('base64')}/t/${itemDataObj.extension}/d/200/200/m/${itemDataObj.mime_type}/${itemDataObj.id}`;
         itemDataObj.imgUrl = `/api/images/${Buffer.from(path + item).toString('base64')}/t/${itemDataObj.extension}/d/200/200/m/${itemDataObj.mime_type}/${itemDataObj.id}`;
       } else if (itemDataObj.extension === 'pdf' && eventControl !== 'subscribe') {
-        const padfImagePath = cacheApi.genPdfImage(path + item);
+        const pdfImagePath = cacheApi.genPdfImage(path + item);
 
-        if (fs.existsSync(padfImagePath)) {
-          itemDataObj.imgLazyUrl = `/api/images/${Buffer.from(padfImagePath).toString('base64')}/t/png/d/200/200/m/image/png/${itemDataObj.id}`;
-          itemDataObj.imgUrl = `/api/images/${Buffer.from(padfImagePath).toString('base64')}/t/png/d/200/200/m/image/png/${itemDataObj.id}`;
+        if (fs.existsSync(pdfImagePath)) {
+          itemDataObj.imgLazyUrl = `/api/images/${Buffer.from(pdfImagePath).toString('base64')}/t/png/d/200/200/m/image/png/${itemDataObj.id}`;
+          itemDataObj.imgUrl = `/api/images/${Buffer.from(pdfImagePath).toString('base64')}/t/png/d/200/200/m/image/png/${itemDataObj.id}`;
         }
       } else if (itemDataObj.extension === 'mp4' && eventControl !== 'subscribe') {
         const name = `${item.split('.').slice(0, -1).join('.')}.png`;
