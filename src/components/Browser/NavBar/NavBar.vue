@@ -116,12 +116,16 @@
       <v-btn icon @click="showUploadMenu()" v-else-if="this.$store.state.isUploading == 2">
         <v-icon medium color="green">cloud_done</v-icon>
       </v-btn>
+      <v-btn v-else-if="this.$store.state.isLoading" icon class="loading">
+        <v-icon medium color="amber darken-1">cloud</v-icon>
+      </v-btn>
       <v-tooltip bottom v-else>
         <v-btn icon slot="activator" class="sync">
           <v-icon medium color="green">cloud</v-icon>
         </v-btn>
         <span>SYNC</span>
       </v-tooltip>
+
       <v-tooltip bottom v-if="this.$store.state.selectedItems.length > 0">
         <v-btn icon slot="activator">
           <v-icon medium>link</v-icon>
