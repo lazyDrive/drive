@@ -84,7 +84,7 @@
 
 @keyframes changeColor {
   from {
-    box-shadow:  0 0 20px 3px gold;
+    box-shadow:  0 0 20px 3px #4DD0E1;
   }
 
   to {
@@ -112,10 +112,10 @@
 
 @keyframes loading {
   from {
-    box-shadow:  0 0 10px 3px #ced4da;
+    box-shadow:  0 0 10px 3px #4DD0E1;
   }
 
   to {
-    box-shadow:  0 0 0px 3px #ced4da;
+    box-shadow:  0 0 0px 3px #4DD0E1;
   }
 }

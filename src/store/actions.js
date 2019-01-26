@@ -57,8 +57,8 @@ export const update = (context, payload) => {
       retryDelay: 1000
     })
     .then(response => {
-      context.commit(types.LOAD_CONTENTS_SUCCESS, response.data.contents)
-      context.commit(types.SET_IS_LOADING, false)
+      context.commit(types.LOAD_CONTENTS_SUCCESS, response.data.contents);
+      context.commit(types.SET_IS_LOADING, false);
     })
     .catch((error) => {
       api._handleError(error)

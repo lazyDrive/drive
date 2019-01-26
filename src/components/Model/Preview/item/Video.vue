@@ -1,8 +1,7 @@
 <template>
-  <div class="video">
+  <div class="media-video">
     <video
       ref="mVideo"
-      id="media-video"
       class="media-video-player-preview"
       controls
       controlslist="nodownload"
