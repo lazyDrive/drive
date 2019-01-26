@@ -117,7 +117,7 @@
         <v-icon medium color="green">cloud_done</v-icon>
       </v-btn>
       <v-btn v-else-if="this.$store.state.isLoading" icon class="loading">
-        <v-icon medium color="amber darken-1">cloud</v-icon>
+        <v-icon medium color="light-blue lighten-2">cloud</v-icon>
       </v-btn>
       <v-tooltip bottom v-else>
         <v-btn icon slot="activator" class="sync">
