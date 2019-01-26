@@ -89,20 +89,21 @@ exports.cacheImage = (filePath) => {
 };
 
 
-exports.cacheVideoImage = (filePath) => {
-  const name = Path.basename(filePath);
-  const dir = Path.dirname(filePath);
-  if (!fs.existsSync(`.cache/${dir}`)) {
-    ffmpeg(filePath)
+exports.cacheVideoImage = (path, item) => {
+  const name = `${item.split('.').slice(0, -1).join('.')}.png`;
+  const targeVideo = `.cache/${path}${name}`;
+
+  if (!fs.existsSync(targeVideo)) {
+    ffmpeg(path + item)
       .screenshots({
         timestamps: ['1%'],
         filename: name,
         count: 1,
-        folder: `.cache/${dir}`,
+        folder: `.cache/${path}`,
         size: '800x450',
       });
     console.log('Video Thumb generated.');
     return false;
   }
-  return `.cache/${filePath}`;
+  return targeVideo;
 };

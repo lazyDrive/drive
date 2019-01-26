@@ -12,12 +12,12 @@ const pathModule = require('path');
 const sizeOf = require('image-size');
 const util = require('util');
 const mime = require('mime-types');
-const StreamZip = require('node-stream-zip');
+// const StreamZip = require('node-stream-zip');
 const crypto = require('crypto');
-const ffmpeg = require('fluent-ffmpeg');
+// const ffmpeg = require('fluent-ffmpeg');
 const cacheApi = require('./CacheApi');
 
-const desiredMode = 0o2775;
+// const desiredMode = 0o2775;
 
 class LocalAdapter {
   /**
@@ -157,8 +157,8 @@ class LocalAdapter {
   move(sourcePath, destinationPath, force = true) {
     return new Promise((resolve, reject) => {
       fs.move(sourcePath, destinationPath, {
-          overwrite: force,
-        })
+        overwrite: force,
+      })
         .then(() => {
           resolve();
         })
@@ -238,33 +238,16 @@ class LocalAdapter {
       } else if (itemDataObj.extension === 'pdf' && eventControl !== 'subscribe') {
         const pdfImagePath = cacheApi.genPdfImage(path + item);
 
-        if (pdfImagePath !== false && fs.existsSync(pdfImagePath)) {
+        if (pdfImagePath) {
           itemDataObj.imgLazyUrl = `/api/images/${Buffer.from(pdfImagePath).toString('base64')}/t/png/d/200/200/m/image/png/${itemDataObj.id}`;
           itemDataObj.imgUrl = `/api/images/${Buffer.from(pdfImagePath).toString('base64')}/t/png/d/200/200/m/image/png/${itemDataObj.id}`;
         }
       } else if (itemDataObj.extension === 'mp4' && eventControl !== 'subscribe') {
-        const name = `${item.split('.').slice(0, -1).join('.')}.png`;
+        const videoThumb = cacheApi.cacheVideoImage(path, item);
 
-        const targeVideo = `.cache/${path}${name}`;
-
-        if (fs.existsSync(targeVideo)) {
-          itemDataObj.imgLazyUrl = `/api/images/${Buffer.from(targeVideo).toString('base64')}/t/png/d/200/200/m/image/png/${itemDataObj.id}`;
-          itemDataObj.imgUrl = `/api/images/${Buffer.from(targeVideo).toString('base64')}/t/png/d/200/200/m/image/png/${itemDataObj.id}`;
-        } else {
-          fs.ensureDirSync(`.cache/${path}`);
-
-          if (!fs.existsSync(`.cache/${path + item}`)) {
-            ffmpeg(path + item)
-              .screenshots({
-                timestamps: ['1%'],
-                filename: name,
-                count: 1,
-                folder: `.cache/${path}`,
-                size: '800x450',
-              });
-
-            console.log('Video Thumb generated.');
-          }
+        if (videoThumb) {
+          itemDataObj.imgLazyUrl = `/api/images/${Buffer.from(videoThumb).toString('base64')}/t/png/d/200/200/m/image/png/${itemDataObj.id}`;
+          itemDataObj.imgUrl = `/api/images/${Buffer.from(videoThumb).toString('base64')}/t/png/d/200/200/m/image/png/${itemDataObj.id}`;
         }
       } else if (itemDataObj.extension === 'zip') {
         // const zip = new StreamZip({
@@ -282,7 +265,7 @@ class LocalAdapter {
         //   // Do not forget to close the file once you're done
         //   zip.close();
         // });
-      } else if (itemDataObj.extension === 'txt' || itemDataObj.extension === 'js' || itemDataObj.extension === 'html ' && eventControl !== 'subscribe') {
+      } else if (itemDataObj.extension === 'txt' || itemDataObj.extension === 'js' || itemDataObj.extension === 'html' && eventControl !== 'subscribe') {
         itemDataObj.fileData = fs.readFileSync(path + item, 'utf8');
       }
 
