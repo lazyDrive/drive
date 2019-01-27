@@ -34,7 +34,7 @@
       <v-icon
         size="50"
         class="m-video-play-icon"
-        v-if="item.extension == 'mp4'"
+        v-if="item.extension.toLowerCase() == 'mp4'"
       >play_circle_filled</v-icon>
 
       <v-card-title>

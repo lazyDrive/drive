@@ -4,7 +4,7 @@
     <v-icon color="white" @click.prevent="prev()" size="25" class="prev">arrow_back_ios</v-icon>
 
     <media-image
-      v-if="item.imgUrl && item.extension != 'pdf' && item.extension != 'mp4'"
+      v-if="item.imgUrl && item.extension.toLowerCase() != 'pdf' && item.extension.toLowerCase() != 'mp4'"
       :item="item"
     ></media-image>
 
@@ -12,7 +12,7 @@
 
     <media-audio v-else-if="audio" :item="item"></media-audio>
 
-    <div class="media-pdf" v-else-if="item.extension == 'pdf'">
+    <div class="media-pdf" v-else-if="item.extension.toLowerCase() == 'pdf'">
       <pdf
         ref="myPdfComponent"
         class="media-pdf-view"
@@ -110,21 +110,21 @@ export default {
       return this.$store.state.showPreviewModal;
     },
     video: function() {
-      if (this.videoExt.indexOf(this.item.extension) != -1) {
+      if (this.videoExt.indexOf(this.item.extension.toLowerCase()) != -1) {
         return true;
       } else {
         return false;
       }
     },
     fileText: function() {
-      if (this.fileExt.indexOf(this.item.extension) != -1) {
+      if (this.fileExt.indexOf(this.item.extension.toLowerCase()) != -1) {
         return true;
       } else {
         return false;
       }
     },
     audio: function() {
-      if (this.audioExt.indexOf(this.item.extension) != -1) {
+      if (this.audioExt.indexOf(this.item.extension.toLowerCase()) != -1) {
         return true;
       } else {
         return false;

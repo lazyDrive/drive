@@ -122,28 +122,28 @@ export default {
   props: ["item"],
   computed: {
     video: function() {
-      if (this.videoExt.indexOf(this.item.extension) != -1) {
+      if (this.videoExt.indexOf(this.item.extension.toLowerCase()) != -1) {
         return true;
       } else {
         return false;
       }
     },
     audio: function() {
-      if (this.audioExt.indexOf(this.item.extension) != -1) {
+      if (this.audioExt.indexOf(this.item.extension.toLowerCase()) != -1) {
         return true;
       } else {
         return false;
       }
     },
     image: function() {
-      if (this.imageExt.indexOf(this.item.extension) != -1) {
+      if (this.imageExt.indexOf(this.item.extension.toLowerCase()) != -1) {
         return true;
       } else {
         return false;
       }
     },
     file: function() {
-      if (this.fileExt.indexOf(this.item.extension) != -1) {
+      if (this.fileExt.indexOf(this.item.extension.toLowerCase()) != -1) {
         return true;
       } else {
         return false;
@@ -158,10 +158,10 @@ export default {
     },
     icon: function() {
       if (
-        this.iconsMap[this.item.extension] &&
-        this.iconsMap[this.item.extension] != ""
+        this.iconsMap[this.item.extension.toLowerCase()] &&
+        this.iconsMap[this.item.extension.toLowerCase()] != ""
       ) {
-        return this.iconsMap[this.item.extension];
+        return this.iconsMap[this.item.extension.toLowerCase()];
       } else {
         return this.iconsMap["default"];
       }

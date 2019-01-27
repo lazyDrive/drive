@@ -235,21 +235,21 @@ class LocalAdapter {
 
         itemDataObj.imgLazyUrl = `/api/images/${Buffer.from(path + item).toString('base64')}/t/${itemDataObj.extension}/d/200/200/m/${itemDataObj.mime_type}/${itemDataObj.id}`;
         itemDataObj.imgUrl = `/api/images/${Buffer.from(path + item).toString('base64')}/t/${itemDataObj.extension}/d/200/200/m/${itemDataObj.mime_type}/${itemDataObj.id}`;
-      } else if (itemDataObj.extension === 'pdf') {
+      } else if (itemDataObj.extension.toLowerCase() === 'pdf') {
         const pdfImagePath = cacheApi.genPdfImage(path + item, eventControl);
 
         if (pdfImagePath) {
           itemDataObj.imgLazyUrl = `/api/images/${Buffer.from(pdfImagePath).toString('base64')}/t/png/d/200/200/m/image/png/${itemDataObj.id}`;
           itemDataObj.imgUrl = `/api/images/${Buffer.from(pdfImagePath).toString('base64')}/t/png/d/200/200/m/image/png/${itemDataObj.id}`;
         }
-      } else if (itemDataObj.extension === 'mp4') {
+      } else if (itemDataObj.extension.toLowerCase() === 'mp4') {
         const videoThumb = cacheApi.cacheVideoImage(path, item, eventControl);
 
         if (videoThumb) {
           itemDataObj.imgLazyUrl = `/api/images/${Buffer.from(videoThumb).toString('base64')}/t/png/d/200/200/m/image/png/${itemDataObj.id}`;
           itemDataObj.imgUrl = `/api/images/${Buffer.from(videoThumb).toString('base64')}/t/png/d/200/200/m/image/png/${itemDataObj.id}`;
         }
-      } else if (itemDataObj.extension === 'zip') {
+      } else if (itemDataObj.extension.toLowerCase() === 'zip') {
         // const zip = new StreamZip({
         //   file: path + item,
         //   storeEntries: true,
