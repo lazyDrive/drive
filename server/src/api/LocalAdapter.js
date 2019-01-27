@@ -235,15 +235,15 @@ class LocalAdapter {
 
         itemDataObj.imgLazyUrl = `/api/images/${Buffer.from(path + item).toString('base64')}/t/${itemDataObj.extension}/d/200/200/m/${itemDataObj.mime_type}/${itemDataObj.id}`;
         itemDataObj.imgUrl = `/api/images/${Buffer.from(path + item).toString('base64')}/t/${itemDataObj.extension}/d/200/200/m/${itemDataObj.mime_type}/${itemDataObj.id}`;
-      } else if (itemDataObj.extension === 'pdf' && eventControl !== 'subscribe') {
-        const pdfImagePath = cacheApi.genPdfImage(path + item);
+      } else if (itemDataObj.extension === 'pdf') {
+        const pdfImagePath = cacheApi.genPdfImage(path + item, eventControl);
 
         if (pdfImagePath) {
           itemDataObj.imgLazyUrl = `/api/images/${Buffer.from(pdfImagePath).toString('base64')}/t/png/d/200/200/m/image/png/${itemDataObj.id}`;
           itemDataObj.imgUrl = `/api/images/${Buffer.from(pdfImagePath).toString('base64')}/t/png/d/200/200/m/image/png/${itemDataObj.id}`;
         }
-      } else if (itemDataObj.extension === 'mp4' && eventControl !== 'subscribe') {
-        const videoThumb = cacheApi.cacheVideoImage(path, item);
+      } else if (itemDataObj.extension === 'mp4') {
+        const videoThumb = cacheApi.cacheVideoImage(path, item, eventControl);
 
         if (videoThumb) {
           itemDataObj.imgLazyUrl = `/api/images/${Buffer.from(videoThumb).toString('base64')}/t/png/d/200/200/m/image/png/${itemDataObj.id}`;

@@ -148,13 +148,18 @@ exports.serveImages = (req, res, next) => {
     cached = true;
   }
 
+  const cacheFolder = adapter.getDir(path);
+
+  // Check for cache
+  const iscacheFolder = cacheFolder.split('/')[0];
+
   fs.readFile(path, (err, content) => {
     if (err) {
       res.writeHead(400, {
         'Content-type': 'text/html',
       });
       res.end('error');
-    } else if (!cached) {
+    } else if (!cached && iscacheFolder !== '.cache') {
       const quality = 60;
       const hd = null;
       const optimizationLevel = (hd || quality >= 60) ? 1 : 2;
@@ -178,34 +183,28 @@ exports.serveImages = (req, res, next) => {
       })
         .then((compressedImage) => {
           const name = Path.basename(path);
-          const cacheFolder = adapter.getDir(path);
 
-          // Check for cache
-          const iscacheFolder = cacheFolder.split('/')[0];
+          const targetFolder = `.cache/${cacheFolder}`;
+          fs.ensureDir(targetFolder)
+            .then(() => {
+              fs.writeFile(`${targetFolder}/${name}`, compressedImage, (err) => {
+                if (err) throw err;
+                console.log('Cache Saved.');
 
-          if (iscacheFolder !== '.cache') {
-            const targetFolder = `.cache/${cacheFolder}`;
-            fs.ensureDir(targetFolder)
-              .then(() => {
-                fs.writeFile(`${targetFolder}/${name}`, compressedImage, (err) => {
-                  if (err) throw err;
-                  console.log('Cache Saved.');
-
-                  const stat = fs.statSync(`.cache/${path}`);
-                  const fileSize = stat.size;
-                  const head = {
-                    'Content-Length': fileSize,
-                    'Cache-Control': 'private, max-age=86400, no-transform',
-                    'Content-Type': `${mime1}/${mime2}`,
-                  };
-                  res.writeHead(200, head);
-                  fs.createReadStream(`.cache/${path}`).pipe(res);
-                });
-              })
-              .catch((err) => {
-                console.log(err);
+                const stat = fs.statSync(`.cache/${path}`);
+                const fileSize = stat.size;
+                const head = {
+                  'Content-Length': fileSize,
+                  'Cache-Control': 'private, max-age=86400, no-transform',
+                  'Content-Type': `${mime1}/${mime2}`,
+                };
+                res.writeHead(200, head);
+                fs.createReadStream(`.cache/${path}`).pipe(res);
               });
-          }
+            })
+            .catch((err) => {
+              console.log(err);
+            });
         })
         .catch((error) => {
           console.log(error);

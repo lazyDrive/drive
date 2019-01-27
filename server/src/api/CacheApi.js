@@ -14,26 +14,28 @@ const ffmpeg = require('fluent-ffmpeg');
 // eslint-disable-next-line prefer-destructuring
 const PDFImage = require('pdf-image').PDFImage;
 
-exports.genPdfImage = (filePath) => {
+exports.genPdfImage = (filePath, eventControl) => {
   const name = Path.basename(filePath).split('.').slice(0, -1).join('.');
   const cacheFolder = Path.dirname(filePath);
   const targetFolder = `.cache/${cacheFolder}`;
 
   if (!fs.existsSync(`${targetFolder}/${name}-0.png`)) {
-    const pdfImage = new PDFImage(filePath, {
-      outputDirectory: targetFolder,
-      graphicsMagick: true,
-      convertOptions: {
-        '-resize': '2000x2000',
-        '-quality': '75',
-      },
-    });
+    if (eventControl !== 'subscribe') {
+      const pdfImage = new PDFImage(filePath, {
+        outputDirectory: targetFolder,
+        graphicsMagick: true,
+        convertOptions: {
+          '-resize': '2000x2000',
+          '-quality': '75',
+        },
+      });
 
-    fs.ensureDirSync(targetFolder);
+      fs.ensureDirSync(targetFolder);
 
-    pdfImage.convertPage(0).then(() => {
-      console.log('PDF Cached.');
-    });
+      pdfImage.convertPage(0).then(() => {
+        console.log('PDF Cached.');
+      });
+    }
     return false;
   }
   return `${targetFolder}/${name}-0.png`;
@@ -89,20 +91,24 @@ exports.cacheImage = (filePath) => {
 };
 
 
-exports.cacheVideoImage = (path, item) => {
+exports.cacheVideoImage = (path, item, eventControl) => {
   const name = `${item.split('.').slice(0, -1).join('.')}.png`;
   const targeVideo = `.cache/${path}${name}`;
 
+  fs.ensureDirSync(`.cache/${path}`);
+
   if (!fs.existsSync(targeVideo)) {
-    ffmpeg(path + item)
-      .screenshots({
-        timestamps: ['1%'],
-        filename: name,
-        count: 1,
-        folder: `.cache/${path}`,
-        size: '800x450',
-      });
-    console.log('Video Thumb generated.');
+    if (eventControl !== 'subscribe') {
+      ffmpeg(path + item)
+        .screenshots({
+          timestamps: ['1%'],
+          filename: name,
+          count: 1,
+          folder: `.cache/${path}`,
+          size: '800x450',
+        });
+      console.log('Video Thumb generated.');
+    }
     return false;
   }
   return targeVideo;
