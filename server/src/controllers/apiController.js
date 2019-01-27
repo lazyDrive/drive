@@ -189,23 +189,23 @@ exports.serveImages = (req, res, next) => {
               .then(() => {
                 fs.writeFile(`${targetFolder}/${name}`, compressedImage, (err) => {
                   if (err) throw err;
-                  console.log('Cached.');
+                  console.log('Cache Saved.');
+
+                  const stat = fs.statSync(`.cache/${path}`);
+                  const fileSize = stat.size;
+                  const head = {
+                    'Content-Length': fileSize,
+                    'Cache-Control': 'private, max-age=86400, no-transform',
+                    'Content-Type': `${mime1}/${mime2}`,
+                  };
+                  res.writeHead(200, head);
+                  fs.createReadStream(`.cache/${path}`).pipe(res);
                 });
               })
               .catch((err) => {
                 console.log(err);
               });
           }
-
-          const stat = fs.statSync(`.cache/${path}`);
-          const fileSize = stat.size;
-          const head = {
-            'Content-Length': fileSize,
-            'Cache-Control': 'private, max-age=86400, no-transform',
-            'Content-Type': `${mime1}/${mime2}`,
-          };
-          res.writeHead(200, head);
-          fs.createReadStream(`.cache/${path}`).pipe(res);
         })
         .catch((error) => {
           console.log(error);
