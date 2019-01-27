@@ -148,15 +148,6 @@ exports.serveImages = (req, res, next) => {
     cached = true;
   }
 
-  // const stat = fs.statSync(path);
-  // const fileSize = stat.size;
-
-  res.writeHead(200, {
-    // 'Content-Length': fileSize,
-    'Cache-Control': 'private, max-age=86400, no-transform',
-    'Content-Type': `${mime1}/${mime2}`,
-  });
-
   fs.readFile(path, (err, content) => {
     if (err) {
       res.writeHead(400, {
@@ -169,22 +160,22 @@ exports.serveImages = (req, res, next) => {
       const optimizationLevel = (hd || quality >= 60) ? 1 : 2;
 
       imagemin.buffer(content, {
-          plugins: [
-            imageminGifsicle({
-              optimizationLevel,
-              interlaced: true,
-            }),
-            imageminMozjpeg({
-              quality,
-            }),
-            imageminJpegtran({
-              progressive: true,
-            }),
-            imageminPngquant({
-              quality: [0.3, 0.5],
-            }),
-          ],
-        })
+        plugins: [
+          imageminGifsicle({
+            optimizationLevel,
+            interlaced: true,
+          }),
+          imageminMozjpeg({
+            quality,
+          }),
+          imageminJpegtran({
+            progressive: true,
+          }),
+          imageminPngquant({
+            quality: [0.3, 0.5],
+          }),
+        ],
+      })
         .then((compressedImage) => {
           const name = Path.basename(path);
           const cacheFolder = adapter.getDir(path);
@@ -205,14 +196,39 @@ exports.serveImages = (req, res, next) => {
                 console.log(err);
               });
           }
-          return res.end(compressedImage);
+
+          const stat = fs.statSync(`.cache/${path}`);
+          const fileSize = stat.size;
+          const head = {
+            'Content-Length': fileSize,
+            'Cache-Control': 'private, max-age=86400, no-transform',
+            'Content-Type': `${mime1}/${mime2}`,
+          };
+          res.writeHead(200, head);
+          fs.createReadStream(`.cache/${path}`).pipe(res);
         })
         .catch((error) => {
           console.log(error);
-          return res.end(content);
+          const stat = fs.statSync(path);
+          const fileSize = stat.size;
+          const head = {
+            'Content-Length': fileSize,
+            'Cache-Control': 'private, max-age=86400, no-transform',
+            'Content-Type': `${mime1}/${mime2}`,
+          };
+          res.writeHead(200, head);
+          fs.createReadStream(path).pipe(res);
         });
     } else {
-      return res.end(content);
+      const stat = fs.statSync(path);
+      const fileSize = stat.size;
+      const head = {
+        'Content-Length': fileSize,
+        'Cache-Control': 'private, max-age=86400, no-transform',
+        'Content-Type': `${mime1}/${mime2}`,
+      };
+      res.writeHead(200, head);
+      fs.createReadStream(path).pipe(res);
     }
   });
 };
@@ -260,10 +276,10 @@ exports.rename = (req, res, next) => {
   const adapter = new LocalAdapter(req, res, next, oldPath);
 
   adapter.move(oldPath, newPath).then(() => {
-      res.status(200).json({
-        message: 'Renamed',
-      });
-    })
+    res.status(200).json({
+      message: 'Renamed',
+    });
+  })
     .catch((err) => {
       res.status(500).json({
         error: err,
@@ -280,8 +296,8 @@ exports.uploadFiles = (req, res) => {
 
 exports.log = (req, res, next) => {
   Api.find({
-      recentId: req.body.id,
-    })
+    recentId: req.body.id,
+  })
     .exec()
     .then((file) => {
       if (file.length <= 0) {
@@ -304,10 +320,10 @@ exports.log = (req, res, next) => {
           });
       } else {
         Api.update({
-            recentId: req.body.id,
-          }, {
-            data: new Date(),
-          })
+          recentId: req.body.id,
+        }, {
+          data: new Date(),
+        })
           .then(() => {
             res.status(201).json({
               message: 'Updated.',

@@ -20,7 +20,7 @@ export const getContents = (context, payload) => {
 
   api.axios()
     .get(`api/getFiles/${path}/${limit}`, {
-      retry: 5,
+      retry: 3,
       retryDelay: 1000
     })
     .then(response => {
@@ -53,7 +53,7 @@ export const update = (context, payload) => {
 
   api.axios()
     .get(`api/getFiles/${path}/${limit}/update/nocache/${state}`, {
-      retry: 5,
+      retry: 3,
       retryDelay: 1000
     })
     .then(response => {
@@ -80,7 +80,7 @@ export const upload = (context, payload) => {
 
     api.axios()
       .post(`api/upload/${payload.uploadPath}`, payload.formData, {
-        retry: 5,
+        retry: 3,
         retryDelay: 1000,
         onUploadProgress: e => {
           if (foundIndex !== -1) {
