@@ -270,9 +270,9 @@ class LocalAdapter {
       }
 
       let extImgPath = '';
-      if (itemDataObj.extension && fs.existsSync(`./thirdParty/${itemDataObj.extension}.svg`)) {
-        extImgPath = `./thirdParty/${itemDataObj.extension}.svg`;
-        itemDataObj.extImg = `/api/thirdParty/${Buffer.from(extImgPath).toString('base64')}/t/${itemDataObj.extension}`;
+      if (itemDataObj.extension && fs.existsSync(`./thirdParty/${itemDataObj.extension.toLowerCase()}.svg`)) {
+        extImgPath = `./thirdParty/${itemDataObj.extension.toLowerCase()}.svg`;
+        itemDataObj.extImg = `/api/thirdParty/${Buffer.from(extImgPath).toString('base64')}/t/${itemDataObj.extension.toLowerCase()}`;
       } else {
         extImgPath = './thirdParty/file.svg';
         itemDataObj.extImg = `/api/thirdParty/${Buffer.from(extImgPath).toString('base64')}/t/file`;
