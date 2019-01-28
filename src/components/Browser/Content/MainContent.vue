@@ -3,10 +3,10 @@
     <v-container fluid grid-list-md>
       <v-breadcrumbs :items="diskLoaded">
         <template slot="item" slot-scope="props">
-          <router-link
-            :to="{ path: props.item.href }"
+          <a
+            @click.stop="doThis(props.item.path)"
             :class="[props.item.disabled && 'disabled']"
-          >{{ props.item.text }}</router-link>
+          >{{ props.item.text }}</a>
         </template>
       </v-breadcrumbs>
 
@@ -48,6 +48,13 @@ export default {
     }
   },
   methods: {
+    doThis: function(path) {
+      if (path) {
+        this.$store.dispatch("getContents", { path });
+      } else {
+        this.$store.dispatch("getContents", { path: "my-drive" });
+      }
+    },
     onScroll: async function() {
       if (window.innerHeight + window.scrollY >= document.body.scrollHeight) {
         this.$store.state.loadLimit = this.$store.state.loadLimit + 10;

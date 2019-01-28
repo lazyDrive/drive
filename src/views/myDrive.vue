@@ -69,6 +69,7 @@ export default {
           if (name != "uploads") {
             disk.text = name;
             disk.href = `/drive/u/0/folder/${encodePath}`;
+            disk.path = encodePath;
           } else {
             disk.text = "my-drive";
             disk.href = `/drive/u/0/my-drive/`;
