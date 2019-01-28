@@ -30,7 +30,7 @@
                   <v-list-tile-title>{{ item.text }}</v-list-tile-title>
                 </v-list-tile-content>
               </v-list-tile>
-              <v-list-tile v-for="(child, i) in item.children" :key="i" @click="fire(child.link)">
+              <v-list-tile v-for="(child, i) in item.children" :key="i" @click.stop="fire(child.link)">
                 <v-list-tile-action v-if="child.icon">
                   <svg
                     v-if="child.icon == 'upload_file'"
@@ -69,7 +69,7 @@
                 </v-list-tile-content>
               </v-list-tile>
             </v-list-group>
-            <v-list-tile v-else :key="item.text" @click="fire(item.link)">
+            <v-list-tile v-else :key="item.text" @click.stop="fire(item.link)">
               <v-list-tile-action>
                 <v-icon color="black">{{ item.icon }}</v-icon>
               </v-list-tile-action>

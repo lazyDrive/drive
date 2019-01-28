@@ -198,9 +198,7 @@ export default {
       ) {
         if (event.keyCode == 27) {
           event.preventDefault();
-          // const next = this.findNext(event.keyCode);
-          // this.$store.commit(types.UNSELECT_ALL_BROWSER_ITEMS);
-          // this.$store.commit(types.SELECT_BROWSER_ITEM, this.$store.state.contents[next]);
+
         } else if (event.keyCode == 39) {
           const current = this.current();
           if (current < this.$store.state.contents.length - 1) {
