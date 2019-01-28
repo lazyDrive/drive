@@ -113,12 +113,6 @@ export default {
       this.findDisk(to, from);
       this.$store.commit(types.UNSELECT_ALL_BROWSER_ITEMS);
       this.$store.state.loadLimit = 30;
-      this.$store.state.contents = [];
-      if (to.params.dir) {
-        this.$store.dispatch("getContents", { path: to.params.dir });
-      } else {
-        this.$store.dispatch("getContents", { path: "my-drive" });
-      }
     }
   }
 };
