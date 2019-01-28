@@ -108,12 +108,12 @@
       <v-btn
         icon
         class="uploading"
-        @click="showUploadMenu()"
+        @click.stop="showUploadMenu()"
         v-if="this.$store.state.isUploading == true"
       >
         <v-icon medium color="green">cloud_upload</v-icon>
       </v-btn>
-      <v-btn icon @click="showUploadMenu()" v-else-if="this.$store.state.isUploading == 2">
+      <v-btn icon @click.stop="showUploadMenu()" v-else-if="this.$store.state.isUploading == 2">
         <v-icon medium color="green">cloud_done</v-icon>
       </v-btn>
       <v-btn v-else-if="this.$store.state.isLoading" icon class="loading">
