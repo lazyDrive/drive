@@ -32,7 +32,7 @@
     </v-container>
 
     <!-- Add infrobar -->
-    <media-infrobar v-if="this.$store.state.showInfoBar" ref="infobar"></media-infrobar>
+    <media-infrobar v-if="this.$store.state.showInfoBar"></media-infrobar>
   </v-content>
 </template>
 

@@ -22,7 +22,7 @@
         <strong>Folders</strong>
       </div>
     </v-checkbox>
-    <v-layout row wrap>
+    <v-layout row wrap ref="mediaFolder">
       <media-folder v-for="item in folders" :item="item" :key="item.id"></media-folder>
     </v-layout>
 
@@ -126,16 +126,19 @@ export default {
         (this.$refs.browserItems &&
           !this.$refs.browserItems.contains(event.target)) ||
         event.target === this.$refs.browserItems;
+
       const notClickedInfobar =
         this.$refs.infobar !== undefined &&
         !this.$refs.infobar.$el.contains(event.target);
       const clickedOutside = notClickedBrowserItems && notClickedInfobar;
 
+      const notMediaFolder =
+        this.$refs.mediaFolder !== undefined &&
+        !this.$refs.mediaFolder.contains(event.target);
+
       if (clickedOutside && !this.$store.state.modelBackdrop) {
-        // this.$store.commit(types.UNSELECT_ALL_BROWSER_ITEMS);
-        // this.selectAllFile = false;
-        // this.selectAllFolder = false;
-      } else {
+        // s
+      } else if(notMediaFolder){
         this.$store.dispatch("update", {
           path: this.$store.state.selectedDirectory
         });
