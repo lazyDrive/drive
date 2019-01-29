@@ -15,7 +15,6 @@
   "dependencies": {
     "axios": "^0.18.0",
     "babel-polyfill": "^6.26.0",
-    "crypto-js": "^3.1.9-1",
     "debug": "^4.1.1",
     "file-saver": "^2.0.0",
     "filestack-js": "^1.9.0",
@@ -27,11 +26,8 @@
     "underscore": "^1.9.1",
     "vue": "^2.5.21",
     "vue-analytics": "^5.16.1",
-    "vue-gh-pages": "^1.19.0",
     "vue-pdf": "^4.0.5",
-    "vue-progressbar": "^0.7.5",
     "vue-router": "^3.0.1",
-    "vue-svg-loader": "^0.11.0",
     "vuetify": "^1.4.0",
     "vuex": "^3.0.1",
     "vuex-persistedstate": "^2.5.4"
