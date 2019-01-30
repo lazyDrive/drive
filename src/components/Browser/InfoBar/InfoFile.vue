@@ -1,11 +1,16 @@
 <template>
-  <div class="m-d-img media-info-file" >
+  <div class="m-d-img media-info-file">
+    <!-- for folder -->
+    <div class="folder" v-if="folder">
+      <v-icon size="150">folder</v-icon>
+    </div>
+
     <!-- for image -->
     <v-img
       class="m-gradient"
       aspect-ratio="1.75"
       :src="item.imgUrl"
-      v-if="image || item.extension == 'pdf'"
+      v-else-if="image || item.extension == 'pdf'"
       :lazy-src="item.imgLazyUrl"
     ></v-img>
 
@@ -21,11 +26,6 @@
       <audio class="media-audio-player" controls controlslist="nodownload">
         <source :src="item.filePath" type="audio/mpeg">
       </audio>
-    </div>
-
-    <!-- for folder -->
-    <div class="folder" v-else-if="folder">
-      <v-icon size="150">folder</v-icon>
     </div>
 
     <!-- for other files -->
@@ -176,7 +176,7 @@ export default {
         i++;
       }
       return Math.round(_size * 100) / 100 + " " + fSExt[i];
-    },
+    }
   }
 };
 </script>
