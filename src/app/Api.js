@@ -23,11 +23,19 @@ class Api {
    */
   axios() {
 
+    let axiosInstance;
+
     axios.defaults.headers.common['Authorization'] = `Bearer ${this.mediastorage.cookies.get('token')}`;
     axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
     axios.defaults.headers.common['csrfToken'] = process.env.VUE_APP_SECRET;
 
-    const axiosInstance = axios.create();
+    if (process.env.NODE_ENV == 'production') {
+      axiosInstance = axios.create({
+        baseURL: process.env.PORT ? process.env.PORT : 'http://localhost:3344',
+      });
+    } else {
+      axiosInstance = axios.create();
+    }
 
     axiosInstance.interceptors.response.use(undefined, function axiosRetryInterceptor(err) {
       var config = err.config;
