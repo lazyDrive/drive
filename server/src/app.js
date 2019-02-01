@@ -5,6 +5,7 @@ const morgan = require('morgan');
 const mongoose = require('mongoose');
 const ora = require('ora');
 const compression = require('compression');
+const history = require('connect-history-api-fallback');
 
 // import routes
 const apiRouter = require('./routes/apiRouter');
@@ -26,6 +27,7 @@ mongoose.Promise = global.Promise;
 app.use(cors());
 app.use(morgan('dev'));
 app.use(compression());
+app.use(history());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({
   extended: false,
