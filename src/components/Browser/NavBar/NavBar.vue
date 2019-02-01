@@ -93,7 +93,7 @@
     >
       <v-toolbar-title style="width: 300px" class="ml-0">
         <v-toolbar-side-icon @click.stop="drawer = !drawer"></v-toolbar-side-icon>
-        <span class="hidden-sm-and-down">Media Manager</span>
+        <span class="hidden-sm-and-down">Media Drive</span>
       </v-toolbar-title>
       <v-text-field
         flat

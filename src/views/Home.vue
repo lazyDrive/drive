@@ -2,7 +2,7 @@
   <div class="media-home">
     <v-app>
       <v-toolbar fixed dark>
-        <v-toolbar-title>Media Manager</v-toolbar-title>
+        <v-toolbar-title>Media Drive</v-toolbar-title>
         <v-spacer></v-spacer>
         <v-btn v-if="!isLoggedIn" v-on:click.stop.prevent :to="{ path: '/login' }" flat>Sign in</v-btn>
         <v-btn v-if="!isLoggedIn" v-on:click.stop.prevent :to="{ path: '/signup' }"  flat>Sign up</v-btn>
