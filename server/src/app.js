@@ -25,7 +25,16 @@ mongoose.connect('mongodb://localhost/ninjago', {
 mongoose.Promise = global.Promise;
 
 if (process.env.NODE_ENV === 'production') {
-  app.use(history());
+  app.use(history({
+    rewrites: [
+      {
+        from: /^\/api\/.*$/,
+        to(context) {
+          return context.parsedUrl.path;
+        },
+      },
+    ],
+  }));
 }
 app.use(cors());
 app.use(morgan('dev'));
