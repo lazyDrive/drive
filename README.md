@@ -29,21 +29,28 @@
 
 ## Installation
 
-    # npm
-
     # Install imagemagick
-    sudo apt-get install imagemagick ghostscript poppler-utils
+    `sudo apt-get install imagemagick ghostscript poppler-utils`
 
     # In root and server run
-    npm install
+    `npm install`
 
     # In server folder run
-    npm start
+    `npm start`
 
     # In root run
-    npm run serve
+    `npm run serve`
 
-    # Done! Magic happens on port: http://localhost:8080
+    # Done! Magic happens on port: `http://localhost:8080`
+
+## Production
+
+    # In root run
+    `npm run build`
+
+    It build fresh production package in server public folder for you. Then run your server in server folder using this command.
+    `npm run drive`
+
 
 ## Demo
 
