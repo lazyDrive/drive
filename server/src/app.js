@@ -24,10 +24,12 @@ mongoose.connect('mongodb://localhost/ninjago', {
 });
 mongoose.Promise = global.Promise;
 
+if (process.env.NODE_ENV === 'production') {
+  app.use(history());
+}
 app.use(cors());
 app.use(morgan('dev'));
 app.use(compression());
-app.use(history());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({
   extended: false,
@@ -52,9 +54,8 @@ app.use('/api', apiRouter);
 app.use('/user', userRoutes);
 
 // Production
-if (process.env.NODE_ENV !== 'production') {
+if (process.env.NODE_ENV === 'production') {
   app.use(express.static(`${__dirname}/../public`));
-
   app.get(/.*/, (req, res) => res.sendFile(`${__dirname}/../public/index.html`));
 }
 
