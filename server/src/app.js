@@ -26,22 +26,23 @@ mongoose.Promise = global.Promise;
 
 if (process.env.NODE_ENV === 'production') {
   app.use(history({
-    rewrites: [
-      {
-        from: /^\/api\/.*$/,
-        to(context) {
-          return context.parsedUrl.path;
-        },
+    rewrites: [{
+      from: /^\/api\/.*$/,
+      to(context) {
+        return context.parsedUrl.path;
       },
-    ],
+    }, ],
   }));
 }
 app.use(cors());
 app.use(morgan('dev'));
 app.use(compression());
-app.use(bodyParser.json());
+app.use(bodyParser.json({
+  limit: '50mb',
+}));
 app.use(bodyParser.urlencoded({
-  extended: false,
+  limit: '50mb',
+  extended: true,
 }));
 
 app.use((req, res, next) => {
