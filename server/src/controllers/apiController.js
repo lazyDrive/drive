@@ -1,5 +1,6 @@
 /* eslint-disable no-console */
 const fs = require('fs-extra');
+const Archiver = require('archiver');
 const axios = require('axios');
 const Path = require('path');
 
@@ -164,22 +165,22 @@ exports.serveImages = (req, res, next) => {
       const optimizationLevel = (hd || quality >= 60) ? 1 : 2;
 
       imagemin.buffer(content, {
-        plugins: [
-          imageminGifsicle({
-            optimizationLevel,
-            interlaced: true,
-          }),
-          imageminMozjpeg({
-            quality,
-          }),
-          imageminJpegtran({
-            progressive: true,
-          }),
-          imageminPngquant({
-            quality: [0.3, 0.5],
-          }),
-        ],
-      })
+          plugins: [
+            imageminGifsicle({
+              optimizationLevel,
+              interlaced: true,
+            }),
+            imageminMozjpeg({
+              quality,
+            }),
+            imageminJpegtran({
+              progressive: true,
+            }),
+            imageminPngquant({
+              quality: [0.3, 0.5],
+            }),
+          ],
+        })
         .then((compressedImage) => {
           const name = Path.basename(path);
 
@@ -248,6 +249,25 @@ exports.downloadFile = () => {
     });
 };
 
+
+exports.zip_batch = (req, res, next) => {
+  res.writeHead(200, {
+    'Content-Type': 'application/zip',
+    'Content-disposition': 'attachment; filename=myFile.zip',
+  });
+
+  const archiverZip = Archiver('zip');
+
+  archiverZip.pipe(res);
+
+  req.body.files.forEach((file) => {
+    const filePath = Buffer.from(file.path, 'base64').toString('ascii');
+    archiverZip.append(fs.createReadStream(filePath), { name: file.name });
+  });
+
+  archiverZip.finalize();
+};
+
 exports.createDirectory = (req, res, next) => {
   let path = 'uploads/';
 
@@ -274,10 +294,10 @@ exports.rename = (req, res, next) => {
   const adapter = new LocalAdapter(req, res, next, oldPath);
 
   adapter.move(oldPath, newPath).then(() => {
-    res.status(200).json({
-      message: 'Renamed',
-    });
-  })
+      res.status(200).json({
+        message: 'Renamed',
+      });
+    })
     .catch((err) => {
       res.status(500).json({
         error: err,
@@ -294,8 +314,8 @@ exports.uploadFiles = (req, res) => {
 
 exports.log = (req, res, next) => {
   Api.find({
-    recentId: req.body.id,
-  })
+      recentId: req.body.id,
+    })
     .exec()
     .then((file) => {
       if (file.length <= 0) {
@@ -318,10 +338,10 @@ exports.log = (req, res, next) => {
           });
       } else {
         Api.update({
-          recentId: req.body.id,
-        }, {
-          data: new Date(),
-        })
+            recentId: req.body.id,
+          }, {
+            data: new Date(),
+          })
           .then(() => {
             res.status(201).json({
               message: 'Updated.',

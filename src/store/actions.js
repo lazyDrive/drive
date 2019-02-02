@@ -3,7 +3,6 @@ import {
 } from "../app/Api";
 import * as types from "./mutation-types";
 import * as FileSaver from 'file-saver';
-import jsZip from 'jszip';
 import router from './../router'
 
 /**
@@ -278,36 +277,21 @@ export const download = (context, payload) => {
       });
 
   } else {
-    var zip = new jsZip();
-    var count = 0;
-    payload.forEach((file) => {
 
-      api.axios()
-        .get(file.filePath, {
-          responseType: 'blob'
-        }, )
-        .then((response) => {
+    const path = context.state.selectedDirectory;
 
-          zip.file(file.name, response.data, {
-            binary: true
-          });
-
-          ++count;
-
-          if (count == payload.length) {
-
-            zip.generateAsync({
-              type: 'blob'
-            }).then(function (content) {
-              FileSaver.saveAs(content, new Date + '.zip');
-              context.commit(types.HIDE_SNACKBAR);
-            });
-          }
-
-        })
-        .catch((error) => {
-          api._handleError(error);
-        });
-    });
+    api.axios()
+      .post(`api/batch/${path}`, {
+        files: payload
+      }, {
+        responseType: 'blob'
+      })
+      .then((response) => {
+        FileSaver.saveAs(new Blob([response.data]), 'Media_Drive_' + new Date() + '.zip');
+        context.commit(types.HIDE_SNACKBAR);
+      })
+      .catch((error) => {
+        api._handleError(error);
+      });
   }
 }

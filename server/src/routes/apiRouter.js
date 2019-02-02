@@ -76,6 +76,9 @@ router.get('/files/:path/t/:type/m/:mime1/:mime2/s/:size/:key', checkFileAccess,
 // Download files
 router.get('/download/file/:path', checkFileAccess, ApiController.downloadFile);
 
+// Batch files
+router.post('/batch/:path', checkFileAccess, ApiController.zip_batch);
+
 // Upload files
 router.post('/upload/:path', checkAuth, upload.single('files'), ApiController.uploadFiles);
 
