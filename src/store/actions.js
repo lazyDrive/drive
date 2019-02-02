@@ -256,7 +256,7 @@ export const signup = (context, payload) => {
  */
 export const download = (context, payload) => {
   var data = {
-    data: 'Preparing for download...',
+    data: 'Preparing download.',
     color: 'default',
     time: 0
   };
