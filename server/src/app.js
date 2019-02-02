@@ -38,10 +38,10 @@ app.use(cors());
 app.use(morgan('dev'));
 app.use(compression());
 app.use(bodyParser.json({
-  limit: '50mb',
+  limit: '500mb',
 }));
 app.use(bodyParser.urlencoded({
-  limit: '50mb',
+  limit: '500mb',
   extended: true,
 }));
 
