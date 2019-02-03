@@ -10,6 +10,8 @@
 
 ### Directory layout
 
+[![Greenkeeper badge](https://badges.greenkeeper.io/media-drive/drive.svg)](https://greenkeeper.io/)
+
     .
     ├── docs                    # Documentation files (alternatively `doc`)
     ├── public                  # Public files
