@@ -165,22 +165,22 @@ exports.serveImages = (req, res, next) => {
       const optimizationLevel = (hd || quality >= 60) ? 1 : 2;
 
       imagemin.buffer(content, {
-          plugins: [
-            imageminGifsicle({
-              optimizationLevel,
-              interlaced: true,
-            }),
-            imageminMozjpeg({
-              quality,
-            }),
-            imageminJpegtran({
-              progressive: true,
-            }),
-            imageminPngquant({
-              quality: [0.3, 0.5],
-            }),
-          ],
-        })
+        plugins: [
+          imageminGifsicle({
+            optimizationLevel,
+            interlaced: true,
+          }),
+          imageminMozjpeg({
+            quality,
+          }),
+          imageminJpegtran({
+            progressive: true,
+          }),
+          imageminPngquant({
+            quality: [0.3, 0.5],
+          }),
+        ],
+      })
         .then((compressedImage) => {
           const name = Path.basename(path);
 
@@ -256,7 +256,13 @@ exports.zip_batch = (req, res, next) => {
     'Content-disposition': 'attachment; filename=myFile.zip',
   });
 
-  const archiverZip = Archiver('zip');
+  const archiverZip = Archiver('zip', {
+    zlib: { level: 9 }, // Sets the compression level.
+  });
+
+  archiverZip.on('error', (err) => {
+    throw err;
+  });
 
   archiverZip.pipe(res);
 
@@ -294,10 +300,10 @@ exports.rename = (req, res, next) => {
   const adapter = new LocalAdapter(req, res, next, oldPath);
 
   adapter.move(oldPath, newPath).then(() => {
-      res.status(200).json({
-        message: 'Renamed',
-      });
-    })
+    res.status(200).json({
+      message: 'Renamed',
+    });
+  })
     .catch((err) => {
       res.status(500).json({
         error: err,
@@ -314,8 +320,8 @@ exports.uploadFiles = (req, res) => {
 
 exports.log = (req, res, next) => {
   Api.find({
-      recentId: req.body.id,
-    })
+    recentId: req.body.id,
+  })
     .exec()
     .then((file) => {
       if (file.length <= 0) {
@@ -338,10 +344,10 @@ exports.log = (req, res, next) => {
           });
       } else {
         Api.update({
-            recentId: req.body.id,
-          }, {
-            data: new Date(),
-          })
+          recentId: req.body.id,
+        }, {
+          data: new Date(),
+        })
           .then(() => {
             res.status(201).json({
               message: 'Updated.',
