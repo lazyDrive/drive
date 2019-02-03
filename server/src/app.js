@@ -31,7 +31,7 @@ if (process.env.NODE_ENV === 'production') {
       to(context) {
         return context.parsedUrl.path;
       },
-    }, ],
+    }],
   }));
 }
 app.use(cors());
