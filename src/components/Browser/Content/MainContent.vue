@@ -2,6 +2,7 @@
   <v-content class="media-content" style="padding-top: 35px;">
     <v-container fluid grid-list-md>
       <v-breadcrumbs :items="diskLoaded">
+        <v-icon slot="divider">chevron_right</v-icon>
         <template slot="item" slot-scope="props">
           <a
             @click.stop="doThis(props.item.path)"
