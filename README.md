@@ -6,7 +6,11 @@
   <a href="http://github.com/anu1601cs/media-manager"><img src="https://badges.greenkeeper.io/media-drive/drive.svg" alt="License"></a>
 </p>
 
+<br>
 
+<p align="center">
+  <img  src="public/img/pre.gif">
+</p>
 
 
 ### Directory layout
@@ -51,15 +55,7 @@
     `npm run build`
 
     It build fresh production package in server public folder for you. Then run your server in server folder using this command.
-    `npm run drive`
-
-
-## Demo
-
-<br>
-<p align="center">
-  <img  src="public/img/pre.gif">
-</p>
+    `npm run drive
 
 ## License
 
