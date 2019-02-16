@@ -68,7 +68,7 @@ To build your app:
     # In root run
     `npm run build`
 
-    It build fresh production package in server public folder for you. Then run your server in server folder using this command.
+    It build fresh production package in server public folder for you.
     `npm run drive
 
 ## License
