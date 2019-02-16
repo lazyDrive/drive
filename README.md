@@ -1,8 +1,9 @@
-<h2 align="center">Media Drive</h2>
 
 <p align="center">
   <img src="public/img/logo.png">
 </p>
+
+<h2 align="center">Media Drive</h2>
 
 <p align="center">
 <a href="http://github.com/anu1601cs/media-manager"><img src="https://img.shields.io/npm/l/vue.svg" alt="License"></a>
