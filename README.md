@@ -74,6 +74,4 @@ To build your app:
 
 ## License
 
-[MIT](http://opensource.org/licenses/MIT)
-
 Copyright (c) 2018, Anurag Kumar [anu1601cs](http://github.com/anu1601cs/)
