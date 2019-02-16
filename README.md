@@ -3,7 +3,7 @@
 <p align="center">
 <a href="http://github.com/anu1601cs/media-manager"><img src="https://img.shields.io/npm/l/vue.svg" alt="License"></a>
 <a href="http://github.com/anu1601cs/media-manager"><img src="https://travis-ci.org/lazyDrive/drive.svg?branch=master" alt="License"></a>
-  <a href="http://github.com/anu1601cs/media-manager"><img src="https://badges.greenkeeper.io/media-drive/drive.svg" alt="License"></a>
+  <a href="http://github.com/anu1601cs/media-manager"><img src="https://badges.greenkeeper.io/lazyDrive/drive.svg" alt="License"></a>
 </p>
 
 <br>
