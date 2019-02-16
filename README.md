@@ -1,7 +1,7 @@
 <h2 align="center">Media Drive</h2>
 
 <p align="center">
-  <img src="public/img/logo.svg">
+  <img src="public/img/logo.png">
 </p>
 
 <p align="center">
