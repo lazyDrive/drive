@@ -20,7 +20,6 @@
     "axios": "^0.18.0",
     "babel-polyfill": "^6.26.0",
     "debug": "^4.1.1",
-    "electron": "^4.0.5",
     "file-saver": "^2.0.0",
     "filestack-js": "^1.9.0",
     "jszip": "^3.1.5",
@@ -63,9 +62,6 @@
   },
   "bugs": {
     "url": "https://github.com/Anu1601CS/media-manager/issues"
-  },
-  "directories": {
-    "test": "tests"
   },
   "homepage": "https://github.com/Anu1601CS/media-manager",
   "keywords": [
