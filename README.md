@@ -3,7 +3,7 @@
   <img src="public/img/logo.png">
 </p>
 
-<h2 align="center">Media Drive</h2>
+<h2 align="center">Lazy Drive</h2>
 
 <p align="center">
 <a href="http://github.com/anu1601cs/media-manager"><img src="https://travis-ci.org/lazyDrive/drive.svg?branch=master" alt="License"></a>
