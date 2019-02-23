@@ -51,13 +51,13 @@
         <tr>
           <td class="m-d-td">Created Date</td>
           <td class="m-d-td">
-            <strong>{{ item.created_date }}</strong>
+            <strong>{{ getTime(item.created_date) }}</strong>
           </td>
         </tr>
         <tr>
           <td class="m-d-td">Modified Date</td>
           <td class="m-d-td">
-            <strong>{{ item.modified_date }}</strong>
+            <strong>{{ getTime(item.modified_date) }}</strong>
           </td>
         </tr>
         <tr>
@@ -102,6 +102,8 @@
 </template>
 
 <script>
+import { api } from "./../../../app//Api";
+
 export default {
   name: "media-info-file",
   data() {
@@ -176,6 +178,9 @@ export default {
         i++;
       }
       return Math.round(_size * 100) / 100 + " " + fSExt[i];
+    },
+    getTime: function(_time) {
+      return api.time_ago(_time);
     }
   }
 };
