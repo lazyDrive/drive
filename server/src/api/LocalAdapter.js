@@ -285,13 +285,11 @@ class LocalAdapter {
     itemDataObj.color = isDir ? '#3949AB' : '';
     itemDataObj.size = !isDir ? stats.size : '';
 
-    const atime = new Date(util.inspect(stats.atime));
     const mtime = new Date(util.inspect(stats.mtime));
     const ctime = new Date(util.inspect(stats.ctime));
 
-    itemDataObj.assigned_date = atime;
-    itemDataObj.modified_date = mtime;
-    itemDataObj.created_date = ctime;
+    itemDataObj.modified_date = ctime;
+    itemDataObj.created_date = mtime;
 
     itemDataObj.path = Buffer.from(path + item).toString('base64');
 

@@ -180,7 +180,7 @@ export default {
       return Math.round(_size * 100) / 100 + " " + fSExt[i];
     },
     getTime: function(_time) {
-      return api.time_ago(_time);
+      return api.time_ago(new Date(_time));
     }
   }
 };
