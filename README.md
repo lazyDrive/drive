@@ -55,18 +55,18 @@
 
 ## To start a development server desktop app with electron:
   
-  # if you use NPM:
+  ### if you use NPM:
   `npm run electron:serve`
   
-  # To build your app:
+  ### To build your app:
   `npm run electron:build`
 
 ## Production
   
-  # In root run
+  ### In root run
   `npm run build`
   
-  # It build fresh production package in server public folder for you.
+  ### It build fresh production package in server public folder for you.
   `npm run drive
 
 ## License
