@@ -171,13 +171,14 @@ exports.serveImages = (req, res, next) => {
             interlaced: true,
           }),
           imageminMozjpeg({
-            quality,
+            quality: 10,
           }),
           imageminJpegtran({
-            progressive: true,
+            progressive: false,
+            quality: 0,
           }),
           imageminPngquant({
-            quality: [0.3, 0.5],
+            quality: [0, 0.3],
           }),
         ],
       })

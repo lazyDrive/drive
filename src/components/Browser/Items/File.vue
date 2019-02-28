@@ -11,7 +11,7 @@
       :class="`${selectedState ? 'selected' : ''} responsize-view`"
       class="mx-auto"
       :width="`${isMobile ? '146' : (menuState ? '192' : '210')}`"
-      :height="`${isMobile ? '138' : (menuState ? '170' : '185')}`"
+      :height="`${isMobile ? '138' : (menuState ? '182' : '190')}`"
     >
       <v-img
         class="m-gradient"

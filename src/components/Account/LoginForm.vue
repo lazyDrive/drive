@@ -1,14 +1,10 @@
 <template>
   <div class="media-login">
     <v-toolbar dark>
-      <v-btn v-on:click.stop.prevent :to="{ path: '/' }" flat>Home</v-btn>
-      <v-toolbar-title>Media Manager</v-toolbar-title>
+      <v-toolbar-title>Lazy Drive</v-toolbar-title>
       <v-spacer></v-spacer>
-      <v-btn v-on:click.stop.prevent :to="{ path: '/login' }" flat>Sign in</v-btn>
+      <v-btn v-on:click.stop.prevent :to="{ path: '/' }" flat>Sign in</v-btn>
       <v-btn v-on:click.stop.prevent :to="{ path: '/signup' }" flat>Sign up</v-btn>
-      <v-btn icon href="https://github.com/Anu1601CS/media-manager" flat>
-        <v-icon>code</v-icon>
-      </v-btn>
     </v-toolbar>
     <v-content>
       <v-container fluid fill-height class="loginOverlay">
