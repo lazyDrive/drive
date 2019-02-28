@@ -69,6 +69,14 @@
   ### It build fresh production package in server public folder for you.
   `npm run drive
 
-## License
 
-Copyright (c) 2018, Anurag Kumar [anu1601cs](http://github.com/anu1601cs/)
+# Contributions
+
+**Lazy Drive** is an **opensource** project. Contributions are welcome
+
+- Fork the repo and star it :star:
+- Open issues :boom:
+- Raise PRs for issues :raised_hand:
+- Help on documentation :page_facing_up:
+
+Copyright (c) 2018, Lazy Drive [Lazy Drive](http://github.com/lazyDrive/)
