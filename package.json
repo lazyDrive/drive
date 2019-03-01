@@ -1,5 +1,5 @@
 {
-  "name": "media-manager",
+  "name": "lazy-drive",
   "version": "0.1.0",
   "private": true,
   "description": "<p align=\"center\"><a href=\"http://github.com/anu1601cs/\" target=\"_blank\" rel=\"noopener noreferrer\"><img width=\"100\" src=\"https://vuejs.org/images/logo.png\" alt=\"Vue logo\"></a></p>",
@@ -23,48 +23,48 @@
     "axios": "^0.18.0",
     "babel-polyfill": "^6.26.0",
     "debug": "^4.1.1",
-    "file-saver": "^2.0.0",
+    "file-saver": "^2.0.1",
     "jwt-decode": "^2.2.0",
     "lodash": "^4.17.11",
-    "material-design-icons-iconfont": "^4.0.3",
-    "register-service-worker": "^1.5.2",
+    "material-design-icons-iconfont": "^4.0.5",
+    "register-service-worker": "^1.6.2",
     "underscore": "^1.9.1",
-    "vue": "^2.5.21",
-    "vue-analytics": "^5.16.1",
-    "vue-pdf": "^4.0.5",
+    "vue": "^2.6.8",
+    "vue-analytics": "^5.16.2",
+    "vue-pdf": "^4.0.6",
     "vue-router": "^3.0.1",
     "vuetify": "1.5.3",
-    "vuex": "^3.0.1",
+    "vuex": "^3.1.0",
     "vuex-persistedstate": "^2.5.4"
   },
   "devDependencies": {
-    "@babel/preset-env": "^7.2.3",
-    "@vue/cli-plugin-babel": "^3.2.2",
-    "@vue/cli-plugin-e2e-cypress": "^3.2.3",
-    "@vue/cli-plugin-eslint": "^3.2.2",
-    "@vue/cli-plugin-pwa": "^3.2.2",
-    "@vue/cli-plugin-unit-jest": "^3.2.3",
-    "@vue/cli-service": "^3.2.3",
-    "@vue/test-utils": "^1.0.0-beta.20",
+    "@babel/preset-env": "^7.3.4",
+    "@vue/cli-plugin-babel": "^3.4.1",
+    "@vue/cli-plugin-e2e-cypress": "^3.4.1",
+    "@vue/cli-plugin-eslint": "^3.4.1",
+    "@vue/cli-plugin-pwa": "^3.4.1",
+    "@vue/cli-plugin-unit-jest": "^3.4.1",
+    "@vue/cli-service": "^3.4.1",
+    "@vue/test-utils": "^1.0.0-beta.29",
     "babel-core": "7.0.0-bridge.0",
     "babel-eslint": "^10.0.1",
-    "babel-jest": "^24.0.0",
-    "cypress": "^3.1.4",
+    "babel-jest": "^24.1.0",
+    "cypress": "^3.1.5",
     "electron": "^4.0.6",
-    "eslint": "^5.12.0",
-    "eslint-plugin-vue": "^5.1.0",
+    "eslint": "^5.14.1",
+    "eslint-plugin-vue": "^5.2.2",
     "less": "^3.0.4",
     "less-loader": "^4.1.0",
     "node-sass": "^4.11.0",
     "sass-loader": "^7.1.0",
-    "vue-cli-plugin-electron-builder": "^1.0.1",
+    "vue-cli-plugin-electron-builder": "^1.1.0",
     "vue-cli-plugin-vuetify": "^0.4.6",
-    "vue-template-compiler": "^2.5.21"
+    "vue-template-compiler": "^2.6.8"
   },
   "bugs": {
-    "url": "https://github.com/Anu1601CS/media-manager/issues"
+    "url": "https://github.com/lazyDrive/drive/issues"
   },
-  "homepage": "https://github.com/Anu1601CS/media-manager",
+  "homepage": "https://github.com/lazyDrive/drive",
   "keywords": [
     "Media",
     "Manager"
@@ -73,6 +73,6 @@
   "main": "background.js",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/Anu1601CS/media-manager.git"
+    "url": "git+https://github.com/lazyDrive/drive.git"
   }
 }
