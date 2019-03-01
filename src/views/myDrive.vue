@@ -22,7 +22,7 @@ import * as types from "./../store/mutation-types";
 
 export default {
   name: "media-drive",
-  mounted() {
+  created() {
     if (this.isMobile()) {
       this.$store.commit(types.IS_MOBILE, true);
     } else {
@@ -107,17 +107,29 @@ export default {
     }
     /* eslint-enable */
   },
-  watch: {
-    // eslint-disable-next-line
-    $route(to, from) {
-      this.findDisk(to, from);
-      this.$store.commit(types.UNSELECT_ALL_BROWSER_ITEMS);
-      this.$store.state.loadLimit = 30;
-      if (to.params.dir) {
-        this.$store.dispatch("getContents", { path: to.params.dir });
-      } else {
-        this.$store.dispatch("getContents", { path: "my-drive" });
-      }
+  beforeRouteUpdate(to, from, next) {
+    this.findDisk(to, from);
+    this.$store.commit(types.UNSELECT_ALL_BROWSER_ITEMS);
+    this.$store.state.loadLimit = 30;
+    /* eslint-disable */
+    if (to.params.dir) {
+      this.$store
+        .dispatch("getContents", { path: to.params.dir })
+        .then(response => {
+          next();
+        })
+        .catch(err => {
+          console.log(err);
+        });
+    } else {
+      this.$store
+        .dispatch("getContents", { path: "my-drive" })
+        .then(response => {
+          next();
+        })
+        .catch(err => {
+          console.log(err);
+        });
     }
   }
 };

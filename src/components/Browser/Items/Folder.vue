@@ -87,8 +87,24 @@ export default {
         this.$store.commit(types.SELECT_BROWSER_ITEM, item);
       }
     },
-    openFolder: function() {
-      this.$store.dispatch("getContents", this.item);
+    openFolder: async function() {
+      try {
+
+        // await this.$store.dispatch("getContents", this.item);
+
+        let path = this.item.path;
+        if (path != "my-drive") {
+          this.$router.push({
+            path: `/drive/u/0/folder/${path}`
+          });
+        } else {
+          this.$router.push({
+            path: `/drive/u/0/my-drive`
+          });
+        }
+      } catch (err){
+        console.log(err);
+      }
     }
   }
 };

@@ -51,9 +51,13 @@ export default {
   methods: {
     doThis: function(path) {
       if (path) {
-        this.$store.dispatch("getContents", { path });
+        this.$router.push({
+          path: `/drive/u/0/folder/${path}`
+        });
       } else {
-        this.$store.dispatch("getContents", { path: "my-drive" });
+        this.$router.push({
+          path: `/drive/u/0/my-drive`
+        });
       }
     },
     onScroll: async function() {
