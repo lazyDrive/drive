@@ -1,8 +1,8 @@
 <template>
   <div
     class="file media-item-file"
-    @dblclick.prevent="preview()"
-    @click="select($event, item)"
+    @dblclick.stop="preview()"
+    @click.stop="select($event, item)"
     @contextmenu="show($event, item.id)"
     :data-item="item.id"
   >
