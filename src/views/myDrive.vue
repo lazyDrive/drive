@@ -21,7 +21,7 @@
 import * as types from "./../store/mutation-types";
 
 export default {
-  name: "media-drive",
+  name: "lazy-drive",
   created() {
     if (this.isMobile()) {
       this.$store.commit(types.IS_MOBILE, true);
@@ -104,18 +104,21 @@ export default {
           check = true;
       })(navigator.userAgent || navigator.vendor || window.opera);
       return check;
-    }
+    },
     /* eslint-enable */
+    routeUpdated: function(to, from) {
+      this.findDisk(to, from);
+      this.$store.commit(types.UNSELECT_ALL_BROWSER_ITEMS);
+      this.$store.state.loadLimit = 30;
+    }
   },
   beforeRouteUpdate(to, from, next) {
-    this.findDisk(to, from);
-    this.$store.commit(types.UNSELECT_ALL_BROWSER_ITEMS);
-    this.$store.state.loadLimit = 30;
     /* eslint-disable */
     if (to.params.dir) {
       this.$store
         .dispatch("getContents", { path: to.params.dir })
         .then(response => {
+          this.routeUpdated(to, from);
           next();
         })
         .catch(err => {
@@ -125,6 +128,7 @@ export default {
       this.$store
         .dispatch("getContents", { path: "my-drive" })
         .then(response => {
+          this.routeUpdated(to, from);
           next();
         })
         .catch(err => {
