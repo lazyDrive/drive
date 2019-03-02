@@ -34,8 +34,9 @@ exports.getFiles = (req, res, next) => {
       contents: files,
     }));
   }).catch((err) => {
-    res.status(500).json({
+    res.status(404).json({
       error: err,
+      message: 'Page Not found.'
     });
   });
 };
