@@ -10,8 +10,8 @@
       elevation="0"
       :class="`${selectedState ? 'selected' : ''} responsize-view`"
       class="mx-auto"
-      :width="`${isMobile ? '146' : (menuState ? '192' : '210')}`"
-      :height="`${isMobile ? '138' : (menuState ? '182' : '190')}`"
+      :width="`${isMobile ? '146' : '210'}`"
+      :height="`${isMobile ? '138' : '190'}`"
     >
       <v-img
         class="m-gradient"
