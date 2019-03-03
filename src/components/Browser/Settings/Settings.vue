@@ -35,6 +35,25 @@
               <v-subheader>User Controls</v-subheader>
               <v-list-tile avatar>
                 <v-list-tile-content>
+                  <v-list-tile-title>Connected Applications</v-list-tile-title>
+                  <div class="text-xs-center">
+                    <v-btn
+                      :loading="loading4"
+                      :disabled="loading4"
+                      color="info"
+                      @click="connectDropbox()"
+                    >Dropbox</v-btn>
+                    <v-btn
+                      :loading="loading4"
+                      :disabled="loading4"
+                      color="info"
+                      @click="connectDropbox()"
+                    >Google Drive</v-btn>
+                  </div>
+                </v-list-tile-content>
+              </v-list-tile>
+              <v-list-tile avatar>
+                <v-list-tile-content>
                   <v-list-tile-title>Content filtering</v-list-tile-title>
                   <v-list-tile-sub-title>Set the content filtering level to restrict apps that can be downloaded</v-list-tile-sub-title>
                 </v-list-tile-content>
@@ -97,14 +116,18 @@
 
 <script>
 import * as types from "./../../../store/mutation-types";
+import Dropbox from "dropbox";
+import Fetch from "axios";
 
 export default {
   name: "media-settings",
   data() {
     return {
       dialog3: false,
+      loader: null,
       notifications: false,
       sound: true,
+      loading4: false,
       widgets: false,
       items: [
         {
@@ -116,10 +139,19 @@ export default {
       ]
     };
   },
-  props: {},
   methods: {
     hideSettings: function() {
       this.$store.commit(types.HIDE_SETTINGS);
+    },
+    connectDropbox: function() {
+      var CLIENT_ID = "42zjexze6mfpf7x";
+      var dbx = new Dropbox.Dropbox({ clientId: CLIENT_ID, fetch: Fetch });
+      var authUrl = dbx.getAuthenticationUrl("http://localhost:8081/auth");
+      window.open(
+        authUrl,
+        "targetWindow",
+        "toolbar=no,location=no,status=no,menubar=no,scrollbars=yes,resizable=yes,width=600,height=500"
+      );
     }
   }
 };

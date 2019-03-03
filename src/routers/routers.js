@@ -24,6 +24,11 @@ export default [{
     }
   },
   {
+    path: '/auth',
+    name: 'auth',
+    component: () => import('./../views/Auth.vue'),
+  },
+  {
     path: '/signup',
     name: 'signup',
     component: () => import('./../views/Signup.vue'),
