@@ -127,7 +127,7 @@ class Api {
         break;
       case 401:
         this.auth.logout();
-        router.push('/login');
+        router.push('/');
         store.commit(types.SHOW_SNACKBAR, errorData);
         break;
       case 403:

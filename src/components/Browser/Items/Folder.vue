@@ -89,9 +89,6 @@ export default {
     },
     openFolder: async function() {
       try {
-
-        // await this.$store.dispatch("getContents", this.item);
-
         let path = this.item.path;
         if (path != "my-drive") {
           this.$router.push({
