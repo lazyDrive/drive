@@ -2,8 +2,10 @@ import axios from 'axios'
 import store from '@/store/store'
 import router from '@/router';
 import * as types from "./../store/mutation-types";
-import * as mediaManagerStorage from './Storage.js'
-import * as auth from './Auth.js'
+import * as mediaManagerStorage from './Storage'
+import * as auth from './Auth'
+import { user } from './User'
+
 /**
  * Api class for communication with the server
  */
@@ -15,6 +17,7 @@ class Api {
   constructor() {
     this.mediastorage = mediaManagerStorage;
     this.auth = auth.services;
+    this.user = user;
   }
 
   getUidV4() {

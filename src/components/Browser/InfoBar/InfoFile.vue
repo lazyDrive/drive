@@ -96,7 +96,7 @@
 </template>
 
 <script>
-import { api } from "./../../../app//Api";
+import { api } from "./../../../app/Api";
 
 export default {
   name: "media-info-file",

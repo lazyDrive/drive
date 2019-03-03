@@ -5,6 +5,9 @@
 </template>
 
 <script>
+
+import { api } from './../app/Api';
+
 export default {
   name: "media-auth",
   data() {
@@ -27,6 +30,7 @@ export default {
         data.accessToken = accessToken;
         data.uid = urlParams.get("uid");
         data.accountId = urlParams.get("account_id");
+        data.email = api.user.userData.email;
 
         this.$store
           .dispatch("settings", data)

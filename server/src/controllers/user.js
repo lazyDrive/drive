@@ -1,3 +1,4 @@
+const _ = require('underscore');
 const mongoose = require('mongoose');
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
@@ -33,9 +34,31 @@ exports.user_signup = (req, res, next) => {
 
           user.save()
             .then((result) => {
-              res.status(201).json({
-                message: 'User created',
+              const settingConfig = {};
+              settingConfig.email = req.body.email;
+              settingConfig.name = req.body.name;
+              const defaultSettings = new Settings({
+                _id: new mongoose.Types.ObjectId(),
+                // eslint-disable-next-line no-underscore-dangle
+                uid: result._id,
+                name: req.body.name,
+                email: req.body.email,
+                settings: settingConfig,
+                date: new Date(),
               });
+
+              defaultSettings.save()
+                .then(() => {
+                  res.status(201).json({
+                    message: 'User created',
+                  });
+                })
+                .catch((err) => {
+                  console.log(err);
+                  res.status(500).json({
+                    error: err,
+                  });
+                });
             })
             .catch((err) => {
               console.log(err);
@@ -78,7 +101,7 @@ exports.user_login = (req, res, next) => {
           },
           process.env.JWT_KEY, {
             expiresIn: '2 days',
-          } );
+          });
 
           // eslint-disable-next-line no-param-reassign
           user[0].password = '';
@@ -122,26 +145,33 @@ exports.user_delete = (req, res, next) => {
 };
 
 exports.user_settings = (req, res, next) => {
-  const {
-    accessToken,
-  } = req.body;
-  const {
-    uid,
-  } = req.body;
-  const {
-    accountId,
-  } = req.body;
-
   Settings.find({
     email: req.body.email,
   })
     .exec()
-    .then((user) => {
-      if (user.length < 1) {
-        return res.status(200).json({
-          message: 'Settings Saved.',
+    .then((userSettings) => {
+      if (userSettings.length < 1) {
+        return res.status(400).json({
+          message: 'Error on saving settings.',
         });
       }
+
+      const newSettings = req.body;
+      Settings.updateMany({
+        email: req.body.email,
+      }, {
+        settings: newSettings,
+        data: new Date(),
+      })
+        .then(() => {
+          res.status(201).json({
+            message: 'Settings Updated.',
+            settings: newSettings,
+          });
+        })
+        .catch((err) => {
+          next(err);
+        });
     }).catch((err) => {
       res.status(500).json({
         error: err,
