@@ -4,6 +4,8 @@ export default {
   contents: [],
   // Files loaded limit
   loadLimit:30,
+  // Settings
+  settings: '',
   // The currently selected items
   selectedItems: [],
   // The currently selected items

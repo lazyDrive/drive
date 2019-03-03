@@ -146,32 +146,32 @@ exports.user_delete = (req, res, next) => {
 
 exports.user_settings = (req, res, next) => {
   Settings.find({
-    email: req.body.email,
+    email: req.body.settings.email,
   })
     .exec()
     .then((userSettings) => {
-      if (userSettings.length < 1) {
-        return res.status(400).json({
-          message: 'Error on saving settings.',
+      if (req.body.action === 'set') {
+        const newSettings = req.body.settings;
+        Settings.updateMany({
+          email: req.body.settings.email,
+        }, {
+          settings: newSettings,
+          data: new Date(),
+        })
+          .then(() => {
+            res.status(201).json({
+              message: 'Settings Updated.',
+              settings: newSettings,
+            });
+          })
+          .catch((err) => {
+            next(err);
+          });
+      } else if (req.body.action === 'get') {
+        res.status(200).json({
+          settings: userSettings[0].settings,
         });
       }
-
-      const newSettings = req.body;
-      Settings.updateMany({
-        email: req.body.email,
-      }, {
-        settings: newSettings,
-        data: new Date(),
-      })
-        .then(() => {
-          res.status(201).json({
-            message: 'Settings Updated.',
-            settings: newSettings,
-          });
-        })
-        .catch((err) => {
-          next(err);
-        });
     }).catch((err) => {
       res.status(500).json({
         error: err,

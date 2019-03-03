@@ -20,6 +20,8 @@
 <script>
 import * as types from "./../store/mutation-types";
 
+import { api } from './../app/Api';
+
 export default {
   name: "lazy-drive",
   created() {
@@ -39,6 +41,13 @@ export default {
       disk.disabled = true;
       this.$store.state.diskLoaded.push(disk);
     }
+
+    const payload ={};
+
+    payload.action = 'get';
+    payload.settings = api.user.userData;
+
+    this.$store.dispatch("settings", payload);
 
     if (this.$route.name == "my-drive") {
       const dir = this.$route.params.dir;

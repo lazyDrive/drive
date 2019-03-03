@@ -19,6 +19,15 @@ export default {
   },
 
   /**
+   * Set settings
+   * @param state
+   * @param payload
+   */
+  [types.SET_SETTINGS]: (state, payload) => {
+    state.settings = payload.data.settings;
+  },
+
+  /**
    * The load content success mutation
    * @param state
    * @param payload

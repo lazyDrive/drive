@@ -32,8 +32,13 @@ export default {
         data.accountId = urlParams.get("account_id");
         data.email = api.user.userData.email;
 
+        const payload = {};
+
+        payload.settings = data;
+        payload.action = 'set';
+
         this.$store
-          .dispatch("settings", data)
+          .dispatch("settings", payload)
           .then(() => {
             window.close();
           })

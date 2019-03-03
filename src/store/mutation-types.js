@@ -53,6 +53,9 @@ export const HIDE_SETTINGS = 'HIDE_SETTINGS';
 // Delete items
 export const DELETE_SUCCESS = 'DELETE_SUCCESS';
 
+// Set settings
+export const SET_SETTINGS = 'SET_SETTINGS';
+
 // Is mobile
 export const IS_MOBILE = 'IS_MOBILE';
 

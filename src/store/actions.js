@@ -3,7 +3,6 @@ import {
 } from "../app/Api";
 import * as types from "./mutation-types";
 import * as FileSaver from 'file-saver';
-// import router from './../router'
 
 /**
  * Get contents of a directory from the api
@@ -140,6 +139,7 @@ export const settings = (context, payload) => {
     api.axios()
       .post('user/settings', payload)
       .then((response) => {
+        context.commit(types.SET_SETTINGS, response);
         resolve(response);
       })
       .catch((error) => {
@@ -148,7 +148,6 @@ export const settings = (context, payload) => {
       })
   })
 }
-
 
 /**
  * Delete file
