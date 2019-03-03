@@ -16,7 +16,7 @@
             <v-toolbar-title>Settings</v-toolbar-title>
             <v-spacer></v-spacer>
             <v-toolbar-items>
-              <v-btn dark flat @click="hideSettings()">Save</v-btn>
+              <v-btn dark flat @click="saveSettings()">Save</v-btn>
             </v-toolbar-items>
             <v-menu bottom right offset-y>
               <v-btn slot="activator" dark icon>
@@ -39,16 +39,16 @@
                   <div class="text-xs-center">
                     <v-btn
                       :loading="loading4"
-                      :disabled="loading4"
-                      color="info"
+                      dark
+                      :color=" dropbox ? 'green' : 'info'"
                       @click="connectDropbox()"
-                    >Dropbox</v-btn>
+                    >{{ dropbox ? 'Remove Dropbox' : 'Connect Dropbox' }}</v-btn>
                     <v-btn
                       :loading="loading4"
-                      :disabled="loading4"
-                      color="info"
+                      dark
+                      :color="googleDrive ? 'green' : 'info'"
                       @click="connectDropbox()"
-                    >Google Drive</v-btn>
+                    >{{ googleDrive ? 'Remove Google Drive' : 'Connect Google Drive' }}</v-btn>
                   </div>
                 </v-list-tile-content>
               </v-list-tile>
@@ -118,13 +118,13 @@
 import * as types from "./../../../store/mutation-types";
 import Dropbox from "dropbox";
 import Fetch from "axios";
+import { api } from "./../../../app/Api";
 
 export default {
   name: "media-settings",
   data() {
     return {
       dialog3: false,
-      loader: null,
       notifications: false,
       sound: true,
       loading4: false,
@@ -139,19 +139,57 @@ export default {
       ]
     };
   },
+  computed: {
+    dropbox: function() {
+      return this.$store.state.settings.accessToken != "" ? true : false;
+    },
+    googleDrive: function() {
+      return false;
+    }
+  },
   methods: {
     hideSettings: function() {
       this.$store.commit(types.HIDE_SETTINGS);
     },
+    saveSettings: function() {
+      const payload = {};
+      payload.action = "set";
+      payload.settings = this.$store.state.settings;
+      this.$store
+        .dispatch("settings", payload)
+        .then(() => {
+          payload.action = "get";
+          payload.settings = api.user.userData;
+          this.$store.dispatch("settings", payload);
+        })
+        .catch(err => {
+          console.log(err);
+        });
+    },
     connectDropbox: function() {
-      var CLIENT_ID = "w3mmmph398qrnx9";
-      var dbx = new Dropbox.Dropbox({ clientId: CLIENT_ID, fetch: Fetch });
-      var authUrl = dbx.getAuthenticationUrl("http://localhost:8080/auth");
-      window.open(
-        authUrl,
-        "targetWindow",
-        "toolbar=no,location=no,status=no,menubar=no,scrollbars=yes,resizable=yes,width=600,height=500"
-      );
+      if (!this.dropbox) {
+        var CLIENT_ID = "w3mmmph398qrnx9";
+        var dbx = new Dropbox.Dropbox({ clientId: CLIENT_ID, fetch: Fetch });
+        var authUrl = dbx.getAuthenticationUrl("http://localhost:8080/auth");
+
+        const win = window.open(
+          authUrl,
+          "targetWindow",
+          "toolbar=no,location=no,status=no,menubar=no,scrollbars=yes,resizable=yes,width=600,height=500"
+        );
+        const payload = {};
+        var timer = setInterval(function() {
+          if (win.closed) {
+            clearInterval(timer);
+            payload.action = "get";
+            payload.settings = api.user.userData;
+            this.$store.dispatch("settings", payload);
+          }
+        }.bind(this), 500);
+      } else {
+        this.$store.state.settings.accessToken = "";
+        this.saveSettings();
+      }
     }
   }
 };

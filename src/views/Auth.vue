@@ -5,8 +5,7 @@
 </template>
 
 <script>
-
-import { api } from './../app/Api';
+import { api } from "./../app/Api";
 
 export default {
   name: "media-auth",
@@ -26,7 +25,7 @@ export default {
       ) {
         this.$router.push("/PageNotFound");
       } else {
-        const data = {};
+        let data = this.$store.state.settings || {};
         data.accessToken = accessToken;
         data.uid = urlParams.get("uid");
         data.accountId = urlParams.get("account_id");
@@ -35,7 +34,7 @@ export default {
         const payload = {};
 
         payload.settings = data;
-        payload.action = 'set';
+        payload.action = "set";
 
         this.$store
           .dispatch("settings", payload)
