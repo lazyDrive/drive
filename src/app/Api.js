@@ -63,13 +63,9 @@ class Api {
     axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
     axios.defaults.headers.common['csrfToken'] = process.env.VUE_APP_SECRET;
 
-    if (process.env.NODE_ENV == 'production') {
-      axiosInstance = axios.create({
-        baseURL: process.env.PORT ? process.env.PORT : 'http://localhost:3344',
-      });
-    } else {
-      axiosInstance = axios.create();
-    }
+    axiosInstance = axios.create({
+      baseURL: process.env.PORT ? process.env.PORT : 'http://localhost:3344',
+    });
 
     axiosInstance.interceptors.response.use(undefined, function axiosRetryInterceptor(err) {
       var config = err.config;

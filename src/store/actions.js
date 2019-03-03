@@ -120,7 +120,6 @@ export const login = (context, payload) => {
  * @param payload
  */
 export const log = (context, payload) => {
-
   api.axios()
     .post('api/log', payload)
     .then(() => {
@@ -129,6 +128,25 @@ export const log = (context, payload) => {
     .catch((error) => {
       api._handleError(error)
     })
+}
+
+/**
+ * Save Settings
+ * @param commit
+ * @param payload
+ */
+export const settings = (context, payload) => {
+  return new Promise((resolve, reject) => {
+    api.axios()
+      .post('user/settings', payload)
+      .then((response) => {
+        resolve(response);
+      })
+      .catch((error) => {
+        api._handleError(error)
+        reject(error);
+      })
+  })
 }
 
 

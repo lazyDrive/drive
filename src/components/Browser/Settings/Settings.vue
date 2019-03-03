@@ -144,9 +144,9 @@ export default {
       this.$store.commit(types.HIDE_SETTINGS);
     },
     connectDropbox: function() {
-      var CLIENT_ID = "42zjexze6mfpf7x";
+      var CLIENT_ID = "w3mmmph398qrnx9";
       var dbx = new Dropbox.Dropbox({ clientId: CLIENT_ID, fetch: Fetch });
-      var authUrl = dbx.getAuthenticationUrl("http://localhost:8081/auth");
+      var authUrl = dbx.getAuthenticationUrl("http://localhost:8080/auth");
       window.open(
         authUrl,
         "targetWindow",

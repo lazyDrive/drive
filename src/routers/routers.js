@@ -47,6 +47,11 @@ export default [{
     component: () => import('./../views/Open.vue')
   },
   {
+    path: "/PageNotFound",
+    name: 'PageNotFound',
+    component: () => import('./../views/PageNotFound.vue'),
+  },
+  {
     path: "*",
     name: 'PageNotFound',
     component: () => import('./../views/PageNotFound.vue'),

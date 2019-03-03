@@ -3,9 +3,12 @@ const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 
 const User = require('../models/user');
+const Settings = require('../models/settings');
 
 exports.user_signup = (req, res, next) => {
-  User.find({ email: req.body.email })
+  User.find({
+    email: req.body.email,
+  })
     .exec()
     .then((user) => {
       if (user.length >= 1) {
@@ -50,7 +53,9 @@ exports.user_signup = (req, res, next) => {
 };
 
 exports.user_login = (req, res, next) => {
-  User.find({ email: req.body.email })
+  User.find({
+    email: req.body.email,
+  })
     .exec()
     .then((user) => {
       if (user.length < 1) {
@@ -67,16 +72,13 @@ exports.user_login = (req, res, next) => {
         }
 
         if (result) {
-          const token = jwt.sign(
-            {
-              email: user[0].email,
-              userId: user[0]._id,
-            },
-            process.env.JWT_KEY,
-            {
-              expiresIn: '2 days',
-            },
-          );
+          const token = jwt.sign({
+            email: user[0].email,
+            userId: user[0]._id,
+          },
+          process.env.JWT_KEY, {
+            expiresIn: '2 days',
+          } );
 
           // eslint-disable-next-line no-param-reassign
           user[0].password = '';
@@ -102,7 +104,9 @@ exports.user_login = (req, res, next) => {
 };
 
 exports.user_delete = (req, res, next) => {
-  User.remove({ _id: req.params.userId })
+  User.remove({
+    _id: req.params.userId,
+  })
     .exec()
     .then((result) => {
       res.status(200).json({
@@ -111,6 +115,34 @@ exports.user_delete = (req, res, next) => {
     })
     .catch((err) => {
       console.log(err);
+      res.status(500).json({
+        error: err,
+      });
+    });
+};
+
+exports.user_settings = (req, res, next) => {
+  const {
+    accessToken,
+  } = req.body;
+  const {
+    uid,
+  } = req.body;
+  const {
+    accountId,
+  } = req.body;
+
+  Settings.find({
+    email: req.body.email,
+  })
+    .exec()
+    .then((user) => {
+      if (user.length < 1) {
+        return res.status(200).json({
+          message: 'Settings Saved.',
+        });
+      }
+    }).catch((err) => {
       res.status(500).json({
         error: err,
       });
