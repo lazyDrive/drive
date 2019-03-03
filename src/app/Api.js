@@ -5,6 +5,7 @@ import * as types from "./../store/mutation-types";
 import * as mediaManagerStorage from './Storage'
 import * as auth from './Auth'
 import { user } from './User'
+import { config } from './Config'
 
 /**
  * Api class for communication with the server
@@ -18,6 +19,7 @@ class Api {
     this.mediastorage = mediaManagerStorage;
     this.auth = auth.services;
     this.user = user;
+    this.config = config;
   }
 
   getUidV4() {
@@ -67,7 +69,7 @@ class Api {
     axios.defaults.headers.common['csrfToken'] = process.env.VUE_APP_SECRET;
 
     axiosInstance = axios.create({
-      baseURL: process.env.PORT ? process.env.PORT : 'http://localhost:3344',
+      baseURL: `http://localhost:${this.config.proxyPort}`,
     });
 
     axiosInstance.interceptors.response.use(undefined, function axiosRetryInterceptor(err) {

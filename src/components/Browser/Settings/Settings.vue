@@ -170,7 +170,7 @@ export default {
       if (!this.dropbox) {
         var CLIENT_ID = "w3mmmph398qrnx9";
         var dbx = new Dropbox.Dropbox({ clientId: CLIENT_ID, fetch: Fetch });
-        var authUrl = dbx.getAuthenticationUrl("http://localhost:8080/auth");
+        var authUrl = dbx.getAuthenticationUrl(`http://localhost:${api.config.redirectPort}/auth`);
 
         const win = window.open(
           authUrl,

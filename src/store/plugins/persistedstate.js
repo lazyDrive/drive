@@ -7,7 +7,6 @@ export const persistedStateOptions = {
         'view',
         'token',
         'isUserLoggedIn',
-        'settings',
     ],
     storage: window.sessionStorage,
 };
