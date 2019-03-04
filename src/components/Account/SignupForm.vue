@@ -98,7 +98,14 @@ export default {
           password: this.password
         };
 
-        this.$store.dispatch("signup", data);
+        this.$store
+          .dispatch("signup", data)
+          .then(() => {
+            this.clear();
+          })
+          .catch(error => {
+            console.log(error);
+          });
       }
     },
     clear() {

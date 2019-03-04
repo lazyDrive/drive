@@ -241,23 +241,22 @@ export const rename = (context, payload) => {
  * @param payload
  */
 export const signup = (context, payload) => {
-
-  api.axios()
-    .post('user/signup', payload)
-    .then((response) => {
-
-      var data = {
-        'data': response.data.message,
-        'color': 'success'
-      };
-
-      context.commit(types.SHOW_SNACKBAR, data);
-
-      console.log(response);
-    })
-    .catch((error) => {
-      api._handleError(error)
-    })
+  return new Promise((resolve, reject) => {
+    api.axios()
+      .post('user/signup', payload)
+      .then((response) => {
+        var data = {
+          'data': response.data.message,
+          'color': 'success'
+        };
+        context.commit(types.SHOW_SNACKBAR, data);
+        resolve(response);
+      })
+      .catch((error) => {
+        reject(error);
+        api._handleError(error)
+      })
+  });
 }
 
 /**

@@ -100,7 +100,6 @@ export default {
         this.$store
           .dispatch("login", data)
           .then(result => {
-            this.loading = false;
             this.finalize(result);
           })
           .catch(err => {
@@ -125,6 +124,7 @@ export default {
             clearInterval(timer);
             if (response.status == 200) {
               this.$router.push("/drive/u/0/my-drive");
+              this.loading = false;
             }
           }
         }.bind(this),
