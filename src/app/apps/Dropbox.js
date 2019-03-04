@@ -1,18 +1,71 @@
 import Dropbox from 'dropbox';
-import axios from 'axios'
+import fetch from 'isomorphic-fetch';
 
 /**
  * Dropbox api service for lazy drive.
  */
-class DropboxApi {
+export default class DropboxApi {
 
-  constructor(accessToken) {
+  constructor(accessToken, redirectPort, clientId) {
     this.ACCESS_TOKEN = accessToken;
+    this.REDIRECT_PORT = redirectPort;
+    this.CLIENT_ID = clientId || "w3mmmph398qrnx9";
     this.UPLOAD_FILE_SIZE_LIMIT = 150 * 1024 * 1024;
     this.dbx = new Dropbox.Dropbox({
       accessToken: this.ACCESS_TOKEN,
-      fetch: axios
+      fetch: fetch
     });
+  }
+
+  auth() {
+    var dbx = new Dropbox.Dropbox({
+      clientId: this.CLIENT_ID,
+      fetch: fetch
+    });
+    var authUrl = dbx.getAuthenticationUrl(`http://localhost:${this.REDIRECT_PORT}/auth`);
+
+    const win = window.open(
+      authUrl,
+      "targetWindow",
+      "toolbar=no,location=no,status=no,menubar=no,scrollbars=yes,resizable=yes,width=600,height=500"
+    );
+
+    return new Promise((resolve) => {
+      var timer = setInterval(function () {
+        if (win.closed) {
+          clearInterval(timer);
+          resolve();
+        }
+      }.bind(this), 500);
+    });
+  }
+
+  deleteFile(path) {
+    return new Promise((resolve, reject) => {
+      this.dbx.filesDelete({
+          path: path
+        })
+        .then(function (response) {
+          resolve(response);
+        })
+        .catch(function (error) {
+          reject(error);
+        });
+    })
+  }
+
+  filesGetThumbnail(path) {
+    return new Promise((resolve, reject) => {
+      this.dbx.filesGetThumbnail({
+          "path": path
+        })
+        .then(function (response) {
+          resolve(response);
+        })
+        .catch(function (error) {
+          reject(error);
+        });
+    })
   }
 
   fetchFile(path = '') {
@@ -139,5 +192,3 @@ class DropboxApi {
     }
   }
 }
-
-export let dropboxApi = new DropboxApi();

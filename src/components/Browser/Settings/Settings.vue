@@ -117,7 +117,7 @@
 <script>
 import * as types from "./../../../store/mutation-types";
 import Dropbox from "dropbox";
-import Fetch from "axios";
+import fetch from 'isomorphic-fetch';
 import { api } from "./../../../app/Api";
 
 export default {
@@ -169,7 +169,7 @@ export default {
     connectDropbox: function() {
       if (!this.dropbox) {
         var CLIENT_ID = "w3mmmph398qrnx9";
-        var dbx = new Dropbox.Dropbox({ clientId: CLIENT_ID, fetch: Fetch });
+        var dbx = new Dropbox.Dropbox({ clientId: CLIENT_ID, fetch: fetch });
         var authUrl = dbx.getAuthenticationUrl(`http://localhost:${api.config.redirectPort}/auth`);
 
         const win = window.open(
@@ -187,7 +187,7 @@ export default {
           }
         }.bind(this), 500);
       } else {
-        this.$store.state.settings.accessToken = "";
+        this.$store.state.settings.dropbox.accessToken = "";
         this.saveSettings();
       }
     }

@@ -4,15 +4,13 @@ import router from '@/router';
 import * as types from "./../store/mutation-types";
 import * as mediaManagerStorage from './Storage'
 import * as auth from './Auth'
+import DropboxApi from './apps/Dropbox'
 import {
   user
 } from './User'
 import {
   config
 } from './Config'
-import {
-  dropboxApi
-} from './apps/Dropbox.js'
 
 /**
  * Api class for communication with the server
@@ -23,12 +21,13 @@ class Api {
    * Store constructor
    */
   constructor() {
+    const dropboxAccessToken = store.state.settings.dropbox.accessToken;
     this.service = {};
     this.mediastorage = mediaManagerStorage;
     this.auth = auth.services;
     this.user = user;
     this.config = config;
-    this.service.dropbox = dropboxApi;
+    this.service.dropbox = new DropboxApi(dropboxAccessToken, config.redirectPort);
   }
 
   getUidV4() {
@@ -66,8 +65,7 @@ class Api {
   }
 
   /**
-   * Get the contents of a directory from the server
-   * @returns {Promise}
+   * Set the axios settings.
    */
   axios() {
 
