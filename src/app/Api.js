@@ -4,8 +4,15 @@ import router from '@/router';
 import * as types from "./../store/mutation-types";
 import * as mediaManagerStorage from './Storage'
 import * as auth from './Auth'
-import { user } from './User'
-import { config } from './Config'
+import {
+  user
+} from './User'
+import {
+  config
+} from './Config'
+import {
+  dropboxApi
+} from './apps/Dropbox.js'
 
 /**
  * Api class for communication with the server
@@ -16,10 +23,12 @@ class Api {
    * Store constructor
    */
   constructor() {
+    this.service = {};
     this.mediastorage = mediaManagerStorage;
     this.auth = auth.services;
     this.user = user;
     this.config = config;
+    this.service.dropbox = dropboxApi;
   }
 
   getUidV4() {
