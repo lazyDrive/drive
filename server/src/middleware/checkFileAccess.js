@@ -3,7 +3,6 @@ const _ = require('underscore');
 
 module.exports = (req, res, next) => {
   try {
-
     const cookies = {};
     _(req.headers.cookie.split(';'))
       .chain()
@@ -19,14 +18,23 @@ module.exports = (req, res, next) => {
         cookies[key] = value;
       });
 
-    const { token } = cookies;
+    const {
+      token,
+    } = cookies;
     const decoded = jwt.verify(token, process.env.JWT_KEY);
     req.userData = decoded;
     next();
   } catch (error) {
-    return res.status(401).json({
-      message: 'You are not authorized.',
-    });
+    try {
+      const token = req.headers.authorization.split(' ')[1];
+      const decoded = jwt.verify(token, process.env.JWT_KEY);
+      req.userData = decoded;
+      next();
+    } catch (err) {
+      return res.status(401).json({
+        message: 'You are not authorized.',
+      });
+    }
   }
   return true;
 };

@@ -67,7 +67,6 @@
 </template>
 <script>
 import { api } from "./../../app/Api";
-import router from "./../../router";
 
 export default {
   name: "media-login",
@@ -120,9 +119,17 @@ export default {
       this.$store.state.token = response.data.token;
       this.$store.state.isUserLoggedIn = true;
 
-      if (response.status == 200) {
-        router.push("/drive/u/0/my-drive");
-      }
+      var timer = setInterval(
+        function() {
+          if (api.auth.loggedIn()) {
+            clearInterval(timer);
+            if (response.status == 200) {
+              this.$router.push("/drive/u/0/my-drive");
+            }
+          }
+        }.bind(this),
+        500
+      );
     },
     clear() {
       this.$refs.form.reset();

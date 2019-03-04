@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 
 const settings = mongoose.Schema({
-  name: {
+  uid: {
     type: String,
     require: true,
   },
@@ -11,8 +11,8 @@ const settings = mongoose.Schema({
     unique: true,
     match: /[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?/,
   },
-  password: {
-    type: String,
+  settings: {
+    type: Object,
     required: true,
   },
   date: {

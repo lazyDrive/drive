@@ -16,7 +16,7 @@
             <v-toolbar-title>Settings</v-toolbar-title>
             <v-spacer></v-spacer>
             <v-toolbar-items>
-              <v-btn dark flat @click="hideSettings()">Save</v-btn>
+              <v-btn dark flat @click="saveSettings()">Save</v-btn>
             </v-toolbar-items>
             <v-menu bottom right offset-y>
               <v-btn slot="activator" dark icon>
@@ -33,6 +33,25 @@
           <v-card-text>
             <v-list three-line subheader>
               <v-subheader>User Controls</v-subheader>
+              <v-list-tile avatar>
+                <v-list-tile-content>
+                  <v-list-tile-title>Connected Applications</v-list-tile-title>
+                  <div class="text-xs-center">
+                    <v-btn
+                      :loading="loading4"
+                      dark
+                      :color=" dropbox ? 'green' : 'info'"
+                      @click="connectDropbox()"
+                    >{{ dropbox ? 'Remove Dropbox' : 'Connect Dropbox' }}</v-btn>
+                    <v-btn
+                      :loading="loading4"
+                      dark
+                      :color="googleDrive ? 'green' : 'info'"
+                      @click="connectDropbox()"
+                    >{{ googleDrive ? 'Remove Google Drive' : 'Connect Google Drive' }}</v-btn>
+                  </div>
+                </v-list-tile-content>
+              </v-list-tile>
               <v-list-tile avatar>
                 <v-list-tile-content>
                   <v-list-tile-title>Content filtering</v-list-tile-title>
@@ -97,6 +116,9 @@
 
 <script>
 import * as types from "./../../../store/mutation-types";
+import Dropbox from "dropbox";
+import Fetch from "axios";
+import { api } from "./../../../app/Api";
 
 export default {
   name: "media-settings",
@@ -105,6 +127,7 @@ export default {
       dialog3: false,
       notifications: false,
       sound: true,
+      loading4: false,
       widgets: false,
       items: [
         {
@@ -116,10 +139,57 @@ export default {
       ]
     };
   },
-  props: {},
+  computed: {
+    dropbox: function() {
+      return this.$store.state.settings.dropbox.accessToken != null && this.$store.state.settings.dropbox.accessToken != ""  ? true : false;
+    },
+    googleDrive: function() {
+      return false;
+    }
+  },
   methods: {
     hideSettings: function() {
       this.$store.commit(types.HIDE_SETTINGS);
+    },
+    saveSettings: function() {
+      const payload = {};
+      payload.action = "set";
+      payload.settings = this.$store.state.settings;
+      this.$store
+        .dispatch("settings", payload)
+        .then(() => {
+          payload.action = "get";
+          payload.settings = api.user.userData;
+          this.$store.dispatch("settings", payload);
+        })
+        .catch(err => {
+          console.log(err);
+        });
+    },
+    connectDropbox: function() {
+      if (!this.dropbox) {
+        var CLIENT_ID = "w3mmmph398qrnx9";
+        var dbx = new Dropbox.Dropbox({ clientId: CLIENT_ID, fetch: Fetch });
+        var authUrl = dbx.getAuthenticationUrl(`http://localhost:${api.config.redirectPort}/auth`);
+
+        const win = window.open(
+          authUrl,
+          "targetWindow",
+          "toolbar=no,location=no,status=no,menubar=no,scrollbars=yes,resizable=yes,width=600,height=500"
+        );
+        const payload = {};
+        var timer = setInterval(function() {
+          if (win.closed) {
+            clearInterval(timer);
+            payload.action = "get";
+            payload.settings = api.user.userData;
+            this.$store.dispatch("settings", payload);
+          }
+        }.bind(this), 500);
+      } else {
+        this.$store.state.settings.accessToken = "";
+        this.saveSettings();
+      }
     }
   }
 };

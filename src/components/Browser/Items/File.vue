@@ -1,8 +1,8 @@
 <template>
   <div
     class="file media-item-file"
-    @dblclick.prevent="preview()"
-    @click="select($event, item)"
+    @dblclick.stop="preview()"
+    @click.stop="select($event, item)"
     @contextmenu="show($event, item.id)"
     :data-item="item.id"
   >
@@ -10,8 +10,8 @@
       elevation="0"
       :class="`${selectedState ? 'selected' : ''} responsize-view`"
       class="mx-auto"
-      :width="`${isMobile ? '146' : (menuState ? '192' : '210')}`"
-      :height="`${isMobile ? '138' : (menuState ? '182' : '190')}`"
+      :width="`${isMobile ? '146' : '210'}`"
+      :height="`${isMobile ? '138' : '190'}`"
     >
       <v-img
         class="m-gradient"

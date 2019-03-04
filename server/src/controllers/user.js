@@ -1,11 +1,15 @@
+const _ = require('underscore');
 const mongoose = require('mongoose');
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 
 const User = require('../models/user');
+const Settings = require('../models/settings');
 
 exports.user_signup = (req, res, next) => {
-  User.find({ email: req.body.email })
+  User.find({
+    email: req.body.email,
+  })
     .exec()
     .then((user) => {
       if (user.length >= 1) {
@@ -30,9 +34,42 @@ exports.user_signup = (req, res, next) => {
 
           user.save()
             .then((result) => {
-              res.status(201).json({
-                message: 'User created',
+
+              const settingConfig = {
+                dropbox: {},
+                google: {},
+              };
+              settingConfig.email = req.body.email;
+              settingConfig.name = req.body.name;
+              settingConfig.dropbox.accessToken = '';
+              settingConfig.dropbox.accountId = '';
+              settingConfig.dropbox.uid = '';
+              settingConfig.google.accessToken = '';
+              settingConfig.google.accountId = '';
+              settingConfig.google.uid = '';
+
+              const defaultSettings = new Settings({
+                _id: new mongoose.Types.ObjectId(),
+                // eslint-disable-next-line no-underscore-dangle
+                uid: result._id,
+                name: req.body.name,
+                email: req.body.email,
+                settings: settingConfig,
+                date: new Date(),
               });
+
+              defaultSettings.save()
+                .then(() => {
+                  res.status(201).json({
+                    message: 'User created',
+                  });
+                })
+                .catch((err) => {
+                  console.log(err);
+                  res.status(500).json({
+                    error: err,
+                  });
+                });
             })
             .catch((err) => {
               console.log(err);
@@ -50,7 +87,9 @@ exports.user_signup = (req, res, next) => {
 };
 
 exports.user_login = (req, res, next) => {
-  User.find({ email: req.body.email })
+  User.find({
+    email: req.body.email,
+  })
     .exec()
     .then((user) => {
       if (user.length < 1) {
@@ -67,16 +106,13 @@ exports.user_login = (req, res, next) => {
         }
 
         if (result) {
-          const token = jwt.sign(
-            {
-              email: user[0].email,
-              userId: user[0]._id,
-            },
-            process.env.JWT_KEY,
-            {
-              expiresIn: '2 days',
-            },
-          );
+          const token = jwt.sign({
+            email: user[0].email,
+            userId: user[0]._id,
+          },
+          process.env.JWT_KEY, {
+            expiresIn: '2 days',
+          });
 
           // eslint-disable-next-line no-param-reassign
           user[0].password = '';
@@ -102,7 +138,9 @@ exports.user_login = (req, res, next) => {
 };
 
 exports.user_delete = (req, res, next) => {
-  User.remove({ _id: req.params.userId })
+  User.remove({
+    _id: req.params.userId,
+  })
     .exec()
     .then((result) => {
       res.status(200).json({
@@ -111,6 +149,41 @@ exports.user_delete = (req, res, next) => {
     })
     .catch((err) => {
       console.log(err);
+      res.status(500).json({
+        error: err,
+      });
+    });
+};
+
+exports.user_settings = (req, res, next) => {
+  Settings.find({
+    email: req.body.settings.email,
+  })
+    .exec()
+    .then((userSettings) => {
+      if (req.body.action === 'set') {
+        const newSettings = req.body.settings;
+        Settings.updateOne({
+          email: req.body.settings.email,
+        }, {
+          settings: newSettings,
+          data: new Date(),
+        })
+          .then(() => {
+            res.status(201).json({
+              message: 'Settings Updated.',
+              settings: newSettings,
+            });
+          })
+          .catch((err) => {
+            next(err);
+          });
+      } else if (req.body.action === 'get') {
+        res.status(200).json({
+          settings: userSettings[0].settings,
+        });
+      }
+    }).catch((err) => {
       res.status(500).json({
         error: err,
       });

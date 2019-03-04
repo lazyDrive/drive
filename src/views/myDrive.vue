@@ -20,9 +20,11 @@
 <script>
 import * as types from "./../store/mutation-types";
 
+import { api } from './../app/Api';
+
 export default {
-  name: "media-drive",
-  mounted() {
+  name: "lazy-drive",
+  created() {
     if (this.isMobile()) {
       this.$store.commit(types.IS_MOBILE, true);
     } else {
@@ -39,6 +41,13 @@ export default {
       disk.disabled = true;
       this.$store.state.diskLoaded.push(disk);
     }
+
+    const payload ={};
+
+    payload.action = 'get';
+    payload.settings = api.user.userData;
+
+    this.$store.dispatch("settings", payload);
 
     if (this.$route.name == "my-drive") {
       const dir = this.$route.params.dir;
@@ -104,20 +113,36 @@ export default {
           check = true;
       })(navigator.userAgent || navigator.vendor || window.opera);
       return check;
-    }
+    },
     /* eslint-enable */
-  },
-  watch: {
-    // eslint-disable-next-line
-    $route(to, from) {
+    routeUpdated: function(to, from) {
       this.findDisk(to, from);
       this.$store.commit(types.UNSELECT_ALL_BROWSER_ITEMS);
       this.$store.state.loadLimit = 30;
-      if (to.params.dir) {
-        this.$store.dispatch("getContents", { path: to.params.dir });
-      } else {
-        this.$store.dispatch("getContents", { path: "my-drive" });
-      }
+    }
+  },
+  beforeRouteUpdate(to, from, next) {
+    /* eslint-disable */
+    if (to.params.dir) {
+      this.$store
+        .dispatch("getContents", { path: to.params.dir })
+        .then(response => {
+          this.routeUpdated(to, from);
+          next();
+        })
+        .catch(err => {
+          console.log(err);
+        });
+    } else {
+      this.$store
+        .dispatch("getContents", { path: "my-drive" })
+        .then(response => {
+          this.routeUpdated(to, from);
+          next();
+        })
+        .catch(err => {
+          console.log(err);
+        });
     }
   }
 };

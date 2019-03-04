@@ -3,7 +3,6 @@ import {
 } from "../app/Api";
 import * as types from "./mutation-types";
 import * as FileSaver from 'file-saver';
-import router from './../router'
 
 /**
  * Get contents of a directory from the api
@@ -12,34 +11,28 @@ import router from './../router'
  */
 export const getContents = (context, payload) => {
 
-  context.commit(types.SET_IS_LOADING, true)
+  return new Promise((resolve, reject) => {
+    context.commit(types.SET_IS_LOADING, true);
 
-  let path = payload.path || context.state.selectedDirectory;
-  let limit = payload.limit || context.state.loadLimit;
+    let path = payload.path || context.state.selectedDirectory;
+    let limit = payload.limit || context.state.loadLimit;
 
-  api.axios()
-    .get(`api/getFiles/${path}/${limit}`, {
-      retry: 3,
-      retryDelay: 1000
-    })
-    .then(response => {
-      context.state.selectedDirectory = path;
-      if (path != 'my-drive') {
-        router.push({
-          path: `/drive/u/0/folder/${path}`
-        })
-      } else {
-        router.push({
-          path: `/drive/u/0/my-drive`
-        })
-      }
-
-      context.commit(types.LOAD_CONTENTS_SUCCESS, response.data.contents)
-      context.commit(types.SET_IS_LOADING, false)
-    })
-    .catch((error) => {
-      api._handleError(error)
-    })
+    api.axios()
+      .get(`api/getFiles/${path}/${limit}`, {
+        retry: 3,
+        retryDelay: 1000
+      })
+      .then(response => {
+        context.state.selectedDirectory = path;
+        context.commit(types.LOAD_CONTENTS_SUCCESS, response.data.contents)
+        context.commit(types.SET_IS_LOADING, false)
+        resolve(response);
+      })
+      .catch((error) => {
+        api._handleError(error)
+        reject(error);
+      })
+  });
 }
 
 /**
@@ -126,7 +119,6 @@ export const login = (context, payload) => {
  * @param payload
  */
 export const log = (context, payload) => {
-
   api.axios()
     .post('api/log', payload)
     .then(() => {
@@ -137,6 +129,25 @@ export const log = (context, payload) => {
     })
 }
 
+/**
+ * Save Settings
+ * @param commit
+ * @param payload
+ */
+export const settings = (context, payload) => {
+  return new Promise((resolve, reject) => {
+    api.axios()
+      .post('user/settings', payload)
+      .then((response) => {
+        context.commit(types.SET_SETTINGS, response);
+        resolve(response);
+      })
+      .catch((error) => {
+        api._handleError(error)
+        reject(error);
+      })
+  })
+}
 
 /**
  * Delete file

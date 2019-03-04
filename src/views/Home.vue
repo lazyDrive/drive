@@ -2,6 +2,7 @@
   <div class="media-home">
     <v-app>
       <media-login></media-login>
+      <media-alert></media-alert>
     </v-app>
   </div>
 </template>

@@ -2,10 +2,8 @@
   <v-navigation-drawer
     v-model="menuState"
     right
-    :app="!this.$store.state.isMobile"
-    :width="width"
-    fixed
-    :stateless="true"
+    app
+    temporary
   >
     <div class="m-d" style="max-width: 400px; margin: auto;">
       <v-toolbar color="white" light flat class="m-over-toolbar">

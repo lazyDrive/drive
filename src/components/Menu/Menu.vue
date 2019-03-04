@@ -81,7 +81,20 @@ export default {
     },
     open: function() {
       const item = this.$store.state.selectedItems[0];
-      this.$store.dispatch("getContents", item);
+      try {
+        let path = item.path;
+        if (path != "my-drive") {
+          this.$router.push({
+            path: `/drive/u/0/folder/${path}`
+          });
+        } else {
+          this.$router.push({
+            path: `/drive/u/0/my-drive`
+          });
+        }
+      } catch (err) {
+        console.log(err);
+      }
     },
     showConfirmDeleteModal: function() {
       this.$store.commit(types.SHOW_CONFIRM_DELETE_MODAL);

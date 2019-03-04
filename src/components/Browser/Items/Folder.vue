@@ -8,7 +8,7 @@
   >
     <v-chip
       disabled
-      :class="` ${selectedState ? 'selected' : ''} ${isMobile ? 'm-mobile-chip-size' : (menuState ? 'info-chip-size' : 'm-chip-size')}`"
+      :class="` ${selectedState ? 'selected' : ''} ${isMobile ? 'm-mobile-chip-size' : 'm-chip-size'}`"
       color="#CFD8DC"
       text-color="black"
       slot="activator"
@@ -87,8 +87,21 @@ export default {
         this.$store.commit(types.SELECT_BROWSER_ITEM, item);
       }
     },
-    openFolder: function() {
-      this.$store.dispatch("getContents", this.item);
+    openFolder: async function() {
+      try {
+        let path = this.item.path;
+        if (path != "my-drive") {
+          this.$router.push({
+            path: `/drive/u/0/folder/${path}`
+          });
+        } else {
+          this.$router.push({
+            path: `/drive/u/0/my-drive`
+          });
+        }
+      } catch (err){
+        console.log(err);
+      }
     }
   }
 };

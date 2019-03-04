@@ -2,8 +2,18 @@ import axios from 'axios'
 import store from '@/store/store'
 import router from '@/router';
 import * as types from "./../store/mutation-types";
-import * as mediaManagerStorage from './Storage.js'
-import * as auth from './Auth.js'
+import * as mediaManagerStorage from './Storage'
+import * as auth from './Auth'
+import {
+  user
+} from './User'
+import {
+  config
+} from './Config'
+import {
+  dropboxApi
+} from './apps/Dropbox.js'
+
 /**
  * Api class for communication with the server
  */
@@ -13,8 +23,12 @@ class Api {
    * Store constructor
    */
   constructor() {
+    this.service = {};
     this.mediastorage = mediaManagerStorage;
     this.auth = auth.services;
+    this.user = user;
+    this.config = config;
+    this.service.dropbox = dropboxApi;
   }
 
   getUidV4() {
@@ -37,27 +51,17 @@ class Api {
     var elapsed = current - previousDate;
 
     if (elapsed < msPerMinute) {
-         return Math.round(elapsed/1000) + ' seconds ago';
-    }
-
-    else if (elapsed < msPerHour) {
-         return Math.round(elapsed/msPerMinute) + ' minutes ago';
-    }
-
-    else if (elapsed < msPerDay ) {
-         return Math.round(elapsed/msPerHour ) + ' hours ago';
-    }
-
-    else if (elapsed < msPerMonth) {
-        return Math.round(elapsed/msPerDay) + ' days ago';
-    }
-
-    else if (elapsed < msPerYear) {
-        return Math.round(elapsed/msPerMonth) + ' months ago';
-    }
-
-    else {
-        return Math.round(elapsed/msPerYear ) + ' years ago';
+      return Math.round(elapsed / 1000) + ' seconds ago';
+    } else if (elapsed < msPerHour) {
+      return Math.round(elapsed / msPerMinute) + ' minutes ago';
+    } else if (elapsed < msPerDay) {
+      return Math.round(elapsed / msPerHour) + ' hours ago';
+    } else if (elapsed < msPerMonth) {
+      return Math.round(elapsed / msPerDay) + ' days ago';
+    } else if (elapsed < msPerYear) {
+      return Math.round(elapsed / msPerMonth) + ' months ago';
+    } else {
+      return Math.round(elapsed / msPerYear) + ' years ago';
     }
   }
 
@@ -73,13 +77,9 @@ class Api {
     axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
     axios.defaults.headers.common['csrfToken'] = process.env.VUE_APP_SECRET;
 
-    if (process.env.NODE_ENV == 'production') {
-      axiosInstance = axios.create({
-        baseURL: process.env.PORT ? process.env.PORT : 'http://localhost:3344',
-      });
-    } else {
-      axiosInstance = axios.create();
-    }
+    axiosInstance = axios.create({
+      baseURL: `http://localhost:${this.config.proxyPort}`,
+    });
 
     axiosInstance.interceptors.response.use(undefined, function axiosRetryInterceptor(err) {
       var config = err.config;
@@ -131,12 +131,13 @@ class Api {
         store.commit(types.SHOW_SNACKBAR, errorData);
         break;
       case 404:
+        store.state.errorState = true;
         errorData.data = 'Something went wrong.';
         store.commit(types.SHOW_SNACKBAR, errorData);
         break;
       case 401:
         this.auth.logout();
-        router.push('/login');
+        router.push('/');
         store.commit(types.SHOW_SNACKBAR, errorData);
         break;
       case 403:
