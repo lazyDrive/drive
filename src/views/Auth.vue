@@ -25,10 +25,10 @@ export default {
       ) {
         this.$router.push("/PageNotFound");
       } else {
-        let data = this.$store.state.settings || {};
-        data.accessToken = accessToken;
-        data.uid = urlParams.get("uid");
-        data.accountId = urlParams.get("account_id");
+        let data = this.$store.state.settings;
+        data.dropbox.accessToken = accessToken;
+        data.dropbox.uid = urlParams.get("uid");
+        data.dropbox.accountId = urlParams.get("account_id");
         data.email = api.user.userData.email;
 
         const payload = {};

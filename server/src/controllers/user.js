@@ -34,9 +34,20 @@ exports.user_signup = (req, res, next) => {
 
           user.save()
             .then((result) => {
-              const settingConfig = {};
+
+              const settingConfig = {
+                dropbox: {},
+                google: {},
+              };
               settingConfig.email = req.body.email;
               settingConfig.name = req.body.name;
+              settingConfig.dropbox.accessToken = '';
+              settingConfig.dropbox.accountId = '';
+              settingConfig.dropbox.uid = '';
+              settingConfig.google.accessToken = '';
+              settingConfig.google.accountId = '';
+              settingConfig.google.uid = '';
+
               const defaultSettings = new Settings({
                 _id: new mongoose.Types.ObjectId(),
                 // eslint-disable-next-line no-underscore-dangle
@@ -152,7 +163,7 @@ exports.user_settings = (req, res, next) => {
     .then((userSettings) => {
       if (req.body.action === 'set') {
         const newSettings = req.body.settings;
-        Settings.updateMany({
+        Settings.updateOne({
           email: req.body.settings.email,
         }, {
           settings: newSettings,

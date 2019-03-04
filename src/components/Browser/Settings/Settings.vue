@@ -141,7 +141,7 @@ export default {
   },
   computed: {
     dropbox: function() {
-      return this.$store.state.settings.accessToken != "" ? true : false;
+      return this.$store.state.settings.dropbox.accessToken != null && this.$store.state.settings.dropbox.accessToken != ""  ? true : false;
     },
     googleDrive: function() {
       return false;
