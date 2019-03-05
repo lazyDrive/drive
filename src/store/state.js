@@ -3,9 +3,16 @@ export default {
   // The loaded files
   contents: [],
   // Files loaded limit
-  loadLimit:30,
+  loadLimit: 30,
   // Settings
-  settings: '',
+  settings: {
+    dropbox: {
+
+    },
+    google: {
+
+    }
+  },
   // The currently selected items
   selectedItems: [],
   // The currently selected items
@@ -35,8 +42,8 @@ export default {
   // The state of file menu
   showMenu: {
     state: false,
-    x:0,
-    y:0
+    x: 0,
+    y: 0
   },
   // The state of x in settings
   showToolModal: false,
