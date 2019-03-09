@@ -47,7 +47,7 @@
                       :loading="loading4"
                       dark
                       :color="googleDrive ? 'green' : 'info'"
-                      @click="connectDropbox()"
+                      @click="connectGoogle()"
                     >{{ googleDrive ? 'Remove Google Drive' : 'Connect Google Drive' }}</v-btn>
                   </div>
                 </v-list-tile-content>
@@ -117,7 +117,7 @@
 <script>
 import * as types from "./../../../store/mutation-types";
 import Dropbox from "dropbox";
-import fetch from 'isomorphic-fetch';
+import fetch from "isomorphic-fetch";
 import { api } from "./../../../app/Api";
 
 export default {
@@ -141,7 +141,10 @@ export default {
   },
   computed: {
     dropbox: function() {
-      return this.$store.state.settings.dropbox.accessToken != null && this.$store.state.settings.dropbox.accessToken != ""  ? true : false;
+      return this.$store.state.settings.dropbox.accessToken != null &&
+        this.$store.state.settings.dropbox.accessToken != ""
+        ? true
+        : false;
     },
     googleDrive: function() {
       return false;
@@ -170,7 +173,9 @@ export default {
       if (!this.dropbox) {
         var CLIENT_ID = "w3mmmph398qrnx9";
         var dbx = new Dropbox.Dropbox({ clientId: CLIENT_ID, fetch: fetch });
-        var authUrl = dbx.getAuthenticationUrl(`http://localhost:${api.config.redirectPort}/auth`);
+        var authUrl = dbx.getAuthenticationUrl(
+          `http://localhost:${api.config.redirectPort}/auth`
+        );
 
         const win = window.open(
           authUrl,
@@ -178,18 +183,24 @@ export default {
           "toolbar=no,location=no,status=no,menubar=no,scrollbars=yes,resizable=yes,width=600,height=500"
         );
         const payload = {};
-        var timer = setInterval(function() {
-          if (win.closed) {
-            clearInterval(timer);
-            payload.action = "get";
-            payload.settings = api.user.userData;
-            this.$store.dispatch("settings", payload);
-          }
-        }.bind(this), 500);
+        var timer = setInterval(
+          function() {
+            if (win.closed) {
+              clearInterval(timer);
+              payload.action = "get";
+              payload.settings = api.user.userData;
+              this.$store.dispatch("settings", payload);
+            }
+          }.bind(this),
+          500
+        );
       } else {
         this.$store.state.settings.dropbox.accessToken = "";
         this.saveSettings();
       }
+    },
+    connectGoogle: function() {
+
     }
   }
 };

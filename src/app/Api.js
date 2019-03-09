@@ -4,7 +4,9 @@ import router from '@/router';
 import * as types from "./../store/mutation-types";
 import * as mediaManagerStorage from './Storage'
 import * as auth from './Auth'
-import DropboxApi from './apps/Dropbox'
+import {
+  service
+} from './Service';
 import {
   user
 } from './User'
@@ -21,13 +23,11 @@ class Api {
    * Store constructor
    */
   constructor() {
-    const dropboxAccessToken = store.state.settings.dropbox.accessToken;
-    this.service = {};
     this.mediastorage = mediaManagerStorage;
     this.auth = auth.services;
     this.user = user;
     this.config = config;
-    this.service.dropbox = new DropboxApi(dropboxAccessToken, config.redirectPort);
+    this.service = service;
   }
 
   getUidV4() {
@@ -76,7 +76,7 @@ class Api {
     axios.defaults.headers.common['csrfToken'] = process.env.VUE_APP_SECRET;
 
     axiosInstance = axios.create({
-      baseURL: `http://localhost:${this.config.proxyPort}`,
+      baseURL: `${this.config.BASE_URL}:${this.config.proxyPort}`,
     });
 
     axiosInstance.interceptors.response.use(undefined, function axiosRetryInterceptor(err) {

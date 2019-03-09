@@ -1,5 +1,6 @@
 import Vue from 'vue'
 import App from './App.vue'
+import { api } from './app/Api';
 import Event from './app/Event'
 import Vuetify from 'vuetify'
 import router from './router'
@@ -26,6 +27,15 @@ import Alert from '@/components/Tool/Alert'
 import 'vuetify/dist/vuetify.min.css'
 import './styles/mediamanager.scss'
 
+// create the 'options' object
+const apiConfig = {
+  apiKey: "esU3m9fdQe-k4LejP0L3N-Z1",
+  clientId: "1012856857726-5fqdg93a571r6c7lv9skas0ovt7m18r1.apps.googleusercontent.com",
+  discoveryDocs: ["https://sheets.googleapis.com/$discovery/rest?version=v4"],
+  scope: "https://www.googleapis.com/auth/spreadsheets"
+};
+
+Vue.use(api.service, apiConfig)
 Vue.use(Vuetify)
 Vue.use(VueAnalytics, {
   id: 'UA-131081167-1',

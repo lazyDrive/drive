@@ -10,13 +10,10 @@ import * as FileSaver from 'file-saver';
  * @param payload
  */
 export const getContents = (context, payload) => {
-
   return new Promise((resolve, reject) => {
     context.commit(types.SET_IS_LOADING, true);
-
     let path = payload.path || context.state.selectedDirectory;
     let limit = payload.limit || context.state.loadLimit;
-
     api.axios()
       .get(`api/getFiles/${path}/${limit}`, {
         retry: 3,
@@ -41,12 +38,9 @@ export const getContents = (context, payload) => {
  * @param payload
  */
 export const update = (context, payload) => {
-
   let path = payload.path || context.state.selectedDirectory;
   let limit = payload.limit || context.state.loadLimit;
-
   const state = (context.state.isUploading === true) ? 'subscribe' : 'eventCacheUpdate';
-
   api.axios()
     .get(`api/getFiles/${path}/${limit}/update/nocache/${state}`, {
       retry: 3,
@@ -67,13 +61,9 @@ export const update = (context, payload) => {
  * @param payload object with the new folder name and its parent directory
  */
 export const upload = (context, payload) => {
-
   const foundIndex = context.state.uploadItemsMenu.findIndex(x => (x.id == payload.id && x.type == 'file'));
-
   return new Promise((resolve, reject) => {
-
     context.commit(types.SET_IS_UPLOADING, true)
-
     api.axios()
       .post(`api/upload/${payload.uploadPath}`, payload.formData, {
         retry: 3,
@@ -101,7 +91,6 @@ export const upload = (context, payload) => {
  */
 export const login = (context, payload) => {
   return new Promise((resolve, reject) => {
-
     api.axios()
       .post('user/login', payload)
       .then((response) => {
@@ -179,15 +168,11 @@ export const deleteFile = (context, payload) => {
  * @param payload
  */
 export const createDirectory = (context, payload) => {
-
   context.commit(types.SET_IS_LOADING, true)
-
   const path = context.state.selectedDirectory;
-
   api.axios()
     .put(`api/createDirectory/${path}`, payload)
     .then((response) => {
-
       var data = {
         data: response.data.message,
         color: 'success',
@@ -211,13 +196,10 @@ export const createDirectory = (context, payload) => {
  * @param payload
  */
 export const rename = (context, payload) => {
-
   context.commit(types.SET_IS_LOADING, true)
-
   api.axios()
     .put(`api/rename/${payload.path}`, payload)
     .then((response) => {
-
       var data = {
         data: response.data.message,
         color: 'success',
@@ -231,7 +213,6 @@ export const rename = (context, payload) => {
     .catch((error) => {
       api._handleError(error)
     })
-
   context.commit(types.SET_IS_LOADING, false)
 }
 
