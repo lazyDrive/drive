@@ -61,9 +61,9 @@ Vue.component('media-upload-menu', UploadMenu)
 Vue.component('media-preview-model', PreviewModel)
 
 // Register MediaManager namespace
-window.MediaManager = window.MediaManager || {};
+window.LazyDrive = window.LazyDrive || {};
 // Register the media manager event bus
-window.MediaManager.Event = new Event();
+window.LazyDrive.Event = new Event();
 
 Vue.config.productionTip = false
 
