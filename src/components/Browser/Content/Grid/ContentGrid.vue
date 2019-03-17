@@ -121,29 +121,29 @@ export default {
       this.$store.commit(types.UNSELECT_ALL_BROWSER_ITEMS, { type: "dir" });
     },
     /* Unselect all browser items */
-    unselectAllBrowserItems: function(event) {
-      const notClickedBrowserItems =
-        (this.$refs.browserItems &&
-          !this.$refs.browserItems.contains(event.target)) ||
-        event.target === this.$refs.browserItems;
+    // unselectAllBrowserItems: function(event) {
+    //   const notClickedBrowserItems =
+    //     (this.$refs.browserItems &&
+    //       !this.$refs.browserItems.contains(event.target)) ||
+    //     event.target === this.$refs.browserItems;
 
-      const notClickedInfobar =
-        this.$refs.infobar !== undefined &&
-        !this.$refs.infobar.$el.contains(event.target);
-      const clickedOutside = notClickedBrowserItems && notClickedInfobar;
+    //   const notClickedInfobar =
+    //     this.$refs.infobar !== undefined &&
+    //     !this.$refs.infobar.$el.contains(event.target);
+    //   const clickedOutside = notClickedBrowserItems && notClickedInfobar;
 
-      const notMediaFolder =
-        this.$refs.mediaFolder !== undefined &&
-        !this.$refs.mediaFolder.contains(event.target);
+    //   const notMediaFolder =
+    //     this.$refs.mediaFolder !== undefined &&
+    //     !this.$refs.mediaFolder.contains(event.target);
 
-      if (clickedOutside && !this.$store.state.modelBackdrop) {
-        // s
-      } else if(notMediaFolder){
-        this.$store.dispatch("update", {
-          path: this.$store.state.selectedDirectory
-        });
-      }
-    },
+    //   if (clickedOutside && !this.$store.state.modelBackdrop) {
+    //     // s
+    //   } else if(notMediaFolder){
+    //     this.$store.dispatch("update", {
+    //       path: this.$store.state.selectedDirectory
+    //     });
+    //   }
+    // },
     findNext: function(code) {
       const current = this.current();
       const total = this.$store.state.contents.length;
@@ -250,19 +250,19 @@ export default {
   },
   created() {
     document.body.addEventListener("keydown", this.keyup, false);
-    document.body.addEventListener(
-      "click",
-      this.unselectAllBrowserItems,
-      false
-    );
+    // document.body.addEventListener(
+    //   "click",
+    //   this.unselectAllBrowserItems,
+    //   false
+    // );
   },
   destroyed() {
     document.body.removeEventListener("keydown", this.keyup, false);
-    document.body.removeEventListener(
-      "click",
-      this.unselectAllBrowserItems,
-      false
-    );
+    // document.body.removeEventListener(
+    //   "click",
+    //   this.unselectAllBrowserItems,
+    //   false
+    // );
   }
 };
 </script>

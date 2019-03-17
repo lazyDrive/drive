@@ -9,6 +9,7 @@ export default {
     Vue.gapiLoadClientPromise = null
 
     const resolveAuth2Client = (resolve) => {
+      // eslint-disable-next-line
       gapiPromise.then(_ => {
         const gapi = window.gapi
         if (!gapi) {

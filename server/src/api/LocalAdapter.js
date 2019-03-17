@@ -42,6 +42,8 @@ class LocalAdapter {
     // File Count
     this.count = 0;
 
+    this.extText = ['txt', 'cpp', 'c', 'java', 'php', 'text', 'html', 'js', 'css'];
+
     // Root Path
     if (fs.statSync(rootPath).isDirectory()) {
       this.rootPath = rootPath;
@@ -157,8 +159,8 @@ class LocalAdapter {
   move(sourcePath, destinationPath, force = true) {
     return new Promise((resolve, reject) => {
       fs.move(sourcePath, destinationPath, {
-        overwrite: force,
-      })
+          overwrite: force,
+        })
         .then(() => {
           resolve();
         })
@@ -265,7 +267,7 @@ class LocalAdapter {
         //   // Do not forget to close the file once you're done
         //   zip.close();
         // });
-      } else if (itemDataObj.extension === 'txt' || itemDataObj.extension === 'js' || itemDataObj.extension === 'html' && eventControl !== 'subscribe') {
+      } else if (this.extText.indexOf(itemDataObj.extension) !== -1) {
         itemDataObj.fileData = fs.readFileSync(path + item, 'utf8');
       }
 

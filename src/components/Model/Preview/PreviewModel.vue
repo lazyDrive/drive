@@ -62,8 +62,8 @@ export default {
   data: () => ({
     files: [],
     numPages: undefined,
-    videoExt: ["mp4", "ogv", "avi"],
-    audioExt: ["mp3", "webm"],
+    videoExt: ["mp4", "ogv", "avi", "webm"],
+    audioExt: ["mp3"],
     fileExt: [
       "txt",
       "js",
@@ -73,6 +73,7 @@ export default {
       "go",
       "html",
       "c",
+      "cpp",
       "c++",
       "sql",
       "java",

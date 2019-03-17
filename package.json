@@ -13,11 +13,11 @@
     "electron:serve": "vue-cli-service electron:serve",
     "postinstall": "electron-builder install-app-deps",
     "postuninstall": "electron-builder install-app-deps",
-    "test:e2e": "vue-cli-service test:e2e",
-    "test:unit": "vue-cli-service test:unit",
     "release-linux": "vue-cli-service electron:build --linux",
+    "release-mac": "vue-cli-service electron:build --mac",
     "release-windows": "vue-cli-service electron:build --windows",
-    "release-mac": "vue-cli-service electron:build --mac"
+    "test:e2e": "vue-cli-service test:e2e",
+    "test:unit": "vue-cli-service test:unit"
   },
   "dependencies": {
     "axios": "^0.18.0",
