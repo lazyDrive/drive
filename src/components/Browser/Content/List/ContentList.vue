@@ -218,7 +218,6 @@ export default {
       }
     },
     preview: function(item) {
-      this.$store.dispatch("log", item);
       this.$store.commit(types.LOAD_FULL_CONTENTS_SUCCESS, item);
       this.$store.commit(types.SHOW_PREVIEW_MODAL);
     },
