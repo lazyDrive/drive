@@ -39,6 +39,7 @@
 
 <script>
 import * as types from "./../../../store/mutation-types";
+import { api } from "./../../../app/Api.js";
 
 export default {
   name: "media-content",
@@ -60,7 +61,7 @@ export default {
         });
       }
     },
-    onScroll: async function() {
+    onScroll: api.debounce(function() {
       if (window.innerHeight + window.scrollY >= document.body.scrollHeight) {
         this.$store.state.loadLimit = this.$store.state.loadLimit + 10;
 
@@ -69,12 +70,12 @@ export default {
 
         this.$store.commit(types.SET_IS_LOADING, true);
         if (dir !== undefined && path == "folder") {
-          await this.$store.dispatch("update", { path: dir });
+          this.$store.dispatch("update", { path: dir });
         } else {
-          await this.$store.dispatch("update", { path: "my-drive" });
+          this.$store.dispatch("update", { path: "my-drive" });
         }
       }
-    },
+    }, 300),
     // Listeners for drag and drop
     onDragEnter: function(event) {
       event.stopPropagation();

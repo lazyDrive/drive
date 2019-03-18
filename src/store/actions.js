@@ -75,7 +75,9 @@ export const upload = (context, payload) => {
         }
       })
       .then(response => {
-        resolve(response);
+        setInterval(() => {
+          resolve(response);
+        }, 600);
       })
       .catch((error) => {
         api._handleError(error)
