@@ -60,6 +60,7 @@ export default {
   methods: {
     processUpload: async function(type) {
       let uploadSuccess = 0;
+      this.$store.commit(types.SET_IS_UPLOADING, true);
       while (this.$store.state.uploadItems.length > 0) {
         const item = this.$store.state.uploadItems.shift();
         const formData = item.file;
@@ -79,10 +80,16 @@ export default {
           console.error(error);
         }
 
-        this.$store.dispatch("update", {
-          path: this.$store.state.selectedDirectory
-        });
+        if (uploadSuccess % 2 == 0) {
+          this.$store.dispatch("update", {
+            path: this.$store.state.selectedDirectory
+          });
+        }
       }
+
+      this.$store.dispatch("update", {
+        path: this.$store.state.selectedDirectory
+      });
 
       var data = {
         data: `${uploadSuccess} files uploaded.`,

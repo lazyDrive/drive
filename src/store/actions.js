@@ -63,7 +63,6 @@ export const update = (context, payload) => {
 export const upload = (context, payload) => {
   const foundIndex = context.state.uploadItemsMenu.findIndex(x => (x.id == payload.id && x.type == 'file'));
   return new Promise((resolve, reject) => {
-    context.commit(types.SET_IS_UPLOADING, true)
     api.axios()
       .post(`api/upload/${payload.uploadPath}`, payload.formData, {
         retry: 3,
@@ -77,7 +76,7 @@ export const upload = (context, payload) => {
       .then(response => {
         setInterval(() => {
           resolve(response);
-        }, 600);
+        }, 1000);
       })
       .catch((error) => {
         api._handleError(error)
