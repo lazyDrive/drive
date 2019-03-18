@@ -198,7 +198,6 @@ export default {
       ) {
         if (event.keyCode == 27) {
           event.preventDefault();
-
         } else if (event.keyCode == 39) {
           const current = this.current();
           if (current < this.$store.state.contents.length - 1) {
@@ -236,7 +235,20 @@ export default {
         } else if (event.keyCode == 13) {
           const item = this.$store.state.selectedItems[0];
           if (item.type == "dir") {
-            this.$store.dispatch("getContents", item);
+            try {
+              let path = item.path;
+              if (path != "my-drive") {
+                this.$router.push({
+                  path: `/drive/u/0/folder/${path}`
+                });
+              } else {
+                this.$router.push({
+                  path: `/drive/u/0/my-drive`
+                });
+              }
+            } catch (err) {
+              console.log(err);
+            }
           } else {
             this.$store.commit(
               types.LOAD_FULL_CONTENTS_SUCCESS,
