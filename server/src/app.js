@@ -65,8 +65,8 @@ app.use('/user', userRoutes);
 
 // Production
 if (process.env.NODE_ENV === 'production') {
-  app.use(express.static(`${__dirname}/../public`));
-  app.get(/.*/, (req, res) => res.sendFile(`${__dirname}/../public/index.html`));
+  app.use(express.static(`${__dirname}/app/`));
+  app.get(/.*/, (req, res) => res.sendFile(`${__dirname}/app/index.html`));
 }
 
 app.use((req, res, next) => {
