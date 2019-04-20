@@ -15,7 +15,7 @@ export const getContents = (context, payload) => {
     let path = payload.path || context.state.selectedDirectory;
     let limit = payload.limit || context.state.loadLimit;
     api.axios()
-      .get(`api/getFiles/${path}/${limit}`, {
+      .get(`/api/getFiles/${path}/${limit}`, {
         retry: 3,
         retryDelay: 1000
       })
@@ -42,7 +42,7 @@ export const update = (context, payload) => {
   let limit = payload.limit || context.state.loadLimit;
   const state = (context.state.isUploading === true) ? 'subscribe' : 'eventCacheUpdate';
   api.axios()
-    .get(`api/getFiles/${path}/${limit}/update/nocache/${state}`, {
+    .get(`/api/getFiles/${path}/${limit}/update/nocache/${state}`, {
       retry: 3,
       retryDelay: 1000
     })
@@ -64,7 +64,7 @@ export const upload = (context, payload) => {
   const foundIndex = context.state.uploadItemsMenu.findIndex(x => (x.id == payload.id && x.type == 'file'));
   return new Promise((resolve, reject) => {
     api.axios()
-      .post(`api/upload/${payload.uploadPath}`, payload.formData, {
+      .post(`/api/upload/${payload.uploadPath}`, payload.formData, {
         retry: 3,
         retryDelay: 1000,
         onUploadProgress: e => {
@@ -93,7 +93,7 @@ export const upload = (context, payload) => {
 export const login = (context, payload) => {
   return new Promise((resolve, reject) => {
     api.axios()
-      .post('user/login', payload)
+      .post('/user/login', payload)
       .then((response) => {
         resolve(response);
       })
@@ -127,7 +127,7 @@ export const log = (context, payload) => {
 export const settings = (context, payload) => {
   return new Promise((resolve, reject) => {
     api.axios()
-      .post('user/settings', payload)
+      .post('/user/settings', payload)
       .then((response) => {
         context.commit(types.SET_SETTINGS, response);
         resolve(response);
@@ -149,7 +149,7 @@ export const deleteFile = (context, payload) => {
   return new Promise((resolve, reject) => {
 
     api.axios()
-      .delete('api/delete/' + file.path)
+      .delete('/api/delete/' + file.path)
       .then((response) => {
         context.state.showConfirmDeleteModal = false;
         resolve(response);
@@ -172,7 +172,7 @@ export const createDirectory = (context, payload) => {
   context.commit(types.SET_IS_LOADING, true)
   const path = context.state.selectedDirectory;
   api.axios()
-    .put(`api/createDirectory/${path}`, payload)
+    .put(`/api/createDirectory/${path}`, payload)
     .then((response) => {
       var data = {
         data: response.data.message,
@@ -199,7 +199,7 @@ export const createDirectory = (context, payload) => {
 export const rename = (context, payload) => {
   context.commit(types.SET_IS_LOADING, true)
   api.axios()
-    .put(`api/rename/${payload.path}`, payload)
+    .put(`/api/rename/${payload.path}`, payload)
     .then((response) => {
       var data = {
         data: response.data.message,
@@ -225,7 +225,7 @@ export const rename = (context, payload) => {
 export const signup = (context, payload) => {
   return new Promise((resolve, reject) => {
     api.axios()
-      .post('user/signup', payload)
+      .post('/user/signup', payload)
       .then((response) => {
         var data = {
           'data': response.data.message,
@@ -273,7 +273,7 @@ export const download = (context, payload) => {
     const path = context.state.selectedDirectory;
 
     api.axios()
-      .post(`api/batch/${path}`, {
+      .post(`/api/batch/${path}`, {
         files: payload
       }, {
         responseType: 'blob'

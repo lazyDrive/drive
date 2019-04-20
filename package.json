@@ -5,7 +5,7 @@
   "description": "<p align=\"center\"><a href=\"http://github.com/anu1601cs/\" target=\"_blank\" rel=\"noopener noreferrer\"><img width=\"100\" src=\"https://vuejs.org/images/logo.png\" alt=\"Vue logo\"></a></p>",
   "author": "Anurag Kumar (anu1601cs)",
   "scripts": {
-    "serve": "vue-cli-service serve --open",
+    "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
     "lint": "vue-cli-service lint",
     "deploy": "node ./node_modules/vue-gh-pages/index.js",

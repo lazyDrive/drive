@@ -86,17 +86,17 @@ class Api {
    */
   axios() {
 
-    let axiosInstance;
+    // let axiosInstance;
 
     axios.defaults.headers.common['Authorization'] = `Bearer ${this.mediastorage.cookies.get('token')}`;
     axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
     axios.defaults.headers.common['csrfToken'] = process.env.VUE_APP_SECRET;
 
-    axiosInstance = axios.create({
-      baseURL: `${this.config.BASE_URL}:${this.config.proxyPort}`,
-    });
+    // axiosInstance = axios.create({
+    //   baseURL: `${this.config.BASE_URL}:${this.config.proxyPort}`,
+    // });
 
-    axiosInstance.interceptors.response.use(undefined, function axiosRetryInterceptor(err) {
+    axios.interceptors.response.use(undefined, function axiosRetryInterceptor(err) {
       var config = err.config;
       // If config does not exist or the retry option is not set, reject
       if (!config || !config.retry) return Promise.reject(err);
@@ -122,11 +122,11 @@ class Api {
 
       // Return the promise in which recalls axios to retry the request
       return backoff.then(function () {
-        return axiosInstance(config);
+        return axios(config);
       });
     });
 
-    return axiosInstance;
+    return axios;
   }
 
   /**
