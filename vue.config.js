@@ -1,6 +1,6 @@
 const path = require('path')
 module.exports = {
-  outputDir: path.resolve(__dirname, './server/public/'),
+  outputDir: path.resolve(__dirname, './server/src/app/'),
   pwa: {
     name: 'Media Manager',
     themeColor: '#9013FE',
