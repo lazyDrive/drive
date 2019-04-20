@@ -86,15 +86,9 @@ class Api {
    */
   axios() {
 
-    // let axiosInstance;
-
     axios.defaults.headers.common['Authorization'] = `Bearer ${this.mediastorage.cookies.get('token')}`;
     axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
     axios.defaults.headers.common['csrfToken'] = process.env.VUE_APP_SECRET;
-
-    // axiosInstance = axios.create({
-    //   baseURL: `${this.config.BASE_URL}:${this.config.proxyPort}`,
-    // });
 
     axios.interceptors.response.use(undefined, function axiosRetryInterceptor(err) {
       var config = err.config;

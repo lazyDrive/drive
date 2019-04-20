@@ -88,7 +88,7 @@ app.use((error, req, res, next) => {
 const port = process.env.PORT || 3344;
 
 app.listen(port, () => {
-  spinner.text = 'Running on locahost:3344';
+  spinner.text = `Server running on localhost:${port}`;
   spinner.color = 'green';
   spinner.succeed();
 });
