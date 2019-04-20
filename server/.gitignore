@@ -4,6 +4,7 @@ node_modules
 /.cache/*
 /uploads/*
 /public
+/src/app
 
 /tests/e2e/videos/
 /tests/e2e/screenshots/
