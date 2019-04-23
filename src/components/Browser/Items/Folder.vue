@@ -1,24 +1,11 @@
 <template>
   <div
     @dblclick.prevent="openFolder()"
-    class="text-xs-center folder media-item-folder"
     @click="select($event, item)"
     @contextmenu="show($event, item.id)"
     :data-item="item.id"
-  >
-    <v-chip
-      disabled
-      :class="` ${selectedState ? 'selected' : ''} ${isMobile ? 'm-mobile-chip-size' : 'm-chip-size'}`"
-      color="#CFD8DC"
-      text-color="black"
-      slot="activator"
-    >
-      <v-avatar :class="`m-f-pointer`">
-        <v-icon :color="item.color">folder</v-icon>
-      </v-avatar>
-      <span :class="`m-f-pointer`">{{ getName }}</span>
-    </v-chip>
-  </div>
+    :class="`${selected ? 'selected' : ''} lazy_folder`"
+  >{{ getName }}</div>
 </template>
 
 <script>
@@ -99,7 +86,7 @@ export default {
             path: `/drive/u/0/my-drive`
           });
         }
-      } catch (err){
+      } catch (err) {
         console.log(err);
       }
     }

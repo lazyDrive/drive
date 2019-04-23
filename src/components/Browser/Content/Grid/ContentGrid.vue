@@ -1,6 +1,98 @@
 <template>
   <div class="media-content-grid">
-    <v-layout row wrap class="m-section" v-if="isEmpty.length > 0">
+    <div class="grid_section folders">
+      <h3>Folders</h3>
+      <lazy-folder v-for="item in folders" :item="item" :key="item.id"></lazy-folder>
+      <span class="clear"></span>
+    </div>
+    <div class="grid_section files">
+      <h3>Files</h3>
+      <div class="lazy_file">
+        <div>
+          <img
+            src="https://images.unsplash.com/photo-1502630859934-b3b41d18206c?w=500&h=500&fit=crop"
+            class="lazy_file_image"
+            alt
+          >
+        </div>
+        <div class="desc">My Name</div>
+      </div>
+      <div class="lazy_file">
+        <div>
+          <img
+            src="https://images.unsplash.com/photo-1502630859934-b3b41d18206c?w=500&h=500&fit=crop"
+            class="lazy_file_image"
+            alt
+          >
+        </div>
+        <div class="desc">My Name</div>
+      </div>
+      <div class="lazy_file">
+        <div>
+          <img
+            src="https://images.unsplash.com/photo-1502630859934-b3b41d18206c?w=500&h=500&fit=crop"
+            class="lazy_file_image"
+            alt
+          >
+        </div>
+        <div class="desc">My Name</div>
+      </div>
+      <div class="lazy_file">
+        <div>
+          <img
+            src="https://images.unsplash.com/photo-1502630859934-b3b41d18206c?w=500&h=500&fit=crop"
+            class="lazy_file_image"
+            alt
+          >
+        </div>
+        <div class="desc">My Name</div>
+      </div>
+      <div class="lazy_file">
+        <div>
+          <img
+            src="https://images.unsplash.com/photo-1502630859934-b3b41d18206c?w=500&h=500&fit=crop"
+            class="lazy_file_image"
+            alt
+          >
+        </div>
+        <div class="desc">My Name</div>
+      </div>
+      <div class="lazy_file">
+        <div>
+          <img
+            src="https://images.unsplash.com/photo-1502630859934-b3b41d18206c?w=500&h=500&fit=crop"
+            class="lazy_file_image"
+            alt
+          >
+        </div>
+        <div class="desc">My Name</div>
+      </div>
+      <div class="lazy_file">
+        <div>
+          <img
+            src="https://images.unsplash.com/photo-1502630859934-b3b41d18206c?w=500&h=500&fit=crop"
+            class="lazy_file_image"
+            alt
+          >
+        </div>
+        <div class="desc">My Name</div>
+      </div>
+      <div class="lazy_file">
+        <div>
+          <img
+            src="https://images.unsplash.com/photo-1502630859934-b3b41d18206c?w=500&h=500&fit=crop"
+            class="lazy_file_image"
+            alt
+          >
+        </div>
+        <div class="desc">
+          My
+          Name
+        </div>
+      </div>
+      <span class="clear"></span>
+    </div>
+    <!-- <v-layout row wrap class="m-section" v-if="isEmpty.length > 0">
       <v-spacer></v-spacer>
       <div class="empty-folder">
         <strong>Drop your files here or use upload button.</strong>
@@ -33,16 +125,21 @@
     </v-checkbox>
     <v-layout row wrap>
       <media-file v-for="item in files" :item="item" :key="item.id"></media-file>
-    </v-layout>
+    </v-layout>-->
   </div>
 </template>
 
 <script>
 import * as types from "./../../../../store/mutation-types";
 
+import itemFolder from "./../../Items/Folder";
+
 export default {
   name: "media-content-grid",
   data: () => ({}),
+  components: {
+    "lazy-folder": itemFolder
+  },
   watch: {
     selectAllFile: function(val) {
       if (val) {

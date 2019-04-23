@@ -1,45 +1,13 @@
 <template>
-  <v-content class="media-content" style="padding-top: 35px;">
-    <v-container fluid grid-list-md>
-      <v-breadcrumbs :items="diskLoaded">
-        <v-icon slot="divider">chevron_right</v-icon>
-        <template slot="item" slot-scope="props">
-          <a
-            @click.stop="doThis(props.item.path)"
-            :class="[props.item.disabled && 'disabled']"
-          >{{ props.item.text }}</a>
-        </template>
-      </v-breadcrumbs>
-
-      <div class="media-toolbar">
-        <div class="media-loader" v-if="this.$store.state.isLoading"></div>
-      </div>
-
-      <div
-        id="media-items"
-        @dragenter="onDragEnter"
-        @drop="onDrop"
-        @dragover="onDragOver"
-        @dragleave="onDragLeave"
-        ref="browserItems"
-      >
-        <div class="media-dragoutline">
-          <v-icon size="100">cloud_upload</v-icon>
-          <p>Drop file(s) to Upload</p>
-        </div>
-        <slot name="contentList"></slot>
-        <slot name="contentGrid"></slot>
-      </div>
-    </v-container>
-
-    <!-- Add infrobar -->
-    <media-infrobar v-if="this.$store.state.showInfoBar"></media-infrobar>
-  </v-content>
+  <section class="chat">
+    <lazy-grid></lazy-grid>
+  </section>
 </template>
 
 <script>
 import * as types from "./../../../store/mutation-types";
 import { api } from "./../../../app/Api.js";
+import ContentGrid from "./Grid/ContentGrid";
 
 export default {
   name: "media-content",
@@ -48,6 +16,9 @@ export default {
     diskLoaded: function() {
       return this.$store.state.diskLoaded;
     }
+  },
+  components: {
+    "lazy-grid": ContentGrid
   },
   methods: {
     doThis: function(path) {
