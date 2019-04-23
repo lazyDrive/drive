@@ -1,6 +1,7 @@
 <template>
-  <div class="media-login">
+  <div class="home">
     <media-login></media-login>
+    <media-alert></media-alert>
   </div>
 </template>
 
@@ -11,16 +12,7 @@ import LoginForm from "@/components/Account/LoginForm";
 export default {
   name: "media-home",
   data() {
-    return {
-      title: "Your Logo",
-      icons: [
-        "fab fa-facebook",
-        "fab fa-twitter",
-        "fab fa-google-plus",
-        "fab fa-linkedin",
-        "fab fa-instagram"
-      ]
-    };
+    return {};
   },
   components: {
     "media-login": LoginForm

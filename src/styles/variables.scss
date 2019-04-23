@@ -25,7 +25,7 @@ $toolbar-bg: #f5f5f5;
 $toolbar-icon-width: 50px;
 $toolbar-icon-color: #464a4c;
 $toolbar-icon-bg-hover: #f0f0f0;
-$toolbar-loader-color: linear-gradient(to right, #595cff 0, #59afff 100%);
+$toolbar-loader-color: linear-gradient(to right, #3b3edf 0, #f1f7fc 100%);
 $toolbar-loader-height: 2px;
 
 // Breadcrumbs
@@ -101,7 +101,6 @@ $color-special: #7285be;
 $color-active: #28a745;
 $color-warn: #ffc107;
 $color-error: #dc3545;
-$color-error: lighten($color-primary, 30);
 
 $bp-large: (min-width: 940px);
 $bp-medium: (min-width: 320px);

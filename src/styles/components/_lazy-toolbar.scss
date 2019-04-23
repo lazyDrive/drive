@@ -1,0 +1,31 @@
+.media-toolbar {
+  position: relative;
+  display: flex;
+  padding: 0;
+  background-color: $toolbar-bg;
+  border-bottom: 0;
+  border-radius: $border-radius $border-radius 0 0;
+}
+
+.media-loader {
+  position: absolute;
+  right: 100%;
+  bottom: 0;
+  left: 0;
+  top: 0.5px;
+  height: $toolbar-loader-height;
+  z-index: 10000;
+  background-image: $toolbar-loader-color;
+  animation: 20s ease 0s normal none 1 running mediaLoader;
+  animation-fill-mode: forwards;
+}
+
+@keyframes mediaLoader {
+  from {
+    right: 100%;
+  }
+
+  to {
+    right: 0;
+  }
+}

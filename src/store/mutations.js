@@ -342,12 +342,7 @@ export default {
    * @param state
    */
   [types.HIDE_SNACKBAR]: (state) => {
-    state.showsnackbar = {
-      state: false,
-      data: '',
-      color: 'default',
-      time: 6000
-    };
+    state.showsnackbar.state = false;
   },
 
   /**
