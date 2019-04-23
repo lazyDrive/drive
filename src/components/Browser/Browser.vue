@@ -26,6 +26,11 @@
             <img src="https://discordapp.com/assets/0e291f67c9274a1abdddeb3fd919cbaa.png">
           </div>
         </div>
+        <div class="server focusable" role="button" aria-label="My Server" aria-selected="true">
+          <div class="server-icon">
+            <img src="https://discordapp.com/assets/0e291f67c9274a1abdddeb3fd919cbaa.png">
+          </div>
+        </div>
       </div>
     </aside>
 
@@ -109,29 +114,21 @@
 
     <div class="vert-container">
       <div class="media-toolbar">
-        <div class="media-loader"></div>
+        <div class="media-loader" v-if="this.$store.state.isLoading"></div>
       </div>
       <menu type="toolbar" class="menu">
-        <ul class="breadcrumbs breadcrumbs_type5">
-          <li class="breadcrumbs__item">
-            <a href="#0" class="breadcrumbs__element">Home</a>
-          </li>
-          <li class="breadcrumbs__item">
-            <a href="#0" class="breadcrumbs__element">Blog</a>
-          </li>
-          <li class="breadcrumbs__item">
-            <a href="#0" class="breadcrumbs__element">Blog</a>
-          </li>
-          <li class="breadcrumbs__item breadcrumbs__item_active">
-            <span class="breadcrumbs__element">
-              Single
-              post
-            </span>
-          </li>
-        </ul>
+        <lazy-breadcrumb></lazy-breadcrumb>
       </menu>
       <media-main-content></media-main-content>
     </div>
+    <svg id="search" width="24" height="24" viewBox="0 0 18 18">
+      <g fill="none" fill-rule="evenodd">
+        <path
+          fill="currentColor"
+          d="M3.60091481,7.20297313 C3.60091481,5.20983419 5.20983419,3.60091481 7.20297313,3.60091481 C9.19611206,3.60091481 10.8050314,5.20983419 10.8050314,7.20297313 C10.8050314,9.19611206 9.19611206,10.8050314 7.20297313,10.8050314 C5.20983419,10.8050314 3.60091481,9.19611206 3.60091481,7.20297313 Z M12.0057176,10.8050314 L11.3733562,10.8050314 L11.1492281,10.5889079 C11.9336764,9.67638651 12.4059463,8.49170955 12.4059463,7.20297313 C12.4059463,4.32933105 10.0766152,2 7.20297313,2 C4.32933105,2 2,4.32933105 2,7.20297313 C2,10.0766152 4.32933105,12.4059463 7.20297313,12.4059463 C8.49170955,12.4059463 9.67638651,11.9336764 10.5889079,11.1492281 L10.8050314,11.3733562 L10.8050314,12.0057176 L14.8073185,16 L16,14.8073185 L12.2102538,11.0099776 L12.0057176,10.8050314 Z"
+        ></path>
+      </g>
+    </svg>
     <svg id="icon-friends" viewBox="-289 382 32 27.1">
       <g id="g4145" fill="#fff">
         <path
@@ -199,6 +196,7 @@
 <script>
 import * as types from "./.././../store/mutation-types.js";
 import mainContent from "./../Browser/Content/MainContent";
+import breadCrumb from "./../Tool/BreadCrumb";
 
 export default {
   name: "media-browser",
@@ -206,7 +204,8 @@ export default {
     return {};
   },
   components: {
-    "media-main-content": mainContent
+    "media-main-content": mainContent,
+    "lazy-breadcrumb": breadCrumb
   },
   methods: {
     processUpload: async function(type) {

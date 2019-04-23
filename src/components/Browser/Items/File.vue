@@ -1,47 +1,20 @@
 <template>
   <div
-    class="file media-item-file"
+    class="lazy_file"
     @dblclick.stop="preview()"
     @click.stop="select($event, item)"
     @contextmenu="show($event, item.id)"
     :data-item="item.id"
   >
-    <v-card
-      elevation="0"
-      :class="`${selectedState ? 'selected' : ''} responsize-view`"
-      class="mx-auto"
-      :width="`${isMobile ? '146' : '210'}`"
-      :height="`${isMobile ? '138' : '190'}`"
-    >
-      <v-img
-        class="m-gradient"
-        :aspect-ratio="16/10"
+    <div>
+      <img
         v-if="item.imgUrl"
-        :src="item.imgUrl"
+        :src="item.imgUrl || item.extImg"
         :alt="item.name"
-        :lazy-src="item.imgLazyUrl"
-      ></v-img>
-
-      <v-img
-        :aspect-ratio="16/10"
-        v-if="!item.imgUrl"
-        :src="item.extImg"
-        :alt="item.name"
-        contain
-        :lazy-src="item.imgLazyUrl"
-      ></v-img>
-
-      <v-icon
-        size="50"
-        class="m-video-play-icon"
-        v-if="item.extension.toLowerCase() == 'mp4'"
-      >play_circle_filled</v-icon>
-
-      <v-card-title>
-        <img v-if="item.extImg && !isMobile" class="extensionImage" :src="item.extImg">
-        <span class="file-text">{{ getName }}</span>
-      </v-card-title>
-    </v-card>
+        class="lazy_file_image"
+      >
+    </div>
+    <div class="desc">{{ getName }}</div>
   </div>
 </template>
 

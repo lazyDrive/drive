@@ -4,7 +4,7 @@
     @click="select($event, item)"
     @contextmenu="show($event, item.id)"
     :data-item="item.id"
-    :class="`${selected ? 'selected' : ''} lazy_folder`"
+    :class="`lazy_folder ${selectedState ? 'selected' : ''}`"
   >{{ getName }}</div>
 </template>
 
