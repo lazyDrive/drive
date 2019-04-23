@@ -1,0 +1,26 @@
+.lazy_file {
+  border-radius: 5px;
+  margin: 10px;
+  border: 0.5px solid rgb(78, 84, 94);
+  float: left;
+  cursor: pointer;
+  width: 200px;
+  min-height: 250px;
+  text-align: center;
+}
+
+.lazy_file_image {
+  max-width: 100%;
+  height: auto;
+  border-radius: 5px;
+}
+
+.lazy_file img {
+  width: 100%;
+  height: auto;
+}
+
+.desc {
+  padding: 15px;
+  text-align: center;
+}
