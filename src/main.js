@@ -6,6 +6,7 @@ import store from './store/store'
 import './registerServiceWorker'
 import VueAnalytics from 'vue-analytics'
 import Alert from '@/components/Tool/Alert'
+import Model from '@/components/Model/Model'
 
 import './styles/lazydrive.scss'
 
@@ -16,6 +17,7 @@ Vue.use(VueAnalytics, {
 
 // Load components
 Vue.component('media-alert', Alert)
+Vue.component('lazy-model', Model)
 
 // Register MediaManager namespace
 window.LazyDrive = window.LazyDrive || {};

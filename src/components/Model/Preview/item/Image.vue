@@ -1,6 +1,6 @@
 <template>
   <div class="media-image">
-    <v-img
+    <img
       class="modal-content"
       :src="item.filePath"
       ref="prevImage"
@@ -10,14 +10,10 @@
       :height="height"
       :lazy-src="item.filePath"
     >
-      <v-layout slot="placeholder" fill-height align-center justify-center ma-0>
-        <v-progress-circular indeterminate color="grey lighten-5"></v-progress-circular>
-      </v-layout>
-    </v-img>
     <div class="previewtool">
-      <v-icon color="white" @click="dec()" class="remove">remove</v-icon>
-      <v-icon color="white" @click="reset()" class="refresh">refresh</v-icon>
-      <v-icon color="white" @click="inc()" class="add">add</v-icon>
+      <p color="white" @click="dec()" class="remove">remove</p>
+      <p color="white" @click="reset()" class="refresh">refresh</p>
+      <p color="white" @click="inc()" class="add">add</p>
     </div>
   </div>
 </template>

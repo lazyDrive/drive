@@ -1,7 +1,7 @@
 <template>
   <div v-if="isActive" class="modal media-preview-modal">
-    <v-icon color="white" @click.prevent="hidePreviewModal()" size="25" class="close">arrow_back</v-icon>
-    <v-icon color="white" @click.prevent="prev()" size="25" class="prev">arrow_back_ios</v-icon>
+    <p color="white" @click.prevent="hidePreviewModal()" size="25" class="close">arrow_back</p>
+    <p color="white" @click.prevent="prev()" size="25" class="prev">arrow_back_ios</p>
 
     <media-image
       v-if="item.imgUrl && item.extension.toLowerCase() != 'pdf' && item.extension.toLowerCase() != 'mp4'"
@@ -32,7 +32,7 @@
       </div>
     </div>
 
-    <v-icon color="white" @click.prevent="next()" class="next">arrow_forward_ios</v-icon>
+    <p color="white" @click.prevent="next()" class="next">next</p>
     <div class="caption">
       <img v-if="item.extImg" class="extensionImage" :src="item.extImg">
       &nbsp;&nbsp;{{getName()}}
@@ -40,10 +40,10 @@
 
     <div class="right-tool">
       <div class="right-tool-item">
-        <v-icon color="white" size="25" @click.prevent="download(item)">get_app</v-icon>
+        <p color="white" size="25" @click.prevent="download(item)">get_app</p>
       </div>
       <div class="right-tool-item">
-        <v-icon color="white" size="25">more_vert</v-icon>
+        <p color="white" size="25">more_vert</p>
       </div>
     </div>
   </div>
