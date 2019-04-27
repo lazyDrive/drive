@@ -15,7 +15,7 @@
         :style="`background-image: url(${item.imgUrl || item.extImg});`"
       ></div>
     </div>
-    <div class="lazy-file-grid-item-metadata-container">
+    <div :class="`lazy-file-grid-item-metadata-container ${selectedState ? 'selected' : ''}`">
       <div
         class="lazy-file-grid-item-title"
         :title="`${getName}`"
