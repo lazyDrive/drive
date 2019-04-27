@@ -9,58 +9,33 @@
     @contextmenu="show($event, item.id)"
     :data-item="item.id"
   >
-    <div
-      class="lazy-file-grid-item-thumbnail"
-      :style="`background-image: url(${item.imgUrl || item.extImg});`"
-    ></div>
+    <div class="lazy-file-gradient">
+      <div
+        class="lazy-file-grid-item-thumbnail"
+        :style="`background-image: url(${item.imgUrl || item.extImg});`"
+      ></div>
+    </div>
     <div class="lazy-file-grid-item-metadata-container">
       <div
         class="lazy-file-grid-item-title"
-        title="TODO - Page Builder"
-        aria-label="TODO - Page Builder Google lazy"
-      >TODO - Page Builder</div>
+        :title="`${getName}`"
+        :aria-label="`${getName}`"
+      >{{ getName }}</div>
       <div class="lazy-file-grid-metadata-row">
-        <div class="lazy-file-grid-item-icon">
-          <div class="lazy-file-icon lazy-file-icon-medium">
-            <div class="lazy-file-img lazy-file-lazy-24"></div>
-          </div>
-        </div>
-        <span class="lazy-file-grid-item-shared-icon" title="Shared">
-          <div class="lazy-file-icon lazy-file-icon-20">
-            <div class="lazy-file-img lazy-file-people-20"></div>
-          </div>
-        </span>
         <div class="lazy-file-grid-item-time-container">
-          <span class="lazy-file-grid-item-sort-identifier" style="display: none;">Opened</span>
-          <span class="lazy-file-grid-item-time" aria-label="Last opened by me 13 Apr 2019">
-            13 Apr
-            2019
-          </span>
+          <span
+            class="lazy-file-grid-item-time"
+            :aria-label="`${getTime(item.modified_date)}`"
+          >{{ getTime(item.modified_date) }}</span>
         </div>
       </div>
     </div>
   </div>
-  <!-- <div
-    class="lazy_file"
-    @dblclick.stop="preview()"
-    @click.stop="select($event, item)"
-    @contextmenu="show($event, item.id)"
-    :data-item="item.id"
-  >
-    <div>
-      <img
-        v-if="item.imgUrl"
-        :src="item.imgUrl || item.extImg"
-        :alt="item.name"
-        class="lazy_file_image"
-      >
-    </div>
-    <div class="desc">{{ getName }}</div>
-  </div>-->
 </template>
 
 <script>
 import * as types from "./../../../store/mutation-types";
+import { api } from "./../../../app/Api.js";
 
 export default {
   name: "media-file",
@@ -127,6 +102,9 @@ export default {
       this.$nextTick(() => {
         this.$store.state.showMenu.state = true;
       });
+    },
+    getTime: function(_time) {
+      return api.time_ago(new Date(_time));
     },
     select: function(event, item) {
       var e = event || window.event;
