@@ -1,0 +1,43 @@
+#lazy_switch {
+  height: 10px;
+  width: 50px;
+  background: #eee;
+  border-radius: 50px;
+  cursor: pointer;
+  position: relative;
+  padding: 10px;
+  box-sizing: border-box;
+  transition: 0.3s ease;
+
+  &:before {
+    content: "";
+    position: absolute;
+    left: 4px;
+    height: 70%;
+    width: 28%;
+    background: #fff;
+    border-radius: 50%;
+    top: 50%;
+    transform: translateY(-50%);
+    transition: 0.3s ease;
+  }
+
+  &:active:before {
+    padding-left: 25%;
+    border-radius: 100px;
+  }
+
+  &.toggle {
+    background: #7289DA;
+
+    &:before {
+      margin-left: 28px;
+    }
+
+    &:active:before {
+      padding-left: 0;
+      width: 55%;
+      margin-left: 14px;
+    }
+  }
+}

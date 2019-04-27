@@ -1,4 +1,4 @@
-<template>
+<template lang="html">
   <section class="show lazy_login">
     <form>
       <h1>Welcome Back!</h1>
@@ -63,7 +63,19 @@ export default {
           if (api.auth.loggedIn()) {
             clearInterval(timer);
             if (response.status == 200) {
-              this.$router.push("/drive/u/0/my-drive");
+              const payload = {};
+
+              payload.action = "get";
+              payload.settings = response.data.userData;
+
+              this.$store
+                .dispatch("settings", payload)
+                .then(() => {
+                  this.$router.push("/drive/u/0/my-drive");
+                })
+                .catch(err => {
+                  api._handleError(err);
+                });
               this.loading = false;
             }
           }

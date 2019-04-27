@@ -2,12 +2,16 @@
   <div class="media-content-grid">
     <div class="grid_section folders" v-if="folders.length > 0">
       <h3>Folders</h3>
-      <lazy-folder v-for="item in folders" :item="item" :key="item.id"></lazy-folder>
+      <div class="lazy_folders_container">
+        <lazy-folder v-for="item in folders" :item="item" :key="item.id"></lazy-folder>
+      </div>
       <span class="clear"></span>
     </div>
     <div class="grid_section files" v-if="files.length > 0">
       <h3>Files</h3>
-      <lazy-file v-for="item in files" :item="item" :key="item.id"></lazy-file>
+      <div class="lazy_files_container">
+        <lazy-file v-for="item in files" :item="item" :key="item.id"></lazy-file>
+      </div>
       <span class="clear"></span>
     </div>
   </div>

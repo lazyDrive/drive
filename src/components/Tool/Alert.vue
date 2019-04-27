@@ -1,10 +1,10 @@
-<template>
+<template lang="html">
   <div :class="`${snackbarState ? 'active' : ''} notification ${snackbarColor}`">
     <div class="text">
       {{ text() }}
       <a class="ripple rect" href="#cookies">learn more</a>
     </div>
-    <div class="close ripple" @click="close()">
+    <div class="notification_close ripple" @click="close()">
       <div class="text">X</div>
     </div>
   </div>

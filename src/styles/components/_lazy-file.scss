@@ -1,26 +1,85 @@
-.lazy_file {
-  border-radius: 5px;
-  margin: 10px;
-  border: 0.5px solid rgb(78, 84, 94);
-  float: left;
+.lazy-file-grid-item {
+  border: 1px solid #dfe1e5;
+  border-radius: 3px;
+  box-shadow: none;
   cursor: pointer;
-  width: 200px;
-  min-height: 250px;
-  text-align: center;
+  opacity: 1;
 }
 
-.lazy_file_image {
-  max-width: 100%;
-  height: auto;
-  border-radius: 5px;
+.lazy-file-grid-item {
+  background-color: #fff;
+  border-bottom: 1px solid #c4c4c4;
+  border-left: 1px solid #d3d3d3;
+  border-right: 1px solid #d3d3d3;
+  border-top: 1px solid #d3d3d3;
+  box-shadow: 0 1px 0 rgba(0, 0, 0, 0.07);
+  color: #444;
+  display: inline-block;
+  margin-bottom: 20px;
+  margin-right: 20px;
+  width: 205px;
 }
 
-.lazy_file img {
-  width: 100%;
-  height: auto;
+.lazy-file-templates-enabled .lazy-file-lazy .lazy-file-grid-item-thumbnail {
+  height: 180px;
 }
 
-.desc {
-  padding: 15px;
-  text-align: center;
+.lazy-file-grid-item-thumbnail {
+  border-top-left-radius: 3px;
+  border-top-right-radius: 3px;
+  height: 220px;
+  width: 205px;
+}
+
+.lazy-file-grid-item-thumbnail {
+  background-repeat: no-repeat;
+  background-size: 208px auto;
+  border: none;
+  display: block;
+  position: relative;
+  -ms-high-contrast-adjust: none;
+}
+
+.lazy-file-grid-item {
+  cursor: pointer;
+}
+
+.lazy-file-item-container {
+  font-size: 14px;
+}
+
+.lazy-file-grid-item-metadata-container {
+  border-top: 1px solid #e2e2e2;
+  padding: 16px 8px 14px 16px;
+  position: relative;
+}
+
+.lazy-file-grid-item {
+  cursor: pointer;
+}
+
+.lazy-file-grid-item-title {
+  color: #414549;
+  font-family: "Google Sans", Roboto, Arial, sans-serif;
+  font-size: 14px;
+  font-weight: 500;
+  letter-spacing: 0.15px;
+  line-height: 18px;
+  margin-left: 2px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  vertical-align: top;
+  white-space: nowrap;
+}
+
+.lazy-file-grid-metadata-row {
+  padding-top: 2px;
+}
+
+.lazy-file-grid-item {
+  cursor: pointer;
+}
+
+.lazy-file-grid-item {
+  color: #444;
 }

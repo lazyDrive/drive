@@ -4,10 +4,6 @@
   padding: 10px;
 }
 
-.check {
-  position: relative;
-}
-
 .lazy_folder {
   background: rgb(78, 84, 94);
   border-radius: 100px;
@@ -16,8 +12,10 @@
   color: #fff;
   text-align: center;
   user-select: none;
-  min-width: 200px;
   float: left;
   text-decoration: none;
-  margin: 10px;
+  display: inline-block;
+  margin-bottom: 20px;
+  margin-right: 20px;
+  width: 205px;
 }

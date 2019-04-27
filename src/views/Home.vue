@@ -1,4 +1,4 @@
-<template>
+<template lang="html">
   <div class="home">
     <media-login></media-login>
     <media-alert></media-alert>
