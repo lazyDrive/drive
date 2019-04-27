@@ -5,7 +5,7 @@
       <a class="ripple rect" href="#cookies">learn more</a>
     </div>
     <div class="notification_close ripple" @click="close()">
-      <div class="text">X</div>
+      <div class="text"><i class = "fa fa-close"></i></div>
     </div>
   </div>
 </template>

@@ -18,8 +18,8 @@
     <div :class="`lazy-file-grid-item-metadata-container ${selectedState ? 'selected' : ''}`">
       <div
         class="lazy-file-grid-item-title"
-        :title="`${getName}`"
-        :aria-label="`${getName}`"
+        :title="`${item.name}`"
+        :aria-label="`${item.name}`"
       >{{ getName }}</div>
       <div class="lazy-file-grid-metadata-row">
         <div class="lazy-file-grid-item-time-container">

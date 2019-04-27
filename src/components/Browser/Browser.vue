@@ -44,12 +44,12 @@
 
       <section class="features-list">
         <header class="features-list-header focusable">
-          <h5>Text features</h5>
+          <h5>Actions</h5>
         </header>
 
         <ul class="features-list-text">
           <li class="channel focusable channel-text active">
-            <span class="channel-name">general</span>
+            <span class="channel-name" @click="selectFile()">Upload File</span>
             <button class="button" role="button" aria-label="Invite">
               <svg>
                 <use xlink:href="#icon-invite"></use>
@@ -63,7 +63,7 @@
           </li>
 
           <li class="channel focusable channel-text">
-            <span class="channel-name">help</span>
+            <span class="channel-name" @click="selectFolder()">Upload Folder</span>
             <button class="button" role="button" aria-label="Invite">
               <svg>
                 <use xlink:href="#icon-invite"></use>
@@ -113,6 +113,27 @@
     </aside>
 
     <div class="vert-container">
+      <div class="media-action">
+        <div class="file">
+          <form enctype="multipart/form-data" ref="formFile">
+            <input multiple type="file" hidden ref="inputFile" @change="processFile">
+          </form>
+        </div>
+        <div class="folder">
+          <form enctype="multipart/form-data" ref="formFolder">
+            <input
+              multiple
+              type="file"
+              directory
+              webkitdirectory
+              mozdirectory
+              hidden
+              ref="inputFolder"
+              @change="processFolder"
+            >
+          </form>
+        </div>
+      </div>
       <div class="media-toolbar">
         <div class="media-loader" v-if="this.$store.state.isLoading"></div>
       </div>

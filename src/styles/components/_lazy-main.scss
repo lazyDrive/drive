@@ -13,6 +13,7 @@ html,
 body {
   height: 100%;
   background: #121416;
+  backface-visibility: none;
   color: #FFF;
   font-size: 16px;
   font-family: "Roboto";

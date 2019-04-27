@@ -329,11 +329,18 @@
   margin: 0;
 }
 
-
 .lazy_files_container {
   padding: 5px;
 }
 
 .lazy_folders_container {
   padding: 5px;
+}
+
+.blur {
+  -webkit-filter: blur(2px);
+  -moz-filter: blur(2px);
+  -o-filter: blur(2px);
+  -ms-filter: blur(2px);
+  filter: blur(2px);
 }

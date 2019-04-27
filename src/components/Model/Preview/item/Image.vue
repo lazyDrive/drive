@@ -11,9 +11,9 @@
       :lazy-src="item.filePath"
     >
     <div class="previewtool">
-      <p color="white" @click="dec()" class="remove">remove</p>
-      <p color="white" @click="reset()" class="refresh">refresh</p>
-      <p color="white" @click="inc()" class="add">add</p>
+      <span color="white" @click="dec()" class="remove">remove</span>
+      <span color="white" @click="reset()" class="refresh">refresh</span>
+      <span color="white" @click="inc()" class="add">add</span>
     </div>
   </div>
 </template>
