@@ -1,21 +1,29 @@
 <template>
-  <div class="container">
-    <lazy-browser></lazy-browser>
+  <div class="media-drive">
+    <!-- Media browser -->
+    <media-browser></media-browser>
+
+    <!-- Add models -->
+    <media-model></media-model>
+
+    <!-- Add menu -->
+    <media-menu></media-menu>
+
+    <!-- Add snackbar -->
     <media-alert></media-alert>
+
+    <!-- Add online state -->
+    <media-online-state></media-online-state>
   </div>
 </template>
 
 <script>
 import * as types from "./../store/mutation-types";
-import Browser from "./../components/Browser/Browser";
 
-import { api } from "./../app/Api";
+import { api } from './../app/Api';
 
 export default {
   name: "lazy-drive",
-  components: {
-    "lazy-browser": Browser
-  },
   created() {
     if (this.isMobile()) {
       this.$store.commit(types.IS_MOBILE, true);
@@ -34,9 +42,9 @@ export default {
       this.$store.state.diskLoaded.push(disk);
     }
 
-    const payload = {};
+    const payload ={};
 
-    payload.action = "get";
+    payload.action = 'get';
     payload.settings = api.user.userData;
 
     this.$store.dispatch("settings", payload);

@@ -1,5 +1,6 @@
+
 <p align="center">
-  <img src="docs/images/logo.png">
+  <img src="public/img/logo.png">
 </p>
 
 <h2 align="center">Lazy Drive</h2>
@@ -12,10 +13,13 @@
 <br>
 
 <p align="center">
-  <img  src="docs/images/pre.gif">
+  <img  src="public/img/pre.gif">
 </p>
 
+
 ### Directory layout
+
+
 
     .
     ├── docs                    # Documentation files (alternatively `doc`)
@@ -28,8 +32,10 @@
 
 ## Vue CLI-3 Install
 
+
     # npm
     npm install -g @vue/cli
+
 
 ## Installation
 
@@ -48,24 +54,21 @@
     # Done! Magic happens on port: `http://localhost:8080`
 
 ## To start a development server desktop app with electron:
-
-### if you use NPM:
-
-`npm run electron:serve`
-
-### To build your app:
-
-`npm run electron:build`
+  
+  ### if you use NPM:
+  `npm run electron:serve`
+  
+  ### To build your app:
+  `npm run electron:build`
 
 ## Production
+  
+  ### In root run
+  `npm run build`
+  
+  ### It build fresh production package in server public folder for you.
+  `npm run drive
 
-### In root run
-
-`npm run build`
-
-### It build fresh production package in server public folder for you.
-
-`npm run drive
 
 # Contributions
 

@@ -1,29 +1,40 @@
-<template lang="html">
-  <div :class="`${snackbarState ? 'active' : ''} notification ${snackbarColor}`">
-    <div class="text">
-      {{ text() }}
-      <a class="ripple rect" href="#cookies">learn more</a>
-    </div>
-    <div class="notification_close ripple" @click="close()">
-      <div class="text"><i class = "fa fa-close"></i></div>
-    </div>
-  </div>
+<template>
+  <v-snackbar
+    v-model="snackbarState"
+    :bottom="y === 'bottom'"
+    :left="x === 'left'"
+    :multi-line="mode === 'multi-line'"
+    :right="x === 'right'"
+    :timeout="timeout"
+    :top="y === 'top'"
+    :vertical="mode === 'vertical'"
+    :color="this.$store.state.showsnackbar.color"
+  >
+    {{ this.$store.state.showsnackbar.data }}
+    <v-btn color="white" flat @click="close()">Close</v-btn>
+  </v-snackbar>
 </template>
 
 <script>
 import * as types from "./../../store/mutation-types";
 
 export default {
-  name: "lazy-alert",
+  name: "Alert",
   data: () => {
-    return {};
+    return {
+      y: "bottom",
+      x: "left",
+      mode: ""
+    };
   },
+  props: {},
   computed: {
     snackbarState: {
       get: function() {
         return this.$store.state.showsnackbar.state;
       },
       set: function() {
+        // think about this
         setTimeout(
           function() {
             this.$store.commit(types.HIDE_SNACKBAR);
@@ -32,9 +43,6 @@ export default {
         );
       }
     },
-    snackbarColor: function() {
-      return this.$store.state.showsnackbar.color || "default";
-    },
     timeout: function() {
       return this.$store.state.showsnackbar.time;
     }
@@ -42,9 +50,6 @@ export default {
   methods: {
     close: function() {
       this.$store.commit(types.HIDE_SNACKBAR);
-    },
-    text: function() {
-      return this.$store.state.showsnackbar.data;
     }
   }
 };

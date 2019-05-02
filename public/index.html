@@ -1,6 +1,10 @@
 <!DOCTYPE html>
 <html lang="en">
 
+<% if (BASE_URL === './') { %>
+<base href="app://./" />
+<% } %>
+
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -11,10 +15,8 @@
   <meta property="og:type" content="cloud" />
   <meta property="og:title" content="Media Manager" />
   <meta property="og:description" content="An Open Source Cloud Application." />
-  <meta property="og:image"
-    content="http://static01.nyt.com/images/2015/02/19/arts/international/19iht-btnumbers19A/19iht-btnumbers19A-facebookJumbo-v2.jpg" />
+  <meta property="og:image" content="http://static01.nyt.com/images/2015/02/19/arts/international/19iht-btnumbers19A/19iht-btnumbers19A-facebookJumbo-v2.jpg" />
   <link href='https://fonts.googleapis.com/css?family=Roboto:100,300,400,500,700,900|Material+Icons' rel="stylesheet">
-  <link href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css' rel="stylesheet">
   <meta name="viewport" content="width=device-width,initial-scale=1.0">
   <link rel="icon" href="<%= BASE_URL %>favicon.ico">
   <title>Lazy Drive</title>

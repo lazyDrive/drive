@@ -1,4 +1,4 @@
-<template lang="html">
+<template>
   <div class="media-online">
     <v-dialog v-model="dialog" persistent width="300px"></v-dialog>
   </div>

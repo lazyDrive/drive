@@ -1,8 +1,6 @@
 <template>
-  <div class="LoaderBalls">
-    <div class="LoaderBalls__item"></div>
-    <div class="LoaderBalls__item"></div>
-    <div class="LoaderBalls__item"></div>
+  <div>
+    <img src="./../assets/loding.gif">
   </div>
 </template>
 

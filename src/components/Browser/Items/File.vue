@@ -1,41 +1,52 @@
 <template>
   <div
-    class="lazy-file-grid-item"
-    role="option"
-    tabindex="-1"
-    aria-disabled="false"
+    class="file media-item-file"
     @dblclick.stop="preview()"
     @click.stop="select($event, item)"
     @contextmenu="show($event, item.id)"
     :data-item="item.id"
   >
-    <div class="lazy-file-gradient">
-      <div
-        class="lazy-file-grid-item-thumbnail"
-        :style="`background-image: url(${item.imgUrl || item.extImg});`"
-      ></div>
-    </div>
-    <div :class="`lazy-file-grid-item-metadata-container ${selectedState ? 'selected' : ''}`">
-      <div
-        class="lazy-file-grid-item-title"
-        :title="`${item.name}`"
-        :aria-label="`${item.name}`"
-      >{{ getName }}</div>
-      <div class="lazy-file-grid-metadata-row">
-        <div class="lazy-file-grid-item-time-container">
-          <span
-            class="lazy-file-grid-item-time"
-            :aria-label="`${getTime(item.modified_date)}`"
-          >{{ getTime(item.modified_date) }}</span>
-        </div>
-      </div>
-    </div>
+    <v-card
+      elevation="0"
+      :class="`${selectedState ? 'selected' : ''} responsize-view`"
+      class="mx-auto"
+      :width="`${isMobile ? '146' : '210'}`"
+      :height="`${isMobile ? '138' : '190'}`"
+    >
+      <v-img
+        class="m-gradient"
+        :aspect-ratio="16/10"
+        v-if="item.imgUrl"
+        :src="item.imgUrl"
+        :alt="item.name"
+        :lazy-src="item.imgLazyUrl"
+      ></v-img>
+
+      <v-img
+        :aspect-ratio="16/10"
+        v-if="!item.imgUrl"
+        :src="item.extImg"
+        :alt="item.name"
+        contain
+        :lazy-src="item.imgLazyUrl"
+      ></v-img>
+
+      <v-icon
+        size="50"
+        class="m-video-play-icon"
+        v-if="item.extension.toLowerCase() == 'mp4'"
+      >play_circle_filled</v-icon>
+
+      <v-card-title>
+        <img v-if="item.extImg && !isMobile" class="extensionImage" :src="item.extImg">
+        <span class="file-text">{{ getName }}</span>
+      </v-card-title>
+    </v-card>
   </div>
 </template>
 
 <script>
 import * as types from "./../../../store/mutation-types";
-import { api } from "./../../../app/Api.js";
 
 export default {
   name: "media-file",
@@ -102,9 +113,6 @@ export default {
       this.$nextTick(() => {
         this.$store.state.showMenu.state = true;
       });
-    },
-    getTime: function(_time) {
-      return api.time_ago(new Date(_time));
     },
     select: function(event, item) {
       var e = event || window.event;
