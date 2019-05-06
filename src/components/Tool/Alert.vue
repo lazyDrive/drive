@@ -1,11 +1,11 @@
-<template lang="html">
+<template>
   <div :class="`${snackbarState ? 'active' : ''} notification ${snackbarColor}`">
     <div class="text">
       {{ text() }}
       <a class="ripple rect" href="#cookies">learn more</a>
     </div>
     <div class="notification_close ripple" @click="close()">
-      <div class="text"><i class = "fa fa-close"></i></div>
+      <i class="fa fa-close"></i>
     </div>
   </div>
 </template>

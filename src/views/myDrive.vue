@@ -1,8 +1,5 @@
 <template>
-  <div class="container">
-    <lazy-browser></lazy-browser>
-    <media-alert></media-alert>
-  </div>
+  <lazy-browser></lazy-browser>
 </template>
 
 <script>

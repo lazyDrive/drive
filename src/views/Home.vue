@@ -1,7 +1,6 @@
-<template lang="html">
-  <div class="home">
-    <media-login></media-login>
-    <media-alert></media-alert>
+<template>
+  <div class="lazy__home">
+    <lazy-login></lazy-login>
   </div>
 </template>
 
@@ -15,7 +14,7 @@ export default {
     return {};
   },
   components: {
-    "media-login": LoginForm
+    "lazy-login": LoginForm
   },
   computed: {
     isLoggedIn: function() {

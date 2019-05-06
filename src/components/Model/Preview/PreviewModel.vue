@@ -1,5 +1,8 @@
 <template>
   <div v-if="isActive" class="modal media-preview-modal">
+    <lazy-switch v-model="val" :sid="1"></lazy-switch>
+    <lazy-switch :sid="2"></lazy-switch>
+    <p v-if="val">ANurag</p>
     <!-- <span color="white" @click.prevent="hidePreviewModal()" size="25" class="close">arrow_back</span> -->
     <!-- <span color="white" @click.prevent="prev()" size="25" class="prev">arrow_back_ios</span> -->
 
@@ -51,15 +54,12 @@
 
 <script>
 import * as types from "./../../../store/mutation-types";
-import Video from "./item/Video";
-import Audio from "./item/Audio";
-import Image from "./item/Image";
-import FileText from "./item/FileText";
 import pdf from "vue-pdf";
 
 export default {
   name: "media-create-folder",
   data: () => ({
+    val: true,
     files: [],
     numPages: undefined,
     videoExt: ["mp4", "ogv", "avi", "webm"],
@@ -80,13 +80,7 @@ export default {
       "shell"
     ]
   }),
-  components: {
-    pdf,
-    "media-video": Video,
-    "media-audio": Audio,
-    "media-image": Image,
-    "media-file": FileText
-  },
+  components: {},
   watch: {
     isActive: function(val) {
       document

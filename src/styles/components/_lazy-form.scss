@@ -1,27 +1,3 @@
-@mixin break($name) {
-  @if map-has-key($breakpoints, $name) {
-    @media only screen and #{inspect(map-get($breakpoints, $name))} {
-      @content;
-    }
-  }
-
-  @else {
-    @warn "ERROR: unable to find breakpoint '#{$name}'";
-  }
-}
-
-@mixin scrollbar {
-  &::-webkit-scrollbar {
-    width: 5px;
-    height: 8px;
-    background-color: $color-primary;
-  }
-
-  &::-webkit-scrollbar-thumb {
-    background: lighten($color-primary, 20);
-  }
-}
-
 * {
   color: $color-secondary;
 }
@@ -51,7 +27,7 @@
   form {
     padding: 50px;
     min-width: 300px;
-    width: 50%;
+    width: 25%;
     max-width: 600px;
     border-radius: $radius;
     background-color: lighten($color-primary, 4);

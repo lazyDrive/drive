@@ -1,7 +1,6 @@
 <template>
-  <div class="media-main-signup">
+  <div class="lazy__signup">
     <media-signup></media-signup>
-    <media-alert></media-alert>
   </div>
 </template>
 

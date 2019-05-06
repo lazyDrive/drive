@@ -1,6 +1,6 @@
-<template lang="html">
+<template>
   <section class="show lazy_login">
-    <form>
+    <form ref="form">
       <h1>Welcome Back!</h1>
       <p>We're so excited to see you again!</p>
       <label for="email">
@@ -12,10 +12,10 @@
         Password
         <span></span>
       </label>
-      <input id="password" name="password" type="password" v-model="password">
+      <input autocomplete id="password" name="password" type="password" v-model="password">
       <input type="submit" value="Login" @click.prevent="submit()">
-      <a href>Forgot your password?</a>
-      <a href>Register an account</a>
+      <a href="/forgot">Forgot your password?</a>
+      <a href="/signup">Register an account</a>
     </form>
   </section>
 </template>
@@ -23,7 +23,7 @@
 import { api } from "./../../app/Api";
 
 export default {
-  name: "media-login",
+  name: "lazy-login",
   data() {
     return {
       password: "",
