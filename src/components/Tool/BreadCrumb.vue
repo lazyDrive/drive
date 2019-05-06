@@ -1,4 +1,4 @@
-<template lang="html">
+<template>
   <div class="lazy_breadcrumbs">
     <ul class="breadcrumbs breadcrumbs_type">
       <li

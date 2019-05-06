@@ -107,3 +107,127 @@
     transform: scale(1.0);
   }
 }
+
+
+/* Menu */
+
+.context__menu {
+  position: absolute;
+  width: 220px;
+  padding: 2px;
+  margin: 0;
+  border: 0.5px solid #4e545e;
+  background: #4e545e;
+  z-index: 100;
+  border-radius: 3px;
+  box-shadow: 1px 1px 4px rgba(0, 0, 0, .2);
+  opacity: 0;
+  pointer-events: none;
+}
+
+.context__menu-item {
+  display: block;
+  position: relative;
+  margin: 0;
+  padding: 0;
+  white-space: nowrap;
+}
+
+.context__menu-btn {
+  display: block;
+  color: #444;
+  font-family: 'Roboto', sans-serif;
+  font-size: 13px;
+  cursor: pointer;
+  border: 1px solid transparent;
+  white-space: nowrap;
+  padding: 6px 8px;
+  border-radius: 3px;
+}
+
+button.context__menu-btn {
+  background: none;
+  line-height: normal;
+  overflow: visible;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  width: 100%;
+  text-align: left;
+}
+
+a.context__menu-btn {
+  outline: 0 none;
+  text-decoration: none;
+}
+
+.context__menu-text {
+  margin-left: 25px;
+}
+
+.context__menu-btn .fa {
+  position: absolute;
+  left: 8px;
+  top: 50%;
+  -webkit-transform: translateY(-50%);
+  transform: translateY(-50%);
+}
+
+.context__menu-item:hover>.context__menu-btn {
+  color: #fff;
+  outline: none;
+  background-color: #2E3940;
+  background: -webkit-linear-gradient(to bottom, #5D6D79, rgb(63, 77, 87));
+  background: linear-gradient(to bottom, #5D6D79, rgb(64, 81, 92));
+  border: 1px solid #2E3940;
+}
+
+.context__menu-item-disabled {
+  opacity: .5;
+  pointer-events: none;
+}
+
+.context__menu-item-disabled .context__menu-btn {
+  cursor: default;
+}
+
+.context__menu-separator {
+  display: block;
+  margin: 7px 5px;
+  height: 1px;
+  border-bottom: 1px solid #fff;
+  background-color: #aaa;
+}
+
+.context__menu-item-subcontext__menu::after {
+  content: "";
+  position: absolute;
+  right: 6px;
+  top: 50%;
+  -webkit-transform: translateY(-50%);
+  transform: translateY(-50%);
+  border: 5px solid transparent;
+  border-left-color: #808080;
+}
+
+.context__menu-item-subcontext__menu:hover::after {
+  border-left-color: #fff;
+}
+
+.context__menu .context__menu {
+  top: 4px;
+  left: 99%;
+}
+
+.context__menu-show,
+.context__menu-item:hover>.context__menu {
+  opacity: 1;
+  -webkit-transform: translate(0, 0) scale(1);
+  transform: translate(0, 0) scale(1);
+  pointer-events: auto;
+}
+
+.context__menu-item:hover>.context__menu {
+  -webkit-transition-delay: 300ms;
+  transition-delay: 300ms;
+}

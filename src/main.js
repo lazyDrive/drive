@@ -6,6 +6,7 @@ import store from './store/store'
 import './registerServiceWorker'
 import VueAnalytics from 'vue-analytics'
 import Alert from '@/components/Tool/Alert'
+import ContextMenu from '@/components/Tool/ContextMenu'
 import Switch from '@/components/Tool/Switch'
 import Model from '@/components/Model/Model'
 
@@ -19,6 +20,7 @@ Vue.use(VueAnalytics, {
 // Load components
 Vue.component('media-alert', Alert)
 Vue.component('lazy-model', Model)
+Vue.component('lazy-context', ContextMenu)
 Vue.component('lazy-switch', Switch)
 
 // Register MediaManager namespace
