@@ -1,7 +1,7 @@
 <template >
   <ul class="context__menu" ref="contextMenu">
-    <li class="context__menu-item">
-      <a href="#" class="context__menu-btn">
+    <li @click.prevent="open()" class="context__menu-item">
+      <a class="context__menu-btn">
         <i class="fa fa-folder-open"></i>
         <span class="context__menu-text">Open</span>
       </a>
@@ -23,52 +23,6 @@
         <i class="fa fa-star"></i>
         <span class="context__menu-text">Favorite</span>
       </button>
-    </li>
-    <li class="context__menu-item context__menu-item-subcontext__menu">
-      <button type="button" class="context__menu-btn">
-        <i class="fa fa-users"></i>
-        <span class="context__menu-text">Social</span>
-      </button>
-      <ul class="context__menu">
-        <li class="context__menu-item">
-          <button type="button" class="context__menu-btn">
-            <i class="fa fa-comment"></i>
-            <span class="context__menu-text">Comment</span>
-          </button>
-        </li>
-        <li class="context__menu-item context__menu-item-subcontext__menu">
-          <button type="button" class="context__menu-btn">
-            <i class="fa fa-share"></i>
-            <span class="context__menu-text">Share</span>
-          </button>
-          <ul class="context__menu">
-            <li class="context__menu-item">
-              <button type="button" class="context__menu-btn">
-                <i class="fa fa-twitter"></i>
-                <span class="context__menu-text">Twitter</span>
-              </button>
-            </li>
-            <li class="context__menu-item">
-              <button type="button" class="context__menu-btn">
-                <i class="fa fa-facebook-official"></i>
-                <span class="context__menu-text">Facebook</span>
-              </button>
-            </li>
-            <li class="context__menu-item">
-              <button type="button" class="context__menu-btn">
-                <i class="fa fa-google-plus"></i>
-                <span class="context__menu-text">Google Plus</span>
-              </button>
-            </li>
-            <li class="context__menu-item">
-              <button type="button" class="context__menu-btn">
-                <i class="fa fa-envelope"></i>
-                <span class="context__menu-text">Email</span>
-              </button>
-            </li>
-          </ul>
-        </li>
-      </ul>
     </li>
     <li class="context__menu-separator"></li>
     <li class="context__menu-item">
@@ -93,7 +47,6 @@
 </template>
 
 <script>
-import { api } from "./../../app/Api.js";
 import * as types from "./../../store/mutation-types.js";
 
 export default {
@@ -114,45 +67,60 @@ export default {
       const menu = this.$refs.contextMenu;
       menu.classList.remove("context__menu-show");
     },
-    changeView: function(view) {
-      this.$store.commit(types.CHANGE_VIEW, view);
+    delete: function(e) {
+      this.showConfirmDeleteModal();
+      console.log(e);
     },
-    unselectAllBrowserItems: function() {
-      this.$store.commit(types.UNSELECT_ALL_BROWSER_ITEMS);
-      this.selectAllFile = false;
-      this.selectAllFolder = false;
+    getShareableLink: function(e) {
+      console.log(e);
     },
-    viewDetails: function() {
+    changeColor: function(e) {
+      console.log(e);
+    },
+    download: function() {
+      const items = this.$store.state.selectedItems;
+      this.$store.dispatch("download", items);
+    },
+    getShareableLike: function(e) {
+      console.log(e);
+    },
+    viewDetails: function(e) {
       this.$store.commit(types.SHOW_INFOBAR);
+      console.log(e);
     },
-    showDeleteModel: function() {
-      this.$store.commit(types.SHOW_CONFIRM_DELETE_MODAL);
+    stars: function(e) {
+      console.log(e);
     },
-    newFolder: function() {
-      this.$store.commit(types.SHOW_CREATE_FOLDER_MODAL);
-    },
-    showUploadMenu: function() {
-      this.$store.state.showUploadMenu = true;
-    },
-    settings: function() {
-      this.$store.commit(types.SHOW_SETTINGS);
-    },
-    folderUpload: function() {
-      this.$emit("tiggerSelectFolder");
-    },
-    fileUpload: function() {
-      this.$emit("tiggerSelectFile");
-    },
-    changeSearch(query) {
-      this.$store.commit(types.SET_SEARCH_QUERY, query);
-    },
-    logout: function() {
-      if (api.auth.logout()) {
-        this.$router.push("/");
+    open: function() {
+      console.log("open");
+      const item = this.$store.state.selectedItems[0];
+      try {
+        let path = item.path;
+        if (path != "my-drive") {
+          this.$router.push({
+            path: `/drive/u/0/folder/${path}`
+          });
+        } else {
+          this.$router.push({
+            path: `/drive/u/0/my-drive`
+          });
+        }
+      } catch (err) {
+        console.log(err);
       }
     },
-    fire: function(a) {
-      this[a](a);
+    showConfirmDeleteModal: function() {
+      this.$store.commit(types.SHOW_CONFIRM_DELETE_MODAL);
+    },
+    rename: function() {
+      this.$store.commit(types.SHOW_RENAME_MODAL);
+    },
+    share: function() {
+      console.log("share");
+    },
+    fire: function(a, itemId) {
+      this.$store.commit(types.HIDE_MENU);
+      this[a](itemId);
     }
   },
   created() {
