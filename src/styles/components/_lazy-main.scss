@@ -11,12 +11,17 @@
 
 html,
 body {
-  height: 100%;
-  background: #121416;
+  background:url('./../assets/back.jpg');
+  background-repeat: no-repeat, repeat;
   backface-visibility: none;
+  background-position: center; 
+  background-repeat: no-repeat; 
+  background-size: cover; 
+  user-select: none;
   color: #FFF;
-  font-size: 16px;
   font-family: "Roboto";
+  font-size: 16px;
+  height: 100%;
 }
 
 .container {
