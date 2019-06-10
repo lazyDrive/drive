@@ -1,0 +1,11 @@
+{
+  "name": "mongodb",
+  "connector": "mongodb",
+  "url": "",
+  "host": "localhost",
+  "port": 27017,
+  "user": "root",
+  "password": "",
+  "database": "lazydrive",
+  "useNewUrlParser": true
+}

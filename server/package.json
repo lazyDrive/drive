@@ -54,7 +54,8 @@
     "@loopback/repository": "^1.6.1",
     "@loopback/rest": "^1.15.0",
     "@loopback/rest-explorer": "^1.2.1",
-    "@loopback/service-proxy": "^1.2.1"
+    "@loopback/service-proxy": "^1.2.1",
+    "loopback-connector-mongodb": "^4.2.0"
   },
   "devDependencies": {
     "@loopback/build": "^1.7.1",
