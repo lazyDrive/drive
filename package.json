@@ -1,5 +1,5 @@
 {
-  "name": "lazy-drive",
+  "name": "lazydrive",
   "version": "0.1.0",
   "private": true,
   "description": "<p align=\"center\"><a href=\"http://github.com/anu1601cs/\" target=\"_blank\" rel=\"noopener noreferrer\"><img width=\"100\" src=\"https://vuejs.org/images/logo.png\" alt=\"Vue logo\"></a></p>",
@@ -61,7 +61,6 @@
     "Manager"
   ],
   "license": "ISC",
-  "main": "background.js",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/lazyDrive/drive.git"
