@@ -38,9 +38,20 @@
       ]
     }
   },
-  "files": {},
+  "files": {
+    "loopback#static": {
+      "params": "$!../client/dist"
+    }
+  },
   "final": {
-    "loopback#urlNotFound": {}
+    "express-history-api-fallback": {
+      "params": [
+        "index.html",
+        {
+          "root": "$!../client/dist"
+        }
+      ]
+    }
   },
   "final:after": {
     "strong-error-handler": {}
