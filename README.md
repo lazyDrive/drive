@@ -1,6 +1,6 @@
 
 <p align="center">
-  <img src="public/img/logo.png">
+  <img src="docs/images/logo.png">
 </p>
 
 <h2 align="center">Lazy Drive</h2>
@@ -13,7 +13,7 @@
 <br>
 
 <p align="center">
-  <img  src="public/img/pre.gif">
+  <img  src="docs/images/pre.gif">
 </p>
 
 
