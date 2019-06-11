@@ -1,6 +1,6 @@
 
 <p align="center">
-  <img src="docs/images/logo.png">
+  <img width="200" height="200" src="docs/images/logo.png">
 </p>
 
 <h2 align="center">Lazy Drive</h2>
@@ -13,7 +13,7 @@
 <br>
 
 <p align="center">
-  <img  src="docs/images/pre.gif">
+  <img src="docs/images/pre.gif">
 </p>
 
 
@@ -54,18 +54,18 @@
     # Done! Magic happens on port: `http://localhost:8080`
 
 ## To start a development server desktop app with electron:
-  
+
   ### if you use NPM:
   `npm run electron:serve`
-  
+
   ### To build your app:
   `npm run electron:build`
 
 ## Production
-  
+
   ### In root run
   `npm run build`
-  
+
   ### It build fresh production package in server public folder for you.
   `npm run drive
 
