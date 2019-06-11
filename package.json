@@ -1,68 +1,77 @@
 {
-  "name": "lazydrive",
-  "version": "0.1.0",
-  "private": true,
-  "description": "<p align=\"center\"><a href=\"http://github.com/anu1601cs/\" target=\"_blank\" rel=\"noopener noreferrer\"><img width=\"100\" src=\"https://vuejs.org/images/logo.png\" alt=\"Vue logo\"></a></p>",
-  "author": "Anurag Kumar (anu1601cs)",
+  "name": "loopback-vue-starter",
+  "version": "1.0.0",
+  "main": "server/server.js",
+  "engines": {
+    "node": ">=4"
+  },
   "scripts": {
-    "serve": "vue-cli-service serve",
-    "build": "vue-cli-service build",
-    "lint": "vue-cli-service lint",
-    "test:e2e": "vue-cli-service test:e2e",
-    "test:unit": "vue-cli-service test:unit"
+    "lint": "eslint .",
+    "posttest": "npm run lint && nsp check",
+    "dev": "npm run lb-start & npm run vue-serve",
+    "prod": "npm run vue-build && npm start",
+    "start": "node .",
+    "lb-start": "nodemon",
+    "vue-serve": "vue-cli-service serve",
+    "vue-build": "vue-cli-service build"
   },
   "dependencies": {
-    "axios": "^0.18.0",
-    "babel-polyfill": "^6.26.0",
-    "debug": "^4.1.1",
-    "dropbox": "^4.0.16",
-    "file-saver": "^2.0.1",
+    "axios": "^0.19.0",
+    "compression": "^1.0.3",
+    "cors": "^2.5.2",
+    "dropbox": "^4.0.27",
+    "express-history-api-fallback": "^2.2.1",
+    "file-saver": "^2.0.2",
+    "helmet": "^3.10.0",
     "isomorphic-fetch": "^2.2.1",
     "jwt-decode": "^2.2.0",
     "lodash": "^4.17.11",
-    "material-design-icons-iconfont": "^4.0.5",
+    "loopback": "^3.19.0",
+    "loopback-boot": "^2.6.5",
+    "loopback-component-explorer": "^6.0.0",
     "register-service-worker": "^1.6.2",
+    "serve-favicon": "^2.0.1",
+    "strong-error-handler": "^2.0.0",
     "underscore": "^1.9.1",
-    "vue": "^2.6.8",
-    "vue-analytics": "^5.16.2",
-    "vue-pdf": "^4.0.6",
+    "vue": "^2.5.16",
+    "vue-analytics": "^5.17.0",
+    "vue-pdf": "^4.0.7",
     "vue-router": "^3.0.1",
-    "vuex": "^3.1.0",
+    "vuex": "^3.1.1",
     "vuex-persistedstate": "^2.5.4"
   },
   "devDependencies": {
     "@babel/preset-env": "^7.3.4",
-    "@vue/cli-plugin-babel": "^3.4.1",
+    "@vue/cli-plugin-eslint": "^3.0.0-beta.15",
+    "@vue/cli-service": "^3.4.1",
     "@vue/cli-plugin-e2e-cypress": "^3.4.1",
-    "@vue/cli-plugin-eslint": "^3.4.1",
     "@vue/cli-plugin-pwa": "^3.4.1",
     "@vue/cli-plugin-unit-jest": "^3.4.1",
-    "@vue/cli-service": "^3.4.1",
-    "@vue/test-utils": "^1.0.0-beta.29",
-    "babel-core": "7.0.0-bridge.0",
-    "babel-eslint": "^10.0.1",
-    "babel-jest": "^24.1.0",
-    "cypress": "^3.1.5",
-    "eslint": "^5.14.1",
-    "eslint-plugin-vue": "^5.2.2",
+    "@vue/eslint-config-standard": "^3.0.0-beta.16",
+    "eslint": "^3.17.1",
+    "eslint-config-loopback": "^8.0.0",
+    "nodemon": "^1.17.5",
+    "nsp": "^3.2.1",
+    "vue-template-compiler": "^2.5.16",
     "less": "^3.0.4",
     "less-loader": "^4.1.0",
     "node-sass": "^4.11.0",
     "sass-loader": "^7.1.0",
-    "vue-cli-plugin-vuetify": "^0.4.6",
-    "vue-template-compiler": "^2.6.8"
+    "babel-core": "7.0.0-bridge.0",
+    "babel-eslint": "^10.0.1",
+    "babel-jest": "^24.1.0",
+    "cypress": "^3.1.5"
   },
-  "bugs": {
-    "url": "https://github.com/lazyDrive/drive/issues"
-  },
-  "homepage": "https://github.com/lazyDrive/drive",
-  "keywords": [
-    "Media",
-    "Manager"
-  ],
-  "license": "ISC",
   "repository": {
-    "type": "git",
-    "url": "git+https://github.com/lazyDrive/drive.git"
-  }
+    "type": "",
+    "url": ""
+  },
+  "nodemonConfig": {
+    "ignore": [
+      "client/*"
+    ],
+    "delay": "2500"
+  },
+  "license": "UNLICENSED",
+  "description": "dashboard-generic"
 }

@@ -40,7 +40,7 @@
   },
   "files": {
     "loopback#static": {
-      "params": "$!../client/dist"
+      "params": "$!../client"
     }
   },
   "final": {
@@ -48,7 +48,7 @@
       "params": [
         "index.html",
         {
-          "root": "$!../client/dist"
+          "root": "$!../client"
         }
       ]
     }
