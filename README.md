@@ -23,7 +23,7 @@
 - Raise PRs for issues :raised_hand:
 - Help on documentation :page_facing_up:
 
-For sample you can use **master** branch which is not perfect yet but better than this.
+For sample you can use [**master**](https://github.com/lazyDrive/drive/tree/master) branch which is not perfect yet but better than this.
 
 
 
