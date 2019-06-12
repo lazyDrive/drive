@@ -1,4 +1,9 @@
 <p align="center">
+  <img width="100%"  src="docs/images/pre.gif">
+</p>
+
+
+<p align="center">
   <img width="100" height="100" src="docs/images/logo.png">
 </p>
 
@@ -8,12 +13,7 @@
 <a href="http://github.com/anu1601cs/media-manager"><img src="https://travis-ci.org/lazyDrive/drive.svg?branch=master" alt="License"></a>
 </p>
 
-<br>
-
-<p align="center">
-  <img width="100%"  src="docs/images/pre.gif">
-</p>
-
+  
 **Note:** This loopback branch is under develophment because of addition of new UI, Loopback,Docker, Microservices and many more cool new features but, this was managed my small community :( LAMO Its me only :P
 
 **Lazy Drive** is an **opensource** project. Contributions are welcome
