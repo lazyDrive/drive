@@ -5,17 +5,17 @@
 </template>
 
 <script>
-import previewModel from "./Preview/PreviewModel";
+import previewModel from './Preview/PreviewModel'
 
 export default {
-  name: "media-model",
+  name: 'media-model',
   components: {
-    "lazy-preview-model": previewModel
+    'lazy-preview-model': previewModel
   },
   computed: {
-    isActivePreview() {
-      return this.$store.state.showPreviewModal;
+    isActivePreview () {
+      return this.$store.state.showPreviewModal
     }
   }
-};
+}
 </script>

@@ -1,5 +1,4 @@
 export default class GoogleAuthService {
-
   constructor () {
     this.authenticated = this.isAuthenticated()
     this.authInstance = null

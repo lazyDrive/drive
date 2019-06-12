@@ -1,8 +1,8 @@
 import {
   api
-} from "../app/Api";
-import * as types from "./mutation-types";
-import * as FileSaver from 'file-saver';
+} from '../app/Api'
+import * as types from './mutation-types'
+import * as FileSaver from 'file-saver'
 
 /**
  * Get contents of a directory from the api
@@ -11,25 +11,25 @@ import * as FileSaver from 'file-saver';
  */
 export const getContents = (context, payload) => {
   return new Promise((resolve, reject) => {
-    context.commit(types.SET_IS_LOADING, true);
-    let path = payload.path || context.state.selectedDirectory;
-    let limit = payload.limit || context.state.loadLimit;
+    context.commit(types.SET_IS_LOADING, true)
+    let path = payload.path || context.state.selectedDirectory
+    let limit = payload.limit || context.state.loadLimit
     api.axios()
       .get(`/api/getFiles/${path}/${limit}`, {
         retry: 3,
         retryDelay: 1000
       })
       .then(response => {
-        context.state.selectedDirectory = path;
+        context.state.selectedDirectory = path
         context.commit(types.LOAD_CONTENTS_SUCCESS, response.data.contents)
         context.commit(types.SET_IS_LOADING, false)
-        resolve(response);
+        resolve(response)
       })
       .catch((error) => {
         api._handleError(error)
-        reject(error);
+        reject(error)
       })
-  });
+  })
 }
 
 /**
@@ -38,17 +38,17 @@ export const getContents = (context, payload) => {
  * @param payload
  */
 export const update = (context, payload) => {
-  let path = payload.path || context.state.selectedDirectory;
-  let limit = payload.limit || context.state.loadLimit;
-  const state = (context.state.isUploading === true) ? 'subscribe' : 'eventCacheUpdate';
+  let path = payload.path || context.state.selectedDirectory
+  let limit = payload.limit || context.state.loadLimit
+  const state = (context.state.isUploading === true) ? 'subscribe' : 'eventCacheUpdate'
   api.axios()
     .get(`/api/getFiles/${path}/${limit}/update/nocache/${state}`, {
       retry: 3,
       retryDelay: 1000
     })
     .then(response => {
-      context.commit(types.LOAD_CONTENTS_SUCCESS, response.data.contents);
-      context.commit(types.SET_IS_LOADING, false);
+      context.commit(types.LOAD_CONTENTS_SUCCESS, response.data.contents)
+      context.commit(types.SET_IS_LOADING, false)
     })
     .catch((error) => {
       api._handleError(error)
@@ -61,7 +61,7 @@ export const update = (context, payload) => {
  * @param payload object with the new folder name and its parent directory
  */
 export const upload = (context, payload) => {
-  const foundIndex = context.state.uploadItemsMenu.findIndex(x => (x.id == payload.id && x.type == 'file'));
+  const foundIndex = context.state.uploadItemsMenu.findIndex(x => (x.id == payload.id && x.type == 'file'))
   return new Promise((resolve, reject) => {
     api.axios()
       .post(`/api/upload/${payload.uploadPath}`, payload.formData, {
@@ -69,20 +69,20 @@ export const upload = (context, payload) => {
         retryDelay: 1000,
         onUploadProgress: e => {
           if (foundIndex !== -1) {
-            context.state.uploadItemsMenu[foundIndex].uploadPercent = Math.round(e.loaded * 100 / e.total);
+            context.state.uploadItemsMenu[foundIndex].uploadPercent = Math.round(e.loaded * 100 / e.total)
           }
         }
       })
       .then(response => {
         setInterval(() => {
-          resolve(response);
-        }, 1000);
+          resolve(response)
+        }, 1000)
       })
       .catch((error) => {
         api._handleError(error)
-        reject(error);
+        reject(error)
       })
-  });
+  })
 }
 
 /**
@@ -95,10 +95,10 @@ export const login = (context, payload) => {
     api.axios()
       .post('/user/login', payload)
       .then((response) => {
-        resolve(response);
+        resolve(response)
       })
       .catch((error) => {
-        reject(error);
+        reject(error)
       })
   })
 }
@@ -129,12 +129,12 @@ export const settings = (context, payload) => {
     api.axios()
       .post('/user/settings', payload)
       .then((response) => {
-        context.commit(types.SET_SETTINGS, response);
-        resolve(response);
+        context.commit(types.SET_SETTINGS, response)
+        resolve(response)
       })
       .catch((error) => {
         api._handleError(error)
-        reject(error);
+        reject(error)
       })
   })
 }
@@ -145,23 +145,20 @@ export const settings = (context, payload) => {
  * @param payload
  */
 export const deleteFile = (context, payload) => {
-  const file = payload;
+  const file = payload
   return new Promise((resolve, reject) => {
-
     api.axios()
       .delete('/api/delete/' + file.path)
       .then((response) => {
-        context.state.showConfirmDeleteModal = false;
-        resolve(response);
+        context.state.showConfirmDeleteModal = false
+        resolve(response)
       })
       .catch((error) => {
         api._handleError(error)
         reject(error)
       })
-  });
-
+  })
 }
-
 
 /**
  * Create directory
@@ -170,19 +167,19 @@ export const deleteFile = (context, payload) => {
  */
 export const createDirectory = (context, payload) => {
   context.commit(types.SET_IS_LOADING, true)
-  const path = context.state.selectedDirectory;
+  const path = context.state.selectedDirectory
   api.axios()
     .put(`/api/createDirectory/${path}`, payload)
     .then((response) => {
       var data = {
         data: response.data.message,
-        color: 'success',
-      };
-      context.state.showCreateFolderModal = false;
-      context.commit(types.SHOW_SNACKBAR, data);
+        color: 'success'
+      }
+      context.state.showCreateFolderModal = false
+      context.commit(types.SHOW_SNACKBAR, data)
       context.dispatch('update', {
         path: context.state.selectedDirectory
-      });
+      })
     })
     .catch((error) => {
       api._handleError(error)
@@ -203,13 +200,13 @@ export const rename = (context, payload) => {
     .then((response) => {
       var data = {
         data: response.data.message,
-        color: 'success',
-      };
-      context.state.showRenameModal = false;
-      context.commit(types.SHOW_SNACKBAR, data);
+        color: 'success'
+      }
+      context.state.showRenameModal = false
+      context.commit(types.SHOW_SNACKBAR, data)
       context.dispatch('update', {
         path: context.state.selectedDirectory
-      });
+      })
     })
     .catch((error) => {
       api._handleError(error)
@@ -230,15 +227,15 @@ export const signup = (context, payload) => {
         var data = {
           'data': response.data.message,
           'color': 'success'
-        };
-        context.commit(types.SHOW_SNACKBAR, data);
-        resolve(response);
+        }
+        context.commit(types.SHOW_SNACKBAR, data)
+        resolve(response)
       })
       .catch((error) => {
-        reject(error);
+        reject(error)
         api._handleError(error)
       })
-  });
+  })
 }
 
 /**
@@ -251,26 +248,24 @@ export const download = (context, payload) => {
     data: 'Preparing download.',
     color: 'default',
     time: 0
-  };
+  }
 
-  context.commit(types.SHOW_SNACKBAR, data);
+  context.commit(types.SHOW_SNACKBAR, data)
 
   if (payload.length == 1) {
     api.axios()
       .get(payload[0].filePath, {
         responseType: 'blob'
-      }, )
+      })
       .then((response) => {
-        FileSaver.saveAs(new Blob([response.data]), payload[0].name);
-        context.commit(types.HIDE_SNACKBAR);
+        FileSaver.saveAs(new Blob([response.data]), payload[0].name)
+        context.commit(types.HIDE_SNACKBAR)
       })
       .catch((error) => {
-        api._handleError(error);
-      });
-
+        api._handleError(error)
+      })
   } else {
-
-    const path = context.state.selectedDirectory;
+    const path = context.state.selectedDirectory
 
     api.axios()
       .post(`/api/batch/${path}`, {
@@ -279,11 +274,11 @@ export const download = (context, payload) => {
         responseType: 'blob'
       })
       .then((response) => {
-        FileSaver.saveAs(new Blob([response.data]), 'Media_Drive_' + new Date() + '.zip');
-        context.commit(types.HIDE_SNACKBAR);
+        FileSaver.saveAs(new Blob([response.data]), 'Media_Drive_' + new Date() + '.zip')
+        context.commit(types.HIDE_SNACKBAR)
       })
       .catch((error) => {
-        api._handleError(error);
-      });
+        api._handleError(error)
+      })
   }
 }

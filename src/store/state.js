@@ -77,5 +77,5 @@ export default {
   // Islogged in
   isUserLoggedIn: false,
   // The Search Query
-  search: '',
+  search: ''
 }

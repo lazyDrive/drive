@@ -14,16 +14,16 @@
 
 <script>
 export default {
-  name: "lazy-switch",
+  name: 'lazy-switch',
   data: () => {
-    return {};
+    return {}
   },
-  props: ["sid", "value"],
+  props: ['sid', 'value'],
   methods: {
-    updateValue: function(value) {
-      console.log(value);
+    updateValue: function (value) {
+      console.log(value)
       // this.$emit("input", value);
     }
   }
-};
+}
 </script>

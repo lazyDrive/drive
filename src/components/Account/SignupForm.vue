@@ -26,35 +26,35 @@
 </template>
 <script>
 export default {
-  name: "lazy-signup",
-  data() {
+  name: 'lazy-signup',
+  data () {
     return {
-      password: "",
-      name: "",
-      email: "",
+      password: '',
+      name: '',
+      email: '',
       loading: false
-    };
+    }
   },
   methods: {
-    submit() {
+    submit () {
       const data = {
         name: this.name,
         email: this.email,
         password: this.password
-      };
+      }
 
       this.$store
-        .dispatch("signup", data)
+        .dispatch('signup', data)
         .then(() => {
-          this.clear();
+          this.clear()
         })
         .catch(error => {
-          console.log(error);
-        });
+          console.log(error)
+        })
     },
-    clear() {
-      this.$refs.form.reset();
+    clear () {
+      this.$refs.form.reset()
     }
   }
-};
+}
 </script>

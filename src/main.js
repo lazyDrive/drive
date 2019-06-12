@@ -24,9 +24,9 @@ Vue.component('lazy-context', ContextMenu)
 Vue.component('lazy-switch', Switch)
 
 // Register MediaManager namespace
-window.LazyDrive = window.LazyDrive || {};
+window.LazyDrive = window.LazyDrive || {}
 // Register the media manager event bus
-window.LazyDrive.Event = new Event();
+window.LazyDrive.Event = new Event()
 
 Vue.config.productionTip = false
 

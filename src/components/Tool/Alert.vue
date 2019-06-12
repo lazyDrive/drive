@@ -11,41 +11,41 @@
 </template>
 
 <script>
-import * as types from "./../../store/mutation-types";
+import * as types from './../../store/mutation-types'
 
 export default {
-  name: "lazy-alert",
+  name: 'lazy-alert',
   data: () => {
-    return {};
+    return {}
   },
   computed: {
     snackbarState: {
-      get: function() {
-        return this.$store.state.showsnackbar.state;
+      get: function () {
+        return this.$store.state.showsnackbar.state
       },
-      set: function() {
+      set: function () {
         setTimeout(
-          function() {
-            this.$store.commit(types.HIDE_SNACKBAR);
+          function () {
+            this.$store.commit(types.HIDE_SNACKBAR)
           }.bind(this),
           1000
-        );
+        )
       }
     },
-    snackbarColor: function() {
-      return this.$store.state.showsnackbar.color || "default";
+    snackbarColor: function () {
+      return this.$store.state.showsnackbar.color || 'default'
     },
-    timeout: function() {
-      return this.$store.state.showsnackbar.time;
+    timeout: function () {
+      return this.$store.state.showsnackbar.time
     }
   },
   methods: {
-    close: function() {
-      this.$store.commit(types.HIDE_SNACKBAR);
+    close: function () {
+      this.$store.commit(types.HIDE_SNACKBAR)
     },
-    text: function() {
-      return this.$store.state.showsnackbar.data;
+    text: function () {
+      return this.$store.state.showsnackbar.data
     }
   }
-};
+}
 </script>

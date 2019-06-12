@@ -5,92 +5,92 @@
 </template>
 
 <script>
-import * as types from "./../../../store/mutation-types";
-import { api } from "./../../../app/Api.js";
-import ContentGrid from "./Grid/ContentGrid";
+import * as types from './../../../store/mutation-types'
+import { api } from './../../../app/Api.js'
+import ContentGrid from './Grid/ContentGrid'
 
 export default {
-  name: "media-content",
+  name: 'media-content',
   data: () => ({}),
   computed: {
-    diskLoaded: function() {
-      return this.$store.state.diskLoaded;
+    diskLoaded: function () {
+      return this.$store.state.diskLoaded
     }
   },
   components: {
-    "lazy-grid": ContentGrid
+    'lazy-grid': ContentGrid
   },
   methods: {
-    doThis: function(path) {
+    doThis: function (path) {
       if (path) {
         this.$router.push({
           path: `/drive/u/0/folder/${path}`
-        });
+        })
       } else {
         this.$router.push({
           path: `/drive/u/0/my-drive`
-        });
+        })
       }
     },
-    onScroll: api.debounce(function() {
+    onScroll: api.debounce(function () {
       if (window.innerHeight + window.scrollY >= document.body.scrollHeight) {
-        this.$store.state.loadLimit = this.$store.state.loadLimit + 10;
+        this.$store.state.loadLimit = this.$store.state.loadLimit + 10
 
-        const dir = this.$route.params.dir;
-        const path = this.$route.params.path;
+        const dir = this.$route.params.dir
+        const path = this.$route.params.path
 
-        this.$store.commit(types.SET_IS_LOADING, true);
-        if (dir !== undefined && path == "folder") {
-          this.$store.dispatch("update", { path: dir });
+        this.$store.commit(types.SET_IS_LOADING, true)
+        if (dir !== undefined && path == 'folder') {
+          this.$store.dispatch('update', { path: dir })
         } else {
-          this.$store.dispatch("update", { path: "my-drive" });
+          this.$store.dispatch('update', { path: 'my-drive' })
         }
       }
     }, 300),
     // Listeners for drag and drop
-    onDragEnter: function(event) {
-      event.stopPropagation();
-      return false;
+    onDragEnter: function (event) {
+      event.stopPropagation()
+      return false
     },
 
     // Notify user when file is over the drop area
-    onDragOver: function(event) {
-      event.preventDefault();
-      document.querySelector(".media-dragoutline").classList.add("active");
-      return false;
+    onDragOver: function (event) {
+      event.preventDefault()
+      document.querySelector('.media-dragoutline').classList.add('active')
+      return false
     },
 
     /* Upload files */
-    dragUpload: async function() {
-      let uploadSuccess = 0;
+    dragUpload: async function () {
+      let uploadSuccess = 0
       while (this.$store.state.uploadItems.length > 0) {
-        const item = this.$store.state.uploadItems.shift();
-        const formData = item.file;
-        const uploadPath = item.path;
+        const item = this.$store.state.uploadItems.shift()
+        const formData = item.file
+        const uploadPath = item.path
 
         try {
-          await this.$store.dispatch("upload", { formData, uploadPath });
-          uploadSuccess = uploadSuccess + 1;
+          await this.$store.dispatch('upload', { formData, uploadPath })
+          uploadSuccess = uploadSuccess + 1
         } catch (error) {
-          console.error(error);
+          console.error(error)
         }
 
-        this.$store.dispatch("update", {
+        this.$store.dispatch('update', {
           path: this.$store.state.selectedDirectory
-        });
+        })
       }
       var data = {
         data: `${uploadSuccess} files uploaded.`,
-        color: "success"
-      };
+        color: 'success'
+      }
 
-      this.$store.commit(types.SHOW_SNACKBAR, data);
-      this.$store.commit(types.SET_IS_UPLOADING, 2);
+      this.$store.commit(types.SHOW_SNACKBAR, data)
+      this.$store.commit(types.SET_IS_UPLOADING, 2)
     },
 
-    onDrop: function(event) {
-      event.preventDefault();
-      const uploadPath = this.$store.state.selectedDirectory;
+    onDrop: function (event) {
+      event.preventDefault()
+      const uploadPath = this.$store.state.selectedDirectory
 
       if (
         event.dataTransfer &&
@@ -98,50 +98,50 @@ export default {
         event.dataTransfer.files.length > 0
       ) {
         for (var i = 0; i < event.dataTransfer.files.length; i++) {
-          let file = event.dataTransfer.files[i];
+          let file = event.dataTransfer.files[i]
           document
-            .querySelector(".media-dragoutline")
-            .classList.remove("active");
+            .querySelector('.media-dragoutline')
+            .classList.remove('active')
 
-          const formData = new FormData();
-          const item = {};
+          const formData = new FormData()
+          const item = {}
 
-          formData.append("files", file);
-          item.id = file.name + i + file.lastModified + file.size + Date.now();
-          item.icon = "assessment";
-          item.file = formData;
-          item.path = uploadPath;
-          item.type = "file";
-          item.iconClass = "grey lighten-1 white--text";
-          item.title = file.name;
-          item.subtitle = "";
-          item.size = file.size;
-          item.uploadPercent = 0;
+          formData.append('files', file)
+          item.id = file.name + i + file.lastModified + file.size + Date.now()
+          item.icon = 'assessment'
+          item.file = formData
+          item.path = uploadPath
+          item.type = 'file'
+          item.iconClass = 'grey lighten-1 white--text'
+          item.title = file.name
+          item.subtitle = ''
+          item.size = file.size
+          item.uploadPercent = 0
 
-          this.$store.state.uploadItems.push(item);
-          this.$store.state.uploadItemsMenu.push(item);
+          this.$store.state.uploadItems.push(item)
+          this.$store.state.uploadItemsMenu.push(item)
         }
         if (this.$store.state.isUploading !== true) {
-          this.$emit("tiggerdragUpload");
+          this.$emit('tiggerdragUpload')
         }
       }
 
-      document.querySelector(".media-dragoutline").classList.remove("active");
+      document.querySelector('.media-dragoutline').classList.remove('active')
     },
 
     // Reset the drop area border
-    onDragLeave: function(event) {
-      event.stopPropagation();
-      event.preventDefault();
-      document.querySelector(".media-dragoutline").classList.remove("active");
-      return false;
+    onDragLeave: function (event) {
+      event.stopPropagation()
+      event.preventDefault()
+      document.querySelector('.media-dragoutline').classList.remove('active')
+      return false
     }
   },
-  created() {
-    window.addEventListener("scroll", this.onScroll, false);
+  created () {
+    window.addEventListener('scroll', this.onScroll, false)
   },
-  destroyed() {
-    window.removeEventListener("scroll", this.onScroll, false);
+  destroyed () {
+    window.removeEventListener('scroll', this.onScroll, false)
   }
-};
+}
 </script>

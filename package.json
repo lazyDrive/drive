@@ -1,20 +1,18 @@
 {
   "name": "drive",
   "version": "1.0.0",
-  "main": "server/server.js",
-  "engines": {
-    "node": ">=4"
-  },
+  "description": "dashboard-generic",
   "scripts": {
-    "lint": "eslint .",
-    "posttest": "npm run lint && nsp check",
+    "lint": "vue-cli-service lint",
     "dev": "npm run lb-start & npm run vue-serve",
+    "lb-start": "nodemon",
+    "posttest": "npm run lint && nsp check",
     "prod": "npm run vue-build && npm start",
     "start": "node .",
-    "lb-start": "nodemon",
-    "vue-serve": "vue-cli-service serve",
-    "vue-build": "vue-cli-service build"
+    "vue-build": "vue-cli-service build",
+    "vue-serve": "vue-cli-service serve"
   },
+  "main": "server/server.js",
   "dependencies": {
     "axios": "^0.19.0",
     "compression": "^1.7.4",
@@ -48,24 +46,35 @@
     "@vue/cli-plugin-pwa": "^3.4.1",
     "@vue/cli-plugin-unit-jest": "^3.4.1",
     "@vue/cli-service": "^3.4.1",
-    "@vue/eslint-config-standard": "^3.0.5",
+    "@vue/eslint-config-standard": "^4.0.0",
     "babel-core": "7.0.0-bridge.0",
     "babel-eslint": "^10.0.1",
     "babel-jest": "^24.1.0",
     "cypress": "^3.1.5",
-    "eslint": "^3.17.1",
+    "eslint": "^5.16.0",
     "eslint-config-loopback": "^8.0.0",
+    "eslint-plugin-vue": "^5.0.0",
     "less": "^3.0.4",
     "less-loader": "^4.1.0",
+    "lint-staged": "^8.1.5",
     "node-sass": "^4.11.0",
     "nodemon": "^1.19.1",
     "nsp": "^3.2.1",
     "sass-loader": "^7.1.0",
     "vue-template-compiler": "^2.6.10"
   },
-  "repository": {
-    "type": "",
-    "url": ""
+  "engines": {
+    "node": ">=4"
+  },
+  "gitHooks": {
+    "pre-commit": "lint-staged"
+  },
+  "license": "UNLICENSED",
+  "lint-staged": {
+    "*.{js,vue}": [
+      "vue-cli-service lint",
+      "git add"
+    ]
   },
   "nodemonConfig": {
     "ignore": [
@@ -73,6 +82,8 @@
     ],
     "delay": "2500"
   },
-  "license": "UNLICENSED",
-  "description": "dashboard-generic"
+  "repository": {
+    "type": "",
+    "url": ""
+  }
 }

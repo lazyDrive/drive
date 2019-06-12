@@ -20,27 +20,27 @@
 
 <script>
 export default {
-  name: "lazy-breadcrumb",
+  name: 'lazy-breadcrumb',
   data: () => {
-    return {};
+    return {}
   },
   computed: {
-    diskLoaded: function() {
-      return this.$store.state.diskLoaded;
+    diskLoaded: function () {
+      return this.$store.state.diskLoaded
     }
   },
   methods: {
-    doThis: function(path) {
+    doThis: function (path) {
       if (path) {
         this.$router.push({
           path: `/drive/u/0/folder/${path}`
-        });
+        })
       } else {
         this.$router.push({
           path: `/drive/u/0/my-drive`
-        });
+        })
       }
     }
   }
-};
+}
 </script>

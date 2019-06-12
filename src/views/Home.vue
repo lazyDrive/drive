@@ -5,21 +5,21 @@
 </template>
 
 <script>
-import { api } from "./../app/Api";
-import LoginForm from "@/components/Account/LoginForm";
+import { api } from './../app/Api'
+import LoginForm from '@/components/Account/LoginForm'
 
 export default {
-  name: "media-home",
-  data() {
-    return {};
+  name: 'media-home',
+  data () {
+    return {}
   },
   components: {
-    "lazy-login": LoginForm
+    'lazy-login': LoginForm
   },
   computed: {
-    isLoggedIn: function() {
-      return api.auth.loggedIn();
+    isLoggedIn: function () {
+      return api.auth.loggedIn()
     }
   }
-};
+}
 </script>

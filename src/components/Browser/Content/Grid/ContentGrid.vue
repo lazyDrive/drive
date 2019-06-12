@@ -18,94 +18,94 @@
 </template>
 
 <script>
-import * as types from "./../../../../store/mutation-types";
+import * as types from './../../../../store/mutation-types'
 
-import itemFolder from "./../../Items/Folder";
-import itemFile from "./../../Items/File";
+import itemFolder from './../../Items/Folder'
+import itemFile from './../../Items/File'
 
 export default {
-  name: "media-content-grid",
+  name: 'media-content-grid',
   data: () => ({}),
   components: {
-    "lazy-folder": itemFolder,
-    "lazy-file": itemFile
+    'lazy-folder': itemFolder,
+    'lazy-file': itemFile
   },
   watch: {
-    selectAllFile: function(val) {
+    selectAllFile: function (val) {
       if (val) {
-        this.selectAllFiles();
+        this.selectAllFiles()
       } else {
-        this.unselectAllFiles();
+        this.unselectAllFiles()
       }
     },
-    selectAllFolder: function(val) {
+    selectAllFolder: function (val) {
       if (val) {
-        this.selectAllFolders();
+        this.selectAllFolders()
       } else {
-        this.unselectAllFolders();
+        this.unselectAllFolders()
       }
     }
   },
   computed: {
     selectAllFile: {
-      get: function() {
-        return this.$store.state.selectAllFile;
+      get: function () {
+        return this.$store.state.selectAllFile
       },
-      set: function(val) {
-        this.$store.state.selectAllFile = val;
+      set: function (val) {
+        this.$store.state.selectAllFile = val
       }
     },
     selectAllFolder: {
-      get: function() {
-        return this.$store.state.selectAllFolder;
+      get: function () {
+        return this.$store.state.selectAllFolder
       },
-      set: function(val) {
-        this.$store.state.selectAllFolder = val;
+      set: function (val) {
+        this.$store.state.selectAllFolder = val
       }
     },
-    quick: function() {
-      return this.$store.state.contents.filter(item => item.type == "quick");
+    quick: function () {
+      return this.$store.state.contents.filter(item => item.type == 'quick')
     },
-    isEmpty: function() {
-      return this.$store.state.contents.filter(item => item.type == "empty");
+    isEmpty: function () {
+      return this.$store.state.contents.filter(item => item.type == 'empty')
     },
-    folders: function() {
+    folders: function () {
       return this.$store.state.contents.filter(
         item =>
-          item.type == "dir" &&
+          item.type == 'dir' &&
           item.name
             .toLowerCase()
             .includes(this.$store.state.search.toLowerCase())
-      );
+      )
     },
-    files: function() {
+    files: function () {
       return this.$store.state.contents.filter(
         item =>
-          item.type == "file" &&
+          item.type == 'file' &&
           item.name
             .toLowerCase()
             .includes(this.$store.state.search.toLowerCase())
-      );
+      )
     }
   },
   methods: {
-    selectAllFiles: function() {
-      const files = this.files;
+    selectAllFiles: function () {
+      const files = this.files
       files.forEach(item => {
-        this.$store.commit(types.SELECT_BROWSER_ITEM, item);
-      });
+        this.$store.commit(types.SELECT_BROWSER_ITEM, item)
+      })
     },
-    unselectAllFiles: function() {
-      this.$store.commit(types.UNSELECT_ALL_BROWSER_ITEMS, { type: "file" });
+    unselectAllFiles: function () {
+      this.$store.commit(types.UNSELECT_ALL_BROWSER_ITEMS, { type: 'file' })
     },
-    selectAllFolders: function() {
-      const folders = this.folders;
+    selectAllFolders: function () {
+      const folders = this.folders
       folders.forEach(item => {
-        this.$store.commit(types.SELECT_BROWSER_ITEM, item);
-      });
+        this.$store.commit(types.SELECT_BROWSER_ITEM, item)
+      })
     },
-    unselectAllFolders: function() {
-      this.$store.commit(types.UNSELECT_ALL_BROWSER_ITEMS, { type: "dir" });
+    unselectAllFolders: function () {
+      this.$store.commit(types.UNSELECT_ALL_BROWSER_ITEMS, { type: 'dir' })
     },
     /* Unselect all browser items */
     // unselectAllBrowserItems: function(event) {
@@ -131,137 +131,137 @@ export default {
     //     });
     //   }
     // },
-    findNext: function(code) {
-      const current = this.current();
-      const total = this.$store.state.contents.length;
-      const infobar = this.$store.state.showInfoBar;
-      const next = current;
+    findNext: function (code) {
+      const current = this.current()
+      const total = this.$store.state.contents.length
+      const infobar = this.$store.state.showInfoBar
+      const next = current
 
       if (code == 40) {
         if (infobar) {
           if (total > current + 6) {
-            return current + 6;
+            return current + 6
           } else {
-            return next;
+            return next
           }
         } else {
           if (total > current + 7) {
-            return current + 7;
+            return current + 7
           } else {
-            return next;
+            return next
           }
         }
       }
 
       if (code == 38) {
         if (infobar) {
-          if (0 <= current - 6) {
-            return current - 6;
+          if (current - 6 >= 0) {
+            return current - 6
           } else {
-            return next;
+            return next
           }
         } else {
-          if (0 <= current - 7) {
-            return current - 7;
+          if (current - 7 >= 0) {
+            return current - 7
           } else {
-            return next;
+            return next
           }
         }
       }
     },
-    current: function() {
-      const selected = this.$store.state.selectedItems[0];
+    current: function () {
+      const selected = this.$store.state.selectedItems[0]
 
       return this.$store.state.contents.findIndex(file => {
         if (file.id === selected.id) {
-          return true;
+          return true
         }
-      });
+      })
     },
-    keyup: function(event) {
+    keyup: function (event) {
       if (
         this.$store.state.selectedItems.length == 1 &&
         !this.$store.state.modelBackdrop
       ) {
         if (event.keyCode == 27) {
-          event.preventDefault();
+          event.preventDefault()
         } else if (event.keyCode == 39) {
-          const current = this.current();
+          const current = this.current()
           if (current < this.$store.state.contents.length - 1) {
-            this.$store.commit(types.UNSELECT_ALL_BROWSER_ITEMS);
+            this.$store.commit(types.UNSELECT_ALL_BROWSER_ITEMS)
             this.$store.commit(
               types.SELECT_BROWSER_ITEM,
               this.$store.state.contents[current + 1]
-            );
+            )
           }
         } else if (event.keyCode == 38) {
-          event.preventDefault();
-          const next = this.findNext(event.keyCode);
-          this.$store.commit(types.UNSELECT_ALL_BROWSER_ITEMS);
+          event.preventDefault()
+          const next = this.findNext(event.keyCode)
+          this.$store.commit(types.UNSELECT_ALL_BROWSER_ITEMS)
           this.$store.commit(
             types.SELECT_BROWSER_ITEM,
             this.$store.state.contents[next]
-          );
+          )
         } else if (event.keyCode == 37) {
-          const current = this.current();
+          const current = this.current()
           if (current > 0) {
-            this.$store.commit(types.UNSELECT_ALL_BROWSER_ITEMS);
+            this.$store.commit(types.UNSELECT_ALL_BROWSER_ITEMS)
             this.$store.commit(
               types.SELECT_BROWSER_ITEM,
               this.$store.state.contents[current - 1]
-            );
+            )
           }
         } else if (event.keyCode == 40) {
-          event.preventDefault();
-          const next = this.findNext(event.keyCode);
-          this.$store.commit(types.UNSELECT_ALL_BROWSER_ITEMS);
+          event.preventDefault()
+          const next = this.findNext(event.keyCode)
+          this.$store.commit(types.UNSELECT_ALL_BROWSER_ITEMS)
           this.$store.commit(
             types.SELECT_BROWSER_ITEM,
             this.$store.state.contents[next]
-          );
+          )
         } else if (event.keyCode == 13) {
-          const item = this.$store.state.selectedItems[0];
-          if (item.type == "dir") {
+          const item = this.$store.state.selectedItems[0]
+          if (item.type == 'dir') {
             try {
-              let path = item.path;
-              if (path != "my-drive") {
+              let path = item.path
+              if (path != 'my-drive') {
                 this.$router.push({
                   path: `/drive/u/0/folder/${path}`
-                });
+                })
               } else {
                 this.$router.push({
                   path: `/drive/u/0/my-drive`
-                });
+                })
               }
             } catch (err) {
-              console.log(err);
+              console.log(err)
             }
           } else {
             this.$store.commit(
               types.LOAD_FULL_CONTENTS_SUCCESS,
               this.$store.state.selectedItems[0]
-            );
-            this.$store.commit(types.SHOW_PREVIEW_MODAL);
+            )
+            this.$store.commit(types.SHOW_PREVIEW_MODAL)
           }
         }
       }
     }
   },
-  created() {
-    document.body.addEventListener("keydown", this.keyup, false);
+  created () {
+    document.body.addEventListener('keydown', this.keyup, false)
     // document.body.addEventListener(
     //   "click",
     //   this.unselectAllBrowserItems,
     //   false
     // );
   },
-  destroyed() {
-    document.body.removeEventListener("keydown", this.keyup, false);
+  destroyed () {
+    document.body.removeEventListener('keydown', this.keyup, false)
     // document.body.removeEventListener(
     //   "click",
     //   this.unselectAllBrowserItems,
     //   false
     // );
   }
-};
+}
 </script>
