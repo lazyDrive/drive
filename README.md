@@ -1,5 +1,5 @@
 <p align="center">
-  <img width="200" height="200" src="docs/images/logo.png">
+  <img width="100" height="100" src="docs/images/logo.png">
 </p>
 
 <p align="center">Lazy Drive</p>
