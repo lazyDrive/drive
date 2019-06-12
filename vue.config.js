@@ -1,17 +1,17 @@
-const path = require("path");
+const path = require('path')
 module.exports = {
-  outputDir: path.resolve(__dirname, "./client/"),
+  outputDir: path.resolve(__dirname, './client/'),
   pwa: {
-    name: "Media Manager",
-    themeColor: "#fff",
-    msTileColor: "#586069"
+    name: 'Media Manager',
+    themeColor: '#fff',
+    msTileColor: '#586069'
   },
   devServer: {
-    proxy: "http://localhost:3000"
+    proxy: 'http://localhost:3000'
   },
   pluginOptions: {
     electronBuilder: {
-      outputDir: "build"
+      outputDir: 'build'
     }
   }
-};
+}
