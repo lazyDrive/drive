@@ -55,14 +55,6 @@
 
     # Done! Magic happens on port: `http://localhost:8080`
 
-## To start a development server desktop app with electron:
-
-  ### if you use NPM:
-  `npm run electron:serve`
-
-  ### To build your app:
-  `npm run electron:build`
-
 ## Production
 
   ### In root run
