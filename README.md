@@ -6,10 +6,9 @@
 <h2 align="center">Lazy Drive</h2>
 
 <p align="center">
-<a href="http://github.com/anu1601cs/media-manager"><img src="https://travis-ci.org/lazyDrive/drive.svg?branch=master" alt="License"></a>
-
-<a href="http://github.com/anu1601cs/media-manager"><img src="https://badges.greenkeeper.io/lazyDrive/drive.svg" alt="Greenkeeper badge"></a>
- 
+  <a href="http://github.com/anu1601cs/media-manager"><img src="https://travis-ci.org/lazyDrive/drive.svg?branch=master" alt="License"></a>
+  <a href="https://discord.gg/4vgmhkK"><img src="https://img.shields.io/badge/chat-on%20discord-7289da.svg" alt="Chat"></a>
+  <a href="http://github.com/anu1601cs/media-manager"><img src="https://badges.greenkeeper.io/lazyDrive/drive.svg" alt="Greenkeeper badge"></a>
 </p>
 
 <br>
