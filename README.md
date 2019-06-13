@@ -19,6 +19,8 @@
 
 ### Directory layout
 
+[![Greenkeeper badge](https://badges.greenkeeper.io/lazyDrive/drive.svg)](https://greenkeeper.io/)
+
 
 
     .
