@@ -14,7 +14,7 @@
 <br>
 
 <p align="center">
-  <img src="docs/images/pre.gif">
+  <img width="100%" src="docs/images/pre.gif">
 </p>
 
 
