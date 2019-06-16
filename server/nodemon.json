@@ -6,5 +6,6 @@
         "NODE_ENV": "production",
         "PORT": "3344",
         "CSRFTOKEN": "C_MW5rCdAz36_3QCXFUECqwjl4qqFTKp113T8bHg"
-    }
+      },
+      "watch": ["src/"]
 }
