@@ -115,14 +115,14 @@
 </template>
 
 <script>
-import * as types from './../../../store/mutation-types'
-import Dropbox from 'dropbox'
-import fetch from 'isomorphic-fetch'
-import { api } from './../../../app/Api'
+import * as types from "./../../../store/mutation-types";
+import Dropbox from "dropbox";
+import fetch from "isomorphic-fetch";
+import { api } from "./../../../app/Api";
 
 export default {
-  name: 'media-settings',
-  data () {
+  name: "media-settings",
+  data() {
     return {
       dialog3: false,
       notifications: false,
@@ -131,75 +131,77 @@ export default {
       widgets: false,
       items: [
         {
-          title: 'Save'
+          title: "Save"
         },
         {
-          title: 'Save & Close'
+          title: "Save & Close"
         }
       ]
-    }
+    };
   },
   computed: {
-    dropbox: function () {
-      return !!(this.$store.state.settings.dropbox.accessToken != null &&
-        this.$store.state.settings.dropbox.accessToken != '')
+    dropbox: function() {
+      return this.$store.state.settings.dropbox.accessToken != null &&
+        this.$store.state.settings.dropbox.accessToken != ""
+        ? true
+        : false;
     },
-    googleDrive: function () {
-      return false
+    googleDrive: function() {
+      return false;
     }
   },
   methods: {
-    hideSettings: function () {
-      this.$store.commit(types.HIDE_SETTINGS)
+    hideSettings: function() {
+      this.$store.commit(types.HIDE_SETTINGS);
     },
-    saveSettings: function () {
-      const payload = {}
-      payload.action = 'set'
-      payload.settings = this.$store.state.settings
+    saveSettings: function() {
+      const payload = {};
+      payload.action = "set";
+      payload.settings = this.$store.state.settings;
       this.$store
-        .dispatch('settings', payload)
+        .dispatch("settings", payload)
         .then(() => {
-          payload.action = 'get'
-          payload.settings = api.user.userData
-          this.$store.dispatch('settings', payload)
+          payload.action = "get";
+          payload.settings = api.user.userData;
+          this.$store.dispatch("settings", payload);
         })
         .catch(err => {
-          console.log(err)
-        })
+          console.log(err);
+        });
     },
-    connectDropbox: function () {
+    connectDropbox: function() {
       if (!this.dropbox) {
-        var CLIENT_ID = 'w3mmmph398qrnx9'
-        var dbx = new Dropbox.Dropbox({ clientId: CLIENT_ID, fetch: fetch })
+        var CLIENT_ID = "w3mmmph398qrnx9";
+        var dbx = new Dropbox.Dropbox({ clientId: CLIENT_ID, fetch: fetch });
         var authUrl = dbx.getAuthenticationUrl(
           `http://localhost:${api.config.redirectPort}/auth`
-        )
+        );
 
         const win = window.open(
           authUrl,
-          'targetWindow',
-          'toolbar=no,location=no,status=no,menubar=no,scrollbars=yes,resizable=yes,width=600,height=500'
-        )
-        const payload = {}
+          "targetWindow",
+          "toolbar=no,location=no,status=no,menubar=no,scrollbars=yes,resizable=yes,width=600,height=500"
+        );
+        const payload = {};
         var timer = setInterval(
-          function () {
+          function() {
             if (win.closed) {
-              clearInterval(timer)
-              payload.action = 'get'
-              payload.settings = api.user.userData
-              this.$store.dispatch('settings', payload)
+              clearInterval(timer);
+              payload.action = "get";
+              payload.settings = api.user.userData;
+              this.$store.dispatch("settings", payload);
             }
           }.bind(this),
           500
-        )
+        );
       } else {
-        this.$store.state.settings.dropbox.accessToken = ''
-        this.saveSettings()
+        this.$store.state.settings.dropbox.accessToken = "";
+        this.saveSettings();
       }
     },
-    connectGoogle: function () {
+    connectGoogle: function() {
 
     }
   }
-}
+};
 </script>

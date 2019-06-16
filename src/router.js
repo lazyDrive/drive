@@ -3,7 +3,7 @@ import Router from 'vue-router'
 import Routers from './routers/routers'
 import {
   api
-} from './app/Api'
+} from "./app/Api";
 
 Vue.use(Router)
 
@@ -14,7 +14,7 @@ const router = new Router({
 
 router.beforeEach((to, from, next) => {
   if (to.matched.some(record => record.meta.requiresAuth)) {
-    const loggedIn = api.auth.loggedIn()
+    const loggedIn = api.auth.loggedIn();
 
     if (!loggedIn) {
       if (to.name != 'login' && to.name != 'signup') {
@@ -29,7 +29,7 @@ router.beforeEach((to, from, next) => {
       }
     } else if (to.name == 'login' || to.name == 'signup') {
       next({
-        path: '/'
+        path: '/',
       })
     } else {
       next()
@@ -39,4 +39,4 @@ router.beforeEach((to, from, next) => {
   }
 })
 
-export default router
+export default router;

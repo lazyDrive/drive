@@ -32,42 +32,42 @@
 </template>
 
 <script>
-import * as types from './../../../store/mutation-types'
-import InfoFile from '@/components/Browser/InfoBar/InfoFile'
+import * as types from "./../../../store/mutation-types";
+import InfoFile from "@/components/Browser/InfoBar/InfoFile";
 
 export default {
-  name: 'media-infoBar',
+  name: "media-infoBar",
   data: () => ({
     right: true
   }),
   components: {
-    'media-info-file': InfoFile
+    "media-info-file": InfoFile
   },
   computed: {
     menuState: {
-      get: function () {
-        return this.$store.state.showInfoBar
+      get: function() {
+        return this.$store.state.showInfoBar;
       },
-      set: function (val) {
-        this.$store.state.showInfoBar = val
+      set: function(val) {
+        this.$store.state.showInfoBar = val;
       }
     },
-    width: function () {
-      return this.$store.state.isMobile ? '100%' : '343'
+    width: function(){
+      return this.$store.state.isMobile ? '100%' : '343';
     },
-    files: function () {
-      return this.$store.state.selectedItems
+    files: function() {
+      return this.$store.state.selectedItems;
     }
   },
   methods: {
-    about: function () {},
-    settings: function () {},
-    hideInforbar: function () {
-      this.$store.commit(types.HIDE_INFOBAR)
+    about: function() {},
+    settings: function() {},
+    hideInforbar: function() {
+      this.$store.commit(types.HIDE_INFOBAR);
     },
-    fire: function (a) {
-      this[a](a)
+    fire: function(a) {
+      this[a](a);
     }
   }
-}
+};
 </script>

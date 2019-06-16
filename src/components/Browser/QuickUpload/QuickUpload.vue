@@ -30,23 +30,23 @@
 
 <script>
 export default {
-  name: 'media-tool',
+  name: "media-tool",
   data: () => ({
     dialog: false,
-    direction: 'top',
+    direction: "top",
     fab: false,
     fling: false,
     hover: false,
     tabs: null,
     right: true,
     bottom: true,
-    transition: 'slide-y-reverse-transition'
+    transition: "slide-y-reverse-transition"
   }),
 
   methods: {
-    select: function () {
-      this.$emit('tiggerSelectFile')
+    select: function() {
+      this.$emit("tiggerSelectFile");
     }
   }
-}
+};
 </script>

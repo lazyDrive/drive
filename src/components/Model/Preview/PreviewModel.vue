@@ -1,12 +1,9 @@
 <template>
   <div v-if="isActive" class="modal media-preview-modal">
-    <lazy-switch v-model="val" :sid="1"></lazy-switch>
-    <lazy-switch :sid="2"></lazy-switch>
-    <p v-if="val">ANurag</p>
-    <!-- <span color="white" @click.prevent="hidePreviewModal()" size="25" class="close">arrow_back</span> -->
-    <!-- <span color="white" @click.prevent="prev()" size="25" class="prev">arrow_back_ios</span> -->
+    <v-icon color="white" @click.prevent="hidePreviewModal()" size="25" class="close">arrow_back</v-icon>
+    <v-icon color="white" @click.prevent="prev()" size="25" class="prev">arrow_back_ios</v-icon>
 
-    <!-- <media-image
+    <media-image
       v-if="item.imgUrl && item.extension.toLowerCase() != 'pdf' && item.extension.toLowerCase() != 'mp4'"
       :item="item"
     ></media-image>
@@ -35,169 +32,178 @@
       </div>
     </div>
 
-    <span color="white" @click.prevent="next()" class="next">next</span>
+    <v-icon color="white" @click.prevent="next()" class="next">arrow_forward_ios</v-icon>
     <div class="caption">
       <img v-if="item.extImg" class="extensionImage" :src="item.extImg">
       &nbsp;&nbsp;{{getName()}}
-    </div>-->
+    </div>
 
-    <!-- <div class="right-tool">
+    <div class="right-tool">
       <div class="right-tool-item">
-        <p color="white" size="25" @click.prevent="download(item)">get_app</p>
+        <v-icon color="white" size="25" @click.prevent="download(item)">get_app</v-icon>
       </div>
       <div class="right-tool-item">
-        <p color="white" size="25">more_vert</p>
+        <v-icon color="white" size="25">more_vert</v-icon>
       </div>
-    </div>-->
+    </div>
   </div>
 </template>
 
 <script>
-import * as types from './../../../store/mutation-types'
-import pdf from 'vue-pdf'
+import * as types from "./../../../store/mutation-types";
+import Video from "./item/Video";
+import Audio from "./item/Audio";
+import Image from "./item/Image";
+import FileText from "./item/FileText";
+import pdf from "vue-pdf";
 
 export default {
-  name: 'media-create-folder',
+  name: "media-create-folder",
   data: () => ({
-    val: true,
     files: [],
     numPages: undefined,
-    videoExt: ['mp4', 'ogv', 'avi', 'webm'],
-    audioExt: ['mp3'],
+    videoExt: ["mp4", "ogv", "avi", "webm"],
+    audioExt: ["mp3"],
     fileExt: [
-      'txt',
-      'js',
-      'css',
-      'php',
-      'vue',
-      'go',
-      'html',
-      'c',
-      'cpp',
-      'c++',
-      'sql',
-      'java',
-      'shell'
+      "txt",
+      "js",
+      "css",
+      "php",
+      "vue",
+      "go",
+      "html",
+      "c",
+      "cpp",
+      "c++",
+      "sql",
+      "java",
+      "shell"
     ]
   }),
-  components: {},
+  components: {
+    pdf,
+    "media-video": Video,
+    "media-audio": Audio,
+    "media-image": Image,
+    "media-file": FileText
+  },
   watch: {
-    isActive: function (val) {
+    isActive: function(val) {
       document
-        .querySelector('html')
-        .classList.toggle('app--modal--opened', val)
+        .querySelector("html")
+        .classList.toggle("app--modal--opened", val);
 
-      if (this.item.extension == 'pdf') {
+      if (this.item.extension == "pdf") {
         this.pdfsrc.then(pdf => {
-          this.numPages = pdf.numPages
-        })
+          this.numPages = pdf.numPages;
+        });
       }
     }
   },
   computed: {
-    pdfsrc: function () {
-      return pdf.createLoadingTask(this.item.filePath)
+    pdfsrc: function() {
+      return pdf.createLoadingTask(this.item.filePath);
     },
-    item: function () {
-      return this.$store.state.previewItem
+    item: function() {
+      return this.$store.state.previewItem;
     },
-    isActive: function () {
-      return this.$store.state.showPreviewModal
+    isActive: function() {
+      return this.$store.state.showPreviewModal;
     },
-    video: function () {
+    video: function() {
       if (this.videoExt.indexOf(this.item.extension.toLowerCase()) != -1) {
-        return true
+        return true;
       } else {
-        return false
+        return false;
       }
     },
-    fileText: function () {
+    fileText: function() {
       if (this.fileExt.indexOf(this.item.extension.toLowerCase()) != -1) {
-        return true
+        return true;
       } else {
-        return false
+        return false;
       }
     },
-    audio: function () {
+    audio: function() {
       if (this.audioExt.indexOf(this.item.extension.toLowerCase()) != -1) {
-        return true
+        return true;
       } else {
-        return false
+        return false;
       }
     },
-    audioFile: function () {
-      return this.item.filePath
+    audioFile: function() {
+      return this.item.filePath;
     }
   },
   methods: {
-    hidePreviewModal: function () {
-      this.$store.commit(types.HIDE_PREVIEW_MODAL)
+    hidePreviewModal: function() {
+      this.$store.commit(types.HIDE_PREVIEW_MODAL);
     },
-    download: function () {
-      const items = []
-      items.push(this.item)
-      this.$store.dispatch('download', items)
+    download: function() {
+      const items = [];
+      items.push(this.item);
+      this.$store.dispatch("download", items);
     },
-    getName: function () {
+    getName: function() {
       if (this.item.name.length >= 20 && this.$store.state.isMobile) {
-        return this.item.name.substring(0, 20) + '..'
+        return this.item.name.substring(0, 20) + "..";
       } else {
-        return this.item.name
+        return this.item.name;
       }
     },
-    print: function () {
-      this.$refs.myPdfComponent[0].print()
+    print: function() {
+      this.$refs.myPdfComponent[0].print();
     },
-    current: function () {
-      if (this.item.extension == 'pdf') {
+    current: function() {
+      if (this.item.extension == "pdf") {
         this.pdfsrc.then(pdf => {
-          this.numPages = pdf.numPages
-        })
+          this.numPages = pdf.numPages;
+        });
       }
 
       this.files = this.$store.state.contents.filter(
-        item => item.type != 'dir'
-      )
+        item => item.type != "dir"
+      );
 
       return this.files.findIndex(file => {
         if (file.id === this.item.id) {
-          return true
+          return true;
         }
-      })
+      });
     },
-    next: function () {
-      var current = this.current()
+    next: function() {
+      var current = this.current();
       if (current < this.files.length - 1) {
-        this.$store.state.previewItem = this.files[current + 1]
+        this.$store.state.previewItem = this.files[current + 1];
       } else {
-        this.$store.state.previewItem = this.files[current]
+        this.$store.state.previewItem = this.files[current];
       }
     },
-    prev: function () {
-      var current = this.current()
+    prev: function() {
+      var current = this.current();
       if (current > 0) {
-        this.$store.state.previewItem = this.files[current - 1]
+        this.$store.state.previewItem = this.files[current - 1];
       }
     },
-    keyup: function (event) {
-      event.preventDefault()
+    keyup: function(event) {
+      event.preventDefault();
 
       if (this.$store.state.showPreviewModal) {
         if (event.keyCode == 27) {
-          this.hidePreviewModal()
+          this.hidePreviewModal();
         } else if (event.keyCode == 39) {
-          this.next()
+          this.next();
         } else if (event.keyCode == 37) {
-          this.prev()
+          this.prev();
         }
       }
     }
   },
-  created () {
-    window.addEventListener('keyup', this.keyup)
+  created() {
+    window.addEventListener("keyup", this.keyup);
   },
-  destroyed () {
-    window.removeEventListener('keyup', this.keyup)
+  destroyed() {
+    window.removeEventListener("keyup", this.keyup);
   }
-}
+};
 </script>

@@ -28,43 +28,43 @@
 </template>
 
 <script>
-import * as types from './../../../store/mutation-types'
+import * as types from "./../../../store/mutation-types";
 
 export default {
-  name: 'media-rename',
+  name: "media-rename",
   data: () => ({
-    defaultData: ''
+    defaultData: ""
   }),
 
   computed: {
     selectedName: {
-      get: function () {
+      get: function() {
         if (this.$store.state.showRenameModal) {
-          return this.$store.state.selectedItems[0].name
+          return this.$store.state.selectedItems[0].name;
         } else {
-          return ''
+          return "";
         }
       },
-      set: function (data) {
-        this.defaultData = data
+      set: function(data) {
+        this.defaultData = data;
       }
     }
   },
   methods: {
-    hideRenameModal: function () {
-      this.$store.commit(types.HIDE_RENAME_MODAL)
+    hideRenameModal: function() {
+      this.$store.commit(types.HIDE_RENAME_MODAL);
     },
-    rename: function () {
-      if (this.defaultData != '') {
-        const item = this.$store.state.selectedItems[0]
-        item.newName = this.defaultData
-        this.$store.dispatch('rename', item)
+    rename: function() {
+      if (this.defaultData != "") {
+        const item = this.$store.state.selectedItems[0];
+        item.newName = this.defaultData;
+        this.$store.dispatch("rename", item);
       } else {
-        this.hideRenameModal()
+        this.hideRenameModal();
       }
     }
   }
-}
+};
 </script>
 <style>
 .confirm-text {

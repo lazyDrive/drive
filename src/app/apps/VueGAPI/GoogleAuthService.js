@@ -1,7 +1,6 @@
-/** @format */
-
 export default class GoogleAuthService {
-  constructor() {
+
+  constructor () {
     this.authenticated = this.isAuthenticated()
     this.authInstance = null
 
@@ -29,7 +28,7 @@ export default class GoogleAuthService {
    *   a string of when the google auth token expires
    */
 
-  _expiresAt(authResult) {
+  _expiresAt (authResult) {
     return JSON.stringify(authResult.expires_in * 1000 + new Date().getTime())
   }
 
@@ -51,7 +50,7 @@ export default class GoogleAuthService {
    *
    */
 
-  _setStorage(authResult, profile = null) {
+  _setStorage (authResult, profile = null) {
     localStorage.setItem('gapi.access_token', authResult.access_token)
     localStorage.setItem('gapi.id_token', authResult.id_token)
     localStorage.setItem('gapi.expires_at', this._expiresAt(authResult))
@@ -79,7 +78,7 @@ export default class GoogleAuthService {
    *
    */
 
-  _clearStorage() {
+  _clearStorage () {
     localStorage.removeItem('gapi.access_token')
     localStorage.removeItem('gapi.id_token')
     localStorage.removeItem('gapi.expires_at')
@@ -107,9 +106,10 @@ export default class GoogleAuthService {
    *
    */
 
-  login() {
+  login () {
     if (!this.authInstance) throw new Error('gapi not initialized')
-    return this.authInstance.signIn().then(this.setSession)
+    return this.authInstance.signIn()
+      .then(this.setSession)
   }
 
   /**
@@ -130,12 +130,13 @@ export default class GoogleAuthService {
    *
    */
 
-  refreshToken() {
+  refreshToken () {
     if (!this.authInstance) throw new Error('gapi not initialized')
     const GoogleUser = this.authInstance.currentUser.get()
-    GoogleUser.reloadAuthResponse().then(authResult => {
-      this._setStorage(authResult)
-    })
+    GoogleUser.reloadAuthResponse()
+      .then((authResult) => {
+        this._setStorage(authResult)
+      })
   }
 
   /**
@@ -153,7 +154,7 @@ export default class GoogleAuthService {
    *
    */
 
-  logout() {
+  logout () {
     if (!this.authInstance) throw new Error('gapi not initialized')
     this.authInstance.signOut(response => console.log(response))
     this._clearStorage()
@@ -174,7 +175,7 @@ export default class GoogleAuthService {
    *
    */
 
-  setSession(response) {
+  setSession (response) {
     const profile = this.authInstance.currentUser.get().getBasicProfile()
     const authResult = response.Zi
     this._setStorage(authResult, profile)
@@ -192,7 +193,7 @@ export default class GoogleAuthService {
    *
    */
 
-  isAuthenticated() {
+  isAuthenticated () {
     const expiresAt = JSON.parse(localStorage.getItem('gapi.expires_at'))
     return new Date().getTime() < expiresAt
   }
@@ -208,7 +209,7 @@ export default class GoogleAuthService {
    *
    */
 
-  isSignedIn() {
+  isSignedIn () {
     const GoogleUser = this.authInstance.currentUser.get()
     return GoogleUser.isSignedIn.get()
   }
@@ -223,7 +224,7 @@ export default class GoogleAuthService {
    * @return object with user data from localStorage
    */
 
-  getUserData() {
+  getUserData () {
     return {
       firstName: localStorage.getItem('gapi.first_name'),
       lastName: localStorage.getItem('gapi.last_name'),

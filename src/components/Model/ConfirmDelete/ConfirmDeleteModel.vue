@@ -22,50 +22,50 @@
 </template>
 
 <script>
-import * as types from './../../../store/mutation-types'
+import * as types from "./../../../store/mutation-types";
 
 export default {
-  name: 'media-confirm-model',
+  name: "media-confirm-model",
   data: () => ({}),
 
   props: {
     text: {
       type: String,
       required: false,
-      default: 'Are you sure want to delete ?'
+      default: "Are you sure want to delete ?"
     }
   },
 
   computed: {},
 
   methods: {
-    hideConfirmDeleteModal: function () {
-      this.$store.commit(types.HIDE_CONFIRM_DELETE_MODAL)
+    hideConfirmDeleteModal: function() {
+      this.$store.commit(types.HIDE_CONFIRM_DELETE_MODAL);
     },
-    deleteFile: async function () {
-      this.$store.commit(types.SET_IS_LOADING, true)
-      let response = ''
-      const items = this.$store.state.selectedItems
+    deleteFile: async function() {
+      this.$store.commit(types.SET_IS_LOADING, true);
+      let response = "";
+      const items = this.$store.state.selectedItems;
 
       for (var i = 0; i < items.length; i++) {
-        const item = items[i]
-        response = await this.$store.dispatch('deleteFile', item)
+        const item = items[i];
+        response = await this.$store.dispatch("deleteFile", item);
       }
 
-      this.$store.commit(types.UNSELECT_ALL_BROWSER_ITEMS)
+      this.$store.commit(types.UNSELECT_ALL_BROWSER_ITEMS);
 
       var data = {
         data: response.data.message,
-        color: 'success'
-      }
-      this.$store.commit(types.SET_IS_LOADING, false)
-      this.$store.commit(types.SHOW_SNACKBAR, data)
-      this.$store.dispatch('update', {
+        color: "success"
+      };
+      this.$store.commit(types.SET_IS_LOADING, false);
+      this.$store.commit(types.SHOW_SNACKBAR, data);
+      this.$store.dispatch("update", {
         path: this.$store.state.selectedDirectory
-      })
+      });
     }
   }
-}
+};
 </script>
 
 <style>

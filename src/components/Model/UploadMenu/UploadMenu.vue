@@ -63,54 +63,54 @@
 
 <script>
 export default {
-  name: 'media-upload-menu',
+  name: "media-upload-menu",
   data: () => ({
     items: [
-      { title: 'Upload File', link: 'fileUpload' },
-      { title: 'Upload Folder', link: 'folderUpload' }
+      { title: "Upload File", link: "fileUpload" },
+      { title: "Upload Folder", link: "folderUpload" }
     ]
   }),
   computed: {
-    uploadingItems: function () {
-      return this.$store.state.uploadItemsMenu
+    uploadingItems: function() {
+      return this.$store.state.uploadItemsMenu;
     },
     uploadMenu: {
-      get: function () {
-        return this.$store.state.showUploadMenu
+      get: function() {
+        return this.$store.state.showUploadMenu;
       },
-      set: function () {
-        this.$store.state.showUploadMenu = false
+      set: function() {
+        this.$store.state.showUploadMenu = false;
       }
     }
   },
   methods: {
-    hide: function () {
-      this.$store.state.showUploadMenu = false
+    hide: function() {
+      this.$store.state.showUploadMenu = false;
     },
-    getSize: function (_size) {
-      var fSExt = new Array('Bytes', 'KB', 'MB', 'GB')
-      var i = 0
+    getSize: function(_size) {
+      var fSExt = new Array("Bytes", "KB", "MB", "GB"),
+        i = 0;
       while (_size > 900) {
-        _size /= 1024
-        i++
+        _size /= 1024;
+        i++;
       }
-      return Math.round(_size * 100) / 100 + ' ' + fSExt[i]
+      return Math.round(_size * 100) / 100 + " " + fSExt[i];
     },
-    done: function () {
-      this.$store.state.isUploading = false
-      this.$store.state.showUploadMenu = false
+    done: function() {
+      this.$store.state.isUploading = false;
+      this.$store.state.showUploadMenu = false;
     },
-    fileUpload: function () {
-      this.$emit('tiggerSelectFile')
+    fileUpload: function() {
+      this.$emit("tiggerSelectFile");
     },
-    folderUpload: function () {
-      this.$emit('tiggerSelectFolder')
+    folderUpload: function() {
+      this.$emit("tiggerSelectFolder");
     },
-    fire: function (a) {
-      this[a](a)
+    fire: function(a) {
+      this[a](a);
     }
   }
-}
+};
 </script>
 <style>
 .confirm-text {

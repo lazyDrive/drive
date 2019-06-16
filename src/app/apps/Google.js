@@ -1,8 +1,6 @@
-/** @format */
-
 import VueGAPI from './VueGAPI'
 
-function plugin(Vue, clientConfig) {
+function plugin (Vue, clientConfig) {
   Vue.use(VueGAPI, clientConfig)
 }
 
@@ -14,4 +12,6 @@ if (typeof window !== 'undefined' && window.Vue) {
 export default plugin
 const version = '__VERSION__'
 // Export all components too
-export { version }
+export {
+  version
+}

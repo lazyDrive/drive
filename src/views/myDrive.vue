@@ -1,90 +1,101 @@
 <template>
-  <lazy-browser></lazy-browser>
+  <div class="media-drive">
+    <!-- Media browser -->
+    <media-browser></media-browser>
+
+    <!-- Add models -->
+    <media-model></media-model>
+
+    <!-- Add menu -->
+    <media-menu></media-menu>
+
+    <!-- Add snackbar -->
+    <media-alert></media-alert>
+
+    <!-- Add online state -->
+    <media-online-state></media-online-state>
+  </div>
 </template>
 
 <script>
-import * as types from './../store/mutation-types'
-import Browser from './../components/Browser/Browser'
+import * as types from "./../store/mutation-types";
 
-import { api } from './../app/Api'
+import { api } from './../app/Api';
 
 export default {
-  name: 'lazy-drive',
-  components: {
-    'lazy-browser': Browser
-  },
-  created () {
+  name: "lazy-drive",
+  created() {
     if (this.isMobile()) {
-      this.$store.commit(types.IS_MOBILE, true)
+      this.$store.commit(types.IS_MOBILE, true);
     } else {
-      this.$store.commit(types.IS_MOBILE, false)
+      this.$store.commit(types.IS_MOBILE, false);
     }
 
     if (this.$route.params.dir) {
-      this.findDisk(this.$route)
+      this.findDisk(this.$route);
     } else {
-      const disk = {}
-      this.$store.state.diskLoaded = []
-      disk.text = 'my-drive'
-      disk.href = `/drive/u/0/my-drive/`
-      disk.disabled = true
-      this.$store.state.diskLoaded.push(disk)
+      const disk = {};
+      this.$store.state.diskLoaded = [];
+      disk.text = "my-drive";
+      disk.href = `/drive/u/0/my-drive/`;
+      disk.disabled = true;
+      this.$store.state.diskLoaded.push(disk);
     }
 
-    const payload = {}
+    const payload ={};
 
-    payload.action = 'get'
-    payload.settings = api.user.userData
+    payload.action = 'get';
+    payload.settings = api.user.userData;
 
-    this.$store.dispatch('settings', payload)
+    this.$store.dispatch("settings", payload);
 
-    if (this.$route.name == 'my-drive') {
-      const dir = this.$route.params.dir
-      const path = this.$route.params.path
+    if (this.$route.name == "my-drive") {
+      const dir = this.$route.params.dir;
+      const path = this.$route.params.path;
 
-      if (dir !== undefined && path == 'folder') {
-        this.$store.dispatch('getContents', { path: dir })
+      if (dir !== undefined && path == "folder") {
+        this.$store.dispatch("getContents", { path: dir });
       } else {
-        this.$store.dispatch('getContents', { path: 'my-drive' })
+        this.$store.dispatch("getContents", { path: "my-drive" });
       }
     }
   },
   methods: {
-    findDisk: function (to) {
+    findDisk: function(to) {
       if (to.params.dir) {
-        const diskPath = Buffer.from(to.params.dir, 'base64').toString('ascii')
+        const diskPath = Buffer.from(to.params.dir, "base64").toString("ascii");
 
-        const splitedPath = diskPath.split('/')
-        this.$store.state.diskLoaded = []
+        const splitedPath = diskPath.split("/");
+        this.$store.state.diskLoaded = [];
 
-        let count = 0
+        let count = 0;
         while (splitedPath.length > 0) {
-          const disk = {}
-          const joinDisk = splitedPath.join('/')
-          const encodePath = Buffer.from(joinDisk).toString('base64')
-          const name = splitedPath.pop()
+          const disk = {};
+          const joinDisk = splitedPath.join("/");
+          const encodePath = Buffer.from(joinDisk).toString("base64");
+          const name = splitedPath.pop();
 
-          if (name != 'uploads') {
-            disk.text = name
-            disk.href = `/drive/u/0/folder/${encodePath}`
-            disk.path = encodePath
+          if (name != "uploads") {
+            disk.text = name;
+            disk.href = `/drive/u/0/folder/${encodePath}`;
+            disk.path = encodePath;
           } else {
-            disk.text = 'my-drive'
-            disk.href = `/drive/u/0/my-drive/`
+            disk.text = "my-drive";
+            disk.href = `/drive/u/0/my-drive/`;
           }
           if (count == 0) {
-            disk.disabled = true
+            disk.disabled = true;
           }
-          ++count
-          this.$store.state.diskLoaded.unshift(disk)
+          ++count;
+          this.$store.state.diskLoaded.unshift(disk);
         }
       } else {
-        const disk = {}
-        this.$store.state.diskLoaded = []
-        disk.text = 'my-drive'
-        disk.href = `/drive/u/0/my-drive/`
-        disk.disabled = true
-        this.$store.state.diskLoaded.push(disk)
+        const disk = {};
+        this.$store.state.diskLoaded = [];
+        disk.text = "my-drive";
+        disk.href = `/drive/u/0/my-drive/`;
+        disk.disabled = true;
+        this.$store.state.diskLoaded.push(disk);
       }
     },
     /* eslint-disable */
@@ -104,13 +115,13 @@ export default {
       return check;
     },
     /* eslint-enable */
-    routeUpdated: function (to, from) {
-      this.findDisk(to, from)
-      this.$store.commit(types.UNSELECT_ALL_BROWSER_ITEMS)
-      this.$store.state.loadLimit = 30
+    routeUpdated: function(to, from) {
+      this.findDisk(to, from);
+      this.$store.commit(types.UNSELECT_ALL_BROWSER_ITEMS);
+      this.$store.state.loadLimit = 30;
     }
   },
-  beforeRouteUpdate (to, from, next) {
+  beforeRouteUpdate(to, from, next) {
     /* eslint-disable */
     if (to.params.dir) {
       this.$store
