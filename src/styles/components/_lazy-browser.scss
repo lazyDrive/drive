@@ -1,0 +1,346 @@
+.media-dragoutline {
+  position: absolute;
+  top: 6px;
+  right: 6px;
+  bottom: 1px;
+  left: 6px;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  visibility: hidden;
+  content: "";
+  background-color: $dnd-bg;
+  border: $dnd-border;
+  border-radius: $border-radius;
+  opacity: 0;
+  transition: all .2s ease;
+  transition-delay: .2s;
+  transform: scale(.6);
+
+  .upload-icon {
+    font-size: 8rem;
+    color: $dnd-icon-color;
+    opacity: 0;
+    transition: all .2s ease;
+    transition-delay: .1s;
+    transform: translateY(50%);
+  }
+
+  p {
+    font-size: 1.4rem;
+    opacity: 0;
+    transition: all .2s ease;
+    transition-delay: 0s;
+  }
+
+  &.active {
+    visibility: visible;
+    opacity: 1;
+    transition-delay: 0s;
+    transform: scale(1);
+
+    .upload-icon {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    p {
+      opacity: 1;
+      transition-delay: .2s;
+    }
+  }
+}
+
+
+
+.upload-section {
+  position: fixed !important;
+  z-index: 10;
+  bottom: 20px;
+  right: 20px;
+  width: 400px;
+}
+
+.scroll-section {
+  max-height: 500px;
+  overflow-y: scroll;
+}
+
+.extensionImage {
+  width: 20px;
+  height: 20px;
+  margin-right: 5px;
+}
+
+.progress {
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 0;
+  border-bottom: 0.1px solid grey;
+  position: absolute !important;
+}
+
+.progress--going {
+  background: #c8ddf3;
+}
+
+.progress--error {
+  background: #ff525278;
+}
+
+.progress--success {
+  background: #edfaf1;
+}
+
+.progress--paused {
+  background: #ffc107;
+}
+
+.taskContainer {
+  text-align: left;
+}
+
+.hidden {
+  display: none !important;
+}
+
+.modal {
+  position: fixed;
+  z-index: 10;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+  background-color: rgb(0, 0, 0);
+  background-color: rgba(0, 0, 0, 0.8);
+}
+
+/* Modal Content (image) */
+.modal-content {
+  margin: auto;
+  display: block;
+  width: 80%;
+  -webkit-transition: width 0.5s, height 0.5s;
+  /* For Safari 3.1 to 6.0 */
+  transition: width 0.5s, height 0.5s;
+  border: 0;
+}
+
+/* Caption of Modal Image */
+.caption {
+  color: white;
+  position: fixed;
+  top: 15px;
+  left: 60px;
+  font-size: 40px;
+}
+
+/* Add Animation */
+.modal-content,
+.caption {
+  -webkit-animation-name: zoom;
+  -webkit-animation-duration: 0.6s;
+  animation-name: zoom;
+  animation-duration: 0.6s;
+  background: none !important;
+}
+
+/* The Close Button */
+.close {
+  position: fixed;
+  top: 15px;
+  left: 15px;
+  font-size: 30px;
+  z-index: 10;
+}
+
+.next {
+  position: fixed;
+  top: 50%;
+  bottom: 50%;
+  right: 35px;
+  color: #f1f1f1;
+  font-weight: bold;
+  transition: 0.3s;
+  z-index: 10;
+  cursor: pointer;
+}
+
+.prev {
+  position: fixed;
+  top: 50%;
+  z-index: 10;
+  bottom: 50%;
+  left: 35px;
+  color: #f1f1f1;
+  font-weight: bold;
+  transition: 0.3s;
+  cursor: pointer;
+}
+
+.close:hover,
+.close:focus {
+  color: #bbb;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+/* 100% Image Width on Smaller Screens */
+@media only screen and (max-width: 800px) {
+  .modal-content {
+    width: 95%;
+  }
+
+  .next {
+    bottom: 0;
+    right: 50px;
+  }
+
+  .prev {
+    bottom: 0;
+    left: 50px;
+  }
+}
+
+.remove,
+.add,
+.refresh,
+.toolBox {
+  background-color: black;
+  padding: 10px;
+  margin: 5px;
+  cursor: pointer;
+  bottom: 10px;
+}
+
+.previewtool {
+  bottom: 10px;
+  right: 0;
+  left: 0;
+  z-index: 15;
+  position: fixed;
+  margin: auto;
+}
+
+.media-video-player {
+  width: 100%;
+}
+
+.media-video-player-preview {
+  width: 800px;
+  height: 450px;
+}
+
+.media-audio-player {
+  margin-top: 30px;
+}
+
+.circle-ripple {
+  position: fixed;
+  left: 50%;
+  right: 0;
+  top: 50%;
+  bottom: 0;
+  background-color: #35ffc3;
+  width: 1em;
+  height: 1em;
+  border-radius: 50%;
+  -webkit-animation: ripple 0.7s linear infinite;
+  animation: ripple 0.7s linear infinite;
+}
+
+@-webkit-keyframes ripple {
+  0% {
+    box-shadow: 0 0 0 0 rgba(101, 255, 120, 0.3), 0 0 0 1em rgba(101, 255, 120, 0.3), 0 0 0 3em rgba(101, 255, 120, 0.3), 0 0 0 5em rgba(101, 255, 120, 0.3);
+  }
+
+  100% {
+    box-shadow: 0 0 0 1em rgba(101, 255, 120, 0.3), 0 0 0 3em rgba(101, 255, 120, 0.3), 0 0 0 5em rgba(101, 255, 120, 0.3), 0 0 0 8em rgba(101, 255, 120, 0);
+  }
+}
+
+@keyframes ripple {
+  0% {
+    box-shadow: 0 0 0 0 rgba(101, 255, 120, 0.3), 0 0 0 1em rgba(101, 255, 120, 0.3), 0 0 0 3em rgba(101, 255, 120, 0.3), 0 0 0 5em rgba(101, 255, 120, 0.3);
+  }
+
+  100% {
+    box-shadow: 0 0 0 1em rgba(101, 255, 120, 0.3), 0 0 0 3em rgba(101, 255, 120, 0.3), 0 0 0 5em rgba(101, 255, 120, 0.3), 0 0 0 8em rgba(101, 255, 120, 0);
+  }
+}
+
+.app--modal--opened {
+  overflow-y: hidden !important;
+}
+
+.media-pdf {
+  width: 60%;
+  margin: auto;
+}
+
+.right-tool {
+  position: fixed;
+  top: 10px;
+  right: 15px;
+}
+
+.right-tool-item {
+  display: inline;
+  margin: 0 10px;
+  cursor: pointer;
+}
+
+.m-video-play-icon {
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 30%;
+  right: 0;
+  margin: auto;
+}
+
+.media-file,
+.noPreview,
+.media-pdf {
+  padding-top: 60px;
+}
+
+.media-pdf-view {
+  padding-top: 10px;
+}
+
+.media-video,
+.media-image,
+.media-audio {
+  padding: 80px 0px;
+}
+
+.file-data-view {
+  white-space: pre-wrap;
+  word-wrap: break-word;
+  display: block;
+  user-select: text;
+  font-family: "Courier New", Courier, monospace, arial, sans-serif;
+  margin: 0;
+}
+
+.lazy_files_container {
+  padding: 5px;
+}
+
+.lazy_folders_container {
+  padding: 5px;
+}
+
+.blur {
+  -webkit-filter: blur(2px);
+  -moz-filter: blur(2px);
+  -o-filter: blur(2px);
+  -ms-filter: blur(2px);
+  filter: blur(2px);
+}

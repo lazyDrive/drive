@@ -40,11 +40,11 @@ export default {
   },
   methods: {
     nextPage: function() {
-      //Go to next page if any
+      // Go to next page if any
       if (this.page < this.numPages) this.page++;
     },
     previousPage: function() {
-      //Go to previous page if not already at page 1
+      // Go to previous page if not already at page 1
       if (this.page > 1) this.page--;
     },
     error: function(err) {
@@ -53,4 +53,3 @@ export default {
   }
 };
 </script>
-

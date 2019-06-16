@@ -2,13 +2,20 @@ import { gapiPromise } from './gapi'
 import GoogleAuthService from './GoogleAuthService'
 
 const googleAuthService = new GoogleAuthService()
-const { login, logout, isAuthenticated, getUserData, refreshToken, isSignedIn } = googleAuthService
+const {
+  login,
+  logout,
+  isAuthenticated,
+  getUserData,
+  refreshToken,
+  isSignedIn
+} = googleAuthService
 
 export default {
-  install: function (Vue, clientConfig) {
+  install: function(Vue, clientConfig) {
     Vue.gapiLoadClientPromise = null
 
-    const resolveAuth2Client = (resolve) => {
+    const resolveAuth2Client = resolve => {
       // eslint-disable-next-line
       gapiPromise.then(_ => {
         const gapi = window.gapi
@@ -29,7 +36,12 @@ export default {
                 if (err.error) {
                   const error = err.error
                   console.error(
-                    'Failed to initialize gapi: %s (status=%s, code=%s)', error.message, error.status, error.code, err)
+                    'Failed to initialize gapi: %s (status=%s, code=%s)',
+                    error.message,
+                    error.status,
+                    error.code,
+                    err
+                  )
                 }
               })
           })

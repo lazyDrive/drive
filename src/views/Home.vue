@@ -1,37 +1,25 @@
 <template>
-  <div class="media-home">
-    <v-app>
-      <media-login></media-login>
-      <media-alert></media-alert>
-    </v-app>
+  <div class="lazy__home">
+    <lazy-login></lazy-login>
   </div>
 </template>
 
 <script>
-import { api } from "./../app/Api";
-import LoginForm from "@/components/Account/LoginForm";
+import { api } from './../app/Api'
+import LoginForm from '@/components/Account/LoginForm'
 
 export default {
-  name: "media-home",
-  data() {
-    return {
-      title: "Your Logo",
-      icons: [
-        "fab fa-facebook",
-        "fab fa-twitter",
-        "fab fa-google-plus",
-        "fab fa-linkedin",
-        "fab fa-instagram"
-      ]
-    };
+  name: 'media-home',
+  data () {
+    return {}
   },
   components: {
-    "media-login": LoginForm
+    'lazy-login': LoginForm
   },
   computed: {
-    isLoggedIn: function() {
-      return api.auth.loggedIn();
+    isLoggedIn: function () {
+      return api.auth.loggedIn()
     }
   }
-};
+}
 </script>

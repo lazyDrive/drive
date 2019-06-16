@@ -1,19 +1,21 @@
 <template>
   <div class="media-model">
-    <media-rename-model></media-rename-model>
-    <media-confirm-delete-model></media-confirm-delete-model>
-    <media-create-folder-model></media-create-folder-model>
-    <media-preview-model></media-preview-model>
+    <lazy-preview-model></lazy-preview-model>
   </div>
 </template>
 
 <script>
+import previewModel from './Preview/PreviewModel'
+
 export default {
-  name: "media-model",
+  name: 'media-model',
+  components: {
+    'lazy-preview-model': previewModel
+  },
   computed: {
-    isActivePreview() {
-      return this.$store.state.showPreviewModal;
+    isActivePreview () {
+      return this.$store.state.showPreviewModal
     }
   }
-};
+}
 </script>

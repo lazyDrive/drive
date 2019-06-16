@@ -28,24 +28,24 @@
 </template>
 
 <script>
-import * as types from "./../../../store/mutation-types";
+import * as types from './../../../store/mutation-types'
 
 export default {
-  name: "media-create-folder",
+  name: 'media-create-folder',
   data: () => ({
-    defaultData: "Untitled Folder"
+    defaultData: 'Untitled Folder'
   }),
 
   methods: {
-    hideCreateFolderModal: function() {
-      this.$store.commit(types.HIDE_CREATE_FOLDER_MODAL);
+    hideCreateFolderModal: function () {
+      this.$store.commit(types.HIDE_CREATE_FOLDER_MODAL)
     },
-    create: function() {
-      const foldername = this.defaultData;
-      this.$store.dispatch("createDirectory", { foldername });
+    create: function () {
+      const foldername = this.defaultData
+      this.$store.dispatch('createDirectory', { foldername })
     }
   }
-};
+}
 </script>
 <style>
 .confirm-text {

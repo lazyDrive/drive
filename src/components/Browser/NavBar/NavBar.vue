@@ -198,9 +198,9 @@
 </template>
 
 <script>
-import * as types from "./../../../store/mutation-types";
-import { api } from "./../../../app/Api.js";
-import router from "./../../../router.js";
+import * as types from './../../../store/mutation-types'
+import { api } from './../../../app/Api.js'
+import router from './../../../router.js'
 
 /* eslint-disable */
 export default {

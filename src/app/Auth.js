@@ -7,12 +7,12 @@ export const services = {
    * Get the contents of a directory from the server
    * @returns {Promise}
    */
-  loggedIn() {
+  loggedIn () {
     if ((mediaManagerStorage.cookies.get('email') !== '' && mediaManagerStorage.cookies.get('email') !== null) &&
       (mediaManagerStorage.cookies.get('token') !== '' && mediaManagerStorage.cookies.get('token') !== null)) {
-      return true;
+      return true
     } else {
-      return false;
+      return false
     }
   },
 
@@ -20,9 +20,9 @@ export const services = {
    * Get the contents of a directory from the server
    * @returns {Promise}
    */
-  logout() {
-    mediaManagerStorage.cookies.destroy('email');
-    mediaManagerStorage.cookies.destroy('token');
-    return true;
-  },
+  logout () {
+    mediaManagerStorage.cookies.destroy('email')
+    mediaManagerStorage.cookies.destroy('token')
+    return true
+  }
 }

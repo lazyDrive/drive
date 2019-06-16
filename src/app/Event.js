@@ -1,15 +1,14 @@
-import Vue from "vue";
+import Vue from 'vue'
 
 /**
  * Media Event bus.
  */
 export default class Event {
-
   /**
    * Media Event constructor
    */
   constructor() {
-    this.vue = new Vue();
+    this.vue = new Vue()
   }
 
   /**
@@ -18,7 +17,7 @@ export default class Event {
    * @param data
    */
   fire(event, data = null) {
-    this.vue.$emit(event, data);
+    this.vue.$emit(event, data)
   }
 
   /**
@@ -27,6 +26,6 @@ export default class Event {
    * @param callback
    */
   listen(event, callback) {
-    this.vue.$on(event, callback);
+    this.vue.$on(event, callback)
   }
 }

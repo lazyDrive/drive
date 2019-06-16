@@ -1,3 +1,5 @@
+/** @format */
+
 // The initial state
 export default {
   // The loaded files
@@ -6,12 +8,8 @@ export default {
   loadLimit: 30,
   // Settings
   settings: {
-    dropbox: {
-
-    },
-    google: {
-
-    }
+    dropbox: {},
+    google: {}
   },
   // The currently selected items
   selectedItems: [],
@@ -77,5 +75,5 @@ export default {
   // Islogged in
   isUserLoggedIn: false,
   // The Search Query
-  search: '',
+  search: ''
 }

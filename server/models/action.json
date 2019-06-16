@@ -1,0 +1,38 @@
+{
+  "name": "action",
+  "base": "PersistedModel",
+  "idInjection": true,
+  "options": {
+    "validateUpsert": true
+  },
+  "properties": {
+    "type": {
+      "type": "string",
+      "required": true
+    },
+    "triggeredAt": {
+      "type": "date",
+      "required": true
+    },
+    "admin": {
+      "type": "number",
+      "required": true
+    },
+    "token": {
+      "type": "string",
+      "required": true
+    },
+    "session": {
+      "type": "string",
+      "required": true
+    },
+    "userid": {
+      "type": "number",
+      "required": true
+    }
+  },
+  "validations": [],
+  "relations": {},
+  "acls": [],
+  "methods": {}
+}

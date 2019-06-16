@@ -96,86 +96,86 @@
 </template>
 
 <script>
-import { api } from "./../../../app/Api";
+import { api } from './../../../app/Api'
 
 export default {
-  name: "media-info-file",
-  data() {
+  name: 'media-info-file',
+  data () {
     return {
-      videoExt: ["mp4"],
-      audioExt: ["mp3", "webm"],
-      fileExt: ["zip", "ico", "pdf"],
-      imageExt: ["jpg", "jpeg", "png", "gif", "tif"],
+      videoExt: ['mp4'],
+      audioExt: ['mp3', 'webm'],
+      fileExt: ['zip', 'ico', 'pdf'],
+      imageExt: ['jpg', 'jpeg', 'png', 'gif', 'tif'],
       iconsMap: {
-        mp3: "library_music",
-        zip: "archive",
-        mp4: "music_video",
-        webm: "library_music",
-        default: "insert_drive_file"
+        mp3: 'library_music',
+        zip: 'archive',
+        mp4: 'music_video',
+        webm: 'library_music',
+        default: 'insert_drive_file'
       }
-    };
+    }
   },
-  props: ["item"],
+  props: ['item'],
   computed: {
-    video: function() {
+    video: function () {
       if (this.videoExt.indexOf(this.item.extension.toLowerCase()) != -1) {
-        return true;
+        return true
       } else {
-        return false;
+        return false
       }
     },
-    audio: function() {
+    audio: function () {
       if (this.audioExt.indexOf(this.item.extension.toLowerCase()) != -1) {
-        return true;
+        return true
       } else {
-        return false;
+        return false
       }
     },
-    image: function() {
+    image: function () {
       if (this.imageExt.indexOf(this.item.extension.toLowerCase()) != -1) {
-        return true;
+        return true
       } else {
-        return false;
+        return false
       }
     },
-    file: function() {
+    file: function () {
       if (this.fileExt.indexOf(this.item.extension.toLowerCase()) != -1) {
-        return true;
+        return true
       } else {
-        return false;
+        return false
       }
     },
-    folder: function() {
-      if (this.item.type == "dir") {
-        return true;
+    folder: function () {
+      if (this.item.type == 'dir') {
+        return true
       } else {
-        return false;
+        return false
       }
     },
-    icon: function() {
+    icon: function () {
       if (
         this.iconsMap[this.item.extension.toLowerCase()] &&
-        this.iconsMap[this.item.extension.toLowerCase()] != ""
+        this.iconsMap[this.item.extension.toLowerCase()] != ''
       ) {
-        return this.iconsMap[this.item.extension.toLowerCase()];
+        return this.iconsMap[this.item.extension.toLowerCase()]
       } else {
-        return this.iconsMap["default"];
+        return this.iconsMap['default']
       }
     }
   },
   methods: {
-    getSize: function(_size) {
-      var fSExt = new Array("Bytes", "KB", "MB", "GB"),
-        i = 0;
+    getSize: function (_size) {
+      var fSExt = new Array('Bytes', 'KB', 'MB', 'GB')
+      var i = 0
       while (_size > 900) {
-        _size /= 1024;
-        i++;
+        _size /= 1024
+        i++
       }
-      return Math.round(_size * 100) / 100 + " " + fSExt[i];
+      return Math.round(_size * 100) / 100 + ' ' + fSExt[i]
     },
-    getTime: function(_time) {
-      return api.time_ago(new Date(_time));
+    getTime: function (_time) {
+      return api.time_ago(new Date(_time))
     }
   }
-};
+}
 </script>

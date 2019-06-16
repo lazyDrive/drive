@@ -1,9 +1,11 @@
-function loadGAPIScript (gapiUrl) {
-  return new Promise(function (resolve) {
+/** @format */
+
+function loadGAPIScript(gapiUrl) {
+  return new Promise(function(resolve) {
     var script = document.createElement('script')
     script.src = gapiUrl
-    script.onreadystatechange = script.onload = function () {
-      var interval = setInterval(function () {
+    script.onreadystatechange = script.onload = function() {
+      var interval = setInterval(function() {
         if (!script.readyState || /loaded|complete/.test(script.readyState)) {
           clearInterval(interval)
           resolve()

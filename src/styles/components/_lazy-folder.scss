@@ -1,0 +1,20 @@
+  .grid_section {
+  display: block;
+  width: 100%;
+  padding: 10px;
+}
+
+.lazy_folder {
+  background: rgb(78, 84, 94);
+  border-radius: 100px;
+  padding: 15px;
+  cursor: pointer;
+  color: #fff;
+  text-align: center;
+  user-select: none;
+  float: left;
+  text-decoration: none;
+  margin-bottom: 20px;
+  margin-right: 16px;
+  width: 205px;
+}

@@ -1,0 +1,69 @@
+{
+  "initial:before": {
+    "loopback#favicon": {}
+  },
+  "initial": {
+    "compression": {},
+    "cors": {
+      "params": {
+        "origin": true,
+        "credentials": true,
+        "maxAge": 86400
+      }
+    },
+    "helmet#xssFilter": {},
+    "helmet#frameguard": {
+      "params": {
+        "action": "deny"
+      }
+    },
+    "helmet#hsts": {
+      "params": {
+        "maxAge": 0,
+        "includeSubdomains": true
+      }
+    },
+    "helmet#hidePoweredBy": {},
+    "helmet#ieNoOpen": {},
+    "helmet#noSniff": {},
+    "helmet#noCache": {
+      "enabled": false
+    }
+  },
+  "session": {},
+  "auth": {},
+  "parse": {},
+  "routes": {
+    "loopback#rest": {
+      "paths": [
+        "${restApiRoot}"
+      ]
+    }
+  },
+  "files": {
+    "loopback#static": [
+      {
+        "params": "$!../client"
+      },
+      {
+        "paths": [
+          "/public"
+        ],
+        "params": "$!../assets"
+      }
+    ]
+  },
+  "final": {
+    "express-history-api-fallback": {
+      "params": [
+        "index.html",
+        {
+          "root": "$!../client"
+        }
+      ]
+    }
+  },
+  "final:after": {
+    "strong-error-handler": {}
+  }
+}
