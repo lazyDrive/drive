@@ -29,8 +29,9 @@
             full-width
             single-line
             label="Username"
-            background-color="#f4f8f7"
+            background-color="#dcdada"
             color="grey darken-2"
+            outline
             prepend-inner-icon="mdi-account-outline"
             mb-0
           ></v-text-field>
@@ -40,8 +41,9 @@
             full-width
             single-line
             label="Name"
-            background-color="#f4f8f7"
+            background-color="#dcdada"
             color="grey darken-2"
+            outline
             prepend-inner-icon="mdi-account-outline"
             mb-0
           ></v-text-field>
@@ -52,8 +54,9 @@
             single-line
             label="Email"
             autocomplete="false"
-            background-color="#f4f8f7"
+            background-color="#dcdada"
             color="grey darken-2"
+            outline
             prepend-inner-icon="mdi-email-outline"
           ></v-text-field>
           <v-text-field
@@ -64,13 +67,32 @@
             full-width
             single-line
             label="Password"
-            background-color="#f4f8f7"
+            background-color="#dcdada"
             color="grey darken-2"
+            outline
             prepend-inner-icon="mdi-lock-outline"
             @click:append="show1 = !show1"
           ></v-text-field>
-          <v-btn v-show="!signup" round large dark ripple color="teal" class="sign-up">LOG IN</v-btn>
-          <v-btn v-show="signup" round large dark ripple color="teal" class="sign-up">Sign up</v-btn>
+          <v-btn
+            v-show="!signup"
+            round
+            large
+            dark
+            depressed
+            ripple
+            color="#1ed760"
+            class="sign-up"
+          >LOG IN</v-btn>
+          <v-btn
+            v-show="signup"
+            round
+            large
+            dark
+            depressed
+            ripple
+            color="#1ed760"
+            class="sign-up"
+          >Sign up</v-btn>
         </v-flex>
         <br>
         <v-flex xs12 mb-2>
