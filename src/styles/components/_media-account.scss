@@ -1,0 +1,270 @@
+.container {
+  min-height: 530px;
+  height: 100vh;
+  width: 100vw;
+  background-image: linear-gradient(253deg, #40b09b 0, #3fb493 100%);
+  color: white;
+}
+
+.form-wrapper {
+  min-width: 50%;
+}
+
+.layout.wrap {
+  height: 100vh;
+}
+
+.active {
+  background: #fff;
+  color: #40ae9f;
+}
+
+#sign-in,
+.switch #sign-up {
+  width: 60%;
+}
+
+#sign-up,
+.switch #sign-in {
+  min-width: 25%;
+  width: auto;
+}
+
+.form-wrapper .v-input__control>.v-input__slot {
+  background: rgba(244, 248, 247, 1);
+}
+
+.form-wrapper .v-text-field.v-text-field--enclosed .v-text-field__details {
+  margin-bottom: 0px;
+  height: 0px;
+}
+
+#sign-in-text-wrapper {
+  background-image: linear-gradient(253deg, #40b09b 0, #3fb493 100%);
+  position: absolute;
+  animation: 0.75s linear slide-back-left;
+  left: 0;
+  right: auto;
+  height: 100vh;
+  width: 33%;
+}
+
+#sign-up-form-wrapper {
+  position: absolute;
+  animation: 0.75s linear slide-back-right;
+  right: 0;
+  left: auto;
+  height: 100vh;
+  width: 67%;
+}
+
+#sign-in-text-wrapper.switch {
+  background-image: linear-gradient(253deg, #40a9aa 0, #40aba6 100%);
+  right: 0;
+  left: auto;
+  animation: 0.75s linear slide-right;
+  -webkit-animation-fill-mode: both;
+}
+
+#sign-up-form-wrapper.switch {
+  left: 0;
+  animation: 0.75s linear slide-left;
+}
+
+@keyframes slide-left {
+  0% {
+    left: 33%;
+    opacity: 0;
+  }
+
+  50% {
+    left: 25%;
+    opacity: 0;
+  }
+
+  100% {
+    left: 0;
+    opacity: 1;
+  }
+}
+
+@keyframes slide-right {
+  0% {
+    right: 100%;
+    width: 33%;
+    z-index: 1;
+  }
+
+  20% {
+    right: 75%;
+    width: 60%;
+    max-width: 60%;
+    z-index: 1;
+  }
+
+  100% {
+    right: 0;
+    width: 33%;
+    max-width: 35%;
+    z-index: 1;
+  }
+}
+
+@keyframes slide-back-left {
+  0% {
+    left: 67%;
+    width: 33%;
+    z-index: 1;
+  }
+
+  20% {
+    left: 50%;
+    width: 60%;
+    max-width: 60%;
+    z-index: 1;
+  }
+
+  100% {
+    left: 0;
+    width: 33%;
+    z-index: 1;
+  }
+}
+
+@keyframes slide-back-right {
+  0% {
+    left: 0;
+    opacity: 0;
+  }
+
+  50% {
+    left: 25%;
+    opacity: 0;
+  }
+
+  100% {
+    left: 33%;
+    opacity: 1;
+  }
+}
+
+.background-shapes-wrapper {
+  position: absolute;
+  width: 100vw;
+  height: 100%;
+  top: 0;
+  overflow: hidden;
+}
+
+.background-shapes-container {
+  width: 100%;
+  height: 100%;
+  position: relative;
+}
+
+.background-shape {
+  position: absolute;
+  background-color: rgba(255, 255, 255, 0.1);
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+  z-index: 10;
+}
+
+.square-one {
+  width: 30px;
+  height: 30px;
+  top: 15%;
+  left: 20%;
+  -webkit-transform: rotate(-65deg);
+  transform: rotate(-65deg);
+}
+
+.square-two {
+  width: 25px;
+  height: 25px;
+  top: 55%;
+  right: 1%;
+  -webkit-transform: rotate(-65deg);
+  transform: rotate(-65deg);
+}
+
+.square-three {
+  width: 50px;
+  height: 50px;
+  top: 30%;
+  left: 45%;
+  -webkit-transform: rotate(-65deg);
+  transform: rotate(-65deg);
+}
+
+.circle-one {
+  width: 250px;
+  height: 250px;
+  border-radius: 100%;
+  bottom: -125px;
+  left: -125px;
+}
+
+.circle-two {
+  width: 30px;
+  height: 30px;
+  bottom: 20%;
+  right: 25%;
+  border-radius: 100%;
+}
+
+.triangle-one {
+  width: 0;
+  height: 0;
+  border-top: 69px solid transparent;
+  border-bottom: 48px solid transparent;
+  border-left: 90px solid rgba(255, 255, 255, 0.08);
+  top: 45%;
+  left: 30%;
+  background-color: transparent;
+  -webkit-transform: rotate(-100deg);
+  transform: rotate(-100deg);
+}
+
+.triangle-two {
+  width: 0;
+  height: 0;
+  border-top: 200px solid transparent;
+  border-bottom: 130px solid transparent;
+  border-left: 180px solid rgba(255, 255, 255, 0.1);
+  top: -150px;
+  right: -80px;
+  background-color: transparent;
+  -webkit-transform: rotate(-80deg);
+  transform: rotate(-80deg);
+}
+
+.triangle-three {
+  width: 0;
+  height: 0;
+  border-top: 68px solid transparent;
+  border-bottom: 49px solid transparent;
+  border-left: 90px solid rgba(255, 255, 255, 0.08);
+  right: 10%;
+  bottom: 1%;
+  background-color: transparent;
+  transform: rotate(-170deg);
+}
+
+.rectangle-one {
+  width: 25px;
+  height: 50px;
+  top: 80%;
+  left: 25%;
+  -webkit-transform: rotate(-55deg);
+  transform: rotate(-55deg);
+}
+
+.rectangle-two {
+  width: 15px;
+  height: 30px;
+  top: 42%;
+  right: 23%;
+  -webkit-transform: rotate(-55deg);
+  transform: rotate(-55deg);
+}

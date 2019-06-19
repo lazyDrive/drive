@@ -9,7 +9,7 @@
 
 <script>
 import { api } from "./../app/Api";
-import LoginForm from "@/components/Account/LoginForm";
+import LoginForm from "@/components/Account/Account";
 
 export default {
   name: "media-home",
