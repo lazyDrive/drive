@@ -24,6 +24,7 @@ import OnlineState from '@/components/Tool/OnlineState'
 import Alert from '@/components/Tool/Alert'
 
 import 'vuetify/dist/vuetify.min.css'
+import '@mdi/font/css/materialdesignicons.css'
 import './styles/mediamanager.scss'
 
 Vue.use(Vuetify, {

@@ -4,7 +4,7 @@
         "JWT_KEY": "secret",
         "BASE_PATH": "./uploads",
         "NODE_ENV": "production",
-        "PORT": "3344",
+        "PORT": "3300",
         "CSRFTOKEN": "C_MW5rCdAz36_3QCXFUECqwjl4qqFTKp113T8bHg"
       },
       "watch": ["src/"]

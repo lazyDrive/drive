@@ -85,7 +85,7 @@ app.use((error, req, res, next) => {
   next();
 });
 
-const port = process.env.PORT || 3344;
+const port = process.env.PORT || 3300;
 
 app.listen(port, () => {
   spinner.text = `Server running on localhost:${port}`;

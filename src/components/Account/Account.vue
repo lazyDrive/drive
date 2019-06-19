@@ -1,125 +1,87 @@
 <template>
-  <v-content>
-    <v-container fluid pa-0>
-      <div class="background-shapes-wrapper">
-        <div class="background-shapes-container">
-          <div class="background-shape circle-one"></div>
-          <div class="background-shape circle-two"></div>
-          <div class="background-shape square-one"></div>
-          <div class="background-shape square-two"></div>
-          <div class="background-shape square-three"></div>
-          <div class="background-shape triangle-one"></div>
-          <div class="background-shape triangle-two"></div>
-          <div class="background-shape triangle-three"></div>
-          <div class="background-shape rectangle-one"></div>
-          <div class="background-shape rectangle-two"></div>
-        </div>
-      </div>
-      <v-layout row wrap>
-        <v-flex xs12 sm4 id="sign-in-text-wrapper" v-bind:class="{ switch: isSwitch }">
-          <v-layout column align-center justify-center fill-height pa-3>
-            <div class="login-wrapper text-xs-center mb-3 pa-5">
-              <div class="display-1 font-weight-black mb-3" v-if="isSwitch">Hello Friend</div>
-              <div class="display-1 font-weight-black mb-3" v-else>Welcome Back!</div>
-              <span
-                class="subheading"
-                v-if="isSwitch"
-              >Enter your personal details and start journey with us</span>
-              <span
-                class="subheading"
-                v-else
-              >To keep connected with us, please login with your personal info</span>
-            </div>
-            <v-btn
-              round
-              outline
-              large
-              dark
-              ripple
-              v-if="isSwitch"
-              id="sign-up"
-              @click="isSwitch = !isSwitch"
-            >Sign up</v-btn>
-            <v-btn
-              round
-              outline
-              large
-              dark
-              ripple
-              v-else
-              id="sign-in"
-              @click="isSwitch = !isSwitch"
-            >Sign in</v-btn>
-          </v-layout>
+  <v-layout row wrap>
+    <v-flex xs12>
+      <v-layout column align-center justify-center>
+        <v-flex xs12 mb-3 mt-5>
+          <div class="text-xs-center">
+            <div v-show="signup" class="display-1 font-weight-black">Create Account</div>
+            <div v-show="!signup" class="display-1 font-weight-black">Welcome back!</div>
+          </div>
         </v-flex>
-        <v-flex
-          xs12
-          sm8
-          id="sign-up-form-wrapper"
-          class="active"
-          v-bind:class="{ switch: isSwitch}"
-        >
-          <v-layout column align-center justify-center pa-3 mt-5>
-            <v-flex xs12 mb-3 mt-5>
-              <div class="login-wrapper text-xs-center">
-                <div class="display-1 font-weight-black">Create Account</div>
-              </div>
-            </v-flex>
-            <v-flex xs12 mb-3>
-              <v-btn outline fab small color="blue-grey lighten-4">
-                <v-icon color="grey darken-4">mdi-facebook</v-icon>
-              </v-btn>
-              <v-btn outline fab small color="blue-grey lighten-4">
-                <v-icon color="grey darken-4">mdi-google-plus</v-icon>
-              </v-btn>
-              <v-btn outline fab small color="blue-grey lighten-4">
-                <v-icon color="grey darken-4">mdi-linkedin</v-icon>
-              </v-btn>
-            </v-flex>
-            <v-flex xs12 mb-2>
-              <span class="grey--text text--lighten-1">or use your email for registration</span>
-            </v-flex>
-            <v-flex xs12 class="form-wrapper">
-              <v-text-field
-                box
-                full-width
-                single-line
-                label="Name"
-                background-color="#f4f8f7"
-                color="grey darken-2"
-                prepend-inner-icon="mdi-account-outline"
-                mb-0
-              ></v-text-field>
-              <v-text-field
-                box
-                full-width
-                single-line
-                label="Email"
-                autocomplete="false"
-                background-color="#f4f8f7"
-                color="grey darken-2"
-                prepend-inner-icon="mdi-email-outline"
-              ></v-text-field>
-              <v-text-field
-                v-model="password"
-                :append-icon="show1 ? 'mdi-eye-outline' : 'mdi-eye-off-outline'"
-                :type="show1 ? 'text' : 'password'"
-                box
-                full-width
-                single-line
-                label="Password"
-                background-color="#f4f8f7"
-                color="grey darken-2"
-                prepend-inner-icon="mdi-lock-outline"
-                @click:append="show1 = !show1"
-              ></v-text-field>
-            </v-flex>
-            <v-btn round large dark ripple color="teal" id="sign-up" @click="show = !show">Sign up</v-btn>
-          </v-layout>
+        <v-flex xs12 mb-3>
+          <v-btn outline fab small color="blue-grey lighten-4">
+            <v-icon color="grey darken-4">mdi-facebook</v-icon>
+          </v-btn>
+          <v-btn outline fab small color="blue-grey lighten-4">
+            <v-icon color="grey darken-4">mdi-google-plus</v-icon>
+          </v-btn>
+          <v-btn outline fab small color="blue-grey lighten-4">
+            <v-icon color="grey darken-4">mdi-linkedin</v-icon>
+          </v-btn>
+        </v-flex>
+        <v-flex xs12 mb-2>
+          <span v-show="signup" class="grey--text text--lighten">or use your email for registration</span>
+          <span v-show="!signup" class="grey--text text--lighten">We're so excited to see you again!</span>
+        </v-flex>
+        <v-flex xs12 class="form-wrapper">
+          <v-text-field
+            box
+            full-width
+            single-line
+            label="Username"
+            background-color="#f4f8f7"
+            color="grey darken-2"
+            prepend-inner-icon="mdi-account-outline"
+            mb-0
+          ></v-text-field>
+          <v-text-field
+            v-show="signup"
+            box
+            full-width
+            single-line
+            label="Name"
+            background-color="#f4f8f7"
+            color="grey darken-2"
+            prepend-inner-icon="mdi-account-outline"
+            mb-0
+          ></v-text-field>
+          <v-text-field
+            box
+            full-width
+            v-show="signup"
+            single-line
+            label="Email"
+            autocomplete="false"
+            background-color="#f4f8f7"
+            color="grey darken-2"
+            prepend-inner-icon="mdi-email-outline"
+          ></v-text-field>
+          <v-text-field
+            v-model="password"
+            :append-icon="show1 ? 'mdi-eye-outline' : 'mdi-eye-off-outline'"
+            :type="show1 ? 'text' : 'password'"
+            box
+            full-width
+            single-line
+            label="Password"
+            background-color="#f4f8f7"
+            color="grey darken-2"
+            prepend-inner-icon="mdi-lock-outline"
+            @click:append="show1 = !show1"
+          ></v-text-field>
+          <v-btn v-show="!signup" round large dark ripple color="teal" class="sign-up">LOG IN</v-btn>
+          <v-btn v-show="signup" round large dark ripple color="teal" class="sign-up">Sign up</v-btn>
+        </v-flex>
+        <br>
+        <v-flex xs12 mb-2>
+          <p>
+            Already have an account?
+            <a @click="signup = !signup">Login</a>
+          </p>
         </v-flex>
       </v-layout>
-    </v-container>
-  </v-content>
+    </v-flex>
+  </v-layout>
 </template>
 <script>
 import { api } from "./../../app/Api";
@@ -128,8 +90,10 @@ export default {
   name: "media-login",
   data() {
     return {
+      signup: true,
       valid: false,
       e1: false,
+      show: true,
       password: "",
       show1: false,
       isSwitch: false,

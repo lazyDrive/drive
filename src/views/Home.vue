@@ -1,9 +1,18 @@
 <template>
-  <div class="media-home">
-    <v-app>
+  <div class="lazy__main">
+    <!-- <div class="background-shapes-wrapper">
+      <div class="background-shapes-container">
+        <div class="background-shape circle-one"></div>
+        <div class="background-shape circle-two"></div>
+        <div class="background-shape square-one"></div>
+        <div class="background-shape square-two"></div>
+        <div class="background-shape square-three"></div>
+      </div>
+    </div>-->
+    <div class="media__home">
       <media-login></media-login>
       <media-alert></media-alert>
-    </v-app>
+    </div>
   </div>
 </template>
 
