@@ -31,7 +31,7 @@ export default [{
   {
     path: '/signup',
     name: 'signup',
-    component: () => import('./../views/Signup.vue'),
+    component: () => import('./../views/Home.vue'),
     meta: {
       requiresAuth: true
     }
