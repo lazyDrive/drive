@@ -27,6 +27,7 @@
 5. File Indexing
 6. Zero Knowledge Encryption
 7. Deploy
+8. Make distributed server.
 
 - Fork the repo and star it :star:
 - Open issues :boom:
