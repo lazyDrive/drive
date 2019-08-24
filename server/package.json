@@ -30,18 +30,18 @@
     "crypto": "^1.0.1",
     "crypto-js": "^3.1.9-1",
     "dropbox": "^4.0.15",
-    "eslint-config-airbnb": "^17.1.0",
+    "eslint-config-airbnb": "^18.0.1",
     "express": "^4.16.4",
     "express-mailer": "^0.3.1",
     "express-messages": "^1.0.1",
     "express-session": "^1.15.6",
-    "express-validator": "^5.3.1",
+    "express-validator": "^6.1.1",
     "file-type": "^12.0.0",
     "fluent-ffmpeg": "^2.1.2",
     "fs-extra": "^8.0.1",
     "got": "^9.6.0",
     "image-size": "^0.7.1",
-    "imagemin": "^6.1.0",
+    "imagemin": "^7.0.0",
     "imagemin-gifsicle": "^6.0.1",
     "imagemin-jpegoptim": "^6.0.0",
     "imagemin-jpegtran": "^6.0.0",
@@ -74,8 +74,8 @@
     "util": "^0.12.0"
   },
   "devDependencies": {
-    "eslint": "^5.12.1",
-    "eslint-config-airbnb-base": "^13.1.0",
+    "eslint": "^6.2.2",
+    "eslint-config-airbnb-base": "^14.0.0",
     "eslint-plugin-import": "^2.15.0"
   }
 }
