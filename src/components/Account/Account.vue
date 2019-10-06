@@ -9,13 +9,13 @@
           </div>
         </v-flex>
         <v-flex xs12 mb-3>
-          <v-btn outline fab small color="blue-grey lighten-4">
+          <v-btn outlined fab small color="blue-grey lighten-4">
             <v-icon color="grey darken-4">mdi-facebook</v-icon>
           </v-btn>
-          <v-btn outline fab small color="blue-grey lighten-4">
+          <v-btn outlined fab small color="blue-grey lighten-4">
             <v-icon color="grey darken-4">mdi-google-plus</v-icon>
           </v-btn>
-          <v-btn outline fab small color="blue-grey lighten-4">
+          <v-btn outlined fab small color="blue-grey lighten-4">
             <v-icon color="grey darken-4">mdi-linkedin</v-icon>
           </v-btn>
         </v-flex>
@@ -26,7 +26,7 @@
         <v-flex xs12 class="form-wrapper">
           <v-text-field
             v-model="username"
-            box
+            filled
             full-width
             v-if="signup"
             single-line
@@ -34,13 +34,13 @@
             :rules="usernameRules"
             background-color="#dcdada"
             color="grey darken-2"
-            outline
-            prepend-inner-icon="mdi-account-outline"
+            outlined
+            prepend-inner-icon="mdi-account-outlined"
             mb-0
           ></v-text-field>
           <v-text-field
             v-model="name"
-            box
+            filled
             v-if="signup"
             full-width
             :rules="nameRules"
@@ -48,13 +48,13 @@
             label="Name"
             background-color="#dcdada"
             color="grey darken-2"
-            outline
-            prepend-inner-icon="mdi-account-outline"
+            outlined
+            prepend-inner-icon="mdi-account-outlined"
             mb-0
           ></v-text-field>
           <v-text-field
             v-model="email"
-            box
+            filled
             full-width
             single-line
             label="Email"
@@ -62,27 +62,27 @@
             autocomplete="false"
             background-color="#dcdada"
             color="grey darken-2"
-            outline
+            outlined
             prepend-inner-icon="mdi-email-outline"
           ></v-text-field>
           <v-text-field
             v-model="password"
             :append-icon="eye ? 'mdi-eye-outline' : 'mdi-eye-off-outline'"
             :type="eye ? 'text' : 'password'"
-            box
+            filled
             full-width
             single-line
             :rules="passwordRules"
             label="Password"
             background-color="#dcdada"
             color="grey darken-2"
-            outline
-            prepend-inner-icon="mdi-lock-outline"
+            outlined
+            prepend-inner-icon="mdi-lock-outlined"
             @click:append="eye = !eye"
           ></v-text-field>
           <v-btn
             v-if="!signup"
-            round
+            rounded
             large
             dark
             depressed
@@ -93,7 +93,7 @@
           >LOG IN</v-btn>
           <v-btn
             v-if="signup"
-            round
+            rounded
             large
             dark
             @click="createAccount"

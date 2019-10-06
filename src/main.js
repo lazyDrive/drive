@@ -1,7 +1,7 @@
 import Vue from 'vue'
 import App from './App.vue'
 import Event from './app/Event'
-import Vuetify from 'vuetify'
+// import Vuetify from 'vuetify'
 import router from './router'
 import store from './store/store'
 import './registerServiceWorker'
@@ -22,14 +22,15 @@ import CreateNewFolderModel from '@/components/Model/CreateFolder/CreateNewFolde
 import Menu from '@/components/Menu/Menu'
 import OnlineState from '@/components/Tool/OnlineState'
 import Alert from '@/components/Tool/Alert'
+import vuetify from './plugins/vuetify';
 
-import 'vuetify/dist/vuetify.min.css'
+// import 'vuetify/dist/vuetify.min.css'
 import '@mdi/font/css/materialdesignicons.css'
 import './styles/mediamanager.scss'
 
-Vue.use(Vuetify, {
-  iconfont: 'mdi'
-})
+// Vue.use(Vuetify, {
+  // iconfont: 'mdi'
+// })
 Vue.use(VueAnalytics, {
   id: 'UA-131081167-1',
   router
@@ -63,5 +64,6 @@ Vue.config.productionTip = false
 new Vue({
   router,
   store,
+  vuetify,
   render: h => h(App)
 }).$mount('#app')

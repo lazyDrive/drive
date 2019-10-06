@@ -11,7 +11,7 @@
     :color="this.$store.state.showsnackbar.color"
   >
     {{ this.$store.state.showsnackbar.data }}
-    <v-btn color="white" flat @click="close()">Close</v-btn>
+    <v-btn color="white" text @click="close()">Close</v-btn>
   </v-snackbar>
 </template>
 
