@@ -235,21 +235,21 @@ class LocalAdapter {
         itemDataObj.height = !isDir ? dimensions.height : '';
         itemDataObj.width = !isDir ? dimensions.width : '';
 
-        itemDataObj.imgLazyUrl = `/api/images/${Buffer.from(path + item).toString('base64')}/t/${itemDataObj.extension}/d/200/200/m/${itemDataObj.mime_type}/${itemDataObj.id}`;
-        itemDataObj.imgUrl = `/api/images/${Buffer.from(path + item).toString('base64')}/t/${itemDataObj.extension}/d/200/200/m/${itemDataObj.mime_type}/${itemDataObj.id}`;
+        itemDataObj.imgLazyUrl = `http://localhost:3344/api/images/${Buffer.from(path + item).toString('base64')}/t/${itemDataObj.extension}/d/200/200/m/${itemDataObj.mime_type}/${itemDataObj.id}`;
+        itemDataObj.imgUrl = `http://localhost:3344/api/images/${Buffer.from(path + item).toString('base64')}/t/${itemDataObj.extension}/d/200/200/m/${itemDataObj.mime_type}/${itemDataObj.id}`;
       } else if (itemDataObj.extension.toLowerCase() === 'pdf') {
         const pdfImagePath = cacheApi.genPdfImage(path + item, eventControl);
 
         if (pdfImagePath) {
-          itemDataObj.imgLazyUrl = `/api/images/${Buffer.from(pdfImagePath).toString('base64')}/t/png/d/200/200/m/image/png/${itemDataObj.id}`;
-          itemDataObj.imgUrl = `/api/images/${Buffer.from(pdfImagePath).toString('base64')}/t/png/d/200/200/m/image/png/${itemDataObj.id}`;
+          itemDataObj.imgLazyUrl = `http://localhost:3344/api/images/${Buffer.from(pdfImagePath).toString('base64')}/t/png/d/200/200/m/image/png/${itemDataObj.id}`;
+          itemDataObj.imgUrl = `http://localhost:3344/api/images/${Buffer.from(pdfImagePath).toString('base64')}/t/png/d/200/200/m/image/png/${itemDataObj.id}`;
         }
       } else if (itemDataObj.extension.toLowerCase() === 'mp4') {
         const videoThumb = cacheApi.cacheVideoImage(path, item, eventControl);
 
         if (videoThumb) {
-          itemDataObj.imgLazyUrl = `/api/images/${Buffer.from(videoThumb).toString('base64')}/t/png/d/200/200/m/image/png/${itemDataObj.id}`;
-          itemDataObj.imgUrl = `/api/images/${Buffer.from(videoThumb).toString('base64')}/t/png/d/200/200/m/image/png/${itemDataObj.id}`;
+          itemDataObj.imgLazyUrl = `http://localhost:3344/api/images/${Buffer.from(videoThumb).toString('base64')}/t/png/d/200/200/m/image/png/${itemDataObj.id}`;
+          itemDataObj.imgUrl = `http://localhost:3344/api/images/${Buffer.from(videoThumb).toString('base64')}/t/png/d/200/200/m/image/png/${itemDataObj.id}`;
         }
       } else if (itemDataObj.extension.toLowerCase() === 'zip') {
         // const zip = new StreamZip({
@@ -277,10 +277,10 @@ class LocalAdapter {
         itemDataObj.extImg = `/api/thirdParty/${Buffer.from(extImgPath).toString('base64')}/t/${itemDataObj.extension.toLowerCase()}`;
       } else {
         extImgPath = './thirdParty/file.svg';
-        itemDataObj.extImg = `/api/thirdParty/${Buffer.from(extImgPath).toString('base64')}/t/file`;
+        itemDataObj.extImg = `http://localhost:3344/api/thirdParty/${Buffer.from(extImgPath).toString('base64')}/t/file`;
       }
 
-      itemDataObj.filePath = `/api/files/${Buffer.from(path + item).toString('base64')}/t/${itemDataObj.extension}/m/${itemDataObj.mime_type}/s/${stats.size}/${itemDataObj.id}`;
+      itemDataObj.filePath = `http://localhost:3344/api/files/${Buffer.from(path + item).toString('base64')}/t/${itemDataObj.extension}/m/${itemDataObj.mime_type}/s/${stats.size}/${itemDataObj.id}`;
       itemDataObj.imgLazyUrl = itemDataObj.extImg;
     }
 

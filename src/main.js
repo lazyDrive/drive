@@ -1,7 +1,7 @@
 import Vue from 'vue'
 import App from './App.vue'
 import Event from './app/Event'
-// import Vuetify from 'vuetify'
+import Vuetify from 'vuetify'
 import router from './router'
 import store from './store/store'
 import './registerServiceWorker'
@@ -22,15 +22,11 @@ import CreateNewFolderModel from '@/components/Model/CreateFolder/CreateNewFolde
 import Menu from '@/components/Menu/Menu'
 import OnlineState from '@/components/Tool/OnlineState'
 import Alert from '@/components/Tool/Alert'
-import vuetify from './plugins/vuetify';
 
-// import 'vuetify/dist/vuetify.min.css'
-import '@mdi/font/css/materialdesignicons.css'
+import 'vuetify/dist/vuetify.min.css'
 import './styles/mediamanager.scss'
 
-// Vue.use(Vuetify, {
-  // iconfont: 'mdi'
-// })
+Vue.use(Vuetify)
 Vue.use(VueAnalytics, {
   id: 'UA-131081167-1',
   router
@@ -55,15 +51,14 @@ Vue.component('media-upload-menu', UploadMenu)
 Vue.component('media-preview-model', PreviewModel)
 
 // Register MediaManager namespace
-window.LazyDrive = window.LazyDrive || {}
+window.LazyDrive = window.LazyDrive || {};
 // Register the media manager event bus
-window.LazyDrive.Event = new Event()
+window.LazyDrive.Event = new Event();
 
 Vue.config.productionTip = false
 
 new Vue({
   router,
   store,
-  vuetify,
   render: h => h(App)
 }).$mount('#app')
