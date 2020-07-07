@@ -59,7 +59,7 @@
     "multer": "^1.4.1",
     "node-stream-zip": "^1.7.0",
     "nodemon": "^1.18.9",
-    "npm": "^6.7.0",
+    "npm": "^6.14.6",
     "ora": "^3.0.0",
     "passport": "^0.4.0",
     "passport-google": "^0.3.0",
